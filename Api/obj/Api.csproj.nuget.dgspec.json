@@ -43,6 +43,10 @@
             "Npgsql": {
               "target": "Package",
               "version": "[7.0.1, )"
+            },
+            "System.Configuration.ConfigurationManager": {
+              "target": "Package",
+              "version": "[7.0.0, )"
             }
           },
           "imports": [
