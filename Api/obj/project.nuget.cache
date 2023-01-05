@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "zvbaqgeEO+XS/DPEPaHVfKQYimF14WSodUSZmZDh3vRfVWU2CSrtzAcmQ0Xi5GGQwTGdmgwv6kvsE7fdZ6tidg==",
+  "dgSpecHash": "1LIZxzS6ivTXDc2DQvlxqU/ZqRHaCk+BKfXh5mmsueibllMeXOFCju6bJx4a0zSidkIa8GXpYqW5/nKo+0+mbA==",
   "success": true,
   "projectFilePath": "C:\\Users\\noahp\\Documents\\CESI\\CUBES\\CUBES.NET\\Api\\Api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\noahp\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\noahp\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\noahp\\.nuget\\packages\\npgsql\\7.0.1\\npgsql.7.0.1.nupkg.sha512",
     "C:\\Users\\noahp\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
