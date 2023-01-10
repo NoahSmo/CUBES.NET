@@ -12,5 +12,6 @@ namespace Api.Models
         public DateTime Date { get; set; }
         public string Status { get; set; }
         public string Serial { get; set; }
+        public virtual ICollection<Article>? Articles { get; set; }
     }
 }
