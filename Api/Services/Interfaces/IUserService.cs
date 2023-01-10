@@ -5,9 +5,9 @@ namespace Api;
 
 public interface IUserService
 {
-    IEnumerable<UserDetails> GetUsers();
-    UserDetails GetId(int id);
-    IActionResult CreateUser(UserDetails user);
-    IActionResult UpdateUser(User user);
-    IActionResult DeleteUser(int id);
+    Task<List<User>> GetUsers();
+    Task<User?> GetId(int id);
+    Task<List<User>> CreateUser(User user);
+    Task<List<User>?> UpdateUser(int id, User user);
+    Task<List<User>?> DeleteUser(int id);
 }

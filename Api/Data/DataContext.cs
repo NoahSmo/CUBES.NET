@@ -11,7 +11,7 @@ namespace Api.Models
 
         }
 
-        public DbSet<UserDetails> UserDetails { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Provider> Providers { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Article> Articles { get; set; }
