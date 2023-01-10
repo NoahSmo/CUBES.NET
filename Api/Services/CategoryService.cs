@@ -45,6 +45,7 @@ public class CategoryService : ICategoryService
             return null;
 
         category.Name = request.Name;
+        category.Description = request.Description;
 
         await _context.SaveChangesAsync();
 
