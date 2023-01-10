@@ -15,119 +15,61 @@ namespace Api.Controllers
     [Route("api/[controller]")]
     public class CategoryController : ControllerBase
     {
-        private string connectionString = "Server=localhost;Database=NEGOSUD;Username=postgres;Password=root";
+        private readonly ICategoryService _categoryService;
 
-        private readonly ILogger<CategoryController> _logger;
-
-        public CategoryController(ILogger<CategoryController> logger)
+        public CategoryController(ICategoryService categoryService)
         {
-            _logger = logger;
+            _categoryService = categoryService;
         }
-
+        
         [HttpGet]
-        public IEnumerable<Category> GetCategories()
+        public async Task<ActionResult<List<Category>>> GetCategories()
         {
-            var categoryData = new List<Category>();
-            using (var conn = new NpgsqlConnection(connectionString))
-            {
-                conn.Open();
-                using (var cmd = new NpgsqlCommand("SELECT * FROM public.\"Category\"", conn))
-                {
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            categoryData.Add(new Category
-                            {
-                                Id = reader.GetInt32(0),
-                                Name = reader.GetString(1),
-                                Description = reader.GetString(2),
-                            });
-                        }
-                    }
-                }
-            }
-
-            return categoryData;
+            return await _categoryService.GetCategories();
         }
-
+        
         [HttpGet("{id}")]
-        public Category GetById(int id)
+        public async Task<ActionResult<Category>> GetCategory(int id)
         {
-            Category category = null;
-            using (var conn = new NpgsqlConnection(connectionString))
+            var result = await _categoryService.GetId(id);
+            if (result == null)
             {
-                conn.Open();
-                using (var cmd = new NpgsqlCommand( "SELECT * FROM public.\"Category\" WHERE \"id\" = @id", conn))
-                {
-                    cmd.Parameters.AddWithValue("id", id);
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            category = new Category
-                            {
-                                Id = reader.GetInt32(0),
-                                Name = reader.GetString(1),
-                                Description = reader.GetString(2),
-                            };
-                        }
-                    }
-                }
+                return NotFound();
             }
-
-            return category;
+            return Ok(result);
         }
-
+        
         [HttpPost]
-        public IActionResult Create([FromBody] Category category)
-        {         
-            using (var conn = new NpgsqlConnection(connectionString))
+        public async Task<ActionResult<Category>> CreateCategory(Category category)
+        {
+            var result = await _categoryService.CreateCategory(category);
+            if (result == null)
             {
-                conn.Open();
-                using (var cmd = new NpgsqlCommand("INSERT INTO public.\"Category\" (\"name\", \"description\") VALUES (@name, @description)", conn))
-                {
-                    cmd.Parameters.AddWithValue("name", category.Name);
-                    cmd.Parameters.AddWithValue("description", category.Description);
-                    cmd.ExecuteNonQuery();
-                }
+                return NotFound();
             }
-
-            return Ok();
+            return Ok(result);
         }
         
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] Category category)
+        public async Task<ActionResult<Category>> UpdateCategory(int id, Category category)
         {
-            using (var conn = new NpgsqlConnection(connectionString))
+            var result = await _categoryService.UpdateCategory(id, category);
+            if (result == null)
             {
-                conn.Open();
-                using (var cmd = new NpgsqlCommand("UPDATE public.\"Category\" SET \"name\" = @name, \"description\" = @description WHERE \"id\" = @id", conn))
-                {
-                    cmd.Parameters.AddWithValue("id", id);
-                    cmd.Parameters.AddWithValue("name", category.Name);
-                    cmd.Parameters.AddWithValue("description", category.Description);
-                    cmd.ExecuteNonQuery();
-                }
+                return NotFound();
             }
-            
-            return Ok();
+            return Ok(result);
         }
         
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<ActionResult<Category>> DeleteCategory(int id)
         {
-            using (var conn = new NpgsqlConnection(connectionString))
+            var result = await _categoryService.DeleteCategory(id);
+            if (result == null)
             {
-                conn.Open();
-                using (var cmd = new NpgsqlCommand("DELETE FROM public.\"Category\" WHERE \"id\" = @id", conn))
-                {
-                    cmd.Parameters.AddWithValue("id", id);
-                    cmd.ExecuteNonQuery();
-                }
+                return NotFound();
             }
-            
-            return Ok();
+            return Ok(result);
         }
     }
 }
