@@ -22,11 +22,11 @@ namespace Api.Models
         
         public string Password { get; set; }
 
-        // public string HashPassword()
-        // {
-        //     string salt = "a849qsd4165x146wxc436s1dqs32d4azq98d74q6d1azsdqs6d5qs4dq5s1d3qs6d47q5sd6wx1cwxc";
-        //     
-        //     return BCrypt.Net.BCrypt.HashPassword(Password + salt);            
-        // }
+        public string HashPassword()
+        {
+            string salt = "a849qsd4165x146wxc436s1dqs32d4azq98d74q6d1azsdqs6d5qs4dq5s1d3qs6d47q5sd6wx1cwxc";
+            
+            return BCrypt.Net.BCrypt.HashPassword(Password + salt);            
+        }
     }
 }
