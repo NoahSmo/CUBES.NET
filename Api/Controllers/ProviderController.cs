@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
@@ -23,9 +24,9 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ProviderData> GetProviders()
+        public IEnumerable<Provider> GetProviders()
         {
-            var providerData = new List<ProviderData>();
+            var providerData = new List<Provider>();
             using (var conn = new NpgsqlConnection(connectionString))
             {
                 conn.Open();
@@ -35,7 +36,7 @@ namespace Api.Controllers
                     {
                         while (reader.Read())
                         {
-                            providerData.Add(new ProviderData
+                            providerData.Add(new Provider
                             {
                                 Id = reader.GetInt32(0),
                                 Name = reader.GetString(1),
@@ -51,9 +52,9 @@ namespace Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public ProviderData GetById(int id)
+        public Provider GetById(int id)
         {
-            ProviderData client = null;
+            Provider client = null;
             using (var conn = new NpgsqlConnection(connectionString))
             {
                 conn.Open();
@@ -64,7 +65,7 @@ namespace Api.Controllers
                     {
                         while (reader.Read())
                         {
-                            client = new ProviderData
+                            client = new Provider
                             {
                                 Id = reader.GetInt32(0),
                                 Name = reader.GetString(1),
@@ -80,7 +81,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] ProviderData client)
+        public IActionResult Create([FromBody] Provider client)
         {         
             using (var conn = new NpgsqlConnection(connectionString))
             {
@@ -98,7 +99,7 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] ProviderData client)
+        public IActionResult Update(int id, [FromBody] Provider client)
         {
             using (var conn = new NpgsqlConnection(connectionString))
             {

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using Npgsql;
+using Api.Models;
+
 
 namespace Api.Controllers
 {
@@ -23,9 +25,9 @@ namespace Api.Controllers
         }
         
         [HttpGet]
-        public IEnumerable<ArticleData> GetArticles()
+        public IEnumerable<Article> GetArticles()
         {
-            var articles = new List<ArticleData>();
+            var articles = new List<Article>();
             using (var conn = new NpgsqlConnection(connectionString))
             {
                 conn.Open();
@@ -35,7 +37,7 @@ namespace Api.Controllers
                     {
                         while (reader.Read())
                         {
-                            articles.Add(new ArticleData
+                            articles.Add(new Article
                             {
                                 Id = reader.GetInt32(0),
                                 Name = reader.GetString(1),
@@ -57,7 +59,7 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var article = new ArticleData();
+            var article = new Article();
             using (var conn = new NpgsqlConnection(connectionString))
             {
                 conn.Open();
@@ -85,7 +87,7 @@ namespace Api.Controllers
         }
         
         [HttpPost]
-        public IActionResult Create([FromBody] ArticleData article)
+        public IActionResult Create([FromBody] Article article)
         {
             using (var conn = new NpgsqlConnection(connectionString))
             {
@@ -107,7 +109,7 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] ArticleData article)
+        public IActionResult Update(int id, [FromBody] Article article)
         {
             using (var conn = new NpgsqlConnection(connectionString))
             {

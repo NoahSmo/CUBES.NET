@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using Npgsql;
+using Api.Models;
+
 
 namespace Api.Controllers
 {
@@ -23,9 +25,9 @@ namespace Api.Controllers
         }
         
         [HttpGet]
-        public IEnumerable<OrderData> GetOrders()
+        public IEnumerable<Order> GetOrders()
         {
-            var orders = new List<OrderData>();
+            var orders = new List<Order>();
             using (var conn = new NpgsqlConnection(connectionString))
             {
                 conn.Open();
@@ -35,7 +37,7 @@ namespace Api.Controllers
                     {
                         while (reader.Read())
                         {
-                            orders.Add(new OrderData
+                            orders.Add(new Order
                             {
                                 Id = reader.GetInt32(0),
                                 Id_Client = reader.GetInt32(1),
@@ -53,7 +55,7 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var order = new OrderData();
+            var order = new Order();
             using (var conn = new NpgsqlConnection(connectionString))
             {
                 conn.Open();
@@ -77,7 +79,7 @@ namespace Api.Controllers
         }
         
         [HttpPost]
-        public IActionResult Create([FromBody] OrderData order)
+        public IActionResult Create([FromBody] Order order)
         {
             using (var conn = new NpgsqlConnection(connectionString))
             {
@@ -95,7 +97,7 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] OrderData order)
+        public IActionResult Update(int id, [FromBody] Order order)
         {
             using (var conn = new NpgsqlConnection(connectionString))
             {

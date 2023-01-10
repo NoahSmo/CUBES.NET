@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using Npgsql;
+using Api.Models;
+
 
 namespace Api.Controllers
 {
@@ -23,9 +25,9 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<CategoryData> GetCategories()
+        public IEnumerable<Category> GetCategories()
         {
-            var categoryData = new List<CategoryData>();
+            var categoryData = new List<Category>();
             using (var conn = new NpgsqlConnection(connectionString))
             {
                 conn.Open();
@@ -35,7 +37,7 @@ namespace Api.Controllers
                     {
                         while (reader.Read())
                         {
-                            categoryData.Add(new CategoryData
+                            categoryData.Add(new Category
                             {
                                 Id = reader.GetInt32(0),
                                 Name = reader.GetString(1),
@@ -50,9 +52,9 @@ namespace Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public CategoryData GetById(int id)
+        public Category GetById(int id)
         {
-            CategoryData category = null;
+            Category category = null;
             using (var conn = new NpgsqlConnection(connectionString))
             {
                 conn.Open();
@@ -63,7 +65,7 @@ namespace Api.Controllers
                     {
                         while (reader.Read())
                         {
-                            category = new CategoryData
+                            category = new Category
                             {
                                 Id = reader.GetInt32(0),
                                 Name = reader.GetString(1),
@@ -78,7 +80,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CategoryData category)
+        public IActionResult Create([FromBody] Category category)
         {         
             using (var conn = new NpgsqlConnection(connectionString))
             {
@@ -95,7 +97,7 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] CategoryData category)
+        public IActionResult Update(int id, [FromBody] Category category)
         {
             using (var conn = new NpgsqlConnection(connectionString))
             {

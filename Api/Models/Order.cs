@@ -1,9 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Api.Models
 {
     public class Order
     {
+        [Key]
         public int Id { get; set; }
         public int Id_Client { get; set; }
         public DateTime Date { get; set; }
