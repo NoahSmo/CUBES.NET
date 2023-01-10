@@ -7,7 +7,8 @@ namespace Api.Models
     {
         [Key]
         public int Id { get; set; }
-        public int Id_Client { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
         public DateTime Date { get; set; }
         public string Status { get; set; }
         public string Serial { get; set; }

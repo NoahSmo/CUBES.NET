@@ -12,8 +12,10 @@ namespace Api.Models
         public string Image { get; set; }
         public string Year { get; set; }
         public string Price { get; set; }
-        public int Id_Provider { get; set; }
-        public int Id_Category { get; set; }
+        public int ProviderId { get; set; }
+        public Provider Provider { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
         public int Stock { get; set; }
     }
 }

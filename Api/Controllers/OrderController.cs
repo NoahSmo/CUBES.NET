@@ -40,7 +40,7 @@ namespace Api.Controllers
                             orders.Add(new Order
                             {
                                 Id = reader.GetInt32(0),
-                                Id_Client = reader.GetInt32(1),
+                                UserId = reader.GetInt32(1),
                                 Date = reader.GetDateTime(2),
                                 Status = reader.GetString(3),
                                 Serial = reader.GetString(4),
@@ -67,7 +67,7 @@ namespace Api.Controllers
                         while (reader.Read())
                         {
                             order.Id = reader.GetInt32(0);
-                            order.Id_Client = reader.GetInt32(1);
+                            order.UserId = reader.GetInt32(1);
                             order.Date = reader.GetDateTime(2);
                             order.Status = reader.GetString(3);
                             order.Serial = reader.GetString(4);
@@ -86,7 +86,7 @@ namespace Api.Controllers
                 conn.Open();
                 using (var cmd = new NpgsqlCommand("INSERT INTO public.\"Order\" (id_client, date, status, serial) VALUES (@id_client, @date, @status, @serial)", conn))
                 {
-                    cmd.Parameters.AddWithValue("id_client", order.Id_Client);
+                    cmd.Parameters.AddWithValue("id_client", order.UserId);
                     cmd.Parameters.AddWithValue("date", DateTime.Now);
                     cmd.Parameters.AddWithValue("status", order.Status);
                     cmd.Parameters.AddWithValue("serial", order.Serial);
@@ -105,7 +105,7 @@ namespace Api.Controllers
                 using (var cmd = new NpgsqlCommand("UPDATE public.\"Order\" SET id_client = @id_client, date = @date, status = @status, serial = @serial WHERE id = @id", conn))
                 {
                     cmd.Parameters.AddWithValue("id", id);
-                    cmd.Parameters.AddWithValue("id_client", order.Id_Client);
+                    cmd.Parameters.AddWithValue("id_client", order.UserId);
                     cmd.Parameters.AddWithValue("date", DateTime.Now);
                     cmd.Parameters.AddWithValue("status", order.Status);
                     cmd.Parameters.AddWithValue("serial", order.Serial);

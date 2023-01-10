@@ -10,7 +10,6 @@ namespace Api.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private string connectionString = "Server=localhost;Database=NEGOSUD;Username=postgres;Password=root";
 
         private readonly IUserService _userService;
 
