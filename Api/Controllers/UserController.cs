@@ -2,7 +2,8 @@
 using Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Npgsql;
+using System.Security.Claims;
+
 
 namespace Api.Controllers
 {
@@ -19,6 +20,7 @@ namespace Api.Controllers
         }
         
         [HttpGet]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<List<User>>> GetUsers()
         {
             return await _userService.GetUsers();
@@ -47,6 +49,7 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<User>> UpdateUser(int id, User user)
         {
             var result = await _userService.UpdateUser(id, user);
@@ -58,6 +61,7 @@ namespace Api.Controllers
         }
         
         [HttpDelete("{id}")]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<User>> DeleteUser(int id)
         {
             var result = await _userService.DeleteUser(id);
@@ -67,47 +71,5 @@ namespace Api.Controllers
             }
             return Ok(result);
         }
-        
-        
-        
-
-
-
-        // [HttpPost("login")]
-        // public IActionResult Login([FromBody] User userData)
-        // {
-        //     var password = userData.Password;
-        //     var saltedPassword = password + salt;
-        //
-        //     var hashedPasswordFromDb = "";
-        //
-        //
-        //     using (var conn = new NpgsqlConnection(connectionString))
-        //     {
-        //         conn.Open();
-        //         using (var cmd = new NpgsqlCommand("SELECT password FROM public.\"User\" WHERE email = @email", conn))
-        //         {
-        //             cmd.Parameters.AddWithValue("username", userData.Email);
-        //             using (var reader = cmd.ExecuteReader())
-        //             {
-        //                 while (reader.Read())
-        //                 {
-        //                     hashedPasswordFromDb = reader.GetString(0);
-        //                 }
-        //             }
-        //         }
-        //     }
-        //
-        //     if (BCrypt.Net.BCrypt.Verify(saltedPassword, hashedPasswordFromDb))
-        //     {
-        //         return Ok("Logged in");
-        //     }
-        //     else
-        //     {
-        //         return BadRequest("Wrong password");
-        //     }
-        // }
-
-        
     }
 }

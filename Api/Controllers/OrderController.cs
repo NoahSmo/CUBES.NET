@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Logging;
-using Npgsql;
+﻿using Microsoft.AspNetCore.Mvc;
 using Api.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Api.Controllers
@@ -23,6 +17,7 @@ namespace Api.Controllers
         }
         
         [HttpGet]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<List<Order>>> GetOrders()
         {
             return await _orderService.GetOrders();
@@ -40,6 +35,7 @@ namespace Api.Controllers
         }
         
         [HttpPost]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Order>> CreateOrder(Order order)
         {
             var result = await _orderService.CreateOrder(order);
@@ -51,6 +47,7 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Order>> UpdateOrder(int id, Order order)
         {
             var result = await _orderService.UpdateOrder(id, order);
@@ -62,6 +59,7 @@ namespace Api.Controllers
         }
         
         [HttpDelete("{id}")]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Order>> DeleteOrder(int id)
         {
             var result = await _orderService.DeleteOrder(id);

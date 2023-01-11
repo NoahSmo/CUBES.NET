@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Logging;
-using Npgsql;
+﻿using Microsoft.AspNetCore.Mvc;
 using Api.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Api.Controllers
@@ -40,6 +35,7 @@ namespace Api.Controllers
         }
         
         [HttpPost]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Category>> CreateCategory(Category category)
         {
             var result = await _categoryService.CreateCategory(category);
@@ -51,6 +47,7 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Category>> UpdateCategory(int id, Category category)
         {
             var result = await _categoryService.UpdateCategory(id, category);
@@ -62,6 +59,7 @@ namespace Api.Controllers
         }
         
         [HttpDelete("{id}")]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Category>> DeleteCategory(int id)
         {
             var result = await _categoryService.DeleteCategory(id);
