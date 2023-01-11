@@ -3,6 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Api.Models
 {
+
+
+    public class UserLogin
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
     public class User
     {
         public int Id { get; set; }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Api.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Api.Controllers
@@ -33,6 +34,7 @@ namespace Api.Controllers
         }
         
         [HttpPost]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Article>> CreateArticle(Article article)
         {
             var result = await _articleService.CreateArticle(article);
@@ -44,6 +46,7 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Article>> UpdateArticle(int id, Article article)
         {
             var result = await _articleService.UpdateArticle(id, article);
@@ -55,6 +58,7 @@ namespace Api.Controllers
         }
         
         [HttpDelete("{id}")]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Article>> DeleteArticle(int id)
         {
             var result = await _articleService.DeleteArticle(id);

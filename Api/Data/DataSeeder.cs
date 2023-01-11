@@ -68,7 +68,7 @@ public class DataSeeder
             {
                 Id = 1,
                 UserId = 1,
-                Date = DateTime.Now,
+                Date = DateTime.UtcNow,
                 Status = "In progress",
                 Serial = "123456789",
                 ArticleOrders = new List<ArticleOrder>
