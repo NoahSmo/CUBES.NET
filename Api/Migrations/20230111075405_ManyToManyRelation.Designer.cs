@@ -3,6 +3,7 @@ using System;
 using Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230111075405_ManyToManyRelation")]
+    partial class ManyToManyRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,32 +69,6 @@ namespace Api.Migrations
                     b.HasIndex("ProviderId");
 
                     b.ToTable("Articles");
-                });
-
-            modelBuilder.Entity("Api.Models.ArticleOrder", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ArticleId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArticleId");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("ArticleOrder");
                 });
 
             modelBuilder.Entity("Api.Models.Category", b =>
@@ -224,6 +201,21 @@ namespace Api.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ArticleOrder", b =>
+                {
+                    b.Property<int>("ArticlesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("OrdersId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ArticlesId", "OrdersId");
+
+                    b.HasIndex("OrdersId");
+
+                    b.ToTable("ArticleOrder");
+                });
+
             modelBuilder.Entity("Api.Models.Article", b =>
                 {
                     b.HasOne("Api.Models.Category", "Category")
@@ -243,25 +235,6 @@ namespace Api.Migrations
                     b.Navigation("Provider");
                 });
 
-            modelBuilder.Entity("Api.Models.ArticleOrder", b =>
-                {
-                    b.HasOne("Api.Models.Article", "Article")
-                        .WithMany()
-                        .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Api.Models.Order", "Order")
-                        .WithMany("ArticleOrders")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Article");
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("Api.Models.Order", b =>
                 {
                     b.HasOne("Api.Models.User", "User")
@@ -273,9 +246,19 @@ namespace Api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Api.Models.Order", b =>
+            modelBuilder.Entity("ArticleOrder", b =>
                 {
-                    b.Navigation("ArticleOrders");
+                    b.HasOne("Api.Models.Article", null)
+                        .WithMany()
+                        .HasForeignKey("ArticlesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Api.Models.Order", null)
+                        .WithMany()
+                        .HasForeignKey("OrdersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

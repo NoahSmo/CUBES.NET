@@ -18,13 +18,19 @@ public class ArticleService : IArticleService
 
     public async Task<List<Article>> GetArticles()
     {
-        var articles = await _context.Articles.ToListAsync();
+        var articles = await _context.Articles
+            .Include(a => a.Provider)
+            .Include(a => a.Category)
+            .ToListAsync();
         return articles;
     }
 
     public async Task<Article?> GetId(int id)
     {
-        var article = await _context.Articles.FindAsync(id);
+        var article = await _context.Articles
+            .Include(a => a.Provider)
+            .Include(a => a.Category)
+            .FirstOrDefaultAsync(a => a.Id == id);
         if (article is null)
             return null;
 
@@ -33,9 +39,11 @@ public class ArticleService : IArticleService
     
     public async Task<List<Article>> CreateArticle(Article article)
     {
+        article.Provider = await _context.Providers.FirstOrDefaultAsync(p => p.Id == article.ProviderId);
+        article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
         _context.Articles.Add(article);
         await _context.SaveChangesAsync();
-        return await _context.Articles.ToListAsync();
+        return await GetArticles();
     }
     
     public async Task<List<Article>?> UpdateArticle(int id, Article request)
@@ -50,7 +58,9 @@ public class ArticleService : IArticleService
         article.Year = request.Year;
         article.Price = request.Price;
         article.ProviderId = request.ProviderId;
+        article.Provider = await _context.Providers.FirstOrDefaultAsync(p => p.Id == article.ProviderId);
         article.CategoryId = request.CategoryId;
+        article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
         article.Stock = request.Stock;
         
 
