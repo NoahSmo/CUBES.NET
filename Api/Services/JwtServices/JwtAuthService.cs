@@ -20,13 +20,11 @@ public class JwtAuthService : IJwtAuthService
     
     public User Auth(string email, string password)
     {
-        var user = _context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
+        var user = _context.Users.FirstOrDefault(u => u.Email == email);
 
-
+        // if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
+        //     return null;
         return user;
-
-        // TODO check hash
-
     }
     
     // Fonction qui va générer le token

@@ -43,7 +43,7 @@ namespace Api.Controllers
             var result = await _userService.CreateUser(user);
             if (result == null)
             {
-                return NotFound();
+                return Unauthorized("Client already exists");
             }
             return Ok(result);
         }

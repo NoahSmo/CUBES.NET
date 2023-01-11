@@ -23,7 +23,6 @@ public class DataSeeder
                 IsAdmin = true,
                 Password = "Test",
             });
-            _context.SaveChanges();
         }
 
         if (!_context.Providers.Any())

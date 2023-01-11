@@ -16,5 +16,30 @@ namespace Api.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<Article> Articles { get; set; }
         public DbSet<Order> Orders { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
+            
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+            
+            modelBuilder.Entity<Provider>()
+                .HasIndex(p => p.Email)
+                .IsUnique();
+            
+            modelBuilder.Entity<Order>()
+                .HasIndex(o => o.Serial)
+                .IsUnique();
+            
+            modelBuilder.Entity<Category>()
+                .HasIndex(c => c.Name)
+                .IsUnique();
+        }
     }
 }

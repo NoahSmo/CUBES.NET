@@ -33,6 +33,9 @@ public class UserService : IUserService
     
     public async Task<List<User>> CreateUser(User user)
     {
+        
+        
+        
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
         return await _context.Users.ToListAsync();
