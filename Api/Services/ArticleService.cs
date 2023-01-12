@@ -1,3 +1,4 @@
+using Api.Data;
 using Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -37,16 +38,17 @@ public class ArticleService : IArticleService
         return article;
     }
     
-    public async Task<List<Article>> CreateArticle(Article article)
+    public async Task<Article> CreateArticle(Article article)
     {
         article.Provider = await _context.Providers.FirstOrDefaultAsync(p => p.Id == article.ProviderId);
         article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
         _context.Articles.Add(article);
         await _context.SaveChangesAsync();
-        return await GetArticles();
+        
+        return article;
     }
     
-    public async Task<List<Article>?> UpdateArticle(int id, Article request)
+    public async Task<Article>? UpdateArticle(int id, Article request)
     {
         var article = await _context.Articles.FindAsync(id);
         if (article is null)
@@ -63,13 +65,25 @@ public class ArticleService : IArticleService
         article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
         article.Stock = request.Stock;
         
-
+        _context.Articles.Update(article);
         await _context.SaveChangesAsync();
 
-        return await _context.Articles.ToListAsync();
+        return article;
+    }
+    
+    public async Task<Article?> UpdateStock(Article article)
+    {
+        var articleToUpdate = await _context.Articles.FindAsync(article.Id);
+        if (articleToUpdate is null)
+            return null;
+
+        articleToUpdate.Stock = article.Stock;
+        await _context.SaveChangesAsync();
+
+        return articleToUpdate;
     }
 
-    public async Task<List<Article>?> DeleteArticle(int id)
+    public async Task<Article>? DeleteArticle(int id)
     {
         var article = await _context.Articles.FindAsync(id);
         if (article is null)
@@ -78,7 +92,7 @@ public class ArticleService : IArticleService
         _context.Articles.Remove(article);
         await _context.SaveChangesAsync();
 
-        return await _context.Articles.ToListAsync();
+        return article;
     }
 
     

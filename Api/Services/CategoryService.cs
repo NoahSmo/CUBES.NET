@@ -1,3 +1,4 @@
+using Api.Data;
 using Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,8 +19,8 @@ public class CategoryService : ICategoryService
 
     public async Task<List<Category>> GetCategories()
     {
-        var categorys = await _context.Categories.ToListAsync();
-        return categorys;
+        var categories = await _context.Categories.ToListAsync();
+        return categories;
     }
 
     public async Task<Category?> GetId(int id)
@@ -31,14 +32,14 @@ public class CategoryService : ICategoryService
         return category;
     }
     
-    public async Task<List<Category>> CreateCategory(Category category)
+    public async Task<Category> CreateCategory(Category category)
     {
         _context.Categories.Add(category);
         await _context.SaveChangesAsync();
-        return await _context.Categories.ToListAsync();
+        return category;
     }
     
-    public async Task<List<Category>?> UpdateCategory(int id, Category request)
+    public async Task<Category>? UpdateCategory(int id, Category request)
     {
         var category = await _context.Categories.FindAsync(id);
         if (category is null)
@@ -47,12 +48,13 @@ public class CategoryService : ICategoryService
         category.Name = request.Name;
         category.Description = request.Description;
 
+        _context.Categories.Update(category);
         await _context.SaveChangesAsync();
 
-        return await _context.Categories.ToListAsync();
+        return category;
     }
 
-    public async Task<List<Category>?> DeleteCategory(int id)
+    public async Task<Category>? DeleteCategory(int id)
     {
         var category = await _context.Categories.FindAsync(id);
         if (category is null)
@@ -61,7 +63,7 @@ public class CategoryService : ICategoryService
         _context.Categories.Remove(category);
         await _context.SaveChangesAsync();
 
-        return await _context.Categories.ToListAsync();
+        return category;
     }
 
     

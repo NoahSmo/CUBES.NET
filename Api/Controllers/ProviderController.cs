@@ -27,7 +27,7 @@ namespace Api.Controllers
             var result = await _providerService.GetId(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Provider not found");
             }
             return Ok(result);
         }
@@ -39,7 +39,7 @@ namespace Api.Controllers
             var result = await _providerService.CreateProvider(provider);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Provider not found");
             }
             return Ok(result);
         }
@@ -51,7 +51,7 @@ namespace Api.Controllers
             var result = await _providerService.UpdateProvider(id, provider);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Provider not found");
             }
             return Ok(result);
         }
@@ -63,7 +63,7 @@ namespace Api.Controllers
             var result = await _providerService.DeleteProvider(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Provider not found");
             }
             return Ok(result);
         }
