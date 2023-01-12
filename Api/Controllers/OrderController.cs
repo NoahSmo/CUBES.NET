@@ -7,13 +7,16 @@ namespace Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
+        private readonly IArticleService _articleService;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService, IArticleService articleService)
         {
             _orderService = orderService;
+            _articleService = articleService;
         }
         
         [HttpGet]
@@ -29,7 +32,7 @@ namespace Api.Controllers
             var result = await _orderService.GetId(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Order not found");
             }
             return Ok(result);
         }
@@ -41,8 +44,16 @@ namespace Api.Controllers
             var result = await _orderService.CreateOrder(order);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Order not found");
             }
+                
+            order.ArticleOrders.ForEach(async x =>
+            {
+                var article = await _articleService.GetId(x.ArticleId);
+                article.Stock -= x.Quantity;
+                await _articleService.UpdateStock(article);
+            });
+            
             return Ok(result);
         }
         
@@ -53,7 +64,7 @@ namespace Api.Controllers
             var result = await _orderService.UpdateOrder(id, order);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Order not found");
             }
             return Ok(result);
         }
@@ -65,7 +76,7 @@ namespace Api.Controllers
             var result = await _orderService.DeleteOrder(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Order not found");
             }
             return Ok(result);
         }

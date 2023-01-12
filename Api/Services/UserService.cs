@@ -1,4 +1,6 @@
+using Api.Data;
 using Api.Models;
+using Api.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,34 +16,108 @@ public class UserService : IUserService
         _context = context;
     }
     
-    
-
-    public async Task<List<User>> GetUsers()
+    public async Task<List<UserDetailsViewModel>> GetUsers()
     {
         var users = await _context.Users.ToListAsync();
-        return users;
+        
+        return users.Select(user => new UserDetailsViewModel
+        {
+            Id = user.Id,
+            Username = user.Username,
+            Name = user.Name,
+            Surname = user.Surname,
+            Email = user.Email,
+            Phone = user.Phone,
+            Address = user.Address,
+            City = user.City,
+            Country = user.Country,
+            PostCode = user.PostCode,
+            IsAdmin = user.IsAdmin
+        }).ToList();
     }
 
-    public async Task<User?> GetId(int id)
-    {
+    public async Task<UserViewModel?> GetId(int id)
+    { 
         var user = await _context.Users.FindAsync(id);
+        
         if (user is null)
             return null;
-
-        return user;
+        
+        return new UserViewModel
+        {
+            Id = user.Id,
+            Username = user.Username,
+            Name = user.Name,
+            Surname = user.Surname,
+            Email = user.Email
+        };
     }
     
-    public async Task<List<User>> CreateUser(User user)
+    public async Task<UserViewModel>? GetByUsername (string username)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+        
+        if (user is null)
+            return null;
+        
+        return new UserViewModel
+        {
+            Id = user.Id,
+            Username = user.Username,
+            Name = user.Name,
+            Surname = user.Surname,
+            Email = user.Email
+        };
+    }
+    
+    public async Task<UserViewModel>? GetByEmail (string email)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+        
+        if (user is null)
+            return null;
+        
+        return new UserViewModel
+        {
+            Id = user.Id,
+            Username = user.Username,
+            Name = user.Name,
+            Surname = user.Surname,
+            Email = user.Email
+        };
+    }
+
+    public async Task<UserViewModel> CreateUser(User user)
     {
         
+        var password = user.Password;
+        var salt = BCrypt.Net.BCrypt.GenerateSalt();
+        var hash = BCrypt.Net.BCrypt.HashPassword(password, salt);
         
+        user.Password = hash;
         
         _context.Users.Add(user);
-        await _context.SaveChangesAsync();
-        return await _context.Users.ToListAsync();
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+        
+        return new UserViewModel
+        {
+            Id = user.Id,
+            Username = user.Username,
+            Name = user.Name,
+            Surname = user.Surname,
+            Email = user.Email
+        };
     }
     
-    public async Task<List<User>?> UpdateUser(int id, User request)
+    public async Task<UserDetailsViewModel>? UpdateUser(int id, User request)
     {
         var user = await _context.Users.FindAsync(id);
         if (user is null)
@@ -59,12 +135,32 @@ public class UserService : IUserService
         user.Password = request.Password;
         user.IsAdmin = request.IsAdmin;
 
+        var password = request.Password;
+        var salt = BCrypt.Net.BCrypt.GenerateSalt();
+        var hash = BCrypt.Net.BCrypt.HashPassword(password, salt);
+        
+        user.Password = hash;
+
+        _context.Users.Update(user);
         await _context.SaveChangesAsync();
 
-        return await _context.Users.ToListAsync();
+        return new UserDetailsViewModel
+        {
+            Id = user.Id,
+            Username = user.Username,
+            Name = user.Name,
+            Surname = user.Surname,
+            Email = user.Email,
+            Phone = user.Phone,
+            Address = user.Address,
+            City = user.City,
+            Country = user.Country,
+            PostCode = user.PostCode,
+            IsAdmin = user.IsAdmin
+        };
     }
 
-    public async Task<List<User>?> DeleteUser(int id)
+    public async Task<UserDetailsViewModel>? DeleteUser(int id)
     {
         var user = await _context.Users.FindAsync(id);
         if (user is null)
@@ -72,8 +168,21 @@ public class UserService : IUserService
 
         _context.Users.Remove(user);
         await _context.SaveChangesAsync();
-
-        return await _context.Users.ToListAsync();
+        
+        return new UserDetailsViewModel
+        {
+            Id = user.Id,
+            Username = user.Username,
+            Name = user.Name,
+            Surname = user.Surname,
+            Email = user.Email,
+            Phone = user.Phone,
+            Address = user.Address,
+            City = user.City,
+            Country = user.Country,
+            PostCode = user.PostCode,
+            IsAdmin = user.IsAdmin
+        };
     }
 
     

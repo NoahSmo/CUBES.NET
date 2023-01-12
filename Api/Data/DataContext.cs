@@ -1,8 +1,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Api.Models;
 
-namespace Api.Models
+namespace Api.Data
 {
     public class DataContext : DbContext
     {

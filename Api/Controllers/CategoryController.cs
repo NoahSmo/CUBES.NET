@@ -29,7 +29,7 @@ namespace Api.Controllers
             var result = await _categoryService.GetId(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Category not found");
             }
             return Ok(result);
         }
@@ -41,7 +41,7 @@ namespace Api.Controllers
             var result = await _categoryService.CreateCategory(category);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Category not found");
             }
             return Ok(result);
         }
@@ -53,7 +53,7 @@ namespace Api.Controllers
             var result = await _categoryService.UpdateCategory(id, category);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Category not found");
             }
             return Ok(result);
         }
@@ -65,7 +65,7 @@ namespace Api.Controllers
             var result = await _categoryService.DeleteCategory(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Category not found");
             }
             return Ok(result);
         }

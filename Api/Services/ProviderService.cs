@@ -1,3 +1,4 @@
+using Api.Data;
 using Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -31,14 +32,14 @@ public class ProviderService : IProviderService
         return provider;
     }
     
-    public async Task<List<Provider>> CreateProvider(Provider provider)
+    public async Task<Provider> CreateProvider(Provider provider)
     {
         _context.Providers.Add(provider);
         await _context.SaveChangesAsync();
-        return await _context.Providers.ToListAsync();
+        return provider;
     }
     
-    public async Task<List<Provider>?> UpdateProvider(int id, Provider request)
+    public async Task<Provider>? UpdateProvider(int id, Provider request)
     {
         var provider = await _context.Providers.FindAsync(id);
         if (provider is null)
@@ -47,13 +48,15 @@ public class ProviderService : IProviderService
         provider.Name = request.Name;
         provider.Email = request.Email;
         provider.Phone = request.Phone;
-
+        
+        
+        _context.Providers.Update(provider);
         await _context.SaveChangesAsync();
 
-        return await _context.Providers.ToListAsync();
+        return provider;
     }
 
-    public async Task<List<Provider>?> DeleteProvider(int id)
+    public async Task<Provider>? DeleteProvider(int id)
     {
         var provider = await _context.Providers.FindAsync(id);
         if (provider is null)
@@ -62,7 +65,7 @@ public class ProviderService : IProviderService
         _context.Providers.Remove(provider);
         await _context.SaveChangesAsync();
 
-        return await _context.Providers.ToListAsync();
+        return provider;
     }
 
     

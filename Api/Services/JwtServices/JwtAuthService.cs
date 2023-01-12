@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Api.Models;
+using Api.Data;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Api;
@@ -21,9 +22,9 @@ public class JwtAuthService : IJwtAuthService
     public User Auth(string email, string password)
     {
         var user = _context.Users.FirstOrDefault(u => u.Email == email);
-
-        // if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
-        //     return null;
+        if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
+            return null;
+        
         return user;
     }
     

@@ -3,6 +3,7 @@ using Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Api.ViewModels;
 
 
 namespace Api.Controllers
@@ -21,18 +22,43 @@ namespace Api.Controllers
         
         [HttpGet]
         [Authorize (Roles = "Admin")]
-        public async Task<ActionResult<List<User>>> GetUsers()
+        public async Task<ActionResult<List<UserDetailsViewModel>>> GetUsers()
         {
             return await _userService.GetUsers();
         }
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        [Authorize (Roles = "Admin, User")]
+        public async Task<ActionResult<UserViewModel>> GetUser(int id)
         {
             var result = await _userService.GetId(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("User not found");
+            }
+            return Ok(result);
+        }
+        
+        [HttpGet("username/{username}")]
+        [Authorize (Roles = "Admin, User")]
+        public async Task<ActionResult<UserViewModel>> GetUserByUsername(string username)
+        {
+            var result = await _userService.GetByUsername(username);
+            if (result == null)
+            {
+                return NotFound("User not found");
+            }
+            return Ok(result);
+        }
+        
+        [HttpGet("email/{email}")]
+        [Authorize (Roles = "Admin, User")]
+        public async Task<ActionResult<UserViewModel>> GetUserByMail(string email)
+        {
+            var result = await _userService.GetByEmail(email);
+            if (result == null)
+            {
+                return NotFound("User not found");
             }
             return Ok(result);
         }
@@ -55,7 +81,7 @@ namespace Api.Controllers
             var result = await _userService.UpdateUser(id, user);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("User not found");
             }
             return Ok(result);
         }
@@ -67,7 +93,7 @@ namespace Api.Controllers
             var result = await _userService.DeleteUser(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("User not found");
             }
             return Ok(result);
         }
