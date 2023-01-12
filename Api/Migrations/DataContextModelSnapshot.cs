@@ -277,7 +277,7 @@ namespace Api.Migrations
             modelBuilder.Entity("Api.Models.Order", b =>
                 {
                     b.HasOne("Api.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -293,6 +293,11 @@ namespace Api.Migrations
             modelBuilder.Entity("Api.Models.Order", b =>
                 {
                     b.Navigation("ArticleOrders");
+                });
+
+            modelBuilder.Entity("Api.Models.User", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,10 +1,11 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Api.Models;
 using Api.ViewModels;
 
-namespace Api.Models
+namespace Api.ViewModels
 {
-    public class Order
+    public class OrderViewModel
     {
         public int Id { get; set; }
         public int UserId { get; set; }
