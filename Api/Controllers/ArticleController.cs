@@ -46,7 +46,7 @@ namespace Api.Controllers
         public async Task<ActionResult<Article>> UpdateArticle(int id, Article article)
         {
             var result = await _articleService.UpdateArticle(id, article);
-            return result == null ? NotFound("Article not found") : Ok(article);
+            return result == null ? NotFound("Article not found") : Ok(result);
         }
         
         [HttpDelete("{id}")]

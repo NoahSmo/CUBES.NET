@@ -44,7 +44,7 @@ namespace Api.Controllers
             var result = await _orderService.CreateOrder(order);
             if (result == null)
             {
-                return NotFound("Order not found");
+                return Unauthorized("Order Id or Serial already exists");
             }
                 
             order.ArticleOrders.ForEach(async x =>
