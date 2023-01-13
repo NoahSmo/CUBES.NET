@@ -8,19 +8,19 @@
     "net7.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\noahp\\.nuget\\packages\\": {}
+    "C:\\Users\\umorisseau\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\noahp\\Documents\\CESI\\CUBES\\CUBES.NET\\WpfApp\\WpfApp.csproj",
+      "projectUniqueName": "C:\\workspace\\NegoSud\\CUBES.NET\\WpfApp\\WpfApp.csproj",
       "projectName": "WpfApp",
-      "projectPath": "C:\\Users\\noahp\\Documents\\CESI\\CUBES\\CUBES.NET\\WpfApp\\WpfApp.csproj",
-      "packagesPath": "C:\\Users\\noahp\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\noahp\\Documents\\CESI\\CUBES\\CUBES.NET\\WpfApp\\obj\\",
+      "projectPath": "C:\\workspace\\NegoSud\\CUBES.NET\\WpfApp\\WpfApp.csproj",
+      "packagesPath": "C:\\Users\\umorisseau\\.nuget\\packages\\",
+      "outputPath": "C:\\workspace\\NegoSud\\CUBES.NET\\WpfApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\noahp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\umorisseau\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -64,7 +64,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }

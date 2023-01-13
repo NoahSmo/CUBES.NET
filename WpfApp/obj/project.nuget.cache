@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CkTnSu6ZmjutmFkr5YlB/9IK2aCOY7tAgRr9Gaj/GH5Xa+OhnCCO1HlXhzcWpan5AtALt76signPz0SEFZLMgA==",
+  "dgSpecHash": "zWPaOhN8bITbi26umtXlSgZL7IFUs1VnFGqy3PB3wb13bN0Ljn47w074q8Tzxgh+pK0sdnUzFNCDn5LaCTRs2Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\noahp\\Documents\\CESI\\CUBES\\CUBES.NET\\WpfApp\\WpfApp.csproj",
+  "projectFilePath": "C:\\workspace\\NegoSud\\CUBES.NET\\WpfApp\\WpfApp.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
