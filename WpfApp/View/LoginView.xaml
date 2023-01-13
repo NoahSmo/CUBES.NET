@@ -35,9 +35,9 @@
             <StackPanel Width="250" Orientation="Vertical" Grid.Row="1" Margin="0,35,0,0" >
                 <TextBlock Text="NEGOSUD" Foreground="White" FontSize="25" FontWeight="Medium" FontFamily="Montserrat" HorizontalAlignment="Center"/>
                 <TextBlock Text="E-mail" Foreground="White" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Margin="0,35,0,0"/>
-                <TextBox x:Name="txtEmail" Text="{Binding userName,UpdateSourceTrigger=PropertyChanged}" Foreground="White" FontSize="13" FontWeight="Medium" FontFamily="Montserrat" Margin="0,5,0,0"/>
+                <TextBox BorderBrush="White" materialDesign:HintAssist.Hint="E-mail" x:Name="txtEmail" Text="{Binding userName,UpdateSourceTrigger=PropertyChanged}" Foreground="White" FontSize="13" FontWeight="Medium" FontFamily="Montserrat" Margin="0,5,0,0"/>
                 <TextBlock Text="Password" Foreground="White" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Margin="0,35,0,0"/>
-                <customcontrols:BindablePasswordBox x:Name="txtPass" Password="{Binding Password,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="0,5,0,0"/>
+                <customcontrols:BindablePasswordBox materialDesign:HintAssist.Hint="Password" x:Name="txtPass" Password="{Binding Password,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="0,5,0,0"/>
                 <Button x:Name="btnLogin" Command="{Binding LoginCommand}" Height="50" Margin="0,50,0,0" Background="MediumSlateBlue" Content="LOG IN">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">

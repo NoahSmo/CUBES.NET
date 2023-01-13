@@ -34,9 +34,9 @@ namespace WpfApp
             client.BaseAddress = new Uri("https://localhost:44301/api/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new  MediaTypeWithQualityHeaderValue("application/json"));
+            var content = await client.GetStringAsync("User");
+            var users = JsonConvert.DeserializeObject<List<User>>(content);
             InitializeComponent();
-            CurrentUser.Email = "testtest";
-            GetUsers();
         }
 
         private async void GetUsers()
