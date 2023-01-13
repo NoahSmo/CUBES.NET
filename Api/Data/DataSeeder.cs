@@ -23,20 +23,26 @@ namespace Api.Data;
             
             if (!_context.Users.Any())
             {
+                var password = "Password";
+                var salt = BCrypt.Net.BCrypt.GenerateSalt();
+                var hash = BCrypt.Net.BCrypt.HashPassword(password, salt);
+                
+                
+                
                 _context.Users.Add(new User
                 {
                     Id = 1,
                     Username = "JohnDoe",
                     Name = "John",
                     Surname = "Doe",
-                    Email = "John.doe@gmail.com",
+                    Email = "john.doe@gmail.com",
                     Phone = "0631409799",
                     Address = "1 Rue de la liberté",
                     City = "Rouen",
                     Country = "FR",
                     PostCode = "76000",
                     IsAdmin = true,
-                    Password = "Password",
+                    Password = hash,
                 });
             }
 
