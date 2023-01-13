@@ -1,2 +1,9 @@
 /.idea/
 /.VS/
+/WpfApp/obj/WpfApp_oiwptxls_wpftmp.csproj.nuget.g.targets
+/WpfApp/obj/WpfApp_oiwptxls_wpftmp.csproj.nuget.g.props
+/WpfApp/obj/WpfApp_oiwptxls_wpftmp.csproj.nuget.dgspec.json
+/WpfApp/obj/Debug/net7.0-windows/WpfApp_oiwptxls_wpftmp.GeneratedMSBuildEditorConfig.editorconfig
+/WpfApp/obj/Debug/net7.0-windows/WpfApp_oiwptxls_wpftmp.assets.cache
+/WpfApp/obj/Debug/net7.0-windows/WpfApp_oiwptxls_wpftmp.AssemblyInfoInputs.cache
+/WpfApp/obj/Debug/net7.0-windows/WpfApp_oiwptxls_wpftmp.AssemblyInfo.cs

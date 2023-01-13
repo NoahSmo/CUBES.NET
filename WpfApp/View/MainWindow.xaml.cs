@@ -36,7 +36,7 @@ namespace WpfApp
             client.DefaultRequestHeaders.Accept.Add(new  MediaTypeWithQualityHeaderValue("application/json"));            
             InitializeComponent();
 
-            GetUsers()
+            GetUsers();
 
         }
 
