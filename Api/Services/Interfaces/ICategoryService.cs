@@ -7,7 +7,7 @@ public interface ICategoryService
 {
     Task<List<Category>> GetCategories();
     Task<Category?> GetId(int id);
-    Task<List<Category>> CreateCategory(Category user);
-    Task<List<Category>?> UpdateCategory(int id, Category user);
-    Task<List<Category>?> DeleteCategory(int id);
+    Task<Category> CreateCategory(Category user);
+    Task<Category>? UpdateCategory(int id, Category user);
+    Task<Category>? DeleteCategory(int id);
 }

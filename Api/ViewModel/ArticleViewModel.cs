@@ -1,9 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Api.Models;
 
-namespace Api.Models
+namespace Api.ViewModels
 {
-    public class Article
+    public class ArticleViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -20,7 +21,7 @@ namespace Api.Models
         public virtual List<ArticleOrder>? ArticleOrders { get; set; }
     }
 
-    public class ArticleOrder
+    public class ArticleOrderViewModel
     {
         public int Id { get; set; }
         public int ArticleId { get; set; }

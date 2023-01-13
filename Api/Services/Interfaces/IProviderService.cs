@@ -7,7 +7,7 @@ public interface IProviderService
 {
     Task<List<Provider>> GetProviders();
     Task<Provider?> GetId(int id);
-    Task<List<Provider>> CreateProvider(Provider user);
-    Task<List<Provider>?> UpdateProvider(int id, Provider user);
-    Task<List<Provider>?> DeleteProvider(int id);
+    Task<Provider> CreateProvider(Provider user);
+    Task<Provider>? UpdateProvider(int id, Provider user);
+    Task<Provider>? DeleteProvider(int id);
 }

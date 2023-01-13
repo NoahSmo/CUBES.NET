@@ -1,4 +1,5 @@
 ﻿using Api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -26,40 +27,43 @@ namespace Api.Controllers
             var result = await _providerService.GetId(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Provider not found");
             }
             return Ok(result);
         }
         
         [HttpPost]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Provider>> CreateProvider(Provider provider)
         {
             var result = await _providerService.CreateProvider(provider);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Provider not found");
             }
             return Ok(result);
         }
         
         [HttpPut("{id}")]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Provider>> UpdateProvider(int id, Provider provider)
         {
             var result = await _providerService.UpdateProvider(id, provider);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Provider not found");
             }
             return Ok(result);
         }
         
         [HttpDelete("{id}")]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Provider>> DeleteProvider(int id)
         {
             var result = await _providerService.DeleteProvider(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Provider not found");
             }
             return Ok(result);
         }

@@ -2,7 +2,9 @@
 using Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Npgsql;
+using System.Security.Claims;
+using Api.ViewModels;
+
 
 namespace Api.Controllers
 {
@@ -19,18 +21,44 @@ namespace Api.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<List<User>>> GetUsers()
+        [Authorize (Roles = "Admin")]
+        public async Task<ActionResult<List<UserDetailsViewModel>>> GetUsers()
         {
             return await _userService.GetUsers();
         }
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        [Authorize (Roles = "Admin, User")]
+        public async Task<ActionResult<UserViewModel>> GetUser(int id)
         {
             var result = await _userService.GetId(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("User not found");
+            }
+            return Ok(result);
+        }
+        
+        [HttpGet("username/{username}")]
+        [Authorize (Roles = "Admin, User")]
+        public async Task<ActionResult<UserViewModel>> GetUserByUsername(string username)
+        {
+            var result = await _userService.GetByUsername(username);
+            if (result == null)
+            {
+                return NotFound("User not found");
+            }
+            return Ok(result);
+        }
+        
+        [HttpGet("email/{email}")]
+        [Authorize (Roles = "Admin, User")]
+        public async Task<ActionResult<UserViewModel>> GetUserByMail(string email)
+        {
+            var result = await _userService.GetByEmail(email);
+            if (result == null)
+            {
+                return NotFound("User not found");
             }
             return Ok(result);
         }
@@ -41,73 +69,33 @@ namespace Api.Controllers
             var result = await _userService.CreateUser(user);
             if (result == null)
             {
-                return NotFound();
+                return Unauthorized("Client already exists");
             }
             return Ok(result);
         }
         
         [HttpPut("{id}")]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<User>> UpdateUser(int id, User user)
         {
             var result = await _userService.UpdateUser(id, user);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("User not found");
             }
             return Ok(result);
         }
         
         [HttpDelete("{id}")]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<User>> DeleteUser(int id)
         {
             var result = await _userService.DeleteUser(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("User not found");
             }
             return Ok(result);
         }
-        
-        
-        
-
-
-
-        // [HttpPost("login")]
-        // public IActionResult Login([FromBody] User userData)
-        // {
-        //     var password = userData.Password;
-        //     var saltedPassword = password + salt;
-        //
-        //     var hashedPasswordFromDb = "";
-        //
-        //
-        //     using (var conn = new NpgsqlConnection(connectionString))
-        //     {
-        //         conn.Open();
-        //         using (var cmd = new NpgsqlCommand("SELECT password FROM public.\"User\" WHERE email = @email", conn))
-        //         {
-        //             cmd.Parameters.AddWithValue("username", userData.Email);
-        //             using (var reader = cmd.ExecuteReader())
-        //             {
-        //                 while (reader.Read())
-        //                 {
-        //                     hashedPasswordFromDb = reader.GetString(0);
-        //                 }
-        //             }
-        //         }
-        //     }
-        //
-        //     if (BCrypt.Net.BCrypt.Verify(saltedPassword, hashedPasswordFromDb))
-        //     {
-        //         return Ok("Logged in");
-        //     }
-        //     else
-        //     {
-        //         return BadRequest("Wrong password");
-        //     }
-        // }
-
-        
     }
 }

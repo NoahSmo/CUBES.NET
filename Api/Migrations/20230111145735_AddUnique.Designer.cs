@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230110162753_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230111145735_AddUnique")]
+    partial class AddUnique
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,9 +49,6 @@ namespace Api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Price")
                         .IsRequired()
                         .HasColumnType("text");
@@ -70,11 +67,35 @@ namespace Api.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("OrderId");
-
                     b.HasIndex("ProviderId");
 
                     b.ToTable("Articles");
+                });
+
+            modelBuilder.Entity("Api.Models.ArticleOrder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("ArticleOrder");
                 });
 
             modelBuilder.Entity("Api.Models.Category", b =>
@@ -94,6 +115,9 @@ namespace Api.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Categories");
                 });
@@ -122,6 +146,9 @@ namespace Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Serial")
+                        .IsUnique();
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
@@ -148,6 +175,9 @@ namespace Api.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("Providers");
                 });
@@ -204,6 +234,12 @@ namespace Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
                     b.ToTable("Users");
                 });
 
@@ -215,10 +251,6 @@ namespace Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Api.Models.Order", null)
-                        .WithMany("Articles")
-                        .HasForeignKey("OrderId");
-
                     b.HasOne("Api.Models.Provider", "Provider")
                         .WithMany()
                         .HasForeignKey("ProviderId")
@@ -228,6 +260,25 @@ namespace Api.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Provider");
+                });
+
+            modelBuilder.Entity("Api.Models.ArticleOrder", b =>
+                {
+                    b.HasOne("Api.Models.Article", "Article")
+                        .WithMany()
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Api.Models.Order", "Order")
+                        .WithMany("ArticleOrders")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Article");
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Api.Models.Order", b =>
@@ -243,7 +294,7 @@ namespace Api.Migrations
 
             modelBuilder.Entity("Api.Models.Order", b =>
                 {
-                    b.Navigation("Articles");
+                    b.Navigation("ArticleOrders");
                 });
 #pragma warning restore 612, 618
         }

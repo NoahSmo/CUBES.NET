@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Api.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Api.Controllers
@@ -25,42 +26,37 @@ namespace Api.Controllers
         public async Task<ActionResult<Article>> GetArticle(int id)
         {
             var result = await _articleService.GetId(id);
-            if (result == null)
-            {
-                return NotFound();
-            }
-            return Ok(result);
+            return result == null ? NotFound("Article not found") : Ok(result);
         }
         
         [HttpPost]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Article>> CreateArticle(Article article)
         {
             var result = await _articleService.CreateArticle(article);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Article not found");
             }
             return Ok(result);
         }
         
         [HttpPut("{id}")]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Article>> UpdateArticle(int id, Article article)
         {
             var result = await _articleService.UpdateArticle(id, article);
-            if (result == null)
-            {
-                return NotFound();
-            }
-            return Ok(result);
+            return result == null ? NotFound("Article not found") : Ok(result);
         }
         
         [HttpDelete("{id}")]
+        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Article>> DeleteArticle(int id)
         {
             var result = await _articleService.DeleteArticle(id);
             if (result == null)
             {
-                return NotFound();
+                return NotFound("Article not found");
             }
             return Ok(result);
         }
