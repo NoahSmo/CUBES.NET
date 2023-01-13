@@ -6,4 +6,4 @@ It contain an API, a WPF app and a Web App
 
 Mostly Build in C#
 
-# 🧍🧍🧍🧍 Made by Ugo / Louis / Theo / Noah
+#### 🧍🧍🧍🧍 Made by Ugo / Louis / Theo / Noah
