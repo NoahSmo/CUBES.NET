@@ -1,8 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "lvAnxABMakC3kgdtvhzQxpo+4c5sIwRVB3QFJOi5Db57n0qnJOolUbqXhuxMpKnbsBUJbGlLqdvKks/HknT+xw==",
+  "dgSpecHash": "WOy5b9YgGb0TPBJQdFY75gOwVIMdIihFJ47mxS2Fx58bDElw6MYsYs9MtHrsGuik9xp9ythFA/rzSbIMIIHdNA==",
   "success": true,
   "projectFilePath": "C:\\Users\\cardo\\Documents\\Projet\\Cesi\\CUBES.NET\\WpfApp\\WpfApp.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\cardo\\.nuget\\packages\\bcrypt.net-core\\1.6.0\\bcrypt.net-core.1.6.0.nupkg.sha512",
+    "C:\\Users\\cardo\\.nuget\\packages\\materialdesigncolors\\2.1.1-ci136\\materialdesigncolors.2.1.1-ci136.nupkg.sha512",
+    "C:\\Users\\cardo\\.nuget\\packages\\materialdesignthemes\\4.7.1-ci136\\materialdesignthemes.4.7.1-ci136.nupkg.sha512",
+    "C:\\Users\\cardo\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512",
+    "C:\\Users\\cardo\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
+  ],
   "logs": []
 }
