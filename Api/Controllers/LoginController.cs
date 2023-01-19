@@ -21,7 +21,7 @@ namespace Api.Controllers
         [HttpPost]
         public IActionResult Login([FromBody]UserLogin user)
         {
-            var userAuth = _jwtAuthService.Auth(user.Email, user.Password);
+            var userAuth = _jwtAuthService.Auth(user.Email.ToLower(), user.Password);
             if (userAuth != null)
             {
                 var claims = new List<Claim>
@@ -49,11 +49,7 @@ namespace Api.Controllers
                     Name = userAuth.Name,
                     Surname = userAuth.Surname,
                     Email = userAuth.Email,
-                    Phone = userAuth.Phone,
-                    Address = userAuth.Address,
-                    City = userAuth.City,
-                    Country = userAuth.Country,
-                    PostCode = userAuth.PostCode
+                    Phone = userAuth.Phone
                 };
                 return userAuth.IsAdmin ? Ok(userDetails) : Unauthorized("You are not an admin");
             }
