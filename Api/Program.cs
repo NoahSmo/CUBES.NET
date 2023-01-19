@@ -39,6 +39,7 @@ builder.Services.AddScoped<IProviderService, ProviderService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IJwtAuthService, JwtAuthService>();
 builder.Services.AddTransient<DataSeeder>();
 builder.Services.AddDbContext<DataContext>(options =>

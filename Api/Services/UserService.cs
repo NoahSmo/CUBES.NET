@@ -28,10 +28,6 @@ public class UserService : IUserService
             Surname = user.Surname,
             Email = user.Email,
             Phone = user.Phone,
-            Address = user.Address,
-            City = user.City,
-            Country = user.Country,
-            PostCode = user.PostCode,
             IsAdmin = user.IsAdmin
         }).ToList();
     }
@@ -93,7 +89,8 @@ public class UserService : IUserService
         var password = user.Password;
         var salt = BCrypt.Net.BCrypt.GenerateSalt();
         var hash = BCrypt.Net.BCrypt.HashPassword(password, salt);
-        
+
+        user.Email = user.Email.ToLower();
         user.Password = hash;
         
         _context.Users.Add(user);
@@ -126,12 +123,8 @@ public class UserService : IUserService
         user.Username = request.Username;
         user.Name = request.Name;
         user.Surname = request.Surname;
-        user.Email = request.Email;
+        user.Email = request.Email.ToLower();
         user.Phone = request.Phone;
-        user.Address = request.Address;
-        user.City = request.City;
-        user.Country = request.Country;
-        user.PostCode = request.PostCode;
         user.Password = request.Password;
         user.IsAdmin = request.IsAdmin;
 
@@ -152,10 +145,6 @@ public class UserService : IUserService
             Surname = user.Surname,
             Email = user.Email,
             Phone = user.Phone,
-            Address = user.Address,
-            City = user.City,
-            Country = user.Country,
-            PostCode = user.PostCode,
             IsAdmin = user.IsAdmin
         };
     }
@@ -177,10 +166,6 @@ public class UserService : IUserService
             Surname = user.Surname,
             Email = user.Email,
             Phone = user.Phone,
-            Address = user.Address,
-            City = user.City,
-            Country = user.Country,
-            PostCode = user.PostCode,
             IsAdmin = user.IsAdmin
         };
     }

@@ -18,16 +18,17 @@ namespace Api.Data;
             _context.Categories.RemoveRange(_context.Categories);
             _context.Providers.RemoveRange(_context.Providers);
             _context.Users.RemoveRange(_context.Users);
+            _context.Addresses.RemoveRange(_context.Addresses);
 
             _context.SaveChanges();
+            
+            
             
             if (!_context.Users.Any())
             {
                 var password = "Password";
                 var salt = BCrypt.Net.BCrypt.GenerateSalt();
                 var hash = BCrypt.Net.BCrypt.HashPassword(password, salt);
-                
-                
                 
                 _context.Users.Add(new User
                 {
@@ -37,13 +38,26 @@ namespace Api.Data;
                     Surname = "Doe",
                     Email = "john.doe@gmail.com",
                     Phone = "0631409799",
-                    Address = "1 Rue de la liberté",
-                    City = "Rouen",
-                    Country = "FR",
-                    PostCode = "76000",
                     IsAdmin = true,
                     Password = hash,
                 });
+                
+                _context.SaveChanges();
+            }
+            
+            if (!_context.Addresses.Any())
+            {
+                _context.Addresses.Add(new Address()
+                {
+                    Id = 1,
+                    Street = "Kralja Petra I Karađorđevića",    
+                    City =  "Novi Sad",
+                    Country = "Srbija",
+                    PostCode = "21000",
+                    UserId = 1
+                });
+                
+                _context.SaveChanges();
             }
 
             if (!_context.Providers.Any())
@@ -139,6 +153,7 @@ namespace Api.Data;
                 {
                     Id = 1,
                     UserId = 1,
+                    AddressId = 1,
                     Date = DateTime.UtcNow,
                     Status = "In progress",
                     Serial = "123456789",
