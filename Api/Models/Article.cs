@@ -8,16 +8,23 @@ namespace Api.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; } = string.Empty;
-        public string Image { get; set; } = string.Empty;
-        public string Year { get; set; }
-        public string Price { get; set; }
-        public int ProviderId { get; set; }
-        public Provider? Provider { get; set; }
-        public int CategoryId { get; set; }
-        public Category? Category { get; set; }
+        public int Year { get; set; }
+        public Double Price { get; set; }
+        public Double Alcohol { get; set; }
         public int Stock { get; set; }
         
+        
+        public int DomainId { get; set; }
+        public Domain? Domain { get; set; }
+        
+        
+        public int CategoryId { get; set; }
+        public Category? Category { get; set; }
+        
         public virtual List<ArticleOrder>? ArticleOrders { get; set; }
+        public virtual List<Provider>? Providers { get; set; }
+        public virtual List<Image>? Images { get; set; }
+        public virtual List<Comment>? Comments { get; set; }
     }
 
     public class ArticleOrder

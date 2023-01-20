@@ -25,11 +25,7 @@ namespace Api.Controllers
         public async Task<ActionResult<Provider>> GetProvider(int id)
         {
             var result = await _providerService.GetId(id);
-            if (result == null)
-            {
-                return NotFound("Provider not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("Provider not found") : Ok(result);
         }
         
         [HttpPost]
@@ -37,11 +33,7 @@ namespace Api.Controllers
         public async Task<ActionResult<Provider>> CreateProvider(Provider provider)
         {
             var result = await _providerService.CreateProvider(provider);
-            if (result == null)
-            {
-                return NotFound("Provider not found");
-            }
-            return Ok(result);
+            return result == null ? Unauthorized("Provider already exist") : Ok(result);
         }
         
         [HttpPut("{id}")]
@@ -49,11 +41,7 @@ namespace Api.Controllers
         public async Task<ActionResult<Provider>> UpdateProvider(int id, Provider provider)
         {
             var result = await _providerService.UpdateProvider(id, provider);
-            if (result == null)
-            {
-                return NotFound("Provider not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("Provider not found") : Ok(result);
         }
         
         [HttpDelete("{id}")]
@@ -61,11 +49,7 @@ namespace Api.Controllers
         public async Task<ActionResult<Provider>> DeleteProvider(int id)
         {
             var result = await _providerService.DeleteProvider(id);
-            if (result == null)
-            {
-                return NotFound("Provider not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("Provider not found") : Ok(result);
         }
     }
 }

@@ -29,7 +29,7 @@ public class AddressService : IAddressService
             Street = x.Street,
             City = x.City,
             Country = x.Country,
-            PostCode = x.PostCode
+            ZipCode = x.ZipCode
         }).FirstOrDefaultAsync();
     }
 
@@ -45,31 +45,27 @@ public class AddressService : IAddressService
     public Task<Address>? UpdateAddress(int id, Address address)
     {
         var addressToUpdate = _context.Addresses.FirstOrDefault(x => x.Id == id);
-        if (addressToUpdate == null)
-        {
-            return null;
-        }
-
+        if (addressToUpdate == null) return null;
+        
         addressToUpdate.Street = address.Street;
         addressToUpdate.City = address.City;
         addressToUpdate.Country = address.Country;
-        addressToUpdate.PostCode = address.PostCode;
+        addressToUpdate.ZipCode = address.ZipCode;
+        
         _context.Addresses.Update(addressToUpdate);
         _context.SaveChanges();
+        
         return Task.FromResult(addressToUpdate);
-
     }
 
     public Task<Address>? DeleteAddress(int id)
     {
         var addressToDelete = _context.Addresses.FirstOrDefault(x => x.Id == id);
-        if (addressToDelete == null)
-        {
-            return null;
-        }
+        if (addressToDelete == null) return null;
 
         _context.Addresses.Remove(addressToDelete);
         _context.SaveChanges();
+        
         return Task.FromResult(addressToDelete);
     }
 }

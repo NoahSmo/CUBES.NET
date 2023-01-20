@@ -27,11 +27,7 @@ namespace Api.Controllers
         public async Task<ActionResult<Category>> GetCategory(int id)
         {
             var result = await _categoryService.GetId(id);
-            if (result == null)
-            {
-                return NotFound("Category not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("Category not found") : Ok(result);
         }
         
         [HttpPost]
@@ -39,11 +35,7 @@ namespace Api.Controllers
         public async Task<ActionResult<Category>> CreateCategory(Category category)
         {
             var result = await _categoryService.CreateCategory(category);
-            if (result == null)
-            {
-                return NotFound("Category not found");
-            }
-            return Ok(result);
+            return result == null ? Unauthorized("Category already exist") : Ok(result);
         }
         
         [HttpPut("{id}")]
@@ -51,11 +43,7 @@ namespace Api.Controllers
         public async Task<ActionResult<Category>> UpdateCategory(int id, Category category)
         {
             var result = await _categoryService.UpdateCategory(id, category);
-            if (result == null)
-            {
-                return NotFound("Category not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("Category not found") : Ok(result);
         }
         
         [HttpDelete("{id}")]
@@ -63,11 +51,7 @@ namespace Api.Controllers
         public async Task<ActionResult<Category>> DeleteCategory(int id)
         {
             var result = await _categoryService.DeleteCategory(id);
-            if (result == null)
-            {
-                return NotFound("Category not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("Category not found") : Ok(result);
         }
     }
 }

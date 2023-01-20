@@ -30,11 +30,7 @@ namespace Api.Controllers
         public async Task<ActionResult<Order>> GetOrder(int id)
         {
             var result = await _orderService.GetId(id);
-            if (result == null)
-            {
-                return NotFound("Order not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("Order not found") : Ok(result);
         }
         
         [HttpPost]
@@ -62,11 +58,7 @@ namespace Api.Controllers
         public async Task<ActionResult<Order>> UpdateOrder(int id, Order order)
         {
             var result = await _orderService.UpdateOrder(id, order);
-            if (result == null)
-            {
-                return NotFound("Order not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("Order not found") : Ok(result);
         }
         
         [HttpDelete("{id}")]
@@ -74,11 +66,7 @@ namespace Api.Controllers
         public async Task<ActionResult<Order>> DeleteOrder(int id)
         {
             var result = await _orderService.DeleteOrder(id);
-            if (result == null)
-            {
-                return NotFound("Order not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("Order not found") : Ok(result);
         }
     }
 }
