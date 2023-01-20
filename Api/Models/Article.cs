@@ -8,8 +8,9 @@ namespace Api.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; } = string.Empty;
-        public string Year { get; set; }
-        public string Price { get; set; }
+        public int Year { get; set; }
+        public Double Price { get; set; }
+        public Double Alcohol { get; set; }
         public int Stock { get; set; }
         
         

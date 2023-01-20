@@ -43,7 +43,7 @@ namespace Api.Data;
                     Name = "John",
                     Surname = "Doe",
                     Email = "john.doe@gmail.com",
-                    Phone = "0631409799",
+                    Phone = 0631409799,
                     Role = "Admin",
                     Password = hash,
                 });
@@ -59,7 +59,7 @@ namespace Api.Data;
                     Street = "Kralja Petra I Karađorđevića",    
                     City =  "Novi Sad",
                     Country = "Srbija",
-                    PostCode = "21000",
+                    ZipCode = 27000,
                     UserId = 1
                 });
                 
@@ -69,7 +69,7 @@ namespace Api.Data;
                     Street = "Sdqsdazqsdqsqwxc",    
                     City =  "Novi Sad",
                     Country = "Srbija",
-                    PostCode = "21000"
+                    ZipCode = 21000
                 });
                 
                 _context.SaveChanges();
@@ -117,28 +117,28 @@ namespace Api.Data;
                     Id = 1,
                     Name = "Domaine de Tariquet",
                     Email = "Tariquet.dom@gmail.com",
-                    Phone = "0631409799",
+                    Phone = 0631409799,
                 });
                 _context.Providers.Add(new Provider
                 {
                     Id = 2,
                     Name = "Domaine de Joy",
                     Email = "Joy.dom@gmail.com",
-                    Phone = "0631409799",
+                    Phone = 0631409799,
                 });
                 _context.Providers.Add(new Provider
                 {
                     Id = 3,
                     Name = "Vignoble Fontan",
                     Email = "Vignoble.Fontan@gmail.com",
-                    Phone = "0631409799",
+                    Phone = 0631409799,
                 });
                 _context.Providers.Add(new Provider
                 {
                     Id = 4,
                     Name = "Domaine d'Uby",
                     Email = "Uby.dom@gmail.com",
-                    Phone = "0631409799",
+                    Phone = 0631409799,
                 });
             }
 
@@ -177,11 +177,12 @@ namespace Api.Data;
                     Id = 1,
                     Name = "Les Darons",
                     Description = "Composé en majorité de raisins issus de vignes de plus de quarante ans, Les Darons (les Pères en argot) porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
-                    Year = "2020",
-                    Price = "6.50",
+                    Year = 2020,
+                    Price = 6.50,
+                    Alcohol = 25.7,
+                    Stock = 150,
                     DomainId = 1, 
-                    CategoryId = 1,
-                    Stock = 150
+                    CategoryId = 1
                 });
                 
                 _context.Articles.Add(new Article
@@ -189,11 +190,12 @@ namespace Api.Data;
                     Id = 2,
                     Name = "YLIRUM",
                     Description = "Ylirum est un vin rouge facile à boire, juteux, avec beaucoup de fraîcheur et un délicieux fruité. Nommé MEILLEUR VIN de son appellation, avec ses saveurs vanillés lui apportant cette sucrosité, voilà une belle gourmandise à partager. Appelez vite les copains : c'est l'occasion rêvée de les inviter sans vous ruiner ! Le petit vin plaisir par excellence...",
-                    Year = "2020",
-                    Price = "4.50",
+                    Year = 2015,
+                    Price = 8,
+                    Alcohol = 19.1,
+                    Stock = 150,
                     DomainId = 1, 
-                    CategoryId = 1,
-                    Stock = 150
+                    CategoryId = 1
                 });
             }
             
