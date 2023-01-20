@@ -20,7 +20,7 @@ public class ArticleService : IArticleService
     public async Task<List<Article>> GetArticles()
     {
         var articles = await _context.Articles
-            .Include(a => a.Provider)
+            .Include(a => a.Domain)
             .Include(a => a.Category)
             .ToListAsync();
         return articles;
@@ -29,7 +29,7 @@ public class ArticleService : IArticleService
     public async Task<Article?> GetId(int id)
     {
         var article = await _context.Articles
-            .Include(a => a.Provider)
+            .Include(a => a.Domain)
             .Include(a => a.Category)
             .FirstOrDefaultAsync(a => a.Id == id);
         if (article is null)
@@ -40,7 +40,7 @@ public class ArticleService : IArticleService
     
     public async Task<Article> CreateArticle(Article article)
     {
-        article.Provider = await _context.Providers.FirstOrDefaultAsync(p => p.Id == article.ProviderId);
+        article.Domain = await _context.Domains.FirstOrDefaultAsync(d => d.Id == article.DomainId);
         article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
         _context.Articles.Add(article);
         await _context.SaveChangesAsync();
@@ -56,11 +56,10 @@ public class ArticleService : IArticleService
 
         article.Name = request.Name;
         article.Description = request.Description;
-        article.Image = request.Image;
         article.Year = request.Year;
         article.Price = request.Price;
-        article.ProviderId = request.ProviderId;
-        article.Provider = await _context.Providers.FirstOrDefaultAsync(p => p.Id == article.ProviderId);
+        article.DomainId = request.DomainId;
+        article.Domain = await _context.Domains.FirstOrDefaultAsync(d => d.Id == article.DomainId);
         article.CategoryId = request.CategoryId;
         article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
         article.Stock = request.Stock;

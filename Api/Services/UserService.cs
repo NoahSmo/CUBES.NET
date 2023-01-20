@@ -28,7 +28,7 @@ public class UserService : IUserService
             Surname = user.Surname,
             Email = user.Email,
             Phone = user.Phone,
-            IsAdmin = user.IsAdmin
+            Role = user.Role
         }).ToList();
     }
 
@@ -126,7 +126,7 @@ public class UserService : IUserService
         user.Email = request.Email.ToLower();
         user.Phone = request.Phone;
         user.Password = request.Password;
-        user.IsAdmin = request.IsAdmin;
+        user.Role = request.Role;
 
         var password = request.Password;
         var salt = BCrypt.Net.BCrypt.GenerateSalt();
@@ -145,7 +145,7 @@ public class UserService : IUserService
             Surname = user.Surname,
             Email = user.Email,
             Phone = user.Phone,
-            IsAdmin = user.IsAdmin
+            Role = user.Role
         };
     }
 
@@ -166,7 +166,7 @@ public class UserService : IUserService
             Surname = user.Surname,
             Email = user.Email,
             Phone = user.Phone,
-            IsAdmin = user.IsAdmin
+            Role = user.Role
         };
     }
 

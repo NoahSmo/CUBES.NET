@@ -20,9 +20,9 @@ namespace Api.Data;
             _context.Articles.RemoveRange(_context.Articles);
             _context.Categories.RemoveRange(_context.Categories);
             _context.Providers.RemoveRange(_context.Providers);
-            _context.Addresses.RemoveRange(_context.Addresses);
             _context.Status.RemoveRange(_context.Status);
             _context.Domains.RemoveRange(_context.Domains);
+            _context.Addresses.RemoveRange(_context.Addresses);
             _context.Users.RemoveRange(_context.Users);
             
 
@@ -51,14 +51,37 @@ namespace Api.Data;
                 _context.SaveChanges();
             }
             
+            if (!_context.Addresses.Any())
+            {
+                _context.Addresses.Add(new Address()
+                {
+                    Id = 1,
+                    Street = "Kralja Petra I Karađorđevića",    
+                    City =  "Novi Sad",
+                    Country = "Srbija",
+                    PostCode = "21000",
+                    UserId = 1
+                });
+                
+                _context.Addresses.Add(new Address()
+                {
+                    Id = 2,
+                    Street = "Sdqsdazqsdqsqwxc",    
+                    City =  "Novi Sad",
+                    Country = "Srbija",
+                    PostCode = "21000"
+                });
+                
+                _context.SaveChanges();
+            }
+            
             if (!_context.Domains.Any())
             {
                 _context.Domains.Add(new Domain
                 {
                     Id = 1,
                     Name = "John",
-                    Description = "John Doe",
-                    AddressId = 1
+                    Description = "John Doe"
                 });
                 
                 _context.SaveChanges();
@@ -74,34 +97,19 @@ namespace Api.Data;
                 
                 _context.Status.Add(new Status
                 {
-                    Id = 1,
+                    Id = 2,
                     Message = "In progress"
                 });
                 
                 _context.Status.Add(new Status
                 {
-                    Id = 1,
+                    Id = 3,
                     Message = "Completed"
                 });
                 
                 _context.SaveChanges();
             }
             
-            if (!_context.Addresses.Any())
-            {
-                _context.Addresses.Add(new Address()
-                {
-                    Id = 1,
-                    Street = "Kralja Petra I Karađorđevića",    
-                    City =  "Novi Sad",
-                    Country = "Srbija",
-                    PostCode = "21000",
-                    UserId = 1
-                });
-                
-                _context.SaveChanges();
-            }
-
             if (!_context.Providers.Any())
             {
                 _context.Providers.Add(new Provider
@@ -245,25 +253,26 @@ namespace Api.Data;
                 _context.ProviderOrders.Add(new ProviderOrder()
                 {
                     Id = 1,
+                    ProviderId = 1,
                     Date = DateTime.UtcNow,
                     StatusId = 1,
-                    ArticleOrders = new List<ArticleOrder>
-                    {
-                        new ArticleOrder
-                        {
-                            Id = 1,
-                            ArticleId = 1,
-                            OrderId = 1,
-                            Quantity = 10
-                        },
-                        new ArticleOrder
-                        {
-                            Id = 2,
-                            ArticleId = 2,
-                            OrderId = 1,
-                            Quantity = 10
-                        }
-                    }
+                    // ArticleOrders = new List<ArticleOrder>
+                    // {
+                    //     new ArticleOrder
+                    //     {
+                    //         Id = 3,
+                    //         ArticleId = 1,
+                    //         OrderId = 1,
+                    //         Quantity = 10
+                    //     },
+                    //     new ArticleOrder
+                    //     {
+                    //         Id = 4,
+                    //         ArticleId = 2,
+                    //         OrderId = 1,
+                    //         Quantity = 10
+                    //     }
+                    // }
                 });
             }
 

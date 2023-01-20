@@ -27,7 +27,7 @@ namespace Api.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Email, userAuth.Email),
-                    new Claim(ClaimTypes.Role, userAuth.IsAdmin ? "Admin" : "User")
+                    new Claim(ClaimTypes.Role, userAuth.Role)
                 };
                var token =  _jwtAuthService.GenerateToken(_configuration["Jwt:Key"],claims);
                return Ok(new JsonResult(token));
@@ -51,7 +51,7 @@ namespace Api.Controllers
                     Email = userAuth.Email,
                     Phone = userAuth.Phone
                 };
-                return userAuth.IsAdmin ? Ok(userDetails) : Unauthorized("You are not an admin");
+                return userAuth.Role == "Admin" ? Ok(userDetails) : Unauthorized("You are not an admin");
             }
             return Unauthorized("Invalid credentials");
         }

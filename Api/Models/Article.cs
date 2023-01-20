@@ -23,6 +23,7 @@ namespace Api.Models
         public virtual List<ArticleOrder>? ArticleOrders { get; set; }
         public virtual List<Provider>? Providers { get; set; }
         public virtual List<Image>? Images { get; set; }
+        public virtual List<Comment>? Comments { get; set; }
     }
 
     public class ArticleOrder

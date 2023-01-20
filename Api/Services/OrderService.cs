@@ -80,7 +80,6 @@ public class OrderService : IOrderService
         
         order.Date = request.Date;
         order.Status = request.Status;
-        order.Serial = request.Serial;
         order.ArticleOrders = request.ArticleOrders;
 
         _context.Orders.Update(order);
