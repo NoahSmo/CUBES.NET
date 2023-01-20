@@ -32,11 +32,7 @@ namespace Api.Controllers
         public async Task<ActionResult<UserViewModel>> GetUser(int id)
         {
             var result = await _userService.GetId(id);
-            if (result == null)
-            {
-                return NotFound("User not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("User not found") : Ok(result);
         }
         
         [HttpGet("username/{username}")]
@@ -44,11 +40,7 @@ namespace Api.Controllers
         public async Task<ActionResult<UserViewModel>> GetUserByUsername(string username)
         {
             var result = await _userService.GetByUsername(username);
-            if (result == null)
-            {
-                return NotFound("User not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("User not found") : Ok(result);
         }
         
         [HttpGet("email/{email}")]
@@ -56,22 +48,14 @@ namespace Api.Controllers
         public async Task<ActionResult<UserViewModel>> GetUserByMail(string email)
         {
             var result = await _userService.GetByEmail(email);
-            if (result == null)
-            {
-                return NotFound("User not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("User not found") : Ok(result);
         }
         
         [HttpPost]
         public async Task<ActionResult<User>> CreateUser(User user)
         {
             var result = await _userService.CreateUser(user);
-            if (result == null)
-            {
-                return Unauthorized("Client already exists");
-            }
-            return Ok(result);
+            return result == null ? Unauthorized("User already exist") : Ok(result);
         }
         
         [HttpPut("{id}")]
@@ -79,11 +63,7 @@ namespace Api.Controllers
         public async Task<ActionResult<User>> UpdateUser(int id, User user)
         {
             var result = await _userService.UpdateUser(id, user);
-            if (result == null)
-            {
-                return NotFound("User not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("User not found") : Ok(result);
         }
         
         [HttpDelete("{id}")]
@@ -91,11 +71,7 @@ namespace Api.Controllers
         public async Task<ActionResult<User>> DeleteUser(int id)
         {
             var result = await _userService.DeleteUser(id);
-            if (result == null)
-            {
-                return NotFound("User not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("User not found") : Ok(result);
         }
     }
 }

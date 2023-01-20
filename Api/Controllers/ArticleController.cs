@@ -34,11 +34,7 @@ namespace Api.Controllers
         public async Task<ActionResult<Article>> CreateArticle(Article article)
         {
             var result = await _articleService.CreateArticle(article);
-            if (result == null)
-            {
-                return NotFound("Article not found");
-            }
-            return Ok(result);
+            return result == null ? Unauthorized("Article already exist") : Ok(result);
         }
         
         [HttpPut("{id}")]
@@ -54,11 +50,7 @@ namespace Api.Controllers
         public async Task<ActionResult<Article>> DeleteArticle(int id)
         {
             var result = await _articleService.DeleteArticle(id);
-            if (result == null)
-            {
-                return NotFound("Article not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("Article not found") : Ok(result);
         }
     }
 }
