@@ -19,6 +19,10 @@ namespace Api.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Domain> Domains { get; set; }
+        public DbSet<ProviderOrder> ProviderOrders { get; set; }
+        public DbSet<Status> Status { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -34,10 +38,6 @@ namespace Api.Data
             
             modelBuilder.Entity<Provider>()
                 .HasIndex(p => p.Email)
-                .IsUnique();
-            
-            modelBuilder.Entity<Order>()
-                .HasIndex(o => o.Serial)
                 .IsUnique();
             
             modelBuilder.Entity<Category>()

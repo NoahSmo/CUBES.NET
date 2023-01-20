@@ -21,12 +21,7 @@ namespace Api.Models
         public string Email { get; set; }
         public string Phone { get; set; } = string.Empty;
         
-        public enum Role
-        {
-            Admin,
-            Provider,
-            User
-        }
+        public string Role { get; set; } = "User";
         
         public string Password { get; set; }
         
