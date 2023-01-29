@@ -42,15 +42,7 @@ namespace Api.Controllers
             var userAuth = _jwtAuthService.Auth(user.Email, user.Password);
             if (userAuth != null)
             { 
-                var userDetails = new UserDetailsViewModel()
-                {
-                    Id = userAuth.Id,
-                    Username = userAuth.Username,
-                    Name = userAuth.Name,
-                    Surname = userAuth.Surname,
-                    Email = userAuth.Email,
-                    Phone = userAuth.Phone
-                };
+                var userDetails = new UserDetailsViewModel(userAuth);
                 return userAuth.Role == "Admin" ? Ok(userDetails) : Unauthorized("You are not an admin");
             }
             return Unauthorized("Invalid credentials");
