@@ -7,8 +7,12 @@ namespace Api.ViewModels
     public class ImageViewModel
     {
         public string Url { get; set; }
+        public int? ArticleId { get; set; }
         
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public ImageViewModel(Image image)
+        {
+            Url = image.Url;
+            ArticleId = image.ArticleId;
+        }
     }
 }
