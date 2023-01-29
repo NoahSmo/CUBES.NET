@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Api.Models
 {
-    public class Address : Auditable
+    public class DomainAddress : Auditable
     {
         public int Id { get; set; }
         
@@ -12,7 +12,7 @@ namespace Api.Models
         public string Country { get; set; }
         public int ZipCode { get; set; }
         
-        public int? UserId { get; set; }
-        public User? User { get; set; }
+        public int? DomainId { get; set; }
+        public Domain? Domain { get; set; }
     }
 }
