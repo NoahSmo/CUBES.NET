@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Api.Models;
-using System.Security.Claims;
 using Api.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 

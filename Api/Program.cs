@@ -45,10 +45,14 @@ builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
-builder.Services.AddScoped<IJwtAuthService, JwtAuthService>();
+builder.Services.AddScoped<IDomainService, DomainService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IProviderService, ProviderService>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddScoped<IJwtAuthService, JwtAuthService>();
+
 builder.Services.AddTransient<DataSeeder>();
 builder.Services.AddDbContext<DataContext>(options =>
     {

@@ -1,6 +1,5 @@
 using Api.Models;
 using Api.ViewModels;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Api;
 

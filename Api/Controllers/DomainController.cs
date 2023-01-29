@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Api.Models;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
 
 
 namespace Api.Controllers
@@ -30,7 +28,7 @@ namespace Api.Controllers
             return result == null ? NotFound("Domain not found") : Ok(result);
         }
         
-        [HttpGet("{name}")]
+        [HttpGet("name/{name}")]
         public async Task<ActionResult<Domain>> GetDomain(string name)
         {
             var result = await _domainService.GetByName(name);

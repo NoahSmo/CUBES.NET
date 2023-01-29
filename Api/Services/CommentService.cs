@@ -23,9 +23,7 @@ public class CommentService : ICommentService
             .Include(c => c.User)
             .ToListAsync();
 
-        var commentViewModels = comments.Select(c => new CommentViewModel(c)).ToList();
-
-        return commentViewModels;
+        return comments.Select(c => new CommentViewModel(c)).ToList();
     }
 
     public async Task<CommentViewModel?> GetId(int id)
