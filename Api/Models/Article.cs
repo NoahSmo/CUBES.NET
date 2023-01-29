@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Api.Models
 {
-    public class Article
+    public class Article : Auditable
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; } = string.Empty;
         public int Year { get; set; }
-        public Double Price { get; set; }
-        public Double Alcohol { get; set; }
+        public double Price { get; set; }
+        public double Alcohol { get; set; }
         public int Stock { get; set; }
         
         

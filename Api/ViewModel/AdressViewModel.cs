@@ -10,8 +10,15 @@ namespace Api.ViewModels
         public string City { get; set; }
         public string Country { get; set; }
         public int? ZipCode { get; set; }
-        
-        public int UserId { get; set; }
         public User User { get; set; }
+
+        public AddressViewModel(Address address)
+        {
+            Street = address.Street;
+            City = address.City;
+            Country = address.Country;
+            ZipCode = address.ZipCode;
+            User = address.User;
+        }
     }
 }

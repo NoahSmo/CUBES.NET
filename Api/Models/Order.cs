@@ -4,14 +4,14 @@ using Api.ViewModels;
 
 namespace Api.Models
 {
-    public class Order
+    public class Order : Auditable
     {
         public int Id { get; set; }
         
+        public DateTime Date { get; set; }
+        
         public int UserId { get; set; }
         public User? User { get; set; }
-        
-        public DateTime Date { get; set; }
         
         public int AddressId { get; set; }
         public Address? Address { get; set; }

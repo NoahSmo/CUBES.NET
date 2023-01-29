@@ -24,13 +24,7 @@ public class AddressService : IAddressService
 
     public Task<AddressViewModel?> GetId(int id)
     {
-        return _context.Addresses.Where(x => x.Id == id).Select(x => new AddressViewModel
-        {
-            Street = x.Street,
-            City = x.City,
-            Country = x.Country,
-            ZipCode = x.ZipCode
-        }).FirstOrDefaultAsync();
+        return _context.Addresses.Where(x => x.Id == id).Select(a => new AddressViewModel(a)).FirstOrDefaultAsync();
     }
 
     public Task<Address> CreateAddress(Address address)

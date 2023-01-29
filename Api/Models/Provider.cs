@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Api.Models
 {
-    public class Provider
+    public class Provider : Auditable
     {
         public int Id { get; set; }
         public string Name { get; set; }

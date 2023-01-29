@@ -6,25 +6,41 @@ namespace Api.ViewModels
 {
     public class ArticleViewModel
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Surname { get; set; } = string.Empty;
-        public string Email { get; set; }
-        public string Phone { get; set; } = string.Empty;
+        public string Name { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public int Year { get; set; }
+        public double Price { get; set; }
+        public double Alcohol { get; set; }
+        public int Stock { get; set; }
         
-        public string Role { get; set; } = "User";
+        public int DomainId { get; set; }
         
-        public string Password { get; set; }
+        public int CategoryId { get; set; }
         
-        public virtual List<Address>? Addresses { get; set; }
+        public virtual List<ArticleOrder>? ArticleOrders { get; set; }
+        public virtual List<Provider>? Providers { get; set; }
+        public virtual List<Image>? Images { get; set; }
+        public virtual List<Comment>? Comments { get; set; }
         
-        public virtual List<Order>? Orders { get; set; }
+        public ArticleViewModel(Article article)
+        {
+            Name = article.Name;
+            Description = article.Description;
+            Year = article.Year;
+            Price = article.Price;
+            Alcohol = article.Alcohol;
+            Stock = article.Stock;
+            DomainId = article.DomainId;
+            CategoryId = article.CategoryId;
+            ArticleOrders = article.ArticleOrders;
+            Providers = article.Providers;
+            Images = article.Images;
+            Comments = article.Comments;
+        }
     }
 
     public class ArticleOrderViewModel
     {
-        public int Id { get; set; }
         public int ArticleId { get; set; }
         public int OrderId { get; set; }
         public int Quantity { get; set; }

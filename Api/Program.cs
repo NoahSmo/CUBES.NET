@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using Api;
 using Api.Data;
 using Api.Models;
@@ -9,6 +10,9 @@ using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+
+
 
 builder.Services.AddAuthentication(options =>
 {
@@ -30,17 +34,25 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddControllers().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IProviderService, ProviderService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IArticleService, ArticleService>();
-builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<IArticleService, ArticleService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IDomainService, DomainService>();
+builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IProviderService, ProviderService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 builder.Services.AddScoped<IJwtAuthService, JwtAuthService>();
+
 builder.Services.AddTransient<DataSeeder>();
 builder.Services.AddDbContext<DataContext>(options =>
     {
