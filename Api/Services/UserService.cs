@@ -20,16 +20,7 @@ public class UserService : IUserService
     {
         var users = await _context.Users.ToListAsync();
         
-        return users.Select(user => new UserDetailsViewModel
-        {
-            Id = user.Id,
-            Username = user.Username,
-            Name = user.Name,
-            Surname = user.Surname,
-            Email = user.Email,
-            Phone = user.Phone,
-            Role = user.Role
-        }).ToList();
+        return users.Select(user => new UserDetailsViewModel(user)).ToList();
     }
 
     public async Task<UserViewModel?> GetId(int id)
@@ -39,14 +30,7 @@ public class UserService : IUserService
         if (user is null)
             return null;
         
-        return new UserViewModel
-        {
-            Id = user.Id,
-            Username = user.Username,
-            Name = user.Name,
-            Surname = user.Surname,
-            Email = user.Email
-        };
+        return new UserViewModel(user);
     }
     
     public async Task<UserViewModel>? GetByUsername (string username)
@@ -56,14 +40,7 @@ public class UserService : IUserService
         if (user is null)
             return null;
         
-        return new UserViewModel
-        {
-            Id = user.Id,
-            Username = user.Username,
-            Name = user.Name,
-            Surname = user.Surname,
-            Email = user.Email
-        };
+        return new UserViewModel(user);
     }
     
     public async Task<UserViewModel>? GetByEmail (string email)
@@ -73,14 +50,7 @@ public class UserService : IUserService
         if (user is null)
             return null;
         
-        return new UserViewModel
-        {
-            Id = user.Id,
-            Username = user.Username,
-            Name = user.Name,
-            Surname = user.Surname,
-            Email = user.Email
-        };
+        return new UserViewModel(user);
     }
 
     public async Task<UserViewModel> CreateUser(User user)
@@ -104,14 +74,7 @@ public class UserService : IUserService
             return null;
         }
         
-        return new UserViewModel
-        {
-            Id = user.Id,
-            Username = user.Username,
-            Name = user.Name,
-            Surname = user.Surname,
-            Email = user.Email
-        };
+        return new UserViewModel(user);
     }
     
     public async Task<UserDetailsViewModel>? UpdateUser(int id, User request)
@@ -137,16 +100,7 @@ public class UserService : IUserService
         _context.Users.Update(user);
         await _context.SaveChangesAsync();
 
-        return new UserDetailsViewModel
-        {
-            Id = user.Id,
-            Username = user.Username,
-            Name = user.Name,
-            Surname = user.Surname,
-            Email = user.Email,
-            Phone = user.Phone,
-            Role = user.Role
-        };
+        return new UserDetailsViewModel(user);
     }
 
     public async Task<UserDetailsViewModel>? DeleteUser(int id)
@@ -158,16 +112,7 @@ public class UserService : IUserService
         _context.Users.Remove(user);
         await _context.SaveChangesAsync();
         
-        return new UserDetailsViewModel
-        {
-            Id = user.Id,
-            Username = user.Username,
-            Name = user.Name,
-            Surname = user.Surname,
-            Email = user.Email,
-            Phone = user.Phone,
-            Role = user.Role
-        };
+        return new UserDetailsViewModel(user);
     }
 
     
