@@ -141,7 +141,7 @@ namespace Api.Data;
                     Phone = 0631409799,
                 });
             }
-
+            
             if (!_context.Categories.Any())
             {
                 _context.Categories.Add(new Category
@@ -169,7 +169,7 @@ namespace Api.Data;
                     Description = "Champagne pour les amateurs",
                 });
             }
-
+            
             if (!_context.Articles.Any())
             {
                 _context.Articles.Add(new Article
@@ -220,7 +220,7 @@ namespace Api.Data;
                     ArticleId = 1
                 });
             }
-
+            
             if (!_context.Orders.Any())
             {
                 _context.Orders.Add(new Order
