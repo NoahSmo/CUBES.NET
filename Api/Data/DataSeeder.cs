@@ -10,9 +10,16 @@ namespace Api.Data;
         {
             _context = context;
         }
+        
+        public void Drop()
+        {
+            _context.Database.EnsureDeleted();
+        }
 
         public void Seed()
         {
+            _context.Database.EnsureCreated();
+            
             _context.ProviderOrders.RemoveRange(_context.ProviderOrders);
             _context.Orders.RemoveRange(_context.Orders);
             _context.Comments.RemoveRange(_context.Comments);
@@ -39,12 +46,11 @@ namespace Api.Data;
                 _context.Users.Add(new User
                 {
                     Id = 1,
-                    Username = "JohnDoe",
                     Name = "John",
                     Surname = "Doe",
                     Email = "john.doe@gmail.com",
                     Phone = 0631409799,
-                    Role = "Admin",
+                    Role = Role.Admin,
                     Password = hash,
                 });
                 

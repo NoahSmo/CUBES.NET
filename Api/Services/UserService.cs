@@ -33,16 +33,6 @@ public class UserService : IUserService
         return new UserViewModel(user);
     }
     
-    public async Task<UserViewModel>? GetByUsername (string username)
-    {
-        var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
-        
-        if (user is null)
-            return null;
-        
-        return new UserViewModel(user);
-    }
-    
     public async Task<UserViewModel>? GetByEmail (string email)
     {
         var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
@@ -82,8 +72,7 @@ public class UserService : IUserService
         var user = await _context.Users.FindAsync(id);
         if (user is null)
             return null;
-
-        user.Username = request.Username;
+        
         user.Name = request.Name;
         user.Surname = request.Surname;
         user.Email = request.Email.ToLower();

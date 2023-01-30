@@ -72,10 +72,6 @@ namespace Api.Data
         {
             
             modelBuilder.Entity<User>()
-                .HasIndex(u => u.Username)
-                .IsUnique();
-            
-            modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
             

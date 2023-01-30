@@ -49,11 +49,11 @@ public class CommentService : ICommentService
         return commentViewModels;
     }
 
-    public async Task<List<CommentViewModel?>> GetByUser(string username)
+    public async Task<List<CommentViewModel?>> GetByUser(string email)
     {
         var comments = await _context.Comments
             .Include(c => c.User)
-            .Where(c => c.User.Username == username)
+            .Where(c => c.User.Email == email)
             .ToListAsync();
         
         var commentViewModels = comments.Select(c => new CommentViewModel(c)).ToList();

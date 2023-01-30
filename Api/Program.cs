@@ -79,6 +79,20 @@ void SeedData(WebApplication app)
     }
 }
 
+if (args.Length == 1 && args[0].ToLower() == "dropdata")
+    DropDataBase(app);
+
+void DropDataBase(WebApplication app)
+{
+    var scopedFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
+    
+    using (var scope = scopedFactory.CreateScope())
+    {
+        var seeder = scope.ServiceProvider.GetService<DataSeeder>();
+        seeder.Drop();
+    }
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

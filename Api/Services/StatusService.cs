@@ -1,5 +1,6 @@
 using Api.Data;
 using Api.Models;
+using Api.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,28 +18,28 @@ public class StatusService : IStatusService
     
     
 
-    public async Task<List<Status?>> GetStatuses()
+    public async Task<List<StatusViewModel?>> GetStatuses()
     {
-        return await _context.Statuses.ToListAsync();
+        return await _context.Statuses.Select(s => new StatusViewModel(s)).ToListAsync();
     }
 
-    public async Task<Status?> GetId(int id)
+    public async Task<StatusViewModel?> GetId(int id)
     {
         var status = await _context.Statuses.FindAsync(id);
         if (status is null)
             return null;
 
-        return status;
+        return new StatusViewModel(status);
     }
     
-    public async Task<Status> CreateStatus(Status status)
+    public async Task<StatusViewModel> CreateStatus(Status status)
     {
         _context.Statuses.Add(status);
         await _context.SaveChangesAsync();
-        return status;
+        return new StatusViewModel(status);
     }
     
-    public async Task<Status>? UpdateStatus(int id, Status status)
+    public async Task<StatusViewModel>? UpdateStatus(int id, Status status)
     {
         var statusToUpdate = await _context.Statuses.FindAsync(id);
         if (statusToUpdate is null)
@@ -49,10 +50,10 @@ public class StatusService : IStatusService
         _context.Statuses.Update(statusToUpdate);
         await _context.SaveChangesAsync();
 
-        return statusToUpdate;
+        return new StatusViewModel(statusToUpdate);
     }
 
-    public async Task<Status>? DeleteStatus(int id)
+    public async Task<StatusViewModel>? DeleteStatus(int id)
     {
         var status = await _context.Statuses.FindAsync(id);
         if (status is null)
@@ -61,7 +62,7 @@ public class StatusService : IStatusService
         _context.Statuses.Remove(status);
         await _context.SaveChangesAsync();
 
-        return status;
+        return new StatusViewModel(status);
     }
 
     
