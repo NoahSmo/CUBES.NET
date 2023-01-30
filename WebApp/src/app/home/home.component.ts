@@ -1,6 +1,4 @@
-import {Component} from '@angular/core';
-import {Article} from "../models/article";
-import {WineService} from "../services/wine.service";
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -9,16 +7,7 @@ import {WineService} from "../services/wine.service";
 })
 export class HomeComponent {
 
-  articles: Article[] = [];
+  constructor() {}
 
-  constructor(
-    private wineService: WineService
-  ) {
-  }
-
-  ngOnInit(): void {
-    this.wineService.getArticles().subscribe((wine: Article[]) => {
-      this.articles = wine;
-    });
-  }
+  ngOnInit(): void{}
 }

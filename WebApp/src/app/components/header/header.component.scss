@@ -1,91 +1,13 @@
-.header {
+.header-negosud{
   width: 100%;
-  height: 8vh;
+  height: 10vh;
   display: flex;
-  align-items: center;
-  font-family: 'Quicksand', sans-serif;
   flex-direction: row;
-  -webkit-justify-content: space-around;
-  user-select: none;
 }
 
-.title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  cursor: default;
-  padding: .2em;
-  color: #58355E;
-}
-
-.title:hover {
-  cursor: pointer;
-}
-
-.div-users {
+.login{
   display: flex;
-  justify-content: right;
-  align-items: center;
   flex-direction: row;
-  width: 55%;
-}
-
-.div-login {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: row;
-  height: 100%;
-  border: 1px solid #aaa;
-  border-radius: 5px;
-  padding: 0.5em;
-  margin: 0.3em;
-  -webkit-transition: .2s;
-  color: #58355E;
 }
 
-.div-login:hover {
-  cursor: pointer;
-  background-color: #58355E;
-  color: #fff;
-}
-
-.div-login:active {
-  background-color: #444;
-  transition: .2s;
-}
-
-.login {
-  font-size: 1em;
-  margin-left: 0.3vw;
-}
-
-.div-cart {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  height: 100%;
-  border: 1px solid #aaa;
-  border-radius: 5px;
-  padding: 0.5em;
-  margin: 0.3em;
-  cursor: pointer;
-  -webkit-transition: .2s;
-  color: #ffffff;
-  background-color: #58355E;
-}
-
-.div-cart:active{
-  background-color: #aaa;
-  transition: .2s;
-}
-
-.cart {
-  font-size: 1em;
-  margin-left: 0.3vw;
-}
-
-.div-cart:hover{
-  cursor: pointer;
-  background-color: white;
-  color: #58355E;
-}

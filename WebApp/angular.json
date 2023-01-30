@@ -100,11 +100,8 @@
         }
       }
     }
-<<<<<<< HEAD
   },
   "cli": {
     "analytics": false
-=======
->>>>>>> e639adf (Suppression de l'ancien WebApp)
   }
 }
