@@ -19,7 +19,6 @@ namespace Api.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Domain> Domains { get; set; }
-        public DbSet<DomainAddress> DomainAddresses { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<ProviderOrder> ProviderOrders { get; set; }
@@ -70,10 +69,6 @@ namespace Api.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
-            modelBuilder.Entity<User>()
-                .HasIndex(u => u.Username)
-                .IsUnique();
             
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)

@@ -46,7 +46,6 @@ builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<IDomainService, DomainService>();
-builder.Services.AddScoped<IDomainAddressService, DomainAddressService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IProviderService, ProviderService>();
@@ -76,6 +75,20 @@ void SeedData(WebApplication app)
     {
         var seeder = scope.ServiceProvider.GetService<DataSeeder>();
         seeder.Seed();
+    }
+}
+
+if (args.Length == 1 && args[0].ToLower() == "dropdata")
+    DropDataBase(app);
+
+void DropDataBase(WebApplication app)
+{
+    var scopedFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
+    
+    using (var scope = scopedFactory.CreateScope())
+    {
+        var seeder = scope.ServiceProvider.GetService<DataSeeder>();
+        seeder.Drop();
     }
 }
 

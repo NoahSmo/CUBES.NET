@@ -1,4 +1,5 @@
 ﻿using Api.Models;
+using Api.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,13 +17,13 @@ namespace Api.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<List<Status>>> GetStatus()
+        public async Task<ActionResult<List<StatusViewModel>>> GetStatus()
         {
             return await _statusService.GetStatuses();
         }
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<Status>> GetStatus(int id)
+        public async Task<ActionResult<StatusViewModel>> GetStatus(int id)
         {
             var result = await _statusService.GetId(id);
             return result == null ? NotFound("Status not found") : Ok(result);
@@ -30,7 +31,7 @@ namespace Api.Controllers
         
         [HttpPost]
         [Authorize (Roles = "Admin")]
-        public async Task<ActionResult<Status>> CreateStatus(Status status)
+        public async Task<ActionResult<StatusViewModel>> CreateStatus(Status status)
         {
             var result = await _statusService.CreateStatus(status);
             return result == null ? Unauthorized("Status already exist") : Ok(result);
@@ -38,7 +39,7 @@ namespace Api.Controllers
         
         [HttpPut("{id}")]
         [Authorize (Roles = "Admin")]
-        public async Task<ActionResult<Status>> UpdateStatus(int id, Status status)
+        public async Task<ActionResult<StatusViewModel>> UpdateStatus(int id, Status status)
         {
             var result = await _statusService.UpdateStatus(id, status);
             return result == null ? NotFound("Status not found") : Ok(result);
@@ -46,7 +47,7 @@ namespace Api.Controllers
         
         [HttpDelete("{id}")]
         [Authorize (Roles = "Admin")]
-        public async Task<ActionResult<Status>> DeleteStatus(int id)
+        public async Task<ActionResult<StatusViewModel>> DeleteStatus(int id)
         {
             var result = await _statusService.DeleteStatus(id);
             return result == null ? NotFound("Status not found") : Ok(result);

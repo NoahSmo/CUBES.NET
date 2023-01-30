@@ -9,10 +9,13 @@ namespace Api.ViewModels
         public string Name { get; set; }
         public string Description { get; set; }
         
+        public virtual List<Article>? Articles { get; set; }
+        
         public CategoryViewModel(Category category)
         {
             Name = category.Name;
             Description = category.Description;
+            Articles = category.Articles;
         }
     }
 }

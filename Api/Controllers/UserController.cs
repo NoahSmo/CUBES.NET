@@ -35,14 +35,6 @@ namespace Api.Controllers
             return result == null ? NotFound("User not found") : Ok(result);
         }
         
-        [HttpGet("username/{username}")]
-        [Authorize (Roles = "Admin, User")]
-        public async Task<ActionResult<UserViewModel>> GetUserByUsername(string username)
-        {
-            var result = await _userService.GetByUsername(username);
-            return result == null ? NotFound("User not found") : Ok(result);
-        }
-        
         [HttpGet("email/{email}")]
         [Authorize (Roles = "Admin, User")]
         public async Task<ActionResult<UserViewModel>> GetUserByMail(string email)

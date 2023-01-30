@@ -21,6 +21,7 @@ namespace Api.Models
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
         
+        
         public virtual List<ArticleOrder>? ArticleOrders { get; set; }
         public virtual List<Provider>? Providers { get; set; }
         public virtual List<Image>? Images { get; set; }
