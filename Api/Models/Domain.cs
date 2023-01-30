@@ -1,3 +1,5 @@
+using Api.ViewModels;
+
 namespace Api.Models;
 
 public class Domain : Auditable
@@ -7,5 +9,5 @@ public class Domain : Auditable
    public string Name { get; set; }
    public string Description { get; set; }
    
-   public virtual List<DomainAddress>? DomainAddresses { get; set; }
+   public virtual List<AddressViewModel>? Addresses { get; set; }
 }

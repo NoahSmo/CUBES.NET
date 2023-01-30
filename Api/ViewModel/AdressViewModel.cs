@@ -1,5 +1,3 @@
-using System;
-using System.ComponentModel.DataAnnotations;
 using Api.Models;
 
 namespace Api.ViewModels
@@ -11,14 +9,29 @@ namespace Api.ViewModels
         public string Country { get; set; }
         public int? ZipCode { get; set; }
         public User User { get; set; }
+        public Domain Domain { get; set; }
 
         public AddressViewModel(Address address)
         {
-            Street = address.Street;
-            City = address.City;
-            Country = address.Country;
-            ZipCode = address.ZipCode;
-            User = address.User;
+            if (address.UserId != null)
+            {
+                Street = address.Street;
+                City = address.City;
+                Country = address.Country;
+                ZipCode = address.ZipCode;
+                User = address.User;
+            }
+
+            else
+            {
+                Street = address.Street;
+                City = address.City;
+                Country = address.Country;
+                ZipCode = address.ZipCode;
+                Domain = address.Domain;
+            }
+            
+            
         }
     }
 }
