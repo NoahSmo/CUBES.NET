@@ -48,7 +48,7 @@ public class ProviderOrderService : IProviderOrderService
         providerOrdersToUpdate.ProviderId = providerOrders.ProviderId;
         providerOrdersToUpdate.Provider = await _context.Providers.FindAsync(providerOrders.ProviderId);
         providerOrdersToUpdate.StatusId = providerOrders.StatusId;
-        providerOrdersToUpdate.Status = await _context.Status.FindAsync(providerOrders.StatusId);
+        providerOrdersToUpdate.Status = await _context.Statuses.FindAsync(providerOrders.StatusId);
         
         _context.ProviderOrders.Update(providerOrdersToUpdate);
         await _context.SaveChangesAsync();

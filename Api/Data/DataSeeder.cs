@@ -20,7 +20,7 @@ namespace Api.Data;
             _context.Articles.RemoveRange(_context.Articles);
             _context.Categories.RemoveRange(_context.Categories);
             _context.Providers.RemoveRange(_context.Providers);
-            _context.Status.RemoveRange(_context.Status);
+            _context.Statuses.RemoveRange(_context.Statuses);
             _context.Domains.RemoveRange(_context.Domains);
             _context.Addresses.RemoveRange(_context.Addresses);
             _context.Users.RemoveRange(_context.Users);
@@ -87,21 +87,21 @@ namespace Api.Data;
                 _context.SaveChanges();
             }
             
-            if (!_context.Status.Any())
+            if (!_context.Statuses.Any())
             {
-                _context.Status.Add(new Status
+                _context.Statuses.Add(new Status
                 {
                     Id = 1,
                     Message = "Pending"
                 });
                 
-                _context.Status.Add(new Status
+                _context.Statuses.Add(new Status
                 {
                     Id = 2,
                     Message = "In progress"
                 });
                 
-                _context.Status.Add(new Status
+                _context.Statuses.Add(new Status
                 {
                     Id = 3,
                     Message = "Completed"
