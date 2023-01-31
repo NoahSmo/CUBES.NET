@@ -32,7 +32,6 @@ namespace Api.Controllers
         }
         
         [HttpPost]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Category>> CreateCategory(Category category)
         {
             var result = await _categoryService.CreateCategory(category);
@@ -40,7 +39,6 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Category>> UpdateCategory(int id, Category category)
         {
             var result = await _categoryService.UpdateCategory(id, category);
@@ -48,7 +46,6 @@ namespace Api.Controllers
         }
         
         [HttpDelete("{id}")]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Category>> DeleteCategory(int id)
         {
             var result = await _categoryService.DeleteCategory(id);

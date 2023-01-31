@@ -47,7 +47,6 @@ namespace Api.Controllers
         
         
         [HttpPost]
-        [Authorize (Roles = "User , Admin")]
         public async Task<ActionResult<Comment>> CreateComment(Comment comment)
         {
             var result = await _commentService.CreateComment(comment);
@@ -55,7 +54,6 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
-        [Authorize (Roles = "User , Admin")]
         public async Task<ActionResult<Comment>> UpdateComment(int id, Comment comment)
         {
              
@@ -64,7 +62,6 @@ namespace Api.Controllers
         }
         
         [HttpDelete("{id}")]
-        [Authorize (Roles = "User , Admin")]
         public async Task<ActionResult<Comment>> DeleteComment(int id)
         {
             var result = await _commentService.DeleteComment(id);

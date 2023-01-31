@@ -20,14 +20,12 @@ namespace Api.Controllers
         }
         
         [HttpGet]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<List<UserDetailsViewModel>>> GetUsers()
         {
             return await _userService.GetUsers();
         }
         
         [HttpGet("{id}")]
-        [Authorize (Roles = "Admin, User")]
         public async Task<ActionResult<UserViewModel>> GetUser(int id)
         {
             var result = await _userService.GetId(id);
@@ -35,7 +33,6 @@ namespace Api.Controllers
         }
         
         [HttpGet("email/{email}")]
-        [Authorize (Roles = "Admin, User")]
         public async Task<ActionResult<UserViewModel>> GetUserByMail(string email)
         {
             var result = await _userService.GetByEmail(email);
@@ -50,7 +47,6 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<User>> UpdateUser(int id, User user)
         {
             var result = await _userService.UpdateUser(id, user);
@@ -58,7 +54,6 @@ namespace Api.Controllers
         }
         
         [HttpDelete("{id}")]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<User>> DeleteUser(int id)
         {
             var result = await _userService.DeleteUser(id);

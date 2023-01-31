@@ -19,14 +19,12 @@ namespace Api.Controllers
         }
         
         [HttpGet]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<List<AddressViewModel>>> GetAddresses()
         {
             return await _addressService.GetAddresses();
         }
         
         [HttpGet("{id}")]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<AddressViewModel>> GetAddress(int id)
         {
             var result = await _addressService.GetId(id);
@@ -34,7 +32,6 @@ namespace Api.Controllers
         }
         
         [HttpPost]
-        [Authorize (Roles = "User, Provider, Admin")]
         public async Task<ActionResult<AddressViewModel>> CreateAddress(Address address)
         {
             var result = await _addressService.CreateAddress(address);
@@ -42,7 +39,6 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
-        [Authorize]
         public async Task<ActionResult<AddressViewModel>> UpdateAddress(int id, Address address)
         {
             if (User.IsInRole("User"))
@@ -64,7 +60,6 @@ namespace Api.Controllers
         }
         
         [HttpDelete("{id}")]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<AddressViewModel>> DeleteAddress(int id)
         {
             var result = await _addressService.DeleteAddress(id);

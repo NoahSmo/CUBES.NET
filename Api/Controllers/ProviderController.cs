@@ -30,7 +30,6 @@ namespace Api.Controllers
         }
         
         [HttpPost]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Provider>> CreateProvider(Provider provider)
         {
             var result = await _providerService.CreateProvider(provider);
@@ -38,7 +37,6 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Provider>> UpdateProvider(int id, Provider provider)
         {
             var result = await _providerService.UpdateProvider(id, provider);
@@ -46,7 +44,6 @@ namespace Api.Controllers
         }
         
         [HttpDelete("{id}")]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Provider>> DeleteProvider(int id)
         {
             var result = await _providerService.DeleteProvider(id);
