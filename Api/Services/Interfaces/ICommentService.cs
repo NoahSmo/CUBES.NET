@@ -1,7 +1,7 @@
 using Api.Models;
 using Api.ViewModels;
 
-namespace Api;
+namespace Api.Services;
 
 public interface ICommentService
 {

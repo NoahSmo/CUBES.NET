@@ -3,7 +3,7 @@ using Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api;
+namespace Api.Services;
 
 public class ArticleService : IArticleService
 {

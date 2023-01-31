@@ -2,7 +2,7 @@ using Api.Models;
 using Api.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api;
+namespace Api.Services;
 
 public interface IImageService
 {
