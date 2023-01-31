@@ -52,8 +52,6 @@ public class UserService : IUserService
         user.Email = user.Email.ToLower();
         user.Password = hash;
         
-        user.Role = await _context.Roles.FirstOrDefaultAsync(x => x.Id == user.RoleId);
-        
         _context.Users.Add(user);
 
         try
