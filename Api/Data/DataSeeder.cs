@@ -30,63 +30,64 @@ namespace Api.Data;
             _context.Statuses.RemoveRange(_context.Statuses);
             _context.Domains.RemoveRange(_context.Domains);
             _context.Addresses.RemoveRange(_context.Addresses);
-            _context.Permissions.RemoveRange(_context.Permissions);
             _context.Users.RemoveRange(_context.Users);
             _context.Roles.RemoveRange(_context.Roles);
+            _context.Permissions.RemoveRange(_context.Permissions);
             
 
             _context.SaveChanges();
+
+            if (!_context.Permissions.Any())
+            {
+                _context.Permissions.Add(new Permission
+                {
+                    Id = 1,
+                    Name = "Create",
+                    Description = "Create"
+                });
+              
+                _context.Permissions.Add(new Permission
+                {
+                    Id = 2,
+                    Name = "Read",
+                    Description = "Read"
+                });
+                
+                _context.Permissions.Add(new Permission
+                {
+                    Id = 3,
+                    Name = "Update",
+                    Description = "Update"
+                });
+                
+                _context.Permissions.Add(new Permission
+                {
+                    Id = 4,
+                    Name = "Delete",
+                    Description = "Delete"
+                });
+            }
             
             if (!_context.Roles.Any())
             {
                 _context.Roles.Add(new Role
                 {
                     Id = 1,
-                    Name = "Admin",
-                    Permissions = new List<Permission>
-                    {
-                        new Permission
-                        {
-                            Id = 1,
-                            Name = "Create",
-                            Description = "Create"
-                        },
-                        new Permission
-                        {
-                            Id = 2,
-                            Name = "Read",
-                            Description = "Read"
-                        },
-                        new Permission
-                        {
-                            Id = 3,
-                            Name = "Update",
-                            Description = "Update"
-                        },
-                        new Permission
-                        {
-                            Id = 4,
-                            Name = "Delete",
-                            Description = "Delete"
-                        }
-                    }
+                    Name = "Admin"
                 });
                 
                 _context.Roles.Add(new Role
                 {
                     Id = 2,
-                    Name = "User",
-                    Permissions = new List<Permission>
-                    {
-                        new Permission
-                        {
-                            Id = 2,
-                            Name = "Read",
-                            Description = "Read"
-                        }
-                    }
+                    Name = "Provider"
                 });
                 
+                _context.Roles.Add(new Role
+                {
+                    Id = 3,
+                    Name = "User"
+                });
+                    
                 _context.SaveChanges();
             }
             

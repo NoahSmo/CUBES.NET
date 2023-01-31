@@ -31,7 +31,6 @@ namespace Api.Controllers
         }
         
         [HttpPost]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<StatusViewModel>> CreateStatus(Status status)
         {
             var result = await _statusService.CreateStatus(status);
@@ -39,7 +38,6 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<StatusViewModel>> UpdateStatus(int id, Status status)
         {
             var result = await _statusService.UpdateStatus(id, status);
@@ -47,7 +45,6 @@ namespace Api.Controllers
         }
         
         [HttpDelete("{id}")]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<StatusViewModel>> DeleteStatus(int id)
         {
             var result = await _statusService.DeleteStatus(id);
