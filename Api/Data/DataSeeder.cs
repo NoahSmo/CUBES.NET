@@ -30,12 +30,65 @@ namespace Api.Data;
             _context.Statuses.RemoveRange(_context.Statuses);
             _context.Domains.RemoveRange(_context.Domains);
             _context.Addresses.RemoveRange(_context.Addresses);
+            _context.Permissions.RemoveRange(_context.Permissions);
             _context.Users.RemoveRange(_context.Users);
+            _context.Roles.RemoveRange(_context.Roles);
             
 
             _context.SaveChanges();
             
-            
+            if (!_context.Roles.Any())
+            {
+                _context.Roles.Add(new Role
+                {
+                    Id = 1,
+                    Name = "Admin",
+                    Permissions = new List<Permission>
+                    {
+                        new Permission
+                        {
+                            Id = 1,
+                            Name = "Create",
+                            Description = "Create"
+                        },
+                        new Permission
+                        {
+                            Id = 2,
+                            Name = "Read",
+                            Description = "Read"
+                        },
+                        new Permission
+                        {
+                            Id = 3,
+                            Name = "Update",
+                            Description = "Update"
+                        },
+                        new Permission
+                        {
+                            Id = 4,
+                            Name = "Delete",
+                            Description = "Delete"
+                        }
+                    }
+                });
+                
+                _context.Roles.Add(new Role
+                {
+                    Id = 2,
+                    Name = "User",
+                    Permissions = new List<Permission>
+                    {
+                        new Permission
+                        {
+                            Id = 2,
+                            Name = "Read",
+                            Description = "Read"
+                        }
+                    }
+                });
+                
+                _context.SaveChanges();
+            }
             
             if (!_context.Users.Any())
             {
@@ -50,8 +103,21 @@ namespace Api.Data;
                     Surname = "Doe",
                     Email = "john.doe@gmail.com",
                     Phone = 0631409799,
-                    Role = Role.Admin,
                     Password = hash,
+                    RoleId = 1,
+                    Role = _context.Roles.FirstOrDefault(x => x.Id == 1)
+                });
+                
+                _context.SaveChanges();
+            }
+            
+            if (!_context.Domains.Any())
+            {
+                _context.Domains.Add(new Domain
+                {
+                    Id = 1,
+                    Name = "John",
+                    Description = "John Doe"
                 });
                 
                 _context.SaveChanges();
@@ -66,7 +132,8 @@ namespace Api.Data;
                     City =  "Novi Sad",
                     Country = "Srbija",
                     ZipCode = 27000,
-                    UserId = 1
+                    UserId = 1,
+                    User = _context.Users.FirstOrDefault(x => x.Id == 1)
                 });
                 
                 _context.Addresses.Add(new Address()
@@ -75,19 +142,9 @@ namespace Api.Data;
                     Street = "Sdqsdazqsdqsqwxc",    
                     City =  "Novi Sad",
                     Country = "Srbija",
-                    ZipCode = 21000
-                });
-                
-                _context.SaveChanges();
-            }
-            
-            if (!_context.Domains.Any())
-            {
-                _context.Domains.Add(new Domain
-                {
-                    Id = 1,
-                    Name = "John",
-                    Description = "John Doe"
+                    ZipCode = 21000,
+                    DomainId = 1,
+                    Domain = _context.Domains.FirstOrDefault(x => x.Id == 1)
                 });
                 
                 _context.SaveChanges();
