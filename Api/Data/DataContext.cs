@@ -21,8 +21,10 @@ namespace Api.Data
         public DbSet<Domain> Domains { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
         public DbSet<ProviderOrder> ProviderOrders { get; set; }
         public DbSet<Provider> Providers { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Status> Statuses { get; set; }
         

@@ -2,7 +2,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using Api;
 using Api.Data;
-using Api.Models;
+using Api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -92,6 +92,10 @@ void DropDataBase(WebApplication app)
     }
 }
 
+
+
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -100,8 +104,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+    
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 

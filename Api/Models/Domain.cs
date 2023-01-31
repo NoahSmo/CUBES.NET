@@ -9,5 +9,5 @@ public class Domain : Auditable
    public string Name { get; set; }
    public string Description { get; set; }
    
-   public virtual List<AddressViewModel>? Addresses { get; set; }
+   public virtual List<Address>? Addresses { get; set; }
 }

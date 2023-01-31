@@ -27,7 +27,8 @@ namespace Api.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Email, userAuth.Email),
-                    new Claim(ClaimTypes.Role, userAuth.Role.ToString())
+                    new Claim(ClaimTypes.Role, userAuth.Role.Name),
+                    new Claim(ClaimTypes.Name, userAuth.Id.ToString())
                 };
                var token =  _jwtAuthService.GenerateToken(_configuration["Jwt:Key"],claims);
                return Ok(new JsonResult(token));
@@ -43,7 +44,7 @@ namespace Api.Controllers
             if (userAuth != null)
             { 
                 var userDetails = new UserDetailsViewModel(userAuth);
-                return userAuth.Role == Role.Admin ? Ok(new JsonResult(userDetails)) : Ok(new JsonResult(userDetails));
+                return userAuth.Role == null ? Unauthorized("Invalid credentials") : Ok(userDetails);
             }
             return Unauthorized("Invalid credentials");
         }

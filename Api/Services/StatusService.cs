@@ -4,7 +4,7 @@ using Api.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api;
+namespace Api.Services;
 
 public class StatusService : IStatusService
 {

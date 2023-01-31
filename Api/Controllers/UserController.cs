@@ -1,8 +1,7 @@
-﻿using System;
-using Api.Models;
+﻿using Api.Models;
+using Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using Api.ViewModels;
 
 

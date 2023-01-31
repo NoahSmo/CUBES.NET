@@ -1,10 +1,9 @@
 using Api.Data;
 using Api.Models;
 using Api.ViewModels;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api;
+namespace Api.Services;
 
 public class UserService : IUserService
 {
@@ -78,7 +77,8 @@ public class UserService : IUserService
         user.Email = request.Email.ToLower();
         user.Phone = request.Phone;
         user.Password = request.Password;
-        user.Role = request.Role;
+        user.RoleId = request.RoleId;
+        user.Role = await _context.Roles.FirstOrDefaultAsync(x => x.Id == request.RoleId);
 
         var password = request.Password;
         var salt = BCrypt.Net.BCrypt.GenerateSalt();

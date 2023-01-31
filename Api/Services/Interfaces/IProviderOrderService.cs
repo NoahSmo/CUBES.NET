@@ -1,7 +1,7 @@
 using Api.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api;
+namespace Api.Services;
 
 public interface IProviderOrderService
 {
