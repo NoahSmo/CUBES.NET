@@ -44,6 +44,9 @@ namespace Api.Migrations
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int?>("DomainId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Street")
                         .IsRequired()
                         .HasColumnType("text");
@@ -58,6 +61,8 @@ namespace Api.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DomainId");
 
                     b.HasIndex("UserId");
 
@@ -247,48 +252,6 @@ namespace Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Domains");
-                });
-
-            modelBuilder.Entity("Api.Models.DomainAddress", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int?>("DomainId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("ZipCode")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DomainId");
-
-                    b.ToTable("DomainAddresses");
                 });
 
             modelBuilder.Entity("Api.Models.Image", b =>
@@ -513,9 +476,15 @@ namespace Api.Migrations
 
             modelBuilder.Entity("Api.Models.Address", b =>
                 {
+                    b.HasOne("Api.Models.Domain", "Domain")
+                        .WithMany("Addresses")
+                        .HasForeignKey("DomainId");
+
                     b.HasOne("Api.Models.User", "User")
                         .WithMany("Addresses")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Domain");
 
                     b.Navigation("User");
                 });
@@ -577,15 +546,6 @@ namespace Api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Api.Models.DomainAddress", b =>
-                {
-                    b.HasOne("Api.Models.Domain", "Domain")
-                        .WithMany("DomainAddresses")
-                        .HasForeignKey("DomainId");
-
-                    b.Navigation("Domain");
-                });
-
             modelBuilder.Entity("Api.Models.Image", b =>
                 {
                     b.HasOne("Api.Models.Article", "Article")
@@ -604,7 +564,7 @@ namespace Api.Migrations
                         .IsRequired();
 
                     b.HasOne("Api.Models.Status", "Status")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -666,7 +626,7 @@ namespace Api.Migrations
 
             modelBuilder.Entity("Api.Models.Domain", b =>
                 {
-                    b.Navigation("DomainAddresses");
+                    b.Navigation("Addresses");
                 });
 
             modelBuilder.Entity("Api.Models.Order", b =>
@@ -677,6 +637,11 @@ namespace Api.Migrations
             modelBuilder.Entity("Api.Models.ProviderOrder", b =>
                 {
                     b.Navigation("ArticleOrders");
+                });
+
+            modelBuilder.Entity("Api.Models.Status", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("Api.Models.User", b =>
