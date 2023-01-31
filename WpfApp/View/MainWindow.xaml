@@ -7,25 +7,7 @@
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Background="#151319">
-        <Border CornerRadius="10" Height="300" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#232429">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Log into your account" Foreground="White"></TextBlock>
-                <TextBlock Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="Email or username" Foreground="White"></TextBlock>
-                <TextBox Text="{Binding CurrentUser.Email,UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.IsFloating="False" VerticalAlignment="Top" materialDesign:HintAssist.Hint="Enter your e-mail" Style="{StaticResource MaterialDesignOutlinedTextBox}" Grid.Row="2" HorizontalAlignment="Center"  Foreground="White"></TextBox>
-                <TextBlock Grid.Row="3" VerticalAlignment="Bottom"  HorizontalAlignment="Center" Text="Password" Foreground="White"></TextBlock>
-                <PasswordBox materialDesign:HintAssist.IsFloating="False" Grid.Row="4" VerticalAlignment="Top" Style="{StaticResource MaterialDesignOutlinedPasswordBox}"  HorizontalAlignment="Center" materialDesign:HintAssist.Hint="Enter your password" Foreground="White"/>
-                <Button VerticalAlignment="Top" Grid.Row="6" Content="Login now" Margin="0,15,0,0" Click="Button_Click"/>
-            </Grid>
-        </Border>
+    <Grid Background="Pink">
+
     </Grid>
 </Window>

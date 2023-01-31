@@ -16,8 +16,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Api.Models;
 using Newtonsoft.Json;
-using WpfApp.Models;
+using Newtonsoft.Json.Linq;
 
 namespace WpfApp
 {
@@ -28,12 +29,15 @@ namespace WpfApp
     {
         private HttpClient client = new HttpClient();
         private User CurrentUser = new User();
-        
+        private string _accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG4uZG9lQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsIm5iZiI6MTY3NTA2NjY3MiwiZXhwIjoxNjc1MDY3MjcyLCJpYXQiOjE2NzUwNjY2NzIsImlzcyI6Ik5FR09TVUQiLCJhdWQiOiJVU0VSUyBBTkQgQURNSU5TIn0.OoAkdVxi4QlaUSLY2uyDmID4E29ZeXxQ_ELABlfI9jE";
+
+
         public MainWindow()
         {
             client.BaseAddress = new Uri("https://localhost:44301/api/");
             client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new  MediaTypeWithQualityHeaderValue("application/json"));            
+            client.DefaultRequestHeaders.Accept.Add(new  MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + _accessToken);
             InitializeComponent();
 
             GetUsers();
@@ -42,14 +46,8 @@ namespace WpfApp
 
         private async void GetUsers()
         {
-            var content = await client.GetStringAsync("User");
-            var users = JsonConvert.DeserializeObject<List<User>>(content);
-            var test = 2;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var test = 2;
+            //var content = await client.GetStringAsync("User");
+            //var users = JsonConvert.DeserializeObject<List<User>>(content);
         }
     }
 }

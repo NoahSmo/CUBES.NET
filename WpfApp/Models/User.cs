@@ -1,38 +1,78 @@
-﻿namespace WpfApp.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Windows.Controls;
+using System.Drawing;
+using System.Runtime.CompilerServices;
+using WpfApp.ViewModel;
 
-public class User
+namespace Api.Models
 {
-    public class UserLogin
+    public class UserLogin : ViewModelBase
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
+
+        private string _email;
+        public string Email
+        {
+            get
+            {
+                return this._email;
+            }
+            set
+            {
+                SetProperty(ref this._email, value);
+            }
+        }
+        private string _password;
+        public string Password
+        {
+            get
+            {
+                return this._password;
+            }
+            set
+            {
+                SetProperty(ref this._password, value);
+            }
+        }
     }
 
 
 
-    public class User : INotifyPropertyChanged
+    public class User : ViewModelBase
     {
-    public int Id { get; set; }
-        
-    public string Username { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public string Surname { get; set; } = string.Empty;
-    public string Email { get; set; }
-    public int? Phone { get; set; }
-        
-    public string Address { get; set; } = string.Empty;
-    public string City { get; set; } = string.Empty;
-    public string Country { get; set; } = string.Empty;
-    public string PostCode { get; set; } = string.Empty;
-        
-    public bool IsAdmin { get; set; }
-        
-    public string Password { get; set; }
+        public int Id { get; set; }
 
-    public string HashPassword()
-    {
-        string salt = "a849qsd4165x146wxc436s1dqs32d4azq98d74q6d1azsdqs6d5qs4dq5s1d3qs6d47q5sd6wx1cwxc";
-            
-        return BCrypt.Net.BCrypt.HashPassword(Password + salt);            
+        private string _userName;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public string Username
+        {
+            get
+            {
+                return this._userName;
+            }
+            set 
+            {
+                SetProperty(ref this._userName , value);
+            }
+        }
+        public string Name { get; set; } = string.Empty;
+        public string Surname { get; set; } = string.Empty;
+        public string Email { get; set; }
+        public string Phone { get; set; } = string.Empty;
+
+        public string Address { get; set; } = string.Empty;
+        public string City { get; set; } = string.Empty;
+        public string Country { get; set; } = string.Empty;
+        public string PostCode { get; set; } = string.Empty;
+
+        public bool IsAdmin { get; set; }
+
+        public string Password { get; set; }
+
+        public virtual List<Order>? Orders { get; set; }
     }
 }
