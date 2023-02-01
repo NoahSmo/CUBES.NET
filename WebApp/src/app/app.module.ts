@@ -8,6 +8,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './home/home.component';
 import {ButtonModule} from 'primeng/button';
 import { FooterComponent } from './components/footer/footer.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { FooterComponent } from './components/footer/footer.component';
     HeaderComponent,
     HomeComponent,
     FooterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
