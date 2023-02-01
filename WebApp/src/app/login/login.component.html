@@ -1,45 +1,31 @@
 <div class="back">
+
   <div class="container">
     <div class="div-title">
       <p class="title">Connectez-vous</p>
     </div>
-    <form [formGroup]="userFormGroup" (ngSubmit)="login()">
+    <form action="" class="form">
       <div>
-        <label>Email</label>
-        <input type="email" formControlName="email">
+        <p>Email</p>
+        <input type="text" name="email" id="email">
       </div>
-      <div>
-        <label>Password</label>
-        <input type="password" formControlName="password">
+      <div class="div-password">
+        <p>Mot de passe</p>
+        <input type="password" name="password" id="password">
       </div>
-      <button type="submit">login</button>
+      <div class="rememberAndLost">
+        <div class="remember">
+          <input type="checkbox" name="remember" id="remember">
+          <label for="remember">Se souvenir de moi</label>
+        </div>
+        <a href="">Mot de passe oublié?</a>
+      </div>
+      <button type="submit">Se connecter</button>
     </form>
-
-
-    <!--    <form action="" (ngSubmit)="handleLogin()" class="form">-->
-    <!--      <div>-->
-    <!--        <label class="form-label">Email</label>-->
-    <!--        <input type="text" name="email" id="email" class="form-input">-->
-    <!--      </div>-->
-    <!--      <div class="div-password">-->
-    <!--        <label class="form-label">Mot de passe</label>-->
-    <!--        <div class="password">-->
-    <!--          <input [type]="show ? 'text' : 'password'" name="password" id="password" class="form-input">-->
-    <!--          <button type="button"  class="pi {{show ? 'pi-eye-slash' : 'pi-eye'}} class"></button>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--      <div class="rememberAndLost">-->
-    <!--        <div class="remember">-->
-    <!--          <input type="checkbox" name="remember" id="remember">-->
-    <!--          <label for="remember">Se souvenir de moi</label>-->
-    <!--        </div>-->
-    <!--        <a href="">Mot de passe oublié?</a>-->
-    <!--      </div>-->
-    <!--      <button type="submit" class="valid">Se connecter</button>-->
-    <!--    </form>-->
     <div class="dontHaveAccount">
-      <label>Vous n'avez pas de compte?</label>
-      <a [routerLink]="['/register']">Créer un compte</a>
+      <p>Vous n'avez pas de compte?</p>
+      <a href="">Créer un compte</a>
     </div>
   </div>
+
 </div>
