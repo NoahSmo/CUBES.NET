@@ -50,6 +50,7 @@ builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IProviderService, ProviderService>();
 builder.Services.AddScoped<IProviderOrderService, ProviderOrderService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IStatusService, StatusService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
@@ -104,9 +105,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-    
-app.UseAuthorization();
+
 app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.MapControllers();
 

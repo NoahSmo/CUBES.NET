@@ -42,6 +42,7 @@ public class ArticleService : IArticleService
     {
         article.Domain = await _context.Domains.FirstOrDefaultAsync(d => d.Id == article.DomainId);
         article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
+        article.Provider = await _context.Providers.FirstOrDefaultAsync(p => p.Id == article.ProviderId);
         _context.Articles.Add(article);
         await _context.SaveChangesAsync();
         
@@ -62,6 +63,8 @@ public class ArticleService : IArticleService
         article.Domain = await _context.Domains.FirstOrDefaultAsync(d => d.Id == article.DomainId);
         article.CategoryId = request.CategoryId;
         article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
+        article.ProviderId = request.ProviderId;
+        article.Provider = await _context.Providers.FirstOrDefaultAsync(p => p.Id == article.ProviderId);
         article.Stock = request.Stock;
         
         _context.Articles.Update(article);

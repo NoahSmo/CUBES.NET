@@ -19,12 +19,14 @@ namespace Api.Controllers
         }
         
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<List<Category>>> GetCategories()
         {
             return await _categoryService.GetCategories();
         }
         
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Category>> GetCategory(int id)
         {
             var result = await _categoryService.GetId(id);
@@ -32,6 +34,7 @@ namespace Api.Controllers
         }
         
         [HttpPost]
+        [Authorize(Roles = "Admin, Provider")]
         public async Task<ActionResult<Category>> CreateCategory(Category category)
         {
             var result = await _categoryService.CreateCategory(category);
@@ -39,13 +42,15 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Category>> UpdateCategory(int id, Category category)
         {
             var result = await _categoryService.UpdateCategory(id, category);
             return result == null ? NotFound("Category not found") : Ok(result);
         }
         
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")]        
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Category>> DeleteCategory(int id)
         {
             var result = await _categoryService.DeleteCategory(id);

@@ -19,19 +19,29 @@ namespace Api.Controllers
         }
         
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<AddressViewModel>>> GetAddresses()
         {
             return await _addressService.GetAddresses();
         }
         
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<AddressViewModel>> GetAddress(int id)
         {
+            if (User.IsInRole("User"))
+            {
+                var address = await _addressService.GetId(id);
+                if (address == null) return NotFound("Address not found");
+                if (address.UserId != int.Parse(User.Identity?.Name)) return Unauthorized("You are not the owner of this address");
+            }
+            
             var result = await _addressService.GetId(id);
             return result == null ? NotFound("Address not found") : Ok(result);
         }
         
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<AddressViewModel>> CreateAddress(Address address)
         {
             var result = await _addressService.CreateAddress(address);
@@ -39,6 +49,7 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin, Provider, User")]
         public async Task<ActionResult<AddressViewModel>> UpdateAddress(int id, Address address)
         {
             if (User.IsInRole("User"))
@@ -47,12 +58,12 @@ namespace Api.Controllers
                 if (addressToUpdate == null) return NotFound("Address not found");
                 if (addressToUpdate.UserId != int.Parse(User.Identity?.Name)) return Unauthorized("You are not the owner of this address");
             }
-            
-            if (User.IsInRole("Admin"))
+
+            if (User.IsInRole("Provider"))
             {
                 var addressToUpdate = await _addressService.GetId(id);
                 if (addressToUpdate == null) return NotFound("Address not found");
-                if (addressToUpdate.UserId != int.Parse(User.Identity?.Name)) return Unauthorized("You are not the owner of this address");
+                if (addressToUpdate.DomainId != int.Parse(User.Identity?.Name)) return Unauthorized("You are not the owner of this address");
             }
             
             var result = await _addressService.UpdateAddress(id, address);
@@ -60,8 +71,23 @@ namespace Api.Controllers
         }
         
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin, Provider, User")]
         public async Task<ActionResult<AddressViewModel>> DeleteAddress(int id)
         {
+            if (User.IsInRole("User"))
+            {
+                var addressToDelete = await _addressService.GetId(id);
+                if (addressToDelete == null) return NotFound("Address not found");
+                if (addressToDelete.UserId != int.Parse(User.Identity?.Name)) return Unauthorized("You are not the owner of this address");
+            }
+
+            if (User.IsInRole("Provider"))
+            {
+                var addressToDelete = await _addressService.GetId(id);
+                if (addressToDelete == null) return NotFound("Address not found");
+                if (addressToDelete.DomainId != int.Parse(User.Identity?.Name)) return Unauthorized("You are not the owner of this address");
+            }
+
             var result = await _addressService.DeleteAddress(id);
             return result == null ? NotFound("Address not found") : Ok(result);
         }

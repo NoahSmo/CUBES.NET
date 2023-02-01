@@ -66,6 +66,8 @@ namespace Api.Data;
                     Name = "Delete",
                     Description = "Delete"
                 });
+
+                _context.SaveChanges();
             }
             
             if (!_context.Roles.Any())
@@ -73,19 +75,40 @@ namespace Api.Data;
                 _context.Roles.Add(new Role
                 {
                     Id = 1,
-                    Name = "Admin"
+                    Name = "Admin",
+                    Permissions = new List<Permission>
+                    {
+                        _context.Permissions.FirstOrDefault(x => x.Id == 1),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 2),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 3),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 4)
+                    }
                 });
                 
                 _context.Roles.Add(new Role
                 {
                     Id = 2,
-                    Name = "Provider"
+                    Name = "Provider",
+                    Permissions = new List<Permission>
+                    {
+                        _context.Permissions.FirstOrDefault(x => x.Id == 1),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 2),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 3),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 4)
+                    }
                 });
                 
                 _context.Roles.Add(new Role
                 {
                     Id = 3,
-                    Name = "User"
+                    Name = "User",
+                    Permissions = new List<Permission>
+                    {
+                        _context.Permissions.FirstOrDefault(x => x.Id == 1),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 2),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 3),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 4)
+                    }
                 });
                     
                 _context.SaveChanges();
@@ -107,6 +130,18 @@ namespace Api.Data;
                     Password = hash,
                     RoleId = 1,
                     Role = _context.Roles.FirstOrDefault(x => x.Id == 1)
+                });
+                
+                _context.Users.Add(new User
+                {
+                    Id = 2,
+                    Name = "Jane",
+                    Surname = "Doe",
+                    Email = "jane.doe@gmail.com",
+                    Phone = 0631409799,
+                    Password = hash,
+                    RoleId = 3,
+                    Role = _context.Roles.FirstOrDefault(x => x.Id == 3)
                 });
                 
                 _context.SaveChanges();
@@ -204,6 +239,8 @@ namespace Api.Data;
                     Email = "Uby.dom@gmail.com",
                     Phone = 0631409799,
                 });
+                
+                _context.SaveChanges();
             }
             
             if (!_context.Categories.Any())
@@ -246,7 +283,8 @@ namespace Api.Data;
                     Alcohol = 25.7,
                     Stock = 150,
                     DomainId = 1, 
-                    CategoryId = 1
+                    CategoryId = 1,
+                    ProviderId = 1,
                 });
                 
                 _context.Articles.Add(new Article
@@ -259,7 +297,8 @@ namespace Api.Data;
                     Alcohol = 19.1,
                     Stock = 150,
                     DomainId = 1, 
-                    CategoryId = 1
+                    CategoryId = 1,
+                    ProviderId = 1
                 });
             }
             
