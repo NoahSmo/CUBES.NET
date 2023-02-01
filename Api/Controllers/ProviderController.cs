@@ -17,14 +17,22 @@ namespace Api.Controllers
         }
         
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<Provider>>> GetProviders()
         {
             return await _providerService.GetProviders();
         }
         
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, Provider")]
         public async Task<ActionResult<Provider>> GetProvider(int id)
         {
+            if (User.IsInRole("Provider"))
+            {
+                var provider = await _providerService.GetId(id);
+                if (provider.Name != User.Identity?.Name) return Unauthorized("You are not the owner of this provider");
+            }
+            
             var result = await _providerService.GetId(id);
             return result == null ? NotFound("Provider not found") : Ok(result);
         }

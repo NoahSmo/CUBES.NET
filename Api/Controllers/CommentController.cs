@@ -39,6 +39,7 @@ namespace Api.Controllers
         }
         
         [HttpGet("user/{username}")]
+        [Authorize(Roles = "Admin, Provider, User")]
         public async Task<ActionResult<List<CommentViewModel>>> GetByUser(string username)
         {
             var result = await _commentService.GetByUser(username);
@@ -47,6 +48,7 @@ namespace Api.Controllers
         
         
         [HttpPost]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<Comment>> CreateComment(Comment comment)
         {
             var result = await _commentService.CreateComment(comment);
@@ -54,16 +56,31 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<Comment>> UpdateComment(int id, Comment comment)
         {
-             
+            if (User.IsInRole("User"))
+            {
+                var commentToUpdate = await _commentService.GetId(id);
+                if (commentToUpdate == null) return NotFound("Comment not found");
+                if (commentToUpdate.UserId != int.Parse(User.Identity?.Name)) return Unauthorized("You are not the owner of this comment");  
+            } 
+            
             var result = await _commentService.UpdateComment(id, comment);
             return result == null ? NotFound("Comment not found") : Ok(result);
         }
         
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<Comment>> DeleteComment(int id)
         {
+            if (User.IsInRole("User"))
+            {
+                var commentToDelete = await _commentService.GetId(id);
+                if (commentToDelete == null) return NotFound("Comment not found");
+                if (commentToDelete.UserId != int.Parse(User.Identity?.Name)) return Unauthorized("You are not the owner of this comment");  
+            }
+            
             var result = await _commentService.DeleteComment(id);
             return result == null ? NotFound("Comment not found") : Ok(result);
         }

@@ -32,6 +32,7 @@ namespace Api.Controllers
         }
         
         [HttpPost]
+        [Authorize(Roles = "Admin, Provider")]
         public async Task<ActionResult<Image>> CreateImage(Image image)
         {
             var result = await _imageService.CreateImage(image);
@@ -39,6 +40,7 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin, Provider")]
         public async Task<ActionResult<Image>> UpdateImage(int id, Image image)
         {
             var result = await _imageService.UpdateImage(id, image);
@@ -46,6 +48,7 @@ namespace Api.Controllers
         }
         
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin, Provider")]
         public async Task<ActionResult<Image>> DeleteImage(int id)
         {
             var result = await _imageService.DeleteImage(id);

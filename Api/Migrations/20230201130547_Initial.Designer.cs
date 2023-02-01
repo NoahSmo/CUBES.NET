@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230131131511_Initial")]
+    [Migration("20230201130547_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -106,6 +106,9 @@ namespace Api.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("double precision");
 
+                    b.Property<int>("ProviderId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Stock")
                         .HasColumnType("integer");
 
@@ -120,6 +123,8 @@ namespace Api.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("DomainId");
+
+                    b.HasIndex("ProviderId");
 
                     b.ToTable("Articles");
                 });
@@ -579,9 +584,17 @@ namespace Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Api.Models.Provider", "Provider")
+                        .WithMany()
+                        .HasForeignKey("ProviderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
 
                     b.Navigation("Domain");
+
+                    b.Navigation("Provider");
                 });
 
             modelBuilder.Entity("Api.Models.ArticleOrder", b =>
