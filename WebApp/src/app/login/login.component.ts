@@ -9,5 +9,11 @@ export class LoginComponent {
 
   constructor() {}
 
-  ngOnInit(): void{}
+  ngOnInit() {}
+
+  show: boolean = false;
+
+  password() {
+    this.show = !this.show;
+  }
 }
