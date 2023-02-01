@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import {ButtonModule} from 'primeng/button';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './login/login.component';
+import {MenuModule} from "primeng/menu";
 
 
 @NgModule({
@@ -20,11 +21,12 @@ import { LoginComponent } from './login/login.component';
     FooterComponent,
     LoginComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ButtonModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ButtonModule,
+        MenuModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
