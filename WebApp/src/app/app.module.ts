@@ -10,6 +10,7 @@ import {ButtonModule} from 'primeng/button';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import {MenuModule} from "primeng/menu";
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import {MenuModule} from "primeng/menu";
     HomeComponent,
     FooterComponent,
     LoginComponent,
+    RegisterComponent,
   ],
     imports: [
         BrowserModule,

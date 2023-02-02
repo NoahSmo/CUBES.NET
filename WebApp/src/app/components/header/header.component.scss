@@ -8,6 +8,7 @@
   font-family: 'Quicksand', sans-serif;
   flex-direction: row;
   -webkit-justify-content: space-around;
+  user-select: none;
 }
 
 .title {
@@ -17,7 +18,6 @@
   text-shadow: #aaa 1px 1px 1px;
   padding: .2em;
   border-radius: 10px;
-  user-select: none;
 }
 
 .title:active {
@@ -60,7 +60,6 @@
 .login {
   color: #58355E;
   font-size: 1.2em;
-  user-select: none;
 }
 
 .div-register {
@@ -87,7 +86,6 @@
 .register {
   color: #fff;
   font-size: 1.2em;
-  user-select: none;
 }
 
 .div-cart {
@@ -113,7 +111,6 @@
 .cart {
   color: #58355E;
   font-size: 1.2em;
-  user-select: none;
 }
 
 .icon {
