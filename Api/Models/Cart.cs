@@ -2,11 +2,10 @@ namespace Api.Models;
 
 public class Cart
 {
+    public int Id { get; set; }
+    
     public int UserId { get; set; }
     public User? User { get; set; }
     
-    public int ArticleId { get; set; }
-    public Article? Article { get; set; }
-    
-    public int Quantity { get; set; }
+    public virtual List<CartItem?> CartItems { get; set; }
 }

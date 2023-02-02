@@ -8,13 +8,14 @@ namespace Api.ViewModels
     {
         public string Name { get; set; }
         public string Email { get; set; }
-        public int Phone { get; set; }
+        
+        public virtual List<Address?> Addresses { get; set; }
 
         public ProviderViewModel(Provider provider)
         {
             Name = provider.Name;
             Email = provider.Email;
-            Phone = provider.Phone;
+            Addresses = provider.Addresses;
         }
     }
 }

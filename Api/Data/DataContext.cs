@@ -16,6 +16,7 @@ namespace Api.Data
 
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Article> Articles { get; set; }
+        public DbSet<Cart> Carts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Domain> Domains { get; set; }
@@ -83,6 +84,20 @@ namespace Api.Data
             modelBuilder.Entity<Category>()
                 .HasIndex(c => c.Name)
                 .IsUnique();
+            
+            modelBuilder.Entity<Domain>()
+                .HasIndex(d => d.Name)
+                .IsUnique();
+            
+            modelBuilder.Entity<Status>()
+                .HasIndex(s => s.Message)
+                .IsUnique();
+            
+            modelBuilder.Entity<Cart>()
+                .HasOne(c => c.User)
+                .WithOne(u => u.Cart)
+                .HasForeignKey<User>(u => u.CartId);
+            
         }
     }
 }

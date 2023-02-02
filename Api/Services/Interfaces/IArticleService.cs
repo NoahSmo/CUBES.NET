@@ -1,14 +1,15 @@
 using Api.Models;
+using Api.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Services;
 
 public interface IArticleService
 {
-    Task<List<Article>> GetArticles();
+    Task<List<ArticleViewModel>> GetArticles();
     Task<Article?> GetId(int id);
-    Task<Article> CreateArticle(Article article);
-    Task<Article>? UpdateArticle(int id, Article article);
+    Task<ArticleViewModel> CreateArticle(Article article);
+    Task<ArticleViewModel>? UpdateArticle(int id, Article article);
     Task<Article?> UpdateStock(Article article);
-    Task<Article>? DeleteArticle(int id);
+    Task<ArticleViewModel>? DeleteArticle(int id);
 }

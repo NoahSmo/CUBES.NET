@@ -14,8 +14,11 @@ namespace Api.Models
         public string Email { get; set; }
         public int? Phone { get; set; }
         
-        public int RoleId { get; set; }
+        public int RoleId { get; set; } = 2;
         public Role? Role { get; set; }
+        
+        public int? CartId { get; set; }
+        public Cart? Cart { get; set; }
         
         public string Password { get; set; }
         
