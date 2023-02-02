@@ -51,7 +51,16 @@ public class CartService : ICartService
         cart.CartItems.ForEach(cartItem => cartItem.Article = _context.Articles.Find(cartItem.ArticleId));
         
         _context.Carts.Add(cart);
-        await _context.SaveChangesAsync();
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+        
         return new CartViewModel(cart);
     }
     
@@ -68,7 +77,15 @@ public class CartService : ICartService
         cart.CartItems.ForEach(cartItem => cartItem.Article = _context.Articles.Find(cartItem.ArticleId));
         
         _context.Carts.Update(cart);
-        await _context.SaveChangesAsync();
+        
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
 
         return new CartViewModel(cart);
     }
@@ -80,7 +97,15 @@ public class CartService : ICartService
             return null;
 
         _context.Carts.Remove(cart);
-        await _context.SaveChangesAsync();
+        
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
 
         return new CartViewModel(cart);
     }

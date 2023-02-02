@@ -98,6 +98,13 @@ namespace Api.Data
                 .WithOne(u => u.Cart)
                 .HasForeignKey<User>(u => u.CartId);
             
+            modelBuilder.Entity<Cart>()
+                .HasIndex(c => c.UserId)
+                .IsUnique();
+
+            modelBuilder.Entity<Article>()
+                .HasIndex(a => a.Name)
+                .IsUnique();
         }
     }
 }

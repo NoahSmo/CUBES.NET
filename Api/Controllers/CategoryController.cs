@@ -34,7 +34,7 @@ namespace Api.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = "Admin, Provider")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Category>> CreateCategory(Category category)
         {
             var result = await _categoryService.CreateCategory(category);

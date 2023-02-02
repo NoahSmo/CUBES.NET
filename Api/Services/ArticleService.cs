@@ -24,6 +24,7 @@ public class ArticleService : IArticleService
             .Include(a => a.Domain)
             .Include(a => a.Category)
             .ToListAsync();
+        
         return articles.Select(a => new ArticleViewModel(a)).ToList();
     }
 
@@ -33,9 +34,7 @@ public class ArticleService : IArticleService
             .Include(a => a.Domain)
             .Include(a => a.Category)
             .FirstOrDefaultAsync(a => a.Id == id);
-        if (article is null)
-            return null;
-
+        
         return article;
     }
     
@@ -44,20 +43,29 @@ public class ArticleService : IArticleService
         article.Domain = await _context.Domains.FirstOrDefaultAsync(d => d.Id == article.DomainId);
         article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
         _context.Articles.Add(article);
-        await _context.SaveChangesAsync();
+        
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
         
         return new ArticleViewModel(article);
     }
     
     public async Task<ArticleViewModel>? UpdateArticle(int id, Article request)
     {
-        var article = await _context.Articles.FindAsync(id);
+        var article = await GetId(id);
         if (article is null)
             return null;
 
         article.Name = request.Name;
         article.Description = request.Description;
         article.Year = request.Year;
+        article.Alcohol = request.Alcohol;
         article.Price = request.Price;
         article.DomainId = request.DomainId;
         article.Domain = await _context.Domains.FirstOrDefaultAsync(d => d.Id == article.DomainId);
@@ -66,7 +74,15 @@ public class ArticleService : IArticleService
         article.Stock = request.Stock;
         
         _context.Articles.Update(article);
-        await _context.SaveChangesAsync();
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
 
         return new ArticleViewModel(article);
     }
@@ -78,7 +94,15 @@ public class ArticleService : IArticleService
             return null;
 
         articleToUpdate.Stock = article.Stock;
-        await _context.SaveChangesAsync();
+        
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
 
         
         return articleToUpdate;
@@ -86,12 +110,20 @@ public class ArticleService : IArticleService
 
     public async Task<ArticleViewModel>? DeleteArticle(int id)
     {
-        var article = await _context.Articles.FindAsync(id);
-        if (article is null)
-            return null;
+        var article = await GetId(id);
+        if (article is null) return null;
 
         _context.Articles.Remove(article);
-        await _context.SaveChangesAsync();
+        _context.Images.RemoveRange(_context.Images.Where(i => i.ArticleId == id));
+        
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
 
         return new ArticleViewModel(article);
     }
