@@ -13,14 +13,12 @@ namespace Api.ViewModels
         public double Alcohol { get; set; }
         public int Stock { get; set; }
         
-        public Domain Domain { get; set; }
         
-        public Category Category { get; set; }
+        public string Domain { get; set; }
+        public string Category { get; set; }
         
-        public virtual List<ArticleOrder>? ArticleOrders { get; set; }
-        public virtual List<Provider>? Providers { get; set; }
+        
         public virtual List<Image>? Images { get; set; }
-        public virtual List<Comment>? Comments { get; set; }
         
         public ArticleViewModel(Article article)
         {
@@ -30,13 +28,10 @@ namespace Api.ViewModels
             Price = article.Price;
             Alcohol = article.Alcohol;
             Stock = article.Stock;
-            Domain = article.Domain;
-            Category = article.Category;
+            Domain = article.Domain.Name;
+            Category = article.Category.Name;
             
-            ArticleOrders = article.ArticleOrders;
-            Providers = article.Providers;
             Images = article.Images;
-            Comments = article.Comments;
         }
     }
 

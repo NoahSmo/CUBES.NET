@@ -1,5 +1,6 @@
 using Api.Data;
 using Api.Models;
+using Api.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,13 +18,13 @@ public class ArticleService : IArticleService
     
     
 
-    public async Task<List<Article>> GetArticles()
+    public async Task<List<ArticleViewModel>> GetArticles()
     {
         var articles = await _context.Articles
             .Include(a => a.Domain)
             .Include(a => a.Category)
             .ToListAsync();
-        return articles;
+        return articles.Select(a => new ArticleViewModel(a)).ToList();
     }
 
     public async Task<Article?> GetId(int id)
@@ -38,18 +39,17 @@ public class ArticleService : IArticleService
         return article;
     }
     
-    public async Task<Article> CreateArticle(Article article)
+    public async Task<ArticleViewModel> CreateArticle(Article article)
     {
         article.Domain = await _context.Domains.FirstOrDefaultAsync(d => d.Id == article.DomainId);
         article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
-        article.Provider = await _context.Providers.FirstOrDefaultAsync(p => p.Id == article.ProviderId);
         _context.Articles.Add(article);
         await _context.SaveChangesAsync();
         
-        return article;
+        return new ArticleViewModel(article);
     }
     
-    public async Task<Article>? UpdateArticle(int id, Article request)
+    public async Task<ArticleViewModel>? UpdateArticle(int id, Article request)
     {
         var article = await _context.Articles.FindAsync(id);
         if (article is null)
@@ -63,14 +63,12 @@ public class ArticleService : IArticleService
         article.Domain = await _context.Domains.FirstOrDefaultAsync(d => d.Id == article.DomainId);
         article.CategoryId = request.CategoryId;
         article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
-        article.ProviderId = request.ProviderId;
-        article.Provider = await _context.Providers.FirstOrDefaultAsync(p => p.Id == article.ProviderId);
         article.Stock = request.Stock;
         
         _context.Articles.Update(article);
         await _context.SaveChangesAsync();
 
-        return article;
+        return new ArticleViewModel(article);
     }
     
     public async Task<Article?> UpdateStock(Article article)
@@ -82,10 +80,11 @@ public class ArticleService : IArticleService
         articleToUpdate.Stock = article.Stock;
         await _context.SaveChangesAsync();
 
+        
         return articleToUpdate;
     }
 
-    public async Task<Article>? DeleteArticle(int id)
+    public async Task<ArticleViewModel>? DeleteArticle(int id)
     {
         var article = await _context.Articles.FindAsync(id);
         if (article is null)
@@ -94,7 +93,7 @@ public class ArticleService : IArticleService
         _context.Articles.Remove(article);
         await _context.SaveChangesAsync();
 
-        return article;
+        return new ArticleViewModel(article);
     }
 
     

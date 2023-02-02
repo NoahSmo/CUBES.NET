@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230201130547_Initial")]
+    [Migration("20230202095523_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -50,6 +50,9 @@ namespace Api.Migrations
                     b.Property<int?>("DomainId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("ProviderId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Street")
                         .IsRequired()
                         .HasColumnType("text");
@@ -66,6 +69,8 @@ namespace Api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DomainId");
+
+                    b.HasIndex("ProviderId");
 
                     b.HasIndex("UserId");
 
@@ -106,9 +111,6 @@ namespace Api.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("double precision");
 
-                    b.Property<int>("ProviderId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("Stock")
                         .HasColumnType("integer");
 
@@ -123,8 +125,6 @@ namespace Api.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("DomainId");
-
-                    b.HasIndex("ProviderId");
 
                     b.ToTable("Articles");
                 });
@@ -158,6 +158,48 @@ namespace Api.Migrations
                     b.HasIndex("ProviderOrderId");
 
                     b.ToTable("ArticleOrder");
+                });
+
+            modelBuilder.Entity("Api.Models.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("Api.Models.CartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
+
+                    b.HasIndex("CartId");
+
+                    b.ToTable("CartItem");
                 });
 
             modelBuilder.Entity("Api.Models.Category", b =>
@@ -250,6 +292,10 @@ namespace Api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -258,6 +304,9 @@ namespace Api.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Domains");
                 });
@@ -371,9 +420,6 @@ namespace Api.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ArticleId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -388,15 +434,10 @@ namespace Api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Phone")
-                        .HasColumnType("integer");
-
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ArticleId");
 
                     b.HasIndex("Email")
                         .IsUnique();
@@ -488,6 +529,9 @@ namespace Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Message")
+                        .IsUnique();
+
                     b.ToTable("Statuses");
                 });
 
@@ -498,6 +542,9 @@ namespace Api.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CartId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -532,12 +579,45 @@ namespace Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CartId")
+                        .IsUnique();
+
                     b.HasIndex("Email")
                         .IsUnique();
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ArticleProvider", b =>
+                {
+                    b.Property<int>("ArticlesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProvidersId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ArticlesId", "ProvidersId");
+
+                    b.HasIndex("ProvidersId");
+
+                    b.ToTable("ArticleProvider");
+                });
+
+            modelBuilder.Entity("DomainProvider", b =>
+                {
+                    b.Property<int>("DomainsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProvidersId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("DomainsId", "ProvidersId");
+
+                    b.HasIndex("ProvidersId");
+
+                    b.ToTable("DomainProvider");
                 });
 
             modelBuilder.Entity("PermissionRole", b =>
@@ -561,11 +641,17 @@ namespace Api.Migrations
                         .WithMany("Addresses")
                         .HasForeignKey("DomainId");
 
+                    b.HasOne("Api.Models.Provider", "Provider")
+                        .WithMany("Addresses")
+                        .HasForeignKey("ProviderId");
+
                     b.HasOne("Api.Models.User", "User")
                         .WithMany("Addresses")
                         .HasForeignKey("UserId");
 
                     b.Navigation("Domain");
+
+                    b.Navigation("Provider");
 
                     b.Navigation("User");
                 });
@@ -579,22 +665,14 @@ namespace Api.Migrations
                         .IsRequired();
 
                     b.HasOne("Api.Models.Domain", "Domain")
-                        .WithMany()
+                        .WithMany("Articles")
                         .HasForeignKey("DomainId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Api.Models.Provider", "Provider")
-                        .WithMany()
-                        .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
 
                     b.Navigation("Domain");
-
-                    b.Navigation("Provider");
                 });
 
             modelBuilder.Entity("Api.Models.ArticleOrder", b =>
@@ -614,6 +692,25 @@ namespace Api.Migrations
                     b.HasOne("Api.Models.ProviderOrder", null)
                         .WithMany("ArticleOrders")
                         .HasForeignKey("ProviderOrderId");
+                });
+
+            modelBuilder.Entity("Api.Models.CartItem", b =>
+                {
+                    b.HasOne("Api.Models.Article", "Article")
+                        .WithMany("CartItems")
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Api.Models.Cart", "Cart")
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Article");
+
+                    b.Navigation("Cart");
                 });
 
             modelBuilder.Entity("Api.Models.Comment", b =>
@@ -671,13 +768,6 @@ namespace Api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Api.Models.Provider", b =>
-                {
-                    b.HasOne("Api.Models.Article", null)
-                        .WithMany("Providers")
-                        .HasForeignKey("ArticleId");
-                });
-
             modelBuilder.Entity("Api.Models.ProviderOrder", b =>
                 {
                     b.HasOne("Api.Models.Provider", "Provider")
@@ -699,13 +789,49 @@ namespace Api.Migrations
 
             modelBuilder.Entity("Api.Models.User", b =>
                 {
+                    b.HasOne("Api.Models.Cart", "Cart")
+                        .WithOne("User")
+                        .HasForeignKey("Api.Models.User", "CartId");
+
                     b.HasOne("Api.Models.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Cart");
+
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("ArticleProvider", b =>
+                {
+                    b.HasOne("Api.Models.Article", null)
+                        .WithMany()
+                        .HasForeignKey("ArticlesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Api.Models.Provider", null)
+                        .WithMany()
+                        .HasForeignKey("ProvidersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DomainProvider", b =>
+                {
+                    b.HasOne("Api.Models.Domain", null)
+                        .WithMany()
+                        .HasForeignKey("DomainsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Api.Models.Provider", null)
+                        .WithMany()
+                        .HasForeignKey("ProvidersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PermissionRole", b =>
@@ -727,11 +853,18 @@ namespace Api.Migrations
                 {
                     b.Navigation("ArticleOrders");
 
+                    b.Navigation("CartItems");
+
                     b.Navigation("Comments");
 
                     b.Navigation("Images");
+                });
 
-                    b.Navigation("Providers");
+            modelBuilder.Entity("Api.Models.Cart", b =>
+                {
+                    b.Navigation("CartItems");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Api.Models.Category", b =>
@@ -742,11 +875,18 @@ namespace Api.Migrations
             modelBuilder.Entity("Api.Models.Domain", b =>
                 {
                     b.Navigation("Addresses");
+
+                    b.Navigation("Articles");
                 });
 
             modelBuilder.Entity("Api.Models.Order", b =>
                 {
                     b.Navigation("ArticleOrders");
+                });
+
+            modelBuilder.Entity("Api.Models.Provider", b =>
+                {
+                    b.Navigation("Addresses");
                 });
 
             modelBuilder.Entity("Api.Models.ProviderOrder", b =>

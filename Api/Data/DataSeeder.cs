@@ -23,6 +23,7 @@ namespace Api.Data;
             _context.ProviderOrders.RemoveRange(_context.ProviderOrders);
             _context.Orders.RemoveRange(_context.Orders);
             _context.Comments.RemoveRange(_context.Comments);
+            _context.Carts.RemoveRange(_context.Carts);
             _context.Images.RemoveRange(_context.Images);
             _context.Articles.RemoveRange(_context.Articles);
             _context.Categories.RemoveRange(_context.Categories);
@@ -147,13 +148,34 @@ namespace Api.Data;
                 _context.SaveChanges();
             }
             
-            if (!_context.Domains.Any())
+            if (!_context.Carts.Any())
             {
-                _context.Domains.Add(new Domain
+                _context.Carts.Add(new Cart
                 {
                     Id = 1,
-                    Name = "John",
-                    Description = "John Doe"
+                    UserId = 1,
+                    User = _context.Users.FirstOrDefault(x => x.Id == 1),
+                    CartItems = new List<CartItem>
+                    {
+                        // new CartItem
+                        // {
+                        //     Id = 1,
+                        //     ArticleId = 1,
+                        //     Article = _context.Articles.FirstOrDefault(x => x.Id == 1),
+                        //     CartId = 1,
+                        //     Cart = _context.Carts.FirstOrDefault(x => x.Id == 1),
+                        //     Quantity = 1
+                        // },
+                        // new CartItem
+                        // {
+                        //     Id = 2,
+                        //     ArticleId = 2,
+                        //     Article = _context.Articles.FirstOrDefault(x => x.Id == 2),
+                        //     CartId = 1,
+                        //     Cart = _context.Carts.FirstOrDefault(x => x.Id == 1),
+                        //     Quantity = 1
+                        // }
+                    }
                 });
                 
                 _context.SaveChanges();
@@ -179,13 +201,45 @@ namespace Api.Data;
                     City =  "Novi Sad",
                     Country = "Srbija",
                     ZipCode = 21000,
-                    DomainId = 1,
-                    Domain = _context.Domains.FirstOrDefault(x => x.Id == 1)
                 });
                 
                 _context.SaveChanges();
             }
             
+            if (!_context.Domains.Any())
+            {
+                _context.Domains.Add(new Domain
+                {
+                    Id = 1,
+                    Name = "Domaine de Tariquet",
+                    Description = "Le domaine du tariquet est producteur de vin blanc",
+                    Email = "Tariquet.dom@gmail.com",
+                });
+                _context.Domains.Add(new Domain
+                {
+                    Id = 2,
+                    Name = "Domaine de Joy",
+                    Description = "Le domaine de Joy est producteur de vin rouge",
+                    Email = "Joy.dom@gmail.com",
+                });
+                _context.Domains.Add(new Domain
+                {
+                    Id = 3,
+                    Name = "Vignoble Fontan",
+                    Description = "Le Vignoble Fontan est producteur de vin rosé",
+                    Email = "Vignoble.Fontan@gmail.com",
+                });
+                _context.Domains.Add(new Domain
+                {
+                    Id = 4,
+                    Name = "Domaine d'Uby",
+                    Description = "Le domaine d'uby est producteur de vin bio",
+                    Email = "Uby.dom@gmail.com",
+                });
+                
+                _context.SaveChanges();
+            }
+
             if (!_context.Statuses.Any())
             {
                 _context.Statuses.Add(new Status
@@ -214,30 +268,8 @@ namespace Api.Data;
                 _context.Providers.Add(new Provider
                 {
                     Id = 1,
-                    Name = "Domaine de Tariquet",
-                    Email = "Tariquet.dom@gmail.com",
-                    Phone = 0631409799,
-                });
-                _context.Providers.Add(new Provider
-                {
-                    Id = 2,
-                    Name = "Domaine de Joy",
-                    Email = "Joy.dom@gmail.com",
-                    Phone = 0631409799,
-                });
-                _context.Providers.Add(new Provider
-                {
-                    Id = 3,
-                    Name = "Vignoble Fontan",
-                    Email = "Vignoble.Fontan@gmail.com",
-                    Phone = 0631409799,
-                });
-                _context.Providers.Add(new Provider
-                {
-                    Id = 4,
-                    Name = "Domaine d'Uby",
-                    Email = "Uby.dom@gmail.com",
-                    Phone = 0631409799,
+                    Name = "Provider 1",
+                    Email = "EmailProvider@gmail.com",
                 });
                 
                 _context.SaveChanges();
@@ -284,7 +316,6 @@ namespace Api.Data;
                     Stock = 150,
                     DomainId = 1, 
                     CategoryId = 1,
-                    ProviderId = 1,
                 });
                 
                 _context.Articles.Add(new Article
@@ -298,7 +329,6 @@ namespace Api.Data;
                     Stock = 150,
                     DomainId = 1, 
                     CategoryId = 1,
-                    ProviderId = 1
                 });
             }
             
