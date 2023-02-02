@@ -50,7 +50,7 @@ namespace Api.Controllers
         
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin, Provider, User")]
-        public async Task<ActionResult<AddressViewModel>> UpdateAddress(int id, Address address)
+        public async Task<ActionResult<AddressViewModel?>> UpdateAddress(int id, Address address)
         {
             if (User.IsInRole("User"))
             {
@@ -65,14 +65,21 @@ namespace Api.Controllers
                 if (addressToUpdate == null) return NotFound("Address not found");
                 if (addressToUpdate.DomainId != int.Parse(User.Identity?.Name)) return Unauthorized("You are not the owner of this address");
             }
-            
-            var result = await _addressService.UpdateAddress(id, address);
-            return result == null ? NotFound("Address not found") : Ok(result);
+
+            try
+            {
+                var result = await _addressService.UpdateAddress(id, address);
+                return result == null ? NotFound("Address not found") : Ok(result);
+            }
+            catch (Exception e)
+            {
+                return NotFound("Address not found");
+            }
         }
         
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin, Provider, User")]
-        public async Task<ActionResult<AddressViewModel>> DeleteAddress(int id)
+        public async Task<ActionResult<AddressViewModel?>> DeleteAddress(int id)
         {
             if (User.IsInRole("User"))
             {
@@ -87,9 +94,16 @@ namespace Api.Controllers
                 if (addressToDelete == null) return NotFound("Address not found");
                 if (addressToDelete.DomainId != int.Parse(User.Identity?.Name)) return Unauthorized("You are not the owner of this address");
             }
-
-            var result = await _addressService.DeleteAddress(id);
-            return result == null ? NotFound("Address not found") : Ok(result);
+            
+            try
+            {
+                var result = await _addressService.DeleteAddress(id);
+                return result == null ? NotFound("Address not found") : Ok(result);
+            }
+            catch (Exception e)
+            {
+                return NotFound("Address not found");
+            }
         }
     }
 }
