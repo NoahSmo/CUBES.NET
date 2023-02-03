@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
+  wineMovie() {
+    window.open('https://www.youtube.com/watch?v=SfjWgLKNILQ&t=1s', '_blank');
+  }
+
 }
