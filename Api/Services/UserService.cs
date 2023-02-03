@@ -17,14 +17,20 @@ public class UserService : IUserService
     
     public async Task<List<UserDetailsViewModel>> GetUsers()
     {
-        var users = await _context.Users.ToListAsync();
+        var users = await _context.Users
+            .Include(a => a.Role)
+            .Include(a => a.Cart)
+            .ToListAsync();
         
         return users.Select(user => new UserDetailsViewModel(user)).ToList();
     }
 
     public async Task<UserViewModel?> GetId(int id)
     { 
-        var user = await _context.Users.FindAsync(id);
+        var user = await _context.Users
+            .Include(a => a.Role)
+            .Include(a => a.Cart)
+            .FirstOrDefaultAsync(x => x.Id == id);
         
         if (user is null) return null;
         
@@ -33,7 +39,10 @@ public class UserService : IUserService
     
     public async Task<UserViewModel?> GetByEmail (string email)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+        var user = await _context.Users
+            .Include(a => a.Role)
+            .Include(a => a.Cart)
+            .FirstOrDefaultAsync(x => x.Email == email);
         
         if (user is null)
             return null;
@@ -52,6 +61,11 @@ public class UserService : IUserService
         user.Password = hash;
         
         _context.Users.Add(user);
+        
+        _context.Carts.Add(new Cart
+        {
+            UserId = user.Id
+        });
 
         try
         {
@@ -67,7 +81,10 @@ public class UserService : IUserService
     
     public async Task<UserDetailsViewModel>? UpdateUser(int id, User request)
     {
-        var user = await _context.Users.FindAsync(id);
+        var user = await _context.Users
+            .Include(a => a.Role)
+            .Include(a => a.Cart)
+            .FirstOrDefaultAsync(x => x.Id == id);
         if (user is null) return null;
         
         user.Name = request.Name;
