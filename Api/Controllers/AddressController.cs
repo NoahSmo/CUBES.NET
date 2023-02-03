@@ -27,7 +27,7 @@ namespace Api.Controllers
         
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin, User")]
-        public async Task<ActionResult<AddressViewModel>> GetAddress(int id)
+        public async Task<ActionResult<AddressViewModel?>> GetAddress(int id)
         {
             if (User.IsInRole("User"))
             {
@@ -45,7 +45,7 @@ namespace Api.Controllers
         public async Task<ActionResult<AddressViewModel>> CreateAddress(Address address)
         {
             var result = await _addressService.CreateAddress(address);
-            return result == null ? NotFound("Address not found") : Ok(result);
+            return result == null ? Unauthorized("Address already exist") : Ok(result);
         }
         
         [HttpPut("{id}")]
@@ -65,16 +65,9 @@ namespace Api.Controllers
                 if (addressToUpdate == null) return NotFound("Address not found");
                 if (addressToUpdate.DomainId != int.Parse(User.Identity?.Name)) return Unauthorized("You are not the owner of this address");
             }
-
-            try
-            {
-                var result = await _addressService.UpdateAddress(id, address);
-                return result == null ? NotFound("Address not found") : Ok(result);
-            }
-            catch (Exception e)
-            {
-                return NotFound("Address not found");
-            }
+            
+            var result = await _addressService.UpdateAddress(id, address);
+            return result == null ? NotFound("Address not found") : Ok(result);
         }
         
         [HttpDelete("{id}")]
@@ -95,15 +88,8 @@ namespace Api.Controllers
                 if (addressToDelete.DomainId != int.Parse(User.Identity?.Name)) return Unauthorized("You are not the owner of this address");
             }
             
-            try
-            {
-                var result = await _addressService.DeleteAddress(id);
-                return result == null ? NotFound("Address not found") : Ok(result);
-            }
-            catch (Exception e)
-            {
-                return NotFound("Address not found");
-            }
+            var result = await _addressService.DeleteAddress(id);
+            return result == null ? NotFound("Address not found") : Ok(result);
         }
     }
 }
