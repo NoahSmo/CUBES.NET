@@ -11,6 +11,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import {MenuModule} from "primeng/menu";
 import { RegisterComponent } from './register/register.component';
+import {CarouselModule} from "primeng/carousel";
+import {MenubarModule} from 'primeng/menubar';
+import {InputTextModule} from "primeng/inputtext";
 
 
 @NgModule({
@@ -23,12 +26,14 @@ import { RegisterComponent } from './register/register.component';
     LoginComponent,
     RegisterComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ButtonModule,
-        MenuModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ButtonModule,
+    CarouselModule,
+    MenubarModule,
+    InputTextModule,
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
