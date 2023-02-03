@@ -33,29 +33,14 @@
   align-items: center;
   flex-direction: column;
   margin: 0.6em;
-  width: 2em;
-  height: 2em;
+  font-size: 2em;
   border-radius: 20%;
+  color: #fff;
 }
 
 .social:hover {
   cursor: pointer;
   transform: scale(1.1);
-}
-
-.facebook {
-  background: url("https://img.icons8.com/ios-filled/120/ffffff/facebook--v1.png");
-  background-size: 100%;
-}
-
-.instagram {
-  background: url("https://img.icons8.com/fluency-systems-filled/120/ffffff/instagram-new.png");
-  background-size: 100%;
-}
-
-.youtube {
-  background: url("https://img.icons8.com/ios-glyphs/120/ffffff/youtube--v1.png");
-  background-size: 100%;
 }
 
 .icon {
