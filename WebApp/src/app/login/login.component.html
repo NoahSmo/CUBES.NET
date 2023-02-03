@@ -1,3 +1,5 @@
+<app-header></app-header>
+
 <div class="back">
   <div class="container">
     <div class="div-title">
@@ -28,7 +30,7 @@
     </form>
     <div class="dontHaveAccount">
       <label>Vous n'avez pas de compte?</label>
-      <a href="inscription">Créer un compte</a>
+      <a [routerLink]="['/register']">Créer un compte</a>
     </div>
   </div>
 </div>
