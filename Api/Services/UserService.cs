@@ -26,13 +26,12 @@ public class UserService : IUserService
     { 
         var user = await _context.Users.FindAsync(id);
         
-        if (user is null)
-            return null;
+        if (user is null) return null;
         
         return new UserViewModel(user);
     }
     
-    public async Task<UserViewModel>? GetByEmail (string email)
+    public async Task<UserViewModel?> GetByEmail (string email)
     {
         var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
         
@@ -69,14 +68,12 @@ public class UserService : IUserService
     public async Task<UserDetailsViewModel>? UpdateUser(int id, User request)
     {
         var user = await _context.Users.FindAsync(id);
-        if (user is null)
-            return null;
+        if (user is null) return null;
         
         user.Name = request.Name;
         user.Surname = request.Surname;
         user.Email = request.Email.ToLower();
         user.Phone = request.Phone;
-        user.Password = request.Password;
         user.RoleId = request.RoleId;
         user.Role = await _context.Roles.FirstOrDefaultAsync(x => x.Id == request.RoleId);
 
@@ -87,6 +84,7 @@ public class UserService : IUserService
         user.Password = hash;
 
         _context.Users.Update(user);
+        
         await _context.SaveChangesAsync();
 
         return new UserDetailsViewModel(user);
@@ -95,8 +93,7 @@ public class UserService : IUserService
     public async Task<UserDetailsViewModel>? DeleteUser(int id)
     {
         var user = await _context.Users.FindAsync(id);
-        if (user is null)
-            return null;
+        if (user is null) return null;
 
         _context.Users.Remove(user);
         await _context.SaveChangesAsync();
