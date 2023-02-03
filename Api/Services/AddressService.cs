@@ -17,25 +17,29 @@ public class AddressService : IAddressService
     }
 
 
-    public Task<List<AddressViewModel>> GetAddresses()
+    public async Task<List<AddressViewModel>> GetAddresses()
     {
-        return _context.Addresses
+        var address = await _context.Addresses
             .Include(a => a.User)
             .Include(a => a.Domain)
-            .Select(a => new AddressViewModel(a)).ToListAsync();
+            .ToListAsync();
+        
+        return address.Select(a => new AddressViewModel(a)).ToList();
     }
 
-    public Task<AddressViewModel?> GetId(int id)
+    public async Task<AddressViewModel?> GetId(int id)
     {
         var address = _context.Addresses
             .Include(a => a.User)
             .Include(a => a.Domain)
             .FirstOrDefault(a => a.Id == id);
+        
         if (address == null) return null;
-        return Task.FromResult(new AddressViewModel(address));
+        
+        return new AddressViewModel(address);
     }
 
-    public Task<AddressViewModel> CreateAddress(Address address)
+    public async Task<AddressViewModel>? CreateAddress(Address address)
     {
         if (address.UserId != null)
         {
@@ -57,67 +61,51 @@ public class AddressService : IAddressService
             return null;
         }
         
-        return Task.FromResult(new AddressViewModel(address));
+        return new AddressViewModel(address);
     }
 
-    public Task<AddressViewModel?> UpdateAddress(int id, Address address)
+    public async Task<AddressViewModel>? UpdateAddress(int id, Address request)
     {
-        var addressToUpdate = _context.Addresses.FirstOrDefault(x => x.Id == id);
-        if (addressToUpdate == null) return null;
+        var address = await _context.Addresses.FindAsync(id);
+        if (address == null) return null;
         
-        addressToUpdate.Street = address.Street;
-        addressToUpdate.City = address.City;
-        addressToUpdate.Country = address.Country;
-        addressToUpdate.ZipCode = address.ZipCode;
+        address.Street = request.Street;
+        address.City = request.City;
+        address.Country = request.Country;
+        address.ZipCode = request.ZipCode;
         
-        if (address.UserId != null)
+        if (request.UserId != null)
         {
-            addressToUpdate.UserId = address.UserId;
-            addressToUpdate.User = _context.Users.FirstOrDefault(x => x.Id == address.UserId);
+            address.UserId = request.UserId;
+            address.User = _context.Users.FirstOrDefault(x => x.Id == request.UserId);
             
-            addressToUpdate.DomainId = null;
-            addressToUpdate.Domain = null;
+            address.DomainId = null;
+            address.Domain = null;
         }
-        else if (address.DomainId != null)
+        else if (request.DomainId != null)
         {
-            addressToUpdate.DomainId = address.DomainId;
-            addressToUpdate.Domain = _context.Domains.FirstOrDefault(x => x.Id == address.DomainId);
+            address.DomainId = request.DomainId;
+            address.Domain = _context.Domains.FirstOrDefault(x => x.Id == request.DomainId);
             
-            addressToUpdate.UserId = null;
-            addressToUpdate.User = null;
+            address.UserId = null;
+            address.User = null;
         }
         
+        _context.Addresses.Update(address);
         
-        _context.Addresses.Update(addressToUpdate);
-        
-        try
-        {
-            _context.SaveChanges();
-        }
-        catch (Exception e)
-        {
-            return null;
-        }
+        await _context.SaveChangesAsync();
 
-        return Task.FromResult(new AddressViewModel(addressToUpdate));
+        return new AddressViewModel(address);
     }
 
-    public Task<AddressViewModel?> DeleteAddress(int id)
+    public async Task<AddressViewModel>? DeleteAddress(int id)
     {
-        var addressToDelete = _context.Addresses.FirstOrDefault(x => x.Id == id);
+        var addressToDelete = await _context.Addresses.FindAsync(id);
         if (addressToDelete == null) return null;
 
         _context.Addresses.Remove(addressToDelete);
+        await _context.SaveChangesAsync();
         
-        try
-        {
-            _context.SaveChanges();
-        }
-        catch (Exception e)
-        {
-            return null;
-        }
-
-        return Task.FromResult(new AddressViewModel(addressToDelete));
+        return new AddressViewModel(addressToDelete);
     }
 }

@@ -22,6 +22,7 @@ namespace Api.ViewModels
                 Country = address.Country;
                 ZipCode = address.ZipCode;
                 UserId = address.UserId;
+                User = address.User.Email;
             }
 
             else if (address.DomainId != null)
@@ -31,6 +32,7 @@ namespace Api.ViewModels
                 Country = address.Country;
                 ZipCode = address.ZipCode;
                 DomainId = address.DomainId;
+                Domain = address.Domain.Name;
             }
             
             else
