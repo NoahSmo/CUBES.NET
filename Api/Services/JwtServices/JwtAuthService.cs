@@ -25,7 +25,7 @@ public class JwtAuthService : IJwtAuthService
         var user = _context.Users
             .Include(u => u.Role)
             .ThenInclude(r => r.Permissions)
-            .FirstOrDefault(u => u.Email == email);
+            .FirstOrDefault(u => u.Email == email.ToLower());
         
         if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
             return null;

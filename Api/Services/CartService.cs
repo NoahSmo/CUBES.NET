@@ -67,8 +67,7 @@ public class CartService : ICartService
     public async Task<CartViewModel>? UpdateCart(int id, Cart request)
     {
         var cart = await _context.Carts.FindAsync(id);
-        if (cart is null)
-            return null;
+        if (cart is null) return null;
         
         cart.User = await _context.Users.FindAsync(request.UserId);
         cart.CartItems = request.CartItems;

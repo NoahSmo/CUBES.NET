@@ -28,8 +28,7 @@ namespace Api.Controllers
                 {
                     new Claim(ClaimTypes.Email, userAuth.Email),
                     new Claim(ClaimTypes.NameIdentifier, userAuth.Id.ToString()),
-                    new Claim(ClaimTypes.Role, userAuth.Role?.Name ?? "User"),
-                    new Claim(CustomClaimTypes.Permission, userAuth.Role?.Permissions?.Select(x => x.Name).Aggregate((x, y) => x + "," + y) ?? "User")
+                    new Claim(ClaimTypes.Role, userAuth.Role?.Name ?? "User")
                 };
                var token =  _jwtAuthService.GenerateToken(_configuration["Jwt:Key"],claims);
                return Ok(new JsonResult(token));

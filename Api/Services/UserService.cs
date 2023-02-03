@@ -52,6 +52,8 @@ public class UserService : IUserService
 
     public async Task<UserViewModel> CreateUser(User user)
     {
+        if (user.RoleId == null || user.RoleId == 0) user.RoleId = 3;
+        user.Role = await _context.Roles.FirstOrDefaultAsync(x => x.Id == user.RoleId);
         
         var password = user.Password;
         var salt = BCrypt.Net.BCrypt.GenerateSalt();
@@ -59,13 +61,10 @@ public class UserService : IUserService
 
         user.Email = user.Email.ToLower();
         user.Password = hash;
+
+        
         
         _context.Users.Add(user);
-        
-        _context.Carts.Add(new Cart
-        {
-            UserId = user.Id
-        });
 
         try
         {
@@ -75,6 +74,14 @@ public class UserService : IUserService
         {
             return null;
         }
+        
+        _context.Carts.Add(new Cart
+        {
+            UserId = user.Id,
+            User = user
+        });
+        
+        await _context.SaveChangesAsync();
         
         return new UserViewModel(user);
     }
