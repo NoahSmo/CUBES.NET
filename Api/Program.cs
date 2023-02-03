@@ -57,6 +57,17 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddScoped<IJwtAuthService, JwtAuthService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.WithOrigins("*")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 builder.Services.AddTransient<DataSeeder>();
 builder.Services.AddDbContext<DataContext>(options =>
     {
@@ -93,9 +104,6 @@ void DropDataBase(WebApplication app)
         seeder.Drop();
     }
 }
-
-
-
 
 
 // Configure the HTTP request pipeline.
