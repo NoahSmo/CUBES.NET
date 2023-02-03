@@ -1,6 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
 body {
   margin: 0;
   padding: 0;
 }
+
+.p-menubar {
+  padding: 0.5rem;
+  background: #ffffff;
+  color: #495057;
+  border: none;
+  border-bottom: solid 1px;
+  border-radius: 0;
+  width: auto;
+  margin: auto;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.p-menubar .p-menubar-end {
+  display: none;
+}
+
