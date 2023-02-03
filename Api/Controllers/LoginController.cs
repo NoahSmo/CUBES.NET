@@ -45,6 +45,12 @@ namespace Api.Controllers
             if (userAuth != null)
             { 
                 var userDetails = new UserDetailsViewModel(userAuth);
+
+                if (userAuth.Role.Name == "Provider" || userAuth.Role.Name == "User")
+                {
+                    return Unauthorized("You are not allowed to access this application");
+                }
+                
                 return userAuth.Role == null ? Unauthorized("Invalid credentials") : Ok(userDetails);
             }
             return Unauthorized("Invalid credentials");
