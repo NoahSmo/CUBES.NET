@@ -1,5 +1,3 @@
-<app-header></app-header>
-
 <div class="back">
   <div class="container">
     <div class="div-title">
@@ -14,9 +12,7 @@
         <label class="form-label">Mot de passe</label>
         <div class="password">
           <input [type]="show ? 'text' : 'password'" name="password" id="password" class="form-input">
-          <button type="button" (click)="password()"><img src="{{show ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAClElEQVR4nO2Xz2vUUBDHswcVf4KgRVFvBaFgac3M1oqgIIhg6S2dySYzqaVUFPwPWhEpiOhB8V8Q/NGDF0EEj17UCv4Cb54UbcWCitZLrcx2u2bbvOyyrvXSBzmEzHuf92a+30nieZ7nEerpuDdu81ZyhCBnGHWeUV+tKDzoOrmdUF4anFDeRH60cxX+z0fcG7dZrbNqzj3aSSjnGeQBg7xj0B8EMssgHxjkIYNeGPCj/S2Ds68hozyp3Ne9CPQpofS1Aj7fzEUg94LuuL0lcAKdIpQxS3ufP7Ih7ow3Mkg3o47as4wNfKOiBA0BK3UcWg6XnwFEe13z+g8ObSaUiQz4LwYd9zyv4JpbYJSrFT/PZcPrNpmCAz5PINcy4Qx6sSbQASeQ17Y4gc4wyFcCvZvORFSMtjDKtAN+qQYaog5nBqLMESZHM06+VMkzBIN7UuUac4kuRB0uB5X8wX1lPzoCS5h0NaR20Dt/slcWnEvtsyZOj0Am82xhyk1nxwUn0C9podWx2qTV9nlekC1SPYmvoRMO8rm6ObNZPviFR35ypCz5BlLNqLdCX09lwQnk9mKczXFCUeZCkMOVBRds5LhGU4rdbYp1wKtWI5Bz7tPqlWrdgo5gLaM8cgROpdMdHNBdjHqTQCgLbtbKsdP9EX9kTY2lSodKWy33jvRM5HWepR3OcdpnQUewKXOBAJMd9nZxwa05NAZfNvdx6IfbXHMrqQzWm4iydy3T1hzsvWu7N/WWehI/t8mA3FhqybxRGMAkIpT3ebao3171Y1MfkP3WCEDHCfVTs/C/+no93n52HReTE4xy3dRvJ1los/KdQd8uOEIuU1GPLc5pGbyZsfrpzP/jpyFdc/ttWjHwItx+EO3mNzMu67kKlOXQAAAAAElFTkSuQmCC'
-           : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAACJElEQVR4nO1WQWtTQRCOBxWxtnrSH1A89NA2zUwqIuKxoPT2MmOSmQciufkLWj3YohWKKP0RlobeBC+epDcr1B9RtfUoUk9RJk8hednZvkrESwYGlrez37fz7czuK5VGNrL/bYwCBLLCIG8Z5DOBHJnbOPumj2uVxtzwCEEXGfUDo/4s4gT6nlDu/DUhoVwlkDdFCQc3IK+TcnPyZKQgxCjfA9kcEMpSHdPZ5nTzvDmDlBl12eYCG/hGVUmKcJ4ilCeM2hkAAd1avH7vgrfQ5gilHSDvMOiqYbukjLIRlA50K7Ywt/G2I/3LIAaBrjvFchDLNG+NamOcUQ4d8mc50rTlFgnKUm9sMpWcMQBC/UQo+wyyZt/68FAeenh3Ue93g2rV5gyj/PACbb4X1IgGj0LWcjHlSLUf8bxOWwXvxtoiL3M3y0FV9ntjbM0xrbZrF8TesImzc470OeheiSrprWD7/Hbr2eOl1qdFpWbUTg31ZhaI8iISuJwvLiO3LN3iAnkUKdbn/WAoO8Nop6TSmiDUr47E71qV1um+BfUb9UsE8tHZZbvoBcKo2965pjPpxfBuMb1ir4tHbkUTy9Qj7WLO8+W4VNeSc4y6GT4jObTLwd7dZCoZM7exnakrL+orwyygViZZDdNGqHWKuq01jIJH1G/diwB0NZJNWBWQlZMUpGsLkw/OcjW9nb1eskOgX/78+tg46wjZsBiL9ZFGNrLSv7dfvWh1LtWpJmYAAAAASUVORK5CYII=' }}">
-          </button>
+          <button type="button" (click)="password()" class="pi {{show ? 'pi-eye-slash' : 'pi-eye'}} class"></button>
         </div>
       </div>
       <div class="rememberAndLost">
