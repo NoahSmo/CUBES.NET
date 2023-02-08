@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Api.Models;
+using Api.Services;
+using Api.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 
 
@@ -17,7 +19,7 @@ namespace Api.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<List<Article>>> GetArticles()
+        public async Task<ActionResult<List<ArticleViewModel>>> GetArticles()
         {
             return await _articleService.GetArticles();
         }
@@ -30,35 +32,27 @@ namespace Api.Controllers
         }
         
         [HttpPost]
-        [Authorize (Roles = "Admin")]
-        public async Task<ActionResult<Article>> CreateArticle(Article article)
+        [Authorize(Roles = "Admin, Provider")]
+        public async Task<ActionResult<ArticleViewModel>> CreateArticle(Article article)
         {
             var result = await _articleService.CreateArticle(article);
-            if (result == null)
-            {
-                return NotFound("Article not found");
-            }
-            return Ok(result);
+            return result == null ? Unauthorized("Article already exist") : Ok(result);
         }
         
         [HttpPut("{id}")]
-        [Authorize (Roles = "Admin")]
-        public async Task<ActionResult<Article>> UpdateArticle(int id, Article article)
+        [Authorize(Roles = "Admin, Provider")]
+        public async Task<ActionResult<ArticleViewModel>> UpdateArticle(int id, Article article)
         {
             var result = await _articleService.UpdateArticle(id, article);
             return result == null ? NotFound("Article not found") : Ok(result);
         }
         
         [HttpDelete("{id}")]
-        [Authorize (Roles = "Admin")]
-        public async Task<ActionResult<Article>> DeleteArticle(int id)
+        [Authorize(Roles = "Admin, Provider")]
+        public async Task<ActionResult<ArticleViewModel>> DeleteArticle(int id)
         {
             var result = await _articleService.DeleteArticle(id);
-            if (result == null)
-            {
-                return NotFound("Article not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("Article not found") : Ok(result);
         }
     }
 }

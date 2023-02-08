@@ -21,13 +21,15 @@ namespace Api.Controllers
         [HttpPost]
         public IActionResult Login([FromBody]UserLogin user)
         {
-            var userAuth = _jwtAuthService.Auth(user.Email, user.Password);
+            var userAuth = _jwtAuthService.Auth(user.Email.ToLower(), user.Password);
             if (userAuth != null)
             {
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Email, userAuth.Email),
-                    new Claim(ClaimTypes.Role, userAuth.IsAdmin ? "Admin" : "User")
+                    new Claim(ClaimTypes.NameIdentifier, userAuth.Id.ToString()),
+                    new Claim(ClaimTypes.Role, userAuth.Role?.Name ?? "User"),
+                    new Claim(CustomClaimTypes.Permission, userAuth.Role?.Permissions?.Select(x => x.Name).Aggregate((x, y) => x + "," + y) ?? "User")
                 };
                var token =  _jwtAuthService.GenerateToken(_configuration["Jwt:Key"],claims);
                return Ok(new JsonResult(token));
@@ -42,20 +44,8 @@ namespace Api.Controllers
             var userAuth = _jwtAuthService.Auth(user.Email, user.Password);
             if (userAuth != null)
             { 
-                var userDetails = new UserDetailsViewModel()
-                {
-                    Id = userAuth.Id,
-                    Username = userAuth.Username,
-                    Name = userAuth.Name,
-                    Surname = userAuth.Surname,
-                    Email = userAuth.Email,
-                    Phone = userAuth.Phone,
-                    Address = userAuth.Address,
-                    City = userAuth.City,
-                    Country = userAuth.Country,
-                    PostCode = userAuth.PostCode
-                };
-                return userAuth.IsAdmin ? Ok(userDetails) : Unauthorized("You are not an admin");
+                var userDetails = new UserDetailsViewModel(userAuth);
+                return userAuth.Role == null ? Unauthorized("Invalid credentials") : Ok(userDetails);
             }
             return Unauthorized("Invalid credentials");
         }

@@ -10,16 +10,110 @@ namespace Api.Data;
         {
             _context = context;
         }
+        
+        public void Drop()
+        {
+            _context.Database.EnsureDeleted();
+        }
 
         public void Seed()
         {
+            _context.Database.EnsureCreated();
+            
+            _context.ProviderOrders.RemoveRange(_context.ProviderOrders);
             _context.Orders.RemoveRange(_context.Orders);
+            _context.Comments.RemoveRange(_context.Comments);
+            _context.Carts.RemoveRange(_context.Carts);
+            _context.Images.RemoveRange(_context.Images);
             _context.Articles.RemoveRange(_context.Articles);
             _context.Categories.RemoveRange(_context.Categories);
             _context.Providers.RemoveRange(_context.Providers);
+            _context.Statuses.RemoveRange(_context.Statuses);
+            _context.Domains.RemoveRange(_context.Domains);
+            _context.Addresses.RemoveRange(_context.Addresses);
             _context.Users.RemoveRange(_context.Users);
+            _context.Roles.RemoveRange(_context.Roles);
+            _context.Permissions.RemoveRange(_context.Permissions);
+            
 
             _context.SaveChanges();
+
+            if (!_context.Permissions.Any())
+            {
+                _context.Permissions.Add(new Permission
+                {
+                    Id = 1,
+                    Name = "Create",
+                    Description = "Create"
+                });
+              
+                _context.Permissions.Add(new Permission
+                {
+                    Id = 2,
+                    Name = "Read",
+                    Description = "Read"
+                });
+                
+                _context.Permissions.Add(new Permission
+                {
+                    Id = 3,
+                    Name = "Update",
+                    Description = "Update"
+                });
+                
+                _context.Permissions.Add(new Permission
+                {
+                    Id = 4,
+                    Name = "Delete",
+                    Description = "Delete"
+                });
+
+                _context.SaveChanges();
+            }
+            
+            if (!_context.Roles.Any())
+            {
+                _context.Roles.Add(new Role
+                {
+                    Id = 1,
+                    Name = "Admin",
+                    Permissions = new List<Permission>
+                    {
+                        _context.Permissions.FirstOrDefault(x => x.Id == 1),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 2),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 3),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 4)
+                    }
+                });
+                
+                _context.Roles.Add(new Role
+                {
+                    Id = 2,
+                    Name = "Provider",
+                    Permissions = new List<Permission>
+                    {
+                        _context.Permissions.FirstOrDefault(x => x.Id == 1),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 2),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 3),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 4)
+                    }
+                });
+                
+                _context.Roles.Add(new Role
+                {
+                    Id = 3,
+                    Name = "User",
+                    Permissions = new List<Permission>
+                    {
+                        _context.Permissions.FirstOrDefault(x => x.Id == 1),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 2),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 3),
+                        _context.Permissions.FirstOrDefault(x => x.Id == 4)
+                    }
+                });
+                    
+                _context.SaveChanges();
+            }
             
             if (!_context.Users.Any())
             {
@@ -27,57 +121,160 @@ namespace Api.Data;
                 var salt = BCrypt.Net.BCrypt.GenerateSalt();
                 var hash = BCrypt.Net.BCrypt.HashPassword(password, salt);
                 
-                
-                
                 _context.Users.Add(new User
                 {
                     Id = 1,
-                    Username = "JohnDoe",
                     Name = "John",
                     Surname = "Doe",
                     Email = "john.doe@gmail.com",
-                    Phone = "0631409799",
-                    Address = "1 Rue de la liberté",
-                    City = "Rouen",
-                    Country = "FR",
-                    PostCode = "76000",
-                    IsAdmin = true,
+                    Phone = 0631409799,
                     Password = hash,
+                    RoleId = 1,
+                    Role = _context.Roles.FirstOrDefault(x => x.Id == 1)
                 });
+                
+                _context.Users.Add(new User
+                {
+                    Id = 2,
+                    Name = "Jane",
+                    Surname = "Doe",
+                    Email = "jane.doe@gmail.com",
+                    Phone = 0631409799,
+                    Password = hash,
+                    RoleId = 3,
+                    Role = _context.Roles.FirstOrDefault(x => x.Id == 3)
+                });
+                
+                _context.SaveChanges();
+            }
+            
+            if (!_context.Carts.Any())
+            {
+                _context.Carts.Add(new Cart
+                {
+                    Id = 1,
+                    UserId = 1,
+                    User = _context.Users.FirstOrDefault(x => x.Id == 1),
+                    CartItems = new List<CartItem>
+                    {
+                        // new CartItem
+                        // {
+                        //     Id = 1,
+                        //     ArticleId = 1,
+                        //     Article = _context.Articles.FirstOrDefault(x => x.Id == 1),
+                        //     CartId = 1,
+                        //     Cart = _context.Carts.FirstOrDefault(x => x.Id == 1),
+                        //     Quantity = 1
+                        // },
+                        // new CartItem
+                        // {
+                        //     Id = 2,
+                        //     ArticleId = 2,
+                        //     Article = _context.Articles.FirstOrDefault(x => x.Id == 2),
+                        //     CartId = 1,
+                        //     Cart = _context.Carts.FirstOrDefault(x => x.Id == 1),
+                        //     Quantity = 1
+                        // }
+                    }
+                });
+                
+                _context.SaveChanges();
+            }
+            
+            if (!_context.Addresses.Any())
+            {
+                _context.Addresses.Add(new Address()
+                {
+                    Id = 1,
+                    Street = "Kralja Petra I Karađorđevića",    
+                    City =  "Novi Sad",
+                    Country = "Srbija",
+                    ZipCode = 27000,
+                    UserId = 1,
+                    User = _context.Users.FirstOrDefault(x => x.Id == 1)
+                });
+                
+                _context.Addresses.Add(new Address()
+                {
+                    Id = 2,
+                    Street = "Sdqsdazqsdqsqwxc",    
+                    City =  "Novi Sad",
+                    Country = "Srbija",
+                    ZipCode = 21000,
+                });
+                
+                _context.SaveChanges();
+            }
+            
+            if (!_context.Domains.Any())
+            {
+                _context.Domains.Add(new Domain
+                {
+                    Id = 1,
+                    Name = "Domaine de Tariquet",
+                    Description = "Le domaine du tariquet est producteur de vin blanc",
+                    Email = "Tariquet.dom@gmail.com",
+                });
+                _context.Domains.Add(new Domain
+                {
+                    Id = 2,
+                    Name = "Domaine de Joy",
+                    Description = "Le domaine de Joy est producteur de vin rouge",
+                    Email = "Joy.dom@gmail.com",
+                });
+                _context.Domains.Add(new Domain
+                {
+                    Id = 3,
+                    Name = "Vignoble Fontan",
+                    Description = "Le Vignoble Fontan est producteur de vin rosé",
+                    Email = "Vignoble.Fontan@gmail.com",
+                });
+                _context.Domains.Add(new Domain
+                {
+                    Id = 4,
+                    Name = "Domaine d'Uby",
+                    Description = "Le domaine d'uby est producteur de vin bio",
+                    Email = "Uby.dom@gmail.com",
+                });
+                
+                _context.SaveChanges();
             }
 
+            if (!_context.Statuses.Any())
+            {
+                _context.Statuses.Add(new Status
+                {
+                    Id = 1,
+                    Message = "Pending"
+                });
+                
+                _context.Statuses.Add(new Status
+                {
+                    Id = 2,
+                    Message = "In progress"
+                });
+                
+                _context.Statuses.Add(new Status
+                {
+                    Id = 3,
+                    Message = "Completed"
+                });
+                
+                _context.SaveChanges();
+            }
+            
             if (!_context.Providers.Any())
             {
                 _context.Providers.Add(new Provider
                 {
                     Id = 1,
-                    Name = "Domaine de Tariquet",
-                    Email = "Tariquet.dom@gmail.com",
-                    Phone = "0631409799",
+                    Name = "Provider 1",
+                    Email = "EmailProvider@gmail.com",
                 });
-                _context.Providers.Add(new Provider
-                {
-                    Id = 2,
-                    Name = "Domaine de Joy",
-                    Email = "Joy.dom@gmail.com",
-                    Phone = "0631409799",
-                });
-                _context.Providers.Add(new Provider
-                {
-                    Id = 3,
-                    Name = "Vignoble Fontan",
-                    Email = "Vignoble.Fontan@gmail.com",
-                    Phone = "0631409799",
-                });
-                _context.Providers.Add(new Provider
-                {
-                    Id = 4,
-                    Name = "Domaine d'Uby",
-                    Email = "Uby.dom@gmail.com",
-                    Phone = "0631409799",
-                });
+                
+                _context.SaveChanges();
             }
-
+            
             if (!_context.Categories.Any())
             {
                 _context.Categories.Add(new Category
@@ -105,7 +302,7 @@ namespace Api.Data;
                     Description = "Champagne pour les amateurs",
                 });
             }
-
+            
             if (!_context.Articles.Any())
             {
                 _context.Articles.Add(new Article
@@ -113,11 +310,12 @@ namespace Api.Data;
                     Id = 1,
                     Name = "Les Darons",
                     Description = "Composé en majorité de raisins issus de vignes de plus de quarante ans, Les Darons (les Pères en argot) porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
-                    Year = "2020",
-                    Price = "6.50",
-                    ProviderId = 1,
+                    Year = 2020,
+                    Price = 6.50,
+                    Alcohol = 25.7,
+                    Stock = 150,
+                    DomainId = 1, 
                     CategoryId = 1,
-                    Stock = 150
                 });
                 
                 _context.Articles.Add(new Article
@@ -125,23 +323,46 @@ namespace Api.Data;
                     Id = 2,
                     Name = "YLIRUM",
                     Description = "Ylirum est un vin rouge facile à boire, juteux, avec beaucoup de fraîcheur et un délicieux fruité. Nommé MEILLEUR VIN de son appellation, avec ses saveurs vanillés lui apportant cette sucrosité, voilà une belle gourmandise à partager. Appelez vite les copains : c'est l'occasion rêvée de les inviter sans vous ruiner ! Le petit vin plaisir par excellence...",
-                    Year = "2020",
-                    Price = "4.50",
-                    ProviderId = 2,
+                    Year = 2015,
+                    Price = 8,
+                    Alcohol = 19.1,
+                    Stock = 150,
+                    DomainId = 1, 
                     CategoryId = 1,
-                    Stock = 150
                 });
             }
-
+            
+            if (!_context.Images.Any())
+            {
+                _context.Images.Add(new Image
+                {
+                    Id = 1,
+                    Url = "TEST URL",
+                    ArticleId = 1
+                });
+            }
+            
+            if (!_context.Comments.Any())
+            {
+                _context.Comments.Add(new Comment()
+                {
+                    Id = 1,
+                    Rating = 5,
+                    Message = "Super vin",
+                    UserId = 1,
+                    ArticleId = 1
+                });
+            }
+            
             if (!_context.Orders.Any())
             {
                 _context.Orders.Add(new Order
                 {
                     Id = 1,
                     UserId = 1,
+                    AddressId = 1,
                     Date = DateTime.UtcNow,
-                    Status = "In progress",
-                    Serial = "123456789",
+                    StatusId = 1,
                     ArticleOrders = new List<ArticleOrder>
                     {
                         new ArticleOrder
@@ -161,6 +382,35 @@ namespace Api.Data;
                     }
                 });
             }
+            
+            if (!_context.ProviderOrders.Any())
+            {
+                _context.ProviderOrders.Add(new ProviderOrder()
+                {
+                    Id = 1,
+                    ProviderId = 1,
+                    Date = DateTime.UtcNow,
+                    StatusId = 1,
+                    // ArticleOrders = new List<ArticleOrder>
+                    // {
+                    //     new ArticleOrder
+                    //     {
+                    //         Id = 3,
+                    //         ArticleId = 1,
+                    //         OrderId = 1,
+                    //         Quantity = 10
+                    //     },
+                    //     new ArticleOrder
+                    //     {
+                    //         Id = 4,
+                    //         ArticleId = 2,
+                    //         OrderId = 1,
+                    //         Quantity = 10
+                    //     }
+                    // }
+                });
+            }
+
 
             _context.SaveChanges();
         }

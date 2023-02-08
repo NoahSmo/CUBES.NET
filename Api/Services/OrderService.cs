@@ -4,7 +4,7 @@ using Api.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api;
+namespace Api.Services;
 
 public class OrderService : IOrderService
 {
@@ -80,7 +80,6 @@ public class OrderService : IOrderService
         
         order.Date = request.Date;
         order.Status = request.Status;
-        order.Serial = request.Serial;
         order.ArticleOrders = request.ArticleOrders;
 
         _context.Orders.Update(order);

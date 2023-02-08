@@ -7,12 +7,23 @@ namespace Api.ViewModels
 {
     public class OrderViewModel
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
-        public User? User { get; set; }
         public DateTime Date { get; set; }
-        public string Status { get; set; } = string.Empty;
-        public string Serial { get; set; } = string.Empty;
+        
+        public int UserId { get; set; }
+        
+        public int AddressId { get; set; }
+        
+        public int StatusId { get; set; }
+        
         public virtual List<ArticleOrder>? ArticleOrders { get; set; }
+        
+        public OrderViewModel(Order order)
+        {
+            Date = order.Date;
+            UserId = order.UserId;
+            AddressId = order.AddressId;
+            StatusId = order.StatusId;
+            ArticleOrders = order.ArticleOrders;
+        }
     }
 }

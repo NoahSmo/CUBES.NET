@@ -3,7 +3,7 @@ using Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api;
+namespace Api.Services;
 
 public class ProviderService : IProviderService
 {
@@ -47,8 +47,6 @@ public class ProviderService : IProviderService
 
         provider.Name = request.Name;
         provider.Email = request.Email;
-        provider.Phone = request.Phone;
-        
         
         _context.Providers.Update(provider);
         await _context.SaveChangesAsync();

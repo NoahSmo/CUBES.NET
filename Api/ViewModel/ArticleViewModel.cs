@@ -6,24 +6,37 @@ namespace Api.ViewModels
 {
     public class ArticleViewModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; } = string.Empty;
-        public string Image { get; set; } = string.Empty;
-        public string Year { get; set; }
-        public string Price { get; set; }
-        public int ProviderId { get; set; }
-        public Provider? Provider { get; set; }
-        public int CategoryId { get; set; }
-        public Category? Category { get; set; }
+        public int Year { get; set; }
+        public double Price { get; set; }
+        public double Alcohol { get; set; }
         public int Stock { get; set; }
         
-        public virtual List<ArticleOrder>? ArticleOrders { get; set; }
+        
+        public string Domain { get; set; }
+        public string Category { get; set; }
+        
+        
+        public virtual List<Image>? Images { get; set; }
+        
+        public ArticleViewModel(Article article)
+        {
+            Name = article.Name;
+            Description = article.Description;
+            Year = article.Year;
+            Price = article.Price;
+            Alcohol = article.Alcohol;
+            Stock = article.Stock;
+            Domain = article.Domain.Name;
+            Category = article.Category.Name;
+            
+            Images = article.Images;
+        }
     }
 
     public class ArticleOrderViewModel
     {
-        public int Id { get; set; }
         public int ArticleId { get; set; }
         public int OrderId { get; set; }
         public int Quantity { get; set; }

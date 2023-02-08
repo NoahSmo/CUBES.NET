@@ -1,4 +1,5 @@
 ﻿using Api.Models;
+using Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,56 +17,45 @@ namespace Api.Controllers
         }
         
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<Provider>>> GetProviders()
         {
             return await _providerService.GetProviders();
         }
         
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, Provider")]
         public async Task<ActionResult<Provider>> GetProvider(int id)
         {
-            var result = await _providerService.GetId(id);
-            if (result == null)
+            if (User.IsInRole("Provider"))
             {
-                return NotFound("Provider not found");
+                var provider = await _providerService.GetId(id);
+                if (provider.Name != User.Identity?.Name) return Unauthorized("You are not the owner of this provider");
             }
-            return Ok(result);
+            
+            var result = await _providerService.GetId(id);
+            return result == null ? NotFound("Provider not found") : Ok(result);
         }
         
         [HttpPost]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Provider>> CreateProvider(Provider provider)
         {
             var result = await _providerService.CreateProvider(provider);
-            if (result == null)
-            {
-                return NotFound("Provider not found");
-            }
-            return Ok(result);
+            return result == null ? Unauthorized("Provider already exist") : Ok(result);
         }
         
         [HttpPut("{id}")]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Provider>> UpdateProvider(int id, Provider provider)
         {
             var result = await _providerService.UpdateProvider(id, provider);
-            if (result == null)
-            {
-                return NotFound("Provider not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("Provider not found") : Ok(result);
         }
         
         [HttpDelete("{id}")]
-        [Authorize (Roles = "Admin")]
         public async Task<ActionResult<Provider>> DeleteProvider(int id)
         {
             var result = await _providerService.DeleteProvider(id);
-            if (result == null)
-            {
-                return NotFound("Provider not found");
-            }
-            return Ok(result);
+            return result == null ? NotFound("Provider not found") : Ok(result);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Api.Models;
+using Api.Services;
 using Microsoft.AspNetCore.Authorization;
 
 
@@ -18,27 +19,33 @@ namespace Api.Controllers
             _orderService = orderService;
             _articleService = articleService;
         }
-        
+
         [HttpGet]
-        [Authorize (Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<Order>>> GetOrders()
         {
             return await _orderService.GetOrders();
         }
-        
+
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, Provider, User")]
         public async Task<ActionResult<Order>> GetOrder(int id)
         {
-            var result = await _orderService.GetId(id);
-            if (result == null)
+            if (User.IsInRole("User"))
             {
-                return NotFound("Order not found");
+                var order = await _orderService.GetId(id);
+                if (order.UserId.ToString() != User.Identity?.Name)
+                {
+                    return Unauthorized("You are not authorized to access this order");
+                }
             }
-            return Ok(result);
+
+            var result = await _orderService.GetId(id);
+            return result == null ? NotFound("Order not found") : Ok(result);
         }
-        
+
         [HttpPost]
-        [Authorize (Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<Order>> CreateOrder(Order order)
         {
             var result = await _orderService.CreateOrder(order);
@@ -46,39 +53,48 @@ namespace Api.Controllers
             {
                 return Unauthorized("Order Id or Serial already exists");
             }
-                
+
             order.ArticleOrders.ForEach(async x =>
             {
                 var article = await _articleService.GetId(x.ArticleId);
                 article.Stock -= x.Quantity;
                 await _articleService.UpdateStock(article);
             });
-            
+
             return Ok(result);
         }
-        
+
         [HttpPut("{id}")]
-        [Authorize (Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<Order>> UpdateOrder(int id, Order order)
         {
-            var result = await _orderService.UpdateOrder(id, order);
-            if (result == null)
+            if (User.IsInRole("User"))
             {
-                return NotFound("Order not found");
+                var orderToUpdate = await _orderService.GetId(id);
+                if (orderToUpdate == null) return NotFound("Order not found");
+                if (orderToUpdate.UserId.ToString() != User.Identity?.Name)
+                    return Unauthorized("You are not the owner of this order");
             }
-            return Ok(result);
+
+            var result = await _orderService.UpdateOrder(id, order);
+            return result == null ? NotFound("Order not found") : Ok(result);
         }
-        
+
         [HttpDelete("{id}")]
-        [Authorize (Roles = "Admin")]
+        [Authorize]
+
         public async Task<ActionResult<Order>> DeleteOrder(int id)
         {
-            var result = await _orderService.DeleteOrder(id);
-            if (result == null)
+            if (User.IsInRole("User"))
             {
-                return NotFound("Order not found");
+                var orderToUpdate = await _orderService.GetId(id);
+                if (orderToUpdate == null) return NotFound("Order not found");
+                if (orderToUpdate.UserId.ToString() != User.Identity?.Name)
+                    return Unauthorized("You are not the owner of this order");
             }
-            return Ok(result);
+            
+            var result = await _orderService.DeleteOrder(id);
+            return result == null ? NotFound("Order not found") : Ok(result);
         }
     }
 }

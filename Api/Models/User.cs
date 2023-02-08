@@ -1,6 +1,3 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-
 namespace Api.Models
 {
     public class UserLogin
@@ -9,27 +6,27 @@ namespace Api.Models
         public string Password { get; set; }
     }
     
-    
-    
-    public class User
+    public class User : Auditable
     {
         public int Id { get; set; }
-        
-        public string Username { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Surname { get; set; } = string.Empty;
+        public string Name { get; set; }
+        public string Surname { get; set; }
         public string Email { get; set; }
-        public string Phone { get; set; } = string.Empty;
+        public int? Phone { get; set; }
         
-        public string Address { get; set; } = string.Empty;
-        public string City { get; set; } = string.Empty;
-        public string Country { get; set; } = string.Empty;
-        public string PostCode { get; set; } = string.Empty;
+        public int RoleId { get; set; } = 2;
+        public Role? Role { get; set; }
         
-        public bool IsAdmin { get; set; }
+        public int? CartId { get; set; }
+        public Cart? Cart { get; set; }
         
         public string Password { get; set; }
         
+
+        public virtual List<Address>? Addresses { get; set; }
+        
         public virtual List<Order>? Orders { get; set; }
+        
+        public virtual List<Comment>? Comments { get; set; }
     }
 }

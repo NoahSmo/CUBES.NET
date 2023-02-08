@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Api.Models
 {
-    public class Category
+    public class Category : Auditable
     {
-        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         
+        public virtual List<Article>? Articles { get; set; }
     }
 }
