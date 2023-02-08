@@ -1,4 +1,3 @@
-C:\Users\cardo\Documents\Projet\Cesi\CUBES.NET\Api\bin\Debug\net7.0\appsettings.Development.json
 C:\Users\cardo\Documents\Projet\Cesi\CUBES.NET\Api\bin\Debug\net7.0\appsettings.json
 C:\Users\cardo\Documents\Projet\Cesi\CUBES.NET\Api\bin\Debug\net7.0\Api.exe
 C:\Users\cardo\Documents\Projet\Cesi\CUBES.NET\Api\bin\Debug\net7.0\Api.deps.json

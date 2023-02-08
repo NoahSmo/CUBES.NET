@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using WpfApp.View;
+using WpfApp.ViewModel;
 
 namespace WpfApp
 {
@@ -25,8 +26,8 @@ namespace WpfApp
                 {
                     var mainView = new MainWindow();
                     mainView.Show();
+                    mainView.WindowState = System.Windows.WindowState.Maximized;
                     loginView.Close();
-                    mainView.WindowState = WindowState.Maximized;
                 }
             };
         }

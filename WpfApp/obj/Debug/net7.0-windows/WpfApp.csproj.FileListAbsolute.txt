@@ -31,3 +31,5 @@ C:\Users\cardo\Documents\Projet\Cesi\CUBES.NET\WpfApp\obj\Debug\net7.0-windows\V
 C:\Users\cardo\Documents\Projet\Cesi\CUBES.NET\WpfApp\obj\Debug\net7.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\cardo\Documents\Projet\Cesi\CUBES.NET\WpfApp\obj\Debug\net7.0-windows\CustomControls\BindablePasswordBox.g.cs
 C:\Users\cardo\Documents\Projet\Cesi\CUBES.NET\WpfApp\obj\Debug\net7.0-windows\CustomControls\BindablePasswordBox.baml
+C:\Users\cardo\Documents\Projet\Cesi\CUBES.NET\WpfApp\obj\Debug\net7.0-windows\View\ProductListView.g.cs
+C:\Users\cardo\Documents\Projet\Cesi\CUBES.NET\WpfApp\obj\Debug\net7.0-windows\View\ProductListView.baml

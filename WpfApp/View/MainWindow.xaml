@@ -6,8 +6,11 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:MainWindow}"
+             xmlns:viewModel="clr-namespace:WpfApp.ViewModel"
         Title="MainWindow" Height="450" Width="800">
     <Grid Background="Pink">
-
+        <TextBlock Text="{Binding ProductName,UpdateSourceTrigger=PropertyChanged,Mode=OneTime}"/>
+        <TextBlock Text="Test"/>
     </Grid>
 </Window>

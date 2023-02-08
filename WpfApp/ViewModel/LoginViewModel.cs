@@ -17,8 +17,8 @@ namespace WpfApp.ViewModel
 {
     public class LoginViewModel : ViewModelBase
     {
-        private HttpClient client = new HttpClient();
-        private User CurrentUser;
+        //private HttpClient client = new HttpClient();
+        //private User CurrentUser;
         private UserLogin _login_User = new UserLogin();
         private string _errorMessage;
 
@@ -82,9 +82,10 @@ namespace WpfApp.ViewModel
 
         public LoginViewModel()
         {
-            client.BaseAddress = new Uri("https://localhost:44301/api/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            ModeCommun.client = new HttpClient();
+            ModeCommun.client.BaseAddress = new Uri("https://localhost:44301/api/");
+            ModeCommun.client.DefaultRequestHeaders.Accept.Clear();
+            ModeCommun.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
             RecoverPasswordCommand = new ViewModelCommand(ExecuteRecoverPasswordCommand);
         }
@@ -92,11 +93,11 @@ namespace WpfApp.ViewModel
         private async void ConnectUser()
         {
             //login_User.Password= Password;
-            var response = await client.PostAsJsonAsync("Login/DesktopLogin", login_User);
+            var response = await ModeCommun.client.PostAsJsonAsync("Login/DesktopLogin", login_User);
             var users = await response.Content.ReadAsStringAsync();
             if(response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                CurrentUser = JsonConvert.DeserializeObject<User>(users);
+                ModeCommun.CurrentUser = JsonConvert.DeserializeObject<User>(users);
                 IsViewVisible = false;
                 OnPropertyChanged(nameof(IsViewVisible));
             }

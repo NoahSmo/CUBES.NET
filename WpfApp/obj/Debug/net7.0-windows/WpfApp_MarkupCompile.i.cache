@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 C:\Users\cardo\Documents\Projet\Cesi\CUBES.NET\WpfApp\App.xaml
-3-533280196
+4932812320
 
-1559958708
+192004389790
 2031494384735
-CustomControls\BindablePasswordBox.xaml;View\LoginView.xaml;View\MainWindow.xaml;
+CustomControls\BindablePasswordBox.xaml;View\LoginView.xaml;View\MainWindow.xaml;View\ProductListView.xaml;
 
 True
 
