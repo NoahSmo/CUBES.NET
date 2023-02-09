@@ -98,6 +98,12 @@ namespace WpfApp.ViewModel
             if(response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 ModeCommun.CurrentUser = JsonConvert.DeserializeObject<User>(users);
+                var responseToken = await ModeCommun.client.PostAsJsonAsync("Login", login_User);
+                var tokenJson = await responseToken.Content.ReadAsStringAsync();
+                Console.WriteLine(tokenJson);
+                string responseValue = tokenJson;
+                var token = JsonConvert.DeserializeObject<ResponseData>(tokenJson);
+                ModeCommun.client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token.value);
                 IsViewVisible = false;
                 OnPropertyChanged(nameof(IsViewVisible));
             }
@@ -131,4 +137,14 @@ namespace WpfApp.ViewModel
         }
     }
 
+    public class ResponseData
+    {
+        public string contentType { get; set; }
+        public string serializerSettings { get; set; }
+        public string statusCode { get; set; }
+        public string value { get; set; }
+    }
+
+
 }
+

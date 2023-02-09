@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using WpfApp;
+using Newtonsoft.Json;
 
 namespace WpfApp.ViewModel
 {
@@ -41,14 +42,11 @@ namespace WpfApp.ViewModel
 
         public MainWindowViewModel()
         {
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
-            mainWindow.WindowState = System.Windows.WindowState.Maximized;
-            ModeCommun.client = new HttpClient();
-            ModeCommun.client.BaseAddress = new Uri("https://localhost:44301/api/");
-            ModeCommun.client.DefaultRequestHeaders.Accept.Clear();
-            ModeCommun.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            ModeCommun.client.DefaultRequestHeaders.Add("Authorization", "Bearer " + _accessToken);
+            //ModeCommun.client = new HttpClient();
+            //ModeCommun.client.BaseAddress = new Uri("https://localhost:44301/api/");
+            //ModeCommun.client.DefaultRequestHeaders.Accept.Clear();
+            //ModeCommun.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //ModeCommun.client.DefaultRequestHeaders.Add("Authorization", "Bearer " + _accessToken);
 
             ProductName = "Louis le bg";
             GetUsers();
@@ -57,8 +55,8 @@ namespace WpfApp.ViewModel
 
         private async void GetUsers()
         {
-            //var content = await client.GetStringAsync("User");
-            //var users = JsonConvert.DeserializeObject<List<User>>(content);
+            var content = await ModeCommun.client.GetStringAsync("User");
+            var users = JsonConvert.DeserializeObject<List<User>>(content);
         }
 
 
