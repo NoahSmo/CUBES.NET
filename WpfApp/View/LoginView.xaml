@@ -1,0 +1,61 @@
+﻿<Window x:Class="WpfApp.View.LoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:WpfApp.View"
+        xmlns:viewModel="clr-namespace:WpfApp.ViewModel" xmlns:customcontrols="clr-namespace:WpfApp.CustomControls"
+        mc:Ignorable="d"
+        Title="LoginView" AllowsTransparency="True" Background="Transparent" Height="450" Width="800" WindowStyle="None" WindowStartupLocation="CenterScreen" MouseDown="Window_MouseDown">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Window.Resources>
+    <Window.DataContext>
+        <viewModel:LoginViewModel/>
+    </Window.DataContext>
+    <Window.Visibility>
+        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
+    </Window.Visibility>
+    <Border CornerRadius="50" Background="#232429" BorderBrush="MediumSlateBlue" BorderThickness="5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="25"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="LOG IN" Foreground="DarkGray" FontSize="10" FontFamily="Montserrat" VerticalAlignment="Center" Margin="30,0,0,0"/>
+                <Button x:Name="btnMinimize" Margin="5" VerticalAlignment="Center" Background="#232429" Padding="0" BorderThickness="0" Foreground="White" Grid.Column="1" Click="btnMinimize_Click">
+                    <materialDesign:PackIcon VerticalAlignment="Center" Background="Transparent" Kind="WindowMinimize"/>
+                </Button>
+                <Button x:Name="btnClose" VerticalAlignment="Center" Margin="5" Background="#232429" Padding="0" BorderThickness="0" Foreground="White" Grid.Column="2" Click="btnClose_Click">
+                    <materialDesign:PackIcon VerticalAlignment="Center" Background="Transparent" Kind="WindowClose"/>
+                </Button>
+            </Grid>
+            <StackPanel Width="250" Orientation="Vertical" Grid.Row="1" Margin="0,35,0,0" >
+                <TextBlock Text="NEGOSUD" Foreground="White" FontSize="25" FontWeight="Medium" FontFamily="Montserrat" HorizontalAlignment="Center"/>
+                <TextBlock Text="E-mail" Foreground="White" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Margin="0,35,0,0"/>
+                <TextBox BorderBrush="White" materialDesign:HintAssist.Hint="E-mail" x:Name="txtEmail" Text="{Binding login_User.Email,UpdateSourceTrigger=PropertyChanged}" Foreground="White" FontSize="13" FontWeight="Medium" FontFamily="Montserrat" Margin="0,5,0,0"/>
+                <TextBlock Text="Password" Foreground="White" FontSize="12" FontWeight="Medium" FontFamily="Montserrat" Margin="0,35,0,0"/>
+                <customcontrols:BindablePasswordBox  Visibility="Collapsed"  materialDesign:HintAssist.Hint="Password" x:Name="txtPass" Password="{Binding Password,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="0,5,0,0"/>
+                <TextBox BorderBrush="White" materialDesign:HintAssist.Hint="password" x:Name="txtPassword" Text="{Binding login_User.Password,UpdateSourceTrigger=PropertyChanged}" Foreground="White" FontSize="13" FontWeight="Medium" FontFamily="Montserrat" Margin="0,5,0,0"/>
+                <TextBlock HorizontalAlignment="Center" Foreground="Red" Text="{Binding ErrorMessage}"/>
+                <Button x:Name="btnLogin" Command="{Binding LoginCommand}" Height="50" Margin="0,50,0,0" Background="MediumSlateBlue" Content="LOG IN">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="150" Height="40" CornerRadius="20" Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

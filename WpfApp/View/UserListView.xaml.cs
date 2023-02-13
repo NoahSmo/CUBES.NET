@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfApp
+namespace WpfApp.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logique d'interaction pour UserListView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UserListView : UserControl
     {
-        public MainWindow()
+        public UserListView()
         {
             InitializeComponent();
         }
