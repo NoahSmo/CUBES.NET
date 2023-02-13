@@ -11,8 +11,8 @@
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
-    <Grid Background="Pink">
+    <Grid Background="Red">
         <TextBlock Text="{Binding ProductName,UpdateSourceTrigger=PropertyChanged,Mode=OneTime}"/>
-        <TextBlock Text="Test"/>
+        <!-- <TextBlock Text="Test"/> -->
     </Grid>
 </Window>

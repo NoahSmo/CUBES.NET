@@ -10,6 +10,7 @@ namespace WpfApp.ViewModel
     {
 
         private string _productName;
+        private float _productPrice;
 
         public string ProductName
         {
@@ -22,10 +23,23 @@ namespace WpfApp.ViewModel
                 SetProperty(ref _productName, value);
             }
         }
+        
+        public float ProductPrice
+        {
+            get
+            {
+                return _productPrice;
+            }
+            set
+            {
+                SetProperty(ref _productPrice, value);
+            }
+        }
 
         public ProductListViewModel()
         {
             ProductName = "Test Louis 123";
+            ProductPrice = 123.45f;
         }
 
     }

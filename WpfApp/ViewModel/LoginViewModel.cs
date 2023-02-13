@@ -110,7 +110,6 @@ namespace WpfApp.ViewModel
             else
             {
                 ErrorMessage = JsonConvert.DeserializeObject<String>(users);
-
             }
 
         }
@@ -133,7 +132,6 @@ namespace WpfApp.ViewModel
         private void ExecuteLoginCommand(object obj)
         {
             ConnectUser();
-            
         }
     }
 

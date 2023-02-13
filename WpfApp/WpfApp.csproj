@@ -13,4 +13,19 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="View\UserListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="View\UserListView.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>UserListView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>
