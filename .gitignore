@@ -1,3 +1,5 @@
 /.idea/
 /.VS/
 /.appsettings.Development.json/
+/.obj/
+/.obj.Debug/
