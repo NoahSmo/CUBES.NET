@@ -3,5 +3,5 @@
 /.appsettings.Development.json/
 /.obj/
 /.obj.Debug/
-/.WpfApp.bin/
-/.WpfApp.obj/
+/.bin/
+/.bin.Debug/
