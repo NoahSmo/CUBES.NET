@@ -23,3 +23,22 @@ body {
   display: none;
 }
 
+.p-carousel-content {
+  position: relative;
+
+  .p-ripple {
+    z-index: 20000;
+    &.p-carousel-prev{
+      margin-right: -2.5rem!important;
+    }
+    &.p-carousel-next{
+      margin-left: -2.5rem!important;
+    }
+  }
+  .p-carousel-indicators{
+    display: none;
+  }
+}
+.p-carousel .p-carousel-content .p-carousel-prev, .p-carousel .p-carousel-content .p-carousel-next {
+  color: white;
+}
