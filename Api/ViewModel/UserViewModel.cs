@@ -24,7 +24,7 @@ namespace Api.ViewModels
         public string Surname { get; set; }
         public string Email { get; set; }
         public int? Phone { get; set; }
-        public Role Role { get; set; }
+        public string Role { get; set; }
         
         public UserDetailsViewModel(User user)
         {
@@ -32,7 +32,7 @@ namespace Api.ViewModels
             Surname = user.Surname;
             Email = user.Email;
             Phone = user.Phone;
-            Role = user.Role;
+            Role = user.Role.Name;
         }
     }
 }
