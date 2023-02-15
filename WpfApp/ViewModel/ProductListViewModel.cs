@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Api.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,6 +42,14 @@ namespace WpfApp.ViewModel
         {
             ProductName = "Test Louis 123";
             ProductPrice = 123.45f;
+            GetArticles();
+        }
+
+
+        private async void GetArticles()
+        {
+            var content = await ModeCommun.client.GetStringAsync("Article");
+            var ListArticle = JsonConvert.DeserializeObject<List<Article>>(content);
         }
 
     }
