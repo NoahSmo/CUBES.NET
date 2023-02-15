@@ -19,6 +19,7 @@
       <XamlRuntime>Wpf</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
+    <Page Remove="obj\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +27,15 @@
       <SubType>Code</SubType>
       <DependentUpon>UserListView.xaml</DependentUpon>
     </Compile>
+    <Compile Remove="obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="obj\**" />
   </ItemGroup>
 
 </Project>
