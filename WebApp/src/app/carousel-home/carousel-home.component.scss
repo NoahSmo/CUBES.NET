@@ -1,0 +1,11 @@
+.product-item {
+  .product-item-content {
+    border: none;
+  }
+
+  .product-image {
+    width: 100%;
+    object-fit: cover;
+    max-height: 50vh;
+  }
+}
