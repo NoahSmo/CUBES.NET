@@ -1,5 +1,7 @@
 /Api/bin/
 /Api/obj/
+/WebApp/bin/
+/WebApp/obj/
 /WpfApp/bin/
 /WpfApp/obj/
 .vs/
