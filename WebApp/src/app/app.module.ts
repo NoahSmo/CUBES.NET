@@ -14,6 +14,7 @@ import { RegisterComponent } from './register/register.component';
 import {CarouselModule} from "primeng/carousel";
 import {MenubarModule} from 'primeng/menubar';
 import {InputTextModule} from "primeng/inputtext";
+import { CarouselHomeComponent } from './carousel-home/carousel-home.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import {InputTextModule} from "primeng/inputtext";
     FooterComponent,
     LoginComponent,
     RegisterComponent,
+    CarouselHomeComponent,
   ],
   imports: [
     BrowserModule,
