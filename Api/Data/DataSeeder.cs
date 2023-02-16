@@ -330,6 +330,136 @@ namespace Api.Data;
                     DomainId = 1, 
                     CategoryId = 1,
                 });
+                
+                _context.Articles.Add(new Article
+                {
+                    Id = 3,
+                    Name = "Le Vin de Gascogne",
+                    Description =   "Le Vin de Gascogne est un vin blanc sec, fruité et frais, à la robe jaune pâle. Il est élaboré à partir de cépages locaux, le colombard et le gros manseng. Il est issu de raisins issus de vignes de plus de quarante ans, Les Darons (les Pères en argot) porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
+                    Year = 2020,
+                    Price = 6.50,
+                    Alcohol = 25.7,
+                    Stock = 150,
+                    DomainId = 1, 
+                    CategoryId = 1,
+                });
+                
+                _context.Articles.Add(new Article
+                {
+                    Id = 4,
+                    Name = "Les Daronnes",
+                    Description = "Composé en majorité de raisins issus de vignes de plus de quarante ans, Les Daronnes (les Mères en argot) porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
+                    Year = 2020,
+                    Price = 6.50,
+                    Alcohol = 25.7,
+                    Stock = 150,
+                    DomainId = 1, 
+                    CategoryId = 1,
+                });
+                
+                _context.Articles.Add(new Article
+                {
+                    Id = 5,
+                    Name = "Los Muchachos",
+                    Description = "Composé en majorité de raisins issus de vignes de plus de quarante ans, Los Muchachos (les Enfants en argot) porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
+                    Year = 2020,
+                    Price = 6.50,
+                    Alcohol = 25.7,
+                    Stock = 150,
+                    DomainId = 1,
+                    CategoryId = 1,
+                });
+                
+                _context.Articles.Add(new Article
+                {
+                    Id = 6,
+                    Name = "Le Canard",
+                    Description = "Composé en majorité de raisins issus de vignes de plus de quarante ans, Le Canard porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
+                    Year = 2020,
+                    Price = 6.50,
+                    Alcohol = 25.7,
+                    Stock = 150,
+                    DomainId = 1,
+                    CategoryId = 1,
+                });
+                
+                _context.Articles.Add(new Article
+                {
+                    Id = 7,
+                    Name = "Le Chien",
+                    Description = "Composé en majorité de raisins issus de vignes de plus de quarante ans, Le Chien porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
+                    Year = 2020,
+                    Price = 6.50,
+                    Alcohol = 25.7,
+                    Stock = 150,
+                    DomainId = 1,
+                    CategoryId = 1,
+                });
+                
+                _context.Articles.Add(new Article
+                {
+                    Id = 8,
+                    Name = "Le Chat",
+                    Description = "Composé en majorité de raisins issus de vignes de plus de quarante ans, Le Chat porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
+                    Year = 2020,
+                    Price = 6.50,
+                    Alcohol = 25.7,
+                    Stock = 150,
+                    DomainId = 1,
+                    CategoryId = 1,
+                });
+                
+                _context.Articles.Add(new Article
+                {
+                    Id = 9,
+                    Name = "Le Cheval",
+                    Description = "Composé en majorité de raisins issus de vignes de plus de quarante ans, Le Cheval porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
+                    Year = 2020,
+                    Price = 6.50,
+                    Alcohol = 25.7,
+                    Stock = 150,
+                    DomainId = 1,
+                    CategoryId = 1,
+                });
+                
+                _context.Articles.Add(new Article
+                {
+                    Id = 10,
+                    Name = "Le Cochon",
+                    Description = "Composé en majorité de raisins issus de vignes de plus de quarante ans, Le Cochon porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
+                    Year = 2020,
+                    Price = 6.50,
+                    Alcohol = 25.7,
+                    Stock = 150,
+                    DomainId = 1,
+                    CategoryId = 1,
+                });
+                
+                _context.Articles.Add(new Article
+                {
+                    Id = 11,
+                    Name = "La Chaise",
+                    Description = "Composé en majorité de raisins issus de vignes de plus de quarante ans, La Chaise porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
+                    Year = 2020,
+                    Price = 6.50,
+                    Alcohol = 25.7,
+                    Stock = 150,
+                    DomainId = 1,
+                    CategoryId = 1,
+                });
+                
+                _context.Articles.Add(new Article
+                {
+                    Id = 12,
+                    Name = "Le Lit",
+                    Description = "Composé en majorité de raisins issus de vignes de plus de quarante ans, Le Lit porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
+                    Year = 2020,
+                    Price = 6.50,
+                    Alcohol = 25.7,
+                    Stock = 150,
+                    DomainId = 1,
+                    CategoryId = 1,
+                });
             }
             
             if (!_context.Images.Any())
