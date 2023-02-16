@@ -8,6 +8,15 @@ namespace Api.Models
         public string Password { get; set; }
     }
     
+    public class UserData
+    {
+        public string Email { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public int? Phone { get; set; }
+        public string Role { get; set; }
+    }
+    
     public class User : Auditable
     {
         public int Id { get; set; }

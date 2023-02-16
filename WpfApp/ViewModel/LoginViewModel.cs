@@ -34,14 +34,8 @@ namespace WpfApp.ViewModel
 
         public UserLogin login_User
         {
-            get
-            {
-                return this._login_User;
-            }
-            set
-            {
-                SetProperty(ref this._login_User, value);
-            }
+            get { return _login_User; }
+            set { SetProperty(ref _login_User, value); }
         }
 
         public SecureString Password
@@ -92,24 +86,24 @@ namespace WpfApp.ViewModel
 
         private async void ConnectUser()
         {
-            //login_User.Password= Password;
             var response = await ModeCommun.client.PostAsJsonAsync("Login/DesktopLogin", login_User);
             var users = await response.Content.ReadAsStringAsync();
+            
             if(response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                ModeCommun.CurrentUser = JsonConvert.DeserializeObject<User>(users);
+                ModeCommun.CurrentUser = JsonConvert.DeserializeObject<UserViewModel>(users);
                 var responseToken = await ModeCommun.client.PostAsJsonAsync("Login", login_User);
                 var tokenJson = await responseToken.Content.ReadAsStringAsync();
-                Console.WriteLine(tokenJson);
-                string responseValue = tokenJson;
+                
                 var token = JsonConvert.DeserializeObject<ResponseData>(tokenJson);
                 ModeCommun.client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token.value);
+                
                 IsViewVisible = false;
                 OnPropertyChanged(nameof(IsViewVisible));
             }
             else
             {
-                ErrorMessage = JsonConvert.DeserializeObject<String>(users);
+                ErrorMessage = "Email or password incorrect";
             }
 
         }

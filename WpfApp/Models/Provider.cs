@@ -13,7 +13,7 @@ namespace Api.Models
         
         public virtual List<Address>? Addresses { get; set; }
         
-        public virtual List<Domain> Domains { get; set; }
+        // public virtual List<Domain> Domains { get; set; }
         
         public virtual List<Article> Articles { get; set; }
     }
