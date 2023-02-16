@@ -9,123 +9,75 @@ using Newtonsoft.Json;
 
 namespace WpfApp.ViewModel
 {
-    internal class ArticleListViewModel: ViewModelBase
+    internal class ArticleListViewModel : ViewModelBase
     {
         private string _articleName;
-        private float _articlePrice;
         private string _articleDescription;
-        private string _categoryName;
-        private string[] _articleImage;
-        private string _providerName;
-        private int _articleStock;
-        
+        private float _articleYear;
+        private float _articlePrice;
+        private float _articleAlcohol;
+
+        #region "Property"
+
         public string ArticleName
         {
-            get
-            {
-                return _articleName;
-            }
-            set
-            {
-                SetProperty(ref _articleName, value);
-            }
-        }
-        
-        public float ArticlePrice
-        {
-            get
-            {
-                return _articlePrice;
-            }
-            set
-            {
-                SetProperty(ref _articlePrice, value);
-            }
+            get { return _articleName; }
+            set { SetProperty(ref _articleName, value); }
         }
 
         public string ArticleDescription
         {
-            get
-            {
-                return _articleDescription;
-            }
-            set
-            {
-                SetProperty(ref _articleDescription, value);
-            }
+            get { return _articleDescription; }
+            set { SetProperty(ref _articleDescription, value); }
         }
-        
-        public string CategoryName
+
+        public float ArticleYear
         {
-            get
-            {
-                return _categoryName;
-            }
-            set
-            {
-                SetProperty(ref _categoryName, value);
-            }
+            get { return _articleYear; }
+            set { SetProperty(ref _articleYear, value); }
         }
-        
-        public string[] ArticleImage
+
+        public float ArticlePrice
         {
-            get
-            {
-                return _articleImage;
-            }
-            set
-            {
-                SetProperty(ref _articleImage, value);
-            }
+            get { return _articlePrice; }
+            set { SetProperty(ref _articlePrice, value); }
         }
-        
-        public string ProviderName
+
+        public float ArticleAlcohol
         {
-            get
-            {
-                return _providerName;
-            }
-            set
-            {
-                SetProperty(ref _providerName, value);
-            }
+            get { return _articleAlcohol; }
+            set { SetProperty(ref _articleAlcohol, value); }
         }
-        
-        public int ArticleStock
-        {
-            get
-            {
-                return _articleStock;
-            }
-            set
-            {
-                SetProperty(ref _articleStock, value);
-            }
-        }
-        
-        
+
+        #endregion
+
         public ICommand AddArticleCommand { get; set; }
         public ICommand UpdateArticleCommand { get; set; }
         public ICommand DeleteArticleCommand { get; set; }
 
         public ArticleListViewModel()
         {
-            ArticleName = "Test Louis 123";
-            ArticlePrice = 123.45f;
-            ArticleDescription = "Test Description";
-            CategoryName = "Test Category";
-            ArticleImage = new string[2];
-            ArticleImage[0] = "Test Image 1";
-            ArticleImage[1] = "Test Image 2";
-            ProviderName = "Test Provider";
-            ArticleStock = 123;
             GetArticles();
         }
         
+        public ArticleListViewModel(Article article)
+        {
+            ArticleName = article.Name;
+            ArticleDescription = article.Description;
+            ArticleYear = article.Year;
+            ArticlePrice = article.Price;
+            ArticleAlcohol = article.Alcohol;
+        }
+
         private async void GetArticles()
         {
             var content = await ModeCommun.client.GetStringAsync("Article");
             var ListArticle = JsonConvert.DeserializeObject<List<Article>>(content);
+            
+            foreach (var article in ListArticle)
+            {
+                ArticleListViewModel articleListViewModel = new ArticleListViewModel(article);
+            }
         }
     }
 }

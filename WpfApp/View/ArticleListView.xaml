@@ -23,10 +23,10 @@
         <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Articles}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding ArticleName}"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding ArticleDescription}"/>
                 <DataGridTextColumn Header="Price" Binding="{Binding ArticlePrice}"/>
-                <DataGridTextColumn Header="Stock" Binding="{Binding ArticleStock}"/>
-                <DataGridTextColumn Header="Category" Binding="{Binding CategoryName}"/>
-                <DataGridTextColumn Header="Domain" Binding="{Binding Domain}"/>
+                <DataGridTextColumn Header="Year" Binding="{Binding ArticleYear}"/>
+                <DataGridTextColumn Header="Alcohol" Binding="{Binding ArticleAlcohol}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

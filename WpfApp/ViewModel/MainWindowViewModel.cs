@@ -18,27 +18,8 @@ namespace WpfApp.ViewModel
         
         private string _accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG4uZG9lQGdtYWlsLmNvbSIsIm5hbWVpZCI6IjEiLCJyb2xlIjoiQWRtaW4iLCJQZXJtaXNzaW9uIjoiQ3JlYXRlLFJlYWQsVXBkYXRlLERlbGV0ZSIsIm5iZiI6MTY3NTQzMjc5MSwiZXhwIjoxNjc1NDMzMzkxLCJpYXQiOjE2NzU0MzI3OTEsImlzcyI6Ik5FR09TVUQiLCJhdWQiOiJVU0VSUyBBTkQgQURNSU5TIn0.907vkoTd8fmnzHyn1-TKVs84v1CMBPt4_N_a9Dpj6hA";
 
-        public ProductListViewModel ProductListDataContext;
-
-        //public ProductListViewModel ProductListDataContext
-        //{
-        //    get { return _productListDataContext; }
-        //    set { _productListDataContext = value; }
-        //}
-
-        private string _productName;
-
-        public string ProductName
-        {
-            get
-            {
-                return _productName;
-            }
-            set
-            {
-                SetProperty(ref _productName, value);
-            }
-        }
+        public ArticleListViewModel ArticleListDataContext;
+        public UserViewModel UserDataContext;
 
         public MainWindowViewModel()
         {
@@ -47,18 +28,10 @@ namespace WpfApp.ViewModel
             //ModeCommun.client.DefaultRequestHeaders.Accept.Clear();
             //ModeCommun.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //ModeCommun.client.DefaultRequestHeaders.Add("Authorization", "Bearer " + _accessToken);
-            ProductListDataContext = new ProductListViewModel();
-            ProductName = "Louis le bg";
-            GetUsers();
-
+            
+            ArticleListDataContext = new ArticleListViewModel();
+            UserDataContext = new UserViewModel();
+            
         }
-
-        private async void GetUsers()
-        {
-            var content = await ModeCommun.client.GetStringAsync("User");
-            var users = JsonConvert.DeserializeObject<List<User>>(content);
-        }
-
-
     }
 }

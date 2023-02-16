@@ -10,17 +10,17 @@ namespace Api.Models
         public string Name { get; set; }
         public string Description { get; set; } = string.Empty;
         public int Year { get; set; }
-        public double Price { get; set; }
-        public double Alcohol { get; set; }
+        public float Price { get; set; }
+        public float Alcohol { get; set; }
         public int Stock { get; set; }
         
         
-        public int DomainId { get; set; }
-        public Domain? Domain { get; set; }
+        // public int DomainId { get; set; }
+        // public Domain? Domain { get; set; }
         
         
-        public int CategoryId { get; set; }
-        public Category? Category { get; set; }
+        // public int CategoryId { get; set; }
+        // public Category? Category { get; set; }
         
         
         public virtual List<ArticleOrder>? ArticleOrders { get; set; }

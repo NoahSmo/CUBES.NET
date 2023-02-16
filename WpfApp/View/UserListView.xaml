@@ -4,26 +4,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfApp.View"
-             d:DataContext="{d:DesignInstance Type=viewModel:UserListViewModel}"
+             d:DataContext="{d:DesignInstance Type=viewModel:UserViewModel}"
              xmlns:viewModel="clr-namespace:WpfApp.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel Grid.Row="0">
-            <TextBlock Text="{Binding UserMail}"/>
-            <TextBlock Text="{Binding UserFirstName}"/>
-            <TextBlock Text="{Binding UserLastName}"/>
-            <TextBlock Text="{Binding UserRole}"/>
-        </StackPanel>
-        
-        <!-- <StatusBar> -->
-        <!--     <TextBlock Text="{Binding UserMail}"/> -->
-        <!-- </StatusBar> -->
-    
-        <StackPanel Grid.Row="1" Margin="0,150,0,0">
-            <Button Content="Add" Command="{Binding AddCommand}"/>
-            <Button Content="Edit" Command="{Binding EditCommand}"/>
-            <Button Content="Delete" Command="{Binding DeleteCommand}"/>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Row="0" Grid.Column="0" Content="Add" Command="{Binding AddCommand}"/>
+        <Button Grid.Row="0" Grid.Column="1" Content="Modify" Command="{Binding ModifyCommand}"/>
+        <Button Grid.Row="0" Grid.Column="2" Content="Delete" Command="{Binding DeleteCommand}"/>
+        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Users}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Mail" Binding="{Binding UserMail}"/>
+                <DataGridTextColumn Header="FirstName" Binding="{Binding UserFirstName}"/>
+                <DataGridTextColumn Header="LastName" Binding="{Binding UserLastName}"/>
+                <DataGridTextColumn Header="Role" Binding="{Binding UserRole}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

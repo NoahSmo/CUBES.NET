@@ -12,11 +12,8 @@ namespace WpfApp
 {
     static class ModeCommun
     {
-
         public static HttpClient client;
 
-        public static User CurrentUser;
-
-
+        public static UserViewModel CurrentUser;
     }
 }
