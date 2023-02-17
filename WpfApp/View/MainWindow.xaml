@@ -11,11 +11,8 @@
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
         <viewModel:MainWindowViewModel />
-        <!-- <viewModel:ArticleListViewModel /> -->
     </Window.DataContext>
-    <Grid Background="Purple">
-        <!-- <TextBlock Text="{Binding ProductName,UpdateSourceTrigger=PropertyChanged,Mode=OneTime}" /> -->
-        <local:ArticleListView>
-        </local:ArticleListView>
+    <Grid>
+        <local:ArticleListView DataContext="{Binding ArticleListDataContext}"/>
     </Grid>
 </Window>

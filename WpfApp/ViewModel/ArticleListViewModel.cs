@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -11,42 +13,29 @@ namespace WpfApp.ViewModel
 {
     internal class ArticleListViewModel : ViewModelBase
     {
-        private string _articleName;
-        private string _articleDescription;
-        private float _articleYear;
-        private float _articlePrice;
-        private float _articleAlcohol;
+        private ObservableCollection<Article> _articlesList;
+
+        private bool _visibilityModalDroite;
+        private Article _selectArticle;
 
         #region "Property"
 
-        public string ArticleName
+        public ObservableCollection<Article> ArticlesList
         {
-            get { return _articleName; }
-            set { SetProperty(ref _articleName, value); }
+            get { return _articlesList; }
+            set {SetProperty(ref _articlesList , value); }
         }
 
-        public string ArticleDescription
+        public bool VisibilityModalDroite
         {
-            get { return _articleDescription; }
-            set { SetProperty(ref _articleDescription, value); }
+            get { return _visibilityModalDroite; }
+            set {SetProperty(ref _visibilityModalDroite , value); }
         }
 
-        public float ArticleYear
+        public Article SelectArticle
         {
-            get { return _articleYear; }
-            set { SetProperty(ref _articleYear, value); }
-        }
-
-        public float ArticlePrice
-        {
-            get { return _articlePrice; }
-            set { SetProperty(ref _articlePrice, value); }
-        }
-
-        public float ArticleAlcohol
-        {
-            get { return _articleAlcohol; }
-            set { SetProperty(ref _articleAlcohol, value); }
+            get { return _selectArticle; }
+            set {SetProperty(ref _selectArticle , value); }
         }
 
         #endregion
@@ -54,30 +43,60 @@ namespace WpfApp.ViewModel
         public ICommand AddArticleCommand { get; set; }
         public ICommand UpdateArticleCommand { get; set; }
         public ICommand DeleteArticleCommand { get; set; }
+        public ICommand VisibleModalDroiteCommand { get; }
+        public ICommand UnvisibleModalDroiteCommand { get; }
+        public ICommand SaveArticleCommand { get; }
+        public ICommand CreateArticleCommand { get; }
+        public ICommand SaveNewArticleCommand { get; }
 
         public ArticleListViewModel()
         {
+            VisibleModalDroiteCommand = new ViewModelCommand<Article>(ExecuteVisibleModalDroiteCommand);
+            UnvisibleModalDroiteCommand = new ViewModelCommand<object>(ExecuteUnvisibleModalDroiteCommand);
+            SaveArticleCommand = new ViewModelCommand<object>(ExecuteSaveArticleCommand);
+            CreateArticleCommand = new ViewModelCommand<object>(ExecuteCreateArticleCommand);
+            SaveNewArticleCommand = new ViewModelCommand<object>(ExecuteSaveNewArticleCommand);
             GetArticles();
         }
         
-        public ArticleListViewModel(Article article)
-        {
-            ArticleName = article.Name;
-            ArticleDescription = article.Description;
-            ArticleYear = article.Year;
-            ArticlePrice = article.Price;
-            ArticleAlcohol = article.Alcohol;
-        }
 
         private async void GetArticles()
         {
             var content = await ModeCommun.client.GetStringAsync("Article");
-            var ListArticle = JsonConvert.DeserializeObject<List<Article>>(content);
-            
-            foreach (var article in ListArticle)
-            {
-                ArticleListViewModel articleListViewModel = new ArticleListViewModel(article);
-            }
+            ArticlesList = new ObservableCollection<Article>( JsonConvert.DeserializeObject<List<Article>>(content));
+            //foreach (var article in ListArticle)
+            //{
+            //    ArticleListViewModel articleListViewModel = new ArticleListViewModel(article);
+            //}
+        }
+
+
+        private void ExecuteVisibleModalDroiteCommand(Article obj)
+        {
+            SelectArticle = obj;
+            VisibilityModalDroite = true;
+        }
+        
+        private void ExecuteUnvisibleModalDroiteCommand(object obj)
+        {
+            VisibilityModalDroite = false;
+        } 
+        
+        private async void ExecuteSaveArticleCommand(object obj)
+        {
+            var response = await ModeCommun.client.PutAsJsonAsync("article/1" , SelectArticle);
+        }
+        
+        private async void ExecuteCreateArticleCommand(object obj)
+        {
+            SelectArticle = new Article();
+            VisibilityModalDroite = true;
+        }
+        
+        private async void ExecuteSaveNewArticleCommand(object obj)
+        {
+            SelectArticle = new Article();
+            VisibilityModalDroite = true;
         }
     }
 }

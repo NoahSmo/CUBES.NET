@@ -17,8 +17,14 @@ namespace WpfApp.ViewModel
         
         
         private string _accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG4uZG9lQGdtYWlsLmNvbSIsIm5hbWVpZCI6IjEiLCJyb2xlIjoiQWRtaW4iLCJQZXJtaXNzaW9uIjoiQ3JlYXRlLFJlYWQsVXBkYXRlLERlbGV0ZSIsIm5iZiI6MTY3NTQzMjc5MSwiZXhwIjoxNjc1NDMzMzkxLCJpYXQiOjE2NzU0MzI3OTEsImlzcyI6Ik5FR09TVUQiLCJhdWQiOiJVU0VSUyBBTkQgQURNSU5TIn0.907vkoTd8fmnzHyn1-TKVs84v1CMBPt4_N_a9Dpj6hA";
+        private ArticleListViewModel _articleListDataContext;
 
-        public ArticleListViewModel ArticleListDataContext;
+
+        public ArticleListViewModel ArticleListDataContext
+        {
+            get { return _articleListDataContext; }
+            set { SetProperty(ref _articleListDataContext , value); }
+        }
         public UserViewModel UserDataContext;
 
         public MainWindowViewModel()

@@ -2,32 +2,76 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             d:DataContext="{d:DesignInstance Type=viewModel:ArticleListViewModel}"
              xmlns:viewModel="clr-namespace:WpfApp.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewModel:ArticleListViewModel/>
+    </UserControl.DataContext>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.3*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Row="0" Grid.Column="0" Content="Add" Command="{Binding AddArticleCommand}"/>
-        <Button Grid.Row="0" Grid.Column="1" Content="Modif" Command="{Binding UpdateArticleCommand}"/>
-        <Button Grid.Row="0" Grid.Column="2" Content="Delete" Command="{Binding DeleteArticleCommand}"/>
-        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Articles}" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding ArticleName}"/>
-                <DataGridTextColumn Header="Description" Binding="{Binding ArticleDescription}"/>
-                <DataGridTextColumn Header="Price" Binding="{Binding ArticlePrice}"/>
-                <DataGridTextColumn Header="Year" Binding="{Binding ArticleYear}"/>
-                <DataGridTextColumn Header="Alcohol" Binding="{Binding ArticleAlcohol}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="0" Grid.Column="0" Content="Add" Command="{Binding AddArticleCommand}"/>
+            <Button Grid.Row="0" Grid.Column="1" Content="Modif" Command="{Binding UpdateArticleCommand}"/>
+            <Button Grid.Row="0" Grid.Column="2" Content="Delete" Command="{Binding DeleteArticleCommand}"/>
+            <DataGrid IsReadOnly="True" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding ArticlesList}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                    <!--<DataGridTextColumn Header="Description" Binding="{Binding Description}"/>-->
+                    <DataGridTemplateColumn Header="Description" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Stock" Binding="{Binding Stock}"/>
+                    <DataGridTextColumn Header="Price" Binding="{Binding Price}"/>
+                    <DataGridTextColumn Header="Year" Binding="{Binding Year}"/>
+                    <DataGridTextColumn Header="Alcohol" Binding="{Binding Alcohol}"/>
+                    <DataGridTemplateColumn Header="Edit" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid,Mode=FindAncestor},Path=DataContext.VisibleModalDroiteCommand}" CommandParameter="{Binding }">
+                                    <materialDesign:PackIcon Kind="Pen"/>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Background="#f6f6f6" Grid.Column="1" Visibility="{Binding VisibilityModalDroite,Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border Margin="10">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity=".7" Color="LightGray"/>
+                </Border.Effect>
+                <StackPanel Orientation="Vertical">
+                    <TextBox Text="{Binding SelectArticle.Name}"/>
+                    <TextBox Text="{Binding SelectArticle.Description}"/>       
+                    <TextBox Text="{Binding SelectArticle.Price}"/>
+                    <TextBox Text="{Binding SelectArticle.Year}"/>
+                    <TextBox Text="{Binding SelectArticle.Alcohol}"/>
+                    <Button Content="Save" Command="{Binding SaveArticleCommand}"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <CheckBox Background="Blue" IsChecked="{Binding VisibilityModalDroite}" Visibility="{Binding VisibilityModalDroite,Converter={StaticResource BooleanToVisibilityConverter}}">
+            
+        </CheckBox>
     </Grid>
 </UserControl>
