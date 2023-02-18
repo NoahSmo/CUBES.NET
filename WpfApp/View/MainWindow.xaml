@@ -68,13 +68,13 @@
                 
             </Grid>
             
-            <Menu Background="Aquamarine" Height="50" Width="600" VerticalAlignment="Top" Margin="-50">
+            <Menu Background="Aquamarine" Height="50" Width="600" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="-50">
             
-                <MenuItem Header="Home" ></MenuItem>
+                <MenuItem Header="?" ></MenuItem>
                 <MenuItem Header="Articles" Click="RedirectArticleList"></MenuItem>
-                <MenuItem Header="Orders" ></MenuItem>
+                <MenuItem Header="?" ></MenuItem>
                 <MenuItem Header="Domains" Click="RedirectDomainList"></MenuItem>
-                <MenuItem Header="Settings"></MenuItem>
+                <MenuItem Header="?"></MenuItem>
             
             </Menu>
             
