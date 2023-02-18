@@ -6,6 +6,7 @@ namespace Api.ViewModels
 {
     public class ArticleViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; } = string.Empty;
         public int Year { get; set; }
@@ -22,6 +23,7 @@ namespace Api.ViewModels
         
         public ArticleViewModel(Article article)
         {
+            Id = article.Id;
             Name = article.Name;
             Description = article.Description;
             Year = article.Year;
