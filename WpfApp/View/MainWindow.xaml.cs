@@ -20,6 +20,7 @@ using System.Windows.Shapes;
 using Api.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using WpfApp.View;
 using WpfApp.ViewModel;
 
 namespace WpfApp
@@ -32,10 +33,16 @@ namespace WpfApp
         public MainWindow()
         {
             InitializeComponent();
-
         }
-
-
-
+        
+        private void RedirectArticleList(object sender, RoutedEventArgs e)
+        {
+            CurrentView.Navigate(new ArticleListView());
+        }
+        
+        private void RedirectDomainList(object sender, RoutedEventArgs e)
+        {
+            CurrentView.Navigate(new DomainListView());
+        }
     }
 }
