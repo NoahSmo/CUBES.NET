@@ -1,25 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace WpfApp.ViewModel
 {
-    public class ViewModelCommand : ICommand
+    public class ViewModelCommand<T> : ICommand
     {
 
-        private readonly Action<object> _executeAction;
-        private readonly Predicate<object> _canExecuteAction;
+        private readonly Action<T> _executeAction;
+        private readonly Predicate<T> _canExecuteAction;
 
-        public ViewModelCommand(Action<object> executeAction)
+        public ViewModelCommand(Action<T> executeAction)
         {
             _executeAction = executeAction;
             _canExecuteAction = null;
         }
-        
-        public ViewModelCommand(Action<object> executeAction, Predicate<object> canExecuteAction)
+
+        public ViewModelCommand(Action<T> executeAction, Predicate<T> canExecuteAction)
         {
             _executeAction = executeAction;
             _canExecuteAction = canExecuteAction;
@@ -33,12 +29,12 @@ namespace WpfApp.ViewModel
 
         public bool CanExecute(object parameter)
         {
-            return _canExecuteAction == null ? true : _canExecuteAction(parameter);
+            return _canExecuteAction == null ? true : _canExecuteAction((T)parameter);
         }
 
         public void Execute(object parameter)
         {
-            _executeAction(parameter);
+            _executeAction((T)parameter);
         }
     }
 }

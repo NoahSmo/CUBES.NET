@@ -80,8 +80,8 @@ namespace WpfApp.ViewModel
             ModeCommun.client.BaseAddress = new Uri("https://localhost:44301/api/");
             ModeCommun.client.DefaultRequestHeaders.Accept.Clear();
             ModeCommun.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
-            RecoverPasswordCommand = new ViewModelCommand(ExecuteRecoverPasswordCommand);
+            LoginCommand = new ViewModelCommand<object>(ExecuteLoginCommand, CanExecuteLoginCommand);
+            RecoverPasswordCommand = new ViewModelCommand<object>(ExecuteRecoverPasswordCommand);
         }
 
         private async void ConnectUser()
