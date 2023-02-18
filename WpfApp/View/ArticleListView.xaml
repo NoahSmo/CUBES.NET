@@ -25,7 +25,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Content="Add" Command="{Binding AddArticleCommand}"/>
+            <Button Grid.Row="0" Grid.Column="0" Content="Add" Command="{Binding AddArticleCommand}"/>
+            <Button Grid.Row="0" Grid.Column="1" Content="Modif" Command="{Binding UpdateArticleCommand}"/>
+            <Button Grid.Row="0" Grid.Column="2" Content="Delete" Command="{Binding DeleteArticleCommand}"/>
             <DataGrid IsReadOnly="True" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding ArticlesList}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
