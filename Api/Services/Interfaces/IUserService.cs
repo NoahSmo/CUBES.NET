@@ -7,6 +7,7 @@ namespace Api.Services;
 public interface IUserService
 {
     Task<List<UserDetailsViewModel>> GetUsers();
+    Task<List<User>> GetUsersWPF();
     Task<UserViewModel?> GetId(int id);
     Task<UserViewModel?> GetByEmail(string email);
     Task<UserViewModel> CreateUser(User user);
