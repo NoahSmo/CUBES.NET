@@ -7,6 +7,7 @@ namespace Api.ViewModels
 {
     public class OrderViewModel
     {
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         
         public int UserId { get; set; }
@@ -19,6 +20,7 @@ namespace Api.ViewModels
         
         public OrderViewModel(Order order)
         {
+            Id = order.Id;
             Date = order.Date;
             UserId = order.UserId;
             AddressId = order.AddressId;

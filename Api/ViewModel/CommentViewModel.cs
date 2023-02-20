@@ -6,6 +6,7 @@ namespace Api.ViewModels
 {
     public class CommentViewModel
     {
+        public int Id { get; set; }
         public string Message { get; set; }
         public int Rating { get; set; }
         public int UserId { get; set; }
@@ -15,6 +16,7 @@ namespace Api.ViewModels
         
         public CommentViewModel(Comment comment)
         {
+            Id = comment.Id;
             Message = comment.Message;
             Rating = comment.Rating;
             UserId = comment.UserId;
