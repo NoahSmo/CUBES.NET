@@ -2,34 +2,110 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:WpfApp.View"
              xmlns:viewModel="clr-namespace:WpfApp.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
-        <viewModel:UserViewModel/>
+        <viewModel:UserListViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.3*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Row="0" Grid.Column="0" Content="Add" Command="{Binding AddCommand}"/>
-        <Button Grid.Row="0" Grid.Column="1" Content="Modify" Command="{Binding ModifyCommand}"/>
-        <Button Grid.Row="0" Grid.Column="2" Content="Delete" Command="{Binding DeleteCommand}"/>
-        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Users}" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Mail" Binding="{Binding UserMail}"/>
-                <DataGridTextColumn Header="FirstName" Binding="{Binding UserFirstName}"/>
-                <DataGridTextColumn Header="LastName" Binding="{Binding UserLastName}"/>
-                <DataGridTextColumn Header="Role" Binding="{Binding UserRole}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Command="{Binding ToggleAddMenu}">
+                <materialDesign:PackIcon Kind="Plus"/>
+            </Button>
+            <DataGrid IsReadOnly="True" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding UsersList}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Surname" Binding="{Binding Surname}"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                    <DataGridTextColumn Header="Phone" Binding="{Binding Phone}"/>
+                    <DataGridTextColumn Header="Role" Binding="{Binding Role.Name}"/>
+                    
+                    <DataGridTemplateColumn Header="Edit" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid,Mode=FindAncestor},Path=DataContext.ToggleEditMenu}" CommandParameter="{Binding}">
+                                    <materialDesign:PackIcon Kind="Pen"/>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Delete" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid,Mode=FindAncestor},Path=DataContext.DeleteUserCommand}" CommandParameter="{Binding}">
+                                    <materialDesign:PackIcon Kind="Delete"/>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Background="#f6f6f6" Grid.Column="1" Visibility="{Binding VisibilityCreateMenu,Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border Margin="10">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity=".7" Color="LightGray"/>
+                </Border.Effect>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Margin="0, 10" Text="Name"></TextBlock>
+                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectUser.Name}"/>
+                    <TextBlock Margin="0, 10" Text="Surname"></TextBlock>
+                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectUser.Surname}"/>
+                    <TextBlock Margin="0, 10" Text="Email"></TextBlock>
+                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectUser.Email}"/>
+                    <TextBlock Margin="0, 10" Text="Phone"></TextBlock>
+                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectUser.Phone}"/>
+                    <TextBlock Margin="0, 10" Text="Role"></TextBlock>
+                    <ComboBox Margin="0, 0, 0, 10" ItemsSource="{Binding RolesList}" SelectedItem="{Binding SelectUser.Role}"/>
+                    <TextBlock Margin="0, 10" Text="Password"></TextBlock>
+                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectUser.Password}"/>
+                    
+                    <Button Content="Save" Command="{Binding CreateUserCommand}" CommandParameter="{Binding SelectUser}"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+        
+        <Grid Background="#f6f6f6" Grid.Column="1" Visibility="{Binding VisibilityEditMenu,Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border Margin="10">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity=".7" Color="LightGray"/>
+                </Border.Effect>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Margin="0, 10" Text="Name"></TextBlock>
+                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectUser.Name}"/>
+                    <TextBlock Margin="0, 10" Text="Surname"></TextBlock>
+                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectUser.Surname}"/>
+                    <TextBlock Margin="0, 10" Text="Email"></TextBlock>
+                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectUser.Email}"/>
+                    <TextBlock Margin="0, 10" Text="Phone"></TextBlock>
+                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectUser.Phone}"/>
+                    <TextBlock Margin="0, 10" Text="Role"></TextBlock>
+                    <ComboBox Margin="0, 0, 0, 10" ItemsSource="{Binding RolesList}" SelectedItem="{Binding SelectUser.Role}"/>
+                    <TextBlock Margin="0, 10" Text="Password"></TextBlock>
+                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectUser.Password}"/>
+                    
+                    <Button Content="Save" Command="{Binding SaveUserCommand}" CommandParameter="{Binding SelectUser}"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <CheckBox Background="Blue" IsChecked="{Binding VisibilityEditMenu}" Visibility="{Binding VisibilityEditMenu,Converter={StaticResource BooleanToVisibilityConverter}}">
+            
+        </CheckBox>
     </Grid>
 </UserControl>

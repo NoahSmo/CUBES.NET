@@ -24,6 +24,16 @@ public class UserService : IUserService
         
         return users.Select(user => new UserDetailsViewModel(user)).ToList();
     }
+    
+    public async Task<List<User>> GetUsersWPF()
+    {
+        var users = await _context.Users
+            .Include(a => a.Role)
+            .Include(a => a.Cart)
+            .ToListAsync();
+
+        return users;
+    }
 
     public async Task<UserViewModel?> GetId(int id)
     { 
