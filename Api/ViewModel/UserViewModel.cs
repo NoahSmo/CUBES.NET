@@ -20,6 +20,7 @@ namespace Api.ViewModels
     
     public class UserDetailsViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
@@ -28,6 +29,7 @@ namespace Api.ViewModels
         
         public UserDetailsViewModel(User user)
         {
+            Id = user.Id;
             Name = user.Name;
             Surname = user.Surname;
             Email = user.Email;

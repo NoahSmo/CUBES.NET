@@ -12,46 +12,6 @@
     <Window.DataContext>
         <viewModel:MainWindowViewModel />
     </Window.DataContext>
-    <!-- <Grid> -->
-        <!-- <Grid.ColumnDefinitions> -->
-        <!--     <ColumnDefinition/> -->
-        <!--     <ColumnDefinition Width="0.3*"/> -->
-        <!-- </Grid.ColumnDefinitions> -->
-        <!-- <Grid.RowDefinitions> -->
-        <!--     <RowDefinition Height="Auto"/> -->
-        <!--     <RowDefinition Height="*"/> -->
-        <!-- </Grid.RowDefinitions> -->
-        <!-- <Grid Grid.ColumnSpan="2"> -->
-        <!--     <Grid.RowDefinitions> -->
-        <!--         <RowDefinition Height="Auto"/> -->
-        <!--         <RowDefinition Height="*"/> -->
-        <!--     </Grid.RowDefinitions> -->
-        <!--     <Grid.ColumnDefinitions> -->
-        <!--         <ColumnDefinition Width="*"/> -->
-        <!--         <ColumnDefinition Width="*"/> -->
-        <!--         <ColumnDefinition Width="*"/> -->
-        <!--         <ColumnDefinition Width="*"/> -->
-        <!--         <ColumnDefinition Width="*"/> -->
-        <!--     </Grid.ColumnDefinitions> -->
-        <!--     <Button Grid.Row="0" Grid.Column="0" Command="{Binding RedirectToHome}"> -->
-        <!--         <materialDesign:PackIcon Kind="Home"/> -->
-        <!--     </Button> -->
-        <!--     <Button Grid.Row="0" Grid.Column="1" Command="{Binding RedirectToArticleList}"> -->
-        <!--         <materialDesign:PackIcon Kind="Wine"/> -->
-        <!--     </Button> -->
-        <!--     <Button Grid.Row="0" Grid.Column="2" Command="{Binding RedirectToOrderList}"> -->
-        <!--         <materialDesign:PackIcon Kind="Package"/> -->
-        <!--     </Button> -->
-        <!--     <Button Grid.Row="0" Grid.Column="3" Command="{Binding RedirectToDomainList}"> -->
-        <!--         <materialDesign:PackIcon Kind="Account"/> -->
-        <!--     </Button> -->
-        <!--     <Button Grid.Row="0" Grid.Column="4" Command="{Binding RedirectToSettings}"> -->
-        <!--         <materialDesign:PackIcon Kind="Settings"/> -->
-        <!--     </Button> -->
-        <!-- </Grid> -->
-        <!-- <Frame Grid.Row="1" Grid.Column="0" Content="{Binding CurrentView}"/> -->
-    <!-- </Grid> -->
-    
     <Grid Background="#2E2E2E">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -74,7 +34,7 @@
                 <MenuItem Header="Articles" Click="RedirectArticleList"></MenuItem>
                 <MenuItem Header="?" ></MenuItem>
                 <MenuItem Header="Domains" Click="RedirectDomainList"></MenuItem>
-                <MenuItem Header="?"></MenuItem>
+                <MenuItem Header="Users" Click="RedirectUserList"></MenuItem>
             
             </Menu>
             

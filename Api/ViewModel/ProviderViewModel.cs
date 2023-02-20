@@ -6,6 +6,7 @@ namespace Api.ViewModels
 {
     public class ProviderViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         
@@ -13,6 +14,7 @@ namespace Api.ViewModels
 
         public ProviderViewModel(Provider provider)
         {
+            Id = provider.Id;
             Name = provider.Name;
             Email = provider.Email;
             Addresses = provider.Addresses;

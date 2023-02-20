@@ -26,6 +26,13 @@ namespace Api.Controllers
             return await _userService.GetUsers();
         }
         
+        [HttpGet("wpf")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<List<User>>> GetUsersWPF()
+        {
+            return await _userService.GetUsersWPF();
+        }
+        
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin, Provider, User")]
         public async Task<ActionResult<UserViewModel>> GetUser(int id)

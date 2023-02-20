@@ -4,6 +4,7 @@ namespace Api.ViewModels
 {
     public class AddressViewModel
     {
+        public int Id { get; set; }
         public string Street { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
@@ -17,6 +18,7 @@ namespace Api.ViewModels
         {
             if (address.UserId != null)
             {
+                Id = address.Id;
                 Street = address.Street;
                 City = address.City;
                 Country = address.Country;
@@ -27,6 +29,7 @@ namespace Api.ViewModels
 
             else if (address.DomainId != null)
             {
+                Id = address.Id;
                 Street = address.Street;
                 City = address.City;
                 Country = address.Country;
@@ -37,6 +40,7 @@ namespace Api.ViewModels
             
             else
             {
+                Id = address.Id;
                 Street = address.Street;
                 City = address.City;
                 Country = address.Country;
