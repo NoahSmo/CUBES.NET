@@ -38,11 +38,30 @@ namespace WpfApp
         private void RedirectArticleList(object sender, RoutedEventArgs e)
         {
             CurrentView.Navigate(new ArticleListView());
+            
+            DeleteLastView(sender, e);
         }
         
         private void RedirectDomainList(object sender, RoutedEventArgs e)
         {
             CurrentView.Navigate(new DomainListView());
+            
+            DeleteLastView(sender, e);
+        }
+        
+        private void RedirectUserList(object sender, RoutedEventArgs e)
+        {
+            CurrentView.Navigate(new UserListView());
+            
+            DeleteLastView(sender, e);
+        }
+        
+        private void DeleteLastView(object sender, RoutedEventArgs e)
+        {
+            while (CurrentView.CanGoBack)
+            {
+                CurrentView.RemoveBackEntry();
+            }
         }
     }
 }
