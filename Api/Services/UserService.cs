@@ -72,6 +72,7 @@ public class UserService : IUserService
         user.Email = user.Email.ToLower();
         user.Password = hash;
 
+        user.Id = _context.Users.Max(x => x.Id) + 1;
         
         
         _context.Users.Add(user);
