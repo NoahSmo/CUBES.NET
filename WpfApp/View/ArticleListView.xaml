@@ -68,16 +68,18 @@
                 <StackPanel Orientation="Vertical">
                     <TextBlock Margin="0, 10" Text="Name"></TextBlock>
                     <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectArticle.Name}"/>
-                    <TextBlock Margin="0, 10" Text="Surname"></TextBlock>
-                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectArticle.Description}"/>
-                    <TextBlock Margin="0, 10" Text="Email"></TextBlock>
+                    <TextBlock Margin="0, 10" Text="Description"></TextBlock>
+                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectArticle.Description}" TextWrapping="Wrap"/>
+                    <TextBlock Margin="0, 10" Text="Stock"></TextBlock>
+                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectArticle.Stock}"/>
+                    <TextBlock Margin="0, 10" Text="Price"></TextBlock>
                     <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectArticle.Price}"/>
-                    <TextBlock Margin="0, 10" Text="Phone"></TextBlock>
+                    <TextBlock Margin="0, 10" Text="Year"></TextBlock>
                     <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectArticle.Year}"/>
                     <TextBlock Margin="0, 10" Text="Alcohol"></TextBlock>
                     <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectArticle.Alcohol}"/>
                     
-                    <Button Content="Save" Command="{Binding SaveArticleCommand}" CommandParameter="{Binding SelectArticle}"/>
+                    <Button Content="Save" Command="{Binding CreateArticleCommand}" CommandParameter="{Binding SelectArticle}"/>
                 </StackPanel>
             </Border>
         </Grid>
@@ -90,11 +92,13 @@
                 <StackPanel Orientation="Vertical">
                     <TextBlock Margin="0, 10" Text="Name"></TextBlock>
                     <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectArticle.Name}"/>
-                    <TextBlock Margin="0, 10" Text="Surname"></TextBlock>
-                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectArticle.Description}"/>
-                    <TextBlock Margin="0, 10" Text="Email"></TextBlock>
+                    <TextBlock Margin="0, 10" Text="Description"></TextBlock>
+                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectArticle.Description}" TextWrapping="Wrap"/>
+                    <TextBlock Margin="0, 10" Text="Stock"></TextBlock>
+                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectArticle.Stock}"/>
+                    <TextBlock Margin="0, 10" Text="Price"></TextBlock>
                     <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectArticle.Price}"/>
-                    <TextBlock Margin="0, 10" Text="Phone"></TextBlock>
+                    <TextBlock Margin="0, 10" Text="Year"></TextBlock>
                     <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectArticle.Year}"/>
                     <TextBlock Margin="0, 10" Text="Alcohol"></TextBlock>
                     <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectArticle.Alcohol}"/>

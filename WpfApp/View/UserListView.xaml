@@ -39,7 +39,7 @@
                     <DataGridTemplateColumn Header="Edit" Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid,Mode=FindAncestor},Path=DataContext.ToggleEditMenu}" CommandParameter="{Binding}">
+                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid,Mode=FindAncestor},Path=DataContext.ToggleEditMenu}" CommandParameter="{Binding }">
                                     <materialDesign:PackIcon Kind="Pen"/>
                                 </Button>
                             </DataTemplate>
@@ -48,7 +48,7 @@
                     <DataGridTemplateColumn Header="Delete" Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid,Mode=FindAncestor},Path=DataContext.DeleteUserCommand}" CommandParameter="{Binding}">
+                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid,Mode=FindAncestor},Path=DataContext.DeleteUserCommand}" CommandParameter="{Binding }">
                                     <materialDesign:PackIcon Kind="Delete"/>
                                 </Button>
                             </DataTemplate>

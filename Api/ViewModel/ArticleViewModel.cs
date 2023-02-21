@@ -15,8 +15,8 @@ namespace Api.ViewModels
         public int Stock { get; set; }
         
         
-        public DomainViewModel Domain { get; set; }
-        public CategoryViewModel Category { get; set; }
+        public DomainViewModel? Domain { get; set; }
+        public CategoryViewModel? Category { get; set; }
         
         
         public virtual List<Image>? Images { get; set; }
@@ -30,8 +30,9 @@ namespace Api.ViewModels
             Price = article.Price;
             Alcohol = article.Alcohol;
             Stock = article.Stock;
-            Domain = new DomainViewModel(article.Domain);
-            Category = new CategoryViewModel(article.Category);
+
+            if (article.Domain != null) Domain = new DomainViewModel(article.Domain);
+            if (article.Category != null) Category = new CategoryViewModel(article.Category);
             
             Images = article.Images;
         }

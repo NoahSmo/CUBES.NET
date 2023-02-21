@@ -85,7 +85,7 @@ namespace Api.Migrations
                     b.Property<double>("Alcohol")
                         .HasColumnType("double precision");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -98,7 +98,7 @@ namespace Api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("DomainId")
+                    b.Property<int?>("DomainId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
@@ -122,6 +122,9 @@ namespace Api.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("DomainId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Articles");
                 });
@@ -169,6 +172,9 @@ namespace Api.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Carts");
                 });
@@ -657,15 +663,11 @@ namespace Api.Migrations
                 {
                     b.HasOne("Api.Models.Category", "Category")
                         .WithMany("Articles")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("Api.Models.Domain", "Domain")
                         .WithMany("Articles")
-                        .HasForeignKey("DomainId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DomainId");
 
                     b.Navigation("Category");
 
