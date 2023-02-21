@@ -66,9 +66,12 @@
                     <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity=".7" Color="LightGray"/>
                 </Border.Effect>
                 <StackPanel Orientation="Vertical">
-                    <TextBox Text="{Binding SelectDomain.Name}"/>
-                    <TextBox Text="{Binding SelectDomain.Description}"/>
-                    <TextBox Text="{Binding SelectDomain.Email}"/>
+                    <TextBlock Margin="0, 10" Text="Name"></TextBlock>
+                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectDomain.Name}"/>
+                    <TextBlock Margin="0, 10" Text="Description"></TextBlock>
+                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectDomain.Description}" TextWrapping="Wrap" />
+                    <TextBlock Margin="0, 10" Text="Email"></TextBlock>
+                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectDomain.Email}"/>
                     
                     <Button Content="Save" Command="{Binding CreateDomainCommand}" CommandParameter="{Binding SelectDomain}"/>
                 </StackPanel>
