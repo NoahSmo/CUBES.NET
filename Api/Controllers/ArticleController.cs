@@ -21,7 +21,8 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<List<ArticleViewModel>>> GetArticles()
         {
-            return await _articleService.GetArticles();
+            var result = await _articleService.GetArticles();
+            return Ok(result);
         }
         
         [HttpGet("{id}")]
