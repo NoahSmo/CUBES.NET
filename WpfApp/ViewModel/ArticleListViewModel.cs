@@ -75,7 +75,10 @@ namespace WpfApp.ViewModel
         private async void GetArticles()
         {
             var content = await ModeCommun.client.GetStringAsync("Article");
-            ArticlesList = new ObservableCollection<Article>(JsonConvert.DeserializeObject<List<Article>>(content));
+            if (content != null)
+            {
+                ArticlesList = new ObservableCollection<Article>(JsonConvert.DeserializeObject<List<Article>>(content));
+            }
         }
 
 
@@ -85,11 +88,8 @@ namespace WpfApp.ViewModel
             VisibilityCreateMenu = !VisibilityCreateMenu;
         }
 
-        private async void ExecuteCreateArticleCommand(Object obj)
+        private async void ExecuteCreateArticleCommand(Article obj)
         {
-            Article article = new Article();
-
-
             var response = await ModeCommun.client.PostAsJsonAsync("Article", obj);
             VisibilityCreateMenu = !VisibilityCreateMenu;
             GetArticles();
@@ -104,8 +104,8 @@ namespace WpfApp.ViewModel
 
         private async void ExecuteSaveArticleCommand(Article obj)
         {
-            obj.DomainId = obj.Domain.Id;
-            obj.CategoryId = obj.Category.Id;
+            if (obj.Domain != null) obj.DomainId = obj.Domain.Id;
+            if (obj.Domain != null) obj.CategoryId = obj.Category.Id;
             
             var response = await ModeCommun.client.PutAsJsonAsync("Article/" + SelectArticle.Id, obj);
             VisibilityEditMenu = !VisibilityEditMenu;

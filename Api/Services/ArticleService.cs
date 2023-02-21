@@ -40,8 +40,11 @@ public class ArticleService : IArticleService
     
     public async Task<ArticleViewModel> CreateArticle(Article article)
     {
-        article.Domain = await _context.Domains.FirstOrDefaultAsync(d => d.Id == article.DomainId);
-        article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
+        if (article.DomainId != null) article.Domain = await _context.Domains.FirstOrDefaultAsync(d => d.Id == article.DomainId);
+        if (article.CategoryId != null) article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
+        
+        article.Id = _context.Articles.Max(x => x.Id) + 1;  
+        
         _context.Articles.Add(article);
         
         try
@@ -57,20 +60,39 @@ public class ArticleService : IArticleService
     }
     
     public async Task<ArticleViewModel>? UpdateArticle(int id, Article request)
-    {
+        {
         var article = await GetId(id);
-        if (article is null)
-            return null;
+        if (article is null) return null;
 
         article.Name = request.Name;
         article.Description = request.Description;
         article.Year = request.Year;
         article.Alcohol = request.Alcohol;
         article.Price = request.Price;
-        article.DomainId = request.DomainId;
-        article.Domain = await _context.Domains.FirstOrDefaultAsync(d => d.Id == article.DomainId);
-        article.CategoryId = request.CategoryId;
-        article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
+
+        if (article.DomainId != null)
+        {
+            article.DomainId = request.DomainId;
+            article.Domain = await _context.Domains.FirstOrDefaultAsync(d => d.Id == article.DomainId);
+        }
+        else
+        {
+            article.DomainId = null;
+            article.Domain = null;
+        }
+
+        if (article.CategoryId != null)
+        {
+            article.CategoryId = request.CategoryId;
+            article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
+        }
+        else
+        {
+            article.CategoryId = null;
+            article.Category = null;
+        }
+        
+        
         article.Stock = request.Stock;
         
         _context.Articles.Update(article);
