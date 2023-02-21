@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 C:\workspace\NegoSud\CUBES.NET\WpfApp\App.xaml
-11407045341
+5-466121004
 
-3-1233169557
-1981911467256
-MainWindow.xaml;
+301445106090
+2031518215875
+CustomControls\BindablePasswordBox.xaml;View\ArticleListView.xaml;View\LoginView.xaml;View\MainWindow.xaml;View\UserListView.xaml;
 
 True
 
