@@ -1,41 +1,55 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 
 .footer {
-  background-color: #58355E;
+  background-color: white;
   width: 100%;
   height: 100%;
   font-family: 'Quicksand', sans-serif;
-  color: #aaa;
+  color: #58355E;
   user-select: none;
 }
 
-.contain {
+.line{
+  width: 80%;
+  height: 1px;
+  top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: solid 1px #58355E;
+}
+
+.social-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: row;
   width: 100%;
   height: 100%;
+  justify-content: center;
 }
 
 
 .div-social {
-  display: flex;
+  display: block;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   margin: 0.6em;
 }
 
-.social {
-  display: flex;
-  justify-content: center;
+.icons-footer{
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
+  display: flex;
+  border-bottom: solid 1px #58355E;
+}
+
+.creator {
+  font-weight: 300;
+  font-size: .8em;
+}
+
+.social {
   margin: 0.6em;
   font-size: 2em;
-  border-radius: 20%;
-  color: #fff;
 }
 
 .social:hover {
@@ -43,27 +57,4 @@
   transform: scale(1.1);
 }
 
-.icon {
-  width: 2.2em;
-  height: 2.2em;
-  margin: 0.5em;
-  border-radius: 100%;
-}
 
-.icon img {
-  width: 100%;
-  height: 100%;
-  border-radius: 100%;
-  box-shadow: #aaa 0px 0px 5px;
-}
-
-.line {
-  width: 100%;
-  height: .1em;
-  background-color: #aaa;
-}
-
-.creator {
-  font-weight: 300;
-  font-size: .8em;
-}
