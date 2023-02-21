@@ -138,8 +138,8 @@ namespace Api.Migrations
                     Price = table.Column<double>(type: "double precision", nullable: false),
                     Alcohol = table.Column<double>(type: "double precision", nullable: false),
                     Stock = table.Column<int>(type: "integer", nullable: false),
-                    DomainId = table.Column<int>(type: "integer", nullable: false),
-                    CategoryId = table.Column<int>(type: "integer", nullable: false),
+                    DomainId = table.Column<int>(type: "integer", nullable: true),
+                    CategoryId = table.Column<int>(type: "integer", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
@@ -151,14 +151,12 @@ namespace Api.Migrations
                         name: "FK_Articles_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Articles_Domains_DomainId",
                         column: x => x.DomainId,
                         principalTable: "Domains",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -529,6 +527,12 @@ namespace Api.Migrations
                 column: "DomainId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Articles_Name",
+                table: "Articles",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CartItem_ArticleId",
                 table: "CartItem",
                 column: "ArticleId");
@@ -537,6 +541,12 @@ namespace Api.Migrations
                 name: "IX_CartItem_CartId",
                 table: "CartItem",
                 column: "CartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_UserId",
+                table: "Carts",
+                column: "UserId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_Name",
