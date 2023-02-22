@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Net.Http.Json;
-using System.Runtime.InteropServices.JavaScript;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows;
 using System.Windows.Input;
 using Api.Models;
+using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 
 namespace WpfApp.ViewModel
@@ -15,10 +20,10 @@ namespace WpfApp.ViewModel
     internal class ArticleListViewModel : ViewModelBase
     {
         private ObservableCollection<Article> _articlesList;
+        private ObservableCollection<Api.Models.Domain> _domainsList;
+        private ObservableCollection<Category> _categorysList;
 
-        private bool _visibilityCreateMenu;
-        private bool _visibilityEditMenu;
-
+        private bool _visibilityModalDroite;
         private Article _selectArticle;
 
         #region "Property"
@@ -26,97 +31,160 @@ namespace WpfApp.ViewModel
         public ObservableCollection<Article> ArticlesList
         {
             get { return _articlesList; }
-            set { SetProperty(ref _articlesList, value); }
+            set {SetProperty(ref _articlesList , value); }
         }
 
-        public bool VisibilityCreateMenu
+        public ObservableCollection<Api.Models.Domain> DomainsList
         {
-            get { return _visibilityCreateMenu; }
-            set { SetProperty(ref _visibilityCreateMenu, value); }
+            get { return _domainsList; }
+            set {SetProperty(ref _domainsList , value); }
         }
 
-        public bool VisibilityEditMenu
+        public ObservableCollection<Category> CategorysList
         {
-            get { return _visibilityEditMenu; }
-            set { SetProperty(ref _visibilityEditMenu, value); }
+            get { return _categorysList; }
+            set { SetProperty(ref _categorysList, value); }
+        }
+
+        public bool VisibilityModalDroite
+        {
+            get { return _visibilityModalDroite; }
+            set {SetProperty(ref _visibilityModalDroite , value); }
         }
 
         public Article SelectArticle
         {
             get { return _selectArticle; }
-            set { SetProperty(ref _selectArticle, value); }
+            set {SetProperty(ref _selectArticle , value); }
         }
 
         #endregion
 
-        public ICommand ToggleAddMenu { get; }
-        public ICommand CreateArticleCommand { get; }
-
-        public ICommand ToggleEditMenu { get; }
-        public ICommand SaveArticleCommand { get; }
-
-        public ICommand DeleteArticleCommand { get; }
-
-
         public ArticleListViewModel()
         {
-            ToggleAddMenu = new ViewModelCommand<Article>(ExecuteToggleAddMenu);
-            CreateArticleCommand = new ViewModelCommand<Article>(ExecuteCreateArticleCommand);
-
-            ToggleEditMenu = new ViewModelCommand<Article>(ExecuteToggleEditMenu);
-            SaveArticleCommand = new ViewModelCommand<Article>(ExecuteSaveArticleCommand);
-
+            VisibleModalDroiteCommand = new ViewModelCommand<Article>(ExecuteVisibleModalDroiteCommand);
+            UnvisibleModalDroiteCommand = new ViewModelCommand<object>(ExecuteUnvisibleModalDroiteCommand);
+            SaveArticleCommand = new ViewModelCommand<object>(ExecuteSaveArticleCommand, CanExecuteSaveArticleCommand);
+            CreateArticleCommand = new ViewModelCommand<object>(ExecuteCreateArticleCommand);
+            SaveNewArticleCommand = new ViewModelCommand<object>(ExecuteSaveNewArticleCommand);
+            AddArticleCommand = new ViewModelCommand<object>(ExecuteAddArticleCommand);
             DeleteArticleCommand = new ViewModelCommand<Article>(ExecuteDeleteArticleCommand);
-
             GetArticles();
+            GetDomains();
+            GetCategorys();
         }
 
+
+        #region "Get"
 
         private async void GetArticles()
         {
             var content = await ModeCommun.client.GetStringAsync("Article");
-            if (content != null)
+            ArticlesList = new ObservableCollection<Article>( JsonConvert.DeserializeObject<List<Article>>(content));
+        }
+        
+        private async void GetDomains()
+        {
+            var content = await ModeCommun.client.GetStringAsync("Domain");
+            DomainsList = new ObservableCollection<Api.Models.Domain>( JsonConvert.DeserializeObject<List<Api.Models.Domain>>(content));
+        }
+        
+        private async void GetCategorys()
+        {
+            var content = await ModeCommun.client.GetStringAsync("Category");
+            CategorysList = new ObservableCollection<Category>( JsonConvert.DeserializeObject<List<Category>>(content));
+        }
+
+        #endregion
+
+        public ICommand VisibleModalDroiteCommand { get; }
+        private void ExecuteVisibleModalDroiteCommand(Article obj)
+        {
+            SelectArticle = obj;
+            VisibilityModalDroite = true;
+        }
+
+
+        public ICommand DeleteArticleCommand { get; }
+        private async void ExecuteDeleteArticleCommand(Article obj)
+        {
+            SelectArticle = obj;
+            if(MessageBox.Show("Are you sure you want to delete this article?","Warning", MessageBoxButton.YesNo,MessageBoxImage.Warning, MessageBoxResult.Yes) == MessageBoxResult.Yes)
             {
-                ArticlesList = new ObservableCollection<Article>(JsonConvert.DeserializeObject<List<Article>>(content));
+                var response = await ModeCommun.client.DeleteAsync("article/" + SelectArticle.Id);
+                ArticlesList.Remove(SelectArticle);
             }
         }
 
 
-        private void ExecuteToggleAddMenu(Article obj)
+        public ICommand UnvisibleModalDroiteCommand { get; }
+        private void ExecuteUnvisibleModalDroiteCommand(object obj)
+        {
+            VisibilityModalDroite = false;
+        }
+
+
+        public ICommand SaveArticleCommand { get; }
+        private async void ExecuteSaveArticleCommand(object obj)
+        {
+            if(SelectArticle.Id == 0)
+            {
+                var response = await ModeCommun.client.PostAsJsonAsync("article", SelectArticle);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    GetArticles();
+                    VisibilityModalDroite = false;
+                }
+
+            }
+            else
+            {
+                var response = await ModeCommun.client.PutAsJsonAsync("article/"+ SelectArticle.Id , SelectArticle);
+            }
+        }
+        private bool CanExecuteSaveArticleCommand(object obj)
+        {
+            if (SelectArticle != null)
+            {
+                bool validData;
+                if (SelectArticle.Name == null  || SelectArticle.Description == null || SelectArticle.DomainId == 0 || SelectArticle.CategoryId == 0)
+                    validData = false;
+                else
+                    if (SelectArticle.Name.Length > 0 && SelectArticle.Description.Length > 0)
+                    {
+                        validData = true;
+                    }
+                    else
+                    {
+                        validData=false;
+                    }
+                return validData;
+            }
+            return false;
+        }
+
+
+        public ICommand CreateArticleCommand { get; }
+        private async void ExecuteCreateArticleCommand(object obj)
         {
             SelectArticle = new Article();
-            VisibilityCreateMenu = !VisibilityCreateMenu;
-        }
-
-        private async void ExecuteCreateArticleCommand(Article obj)
-        {
-            var response = await ModeCommun.client.PostAsJsonAsync("Article", obj);
-            VisibilityCreateMenu = !VisibilityCreateMenu;
-            GetArticles();
+            VisibilityModalDroite = true;
         }
 
 
-        private void ExecuteToggleEditMenu(Article obj)
+        public ICommand SaveNewArticleCommand { get; }
+        private async void ExecuteSaveNewArticleCommand(object obj)
         {
-            SelectArticle = obj;
-            VisibilityEditMenu = !VisibilityEditMenu;
-        }
-
-        private async void ExecuteSaveArticleCommand(Article obj)
-        {
-            if (obj.Domain != null) obj.DomainId = obj.Domain.Id;
-            if (obj.Domain != null) obj.CategoryId = obj.Category.Id;
-            
-            var response = await ModeCommun.client.PutAsJsonAsync("Article/" + SelectArticle.Id, obj);
-            VisibilityEditMenu = !VisibilityEditMenu;
-            GetArticles();
+            SelectArticle = new Article();
+            VisibilityModalDroite = true;
         }
 
 
-        private async void ExecuteDeleteArticleCommand(Article obj)
-        {
-            var response = await ModeCommun.client.DeleteAsync("Article/" + obj.Id);
-            GetArticles();
+        public ICommand AddArticleCommand { get; }
+        private async void ExecuteAddArticleCommand(object obj)
+        { 
+            SelectArticle = new Article();
+            VisibilityModalDroite = true;
         }
     }
 }

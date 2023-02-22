@@ -51,6 +51,7 @@ public class DomainService : IDomainService
 
         domainToUpdate.Name = domain.Name;
         domainToUpdate.Description = domain.Description;
+        domainToUpdate.Email = domain.Email;
 
         _context.Domains.Update(domainToUpdate);
         await _context.SaveChangesAsync();
