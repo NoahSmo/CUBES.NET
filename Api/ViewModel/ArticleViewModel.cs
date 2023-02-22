@@ -16,10 +16,11 @@ namespace Api.ViewModels
         public int Stock { get; set; }
         
         
+        public int? DomainId { get; set; }
         public DomainViewModel Domain { get; set; }
+        
+        public int? CategoryId { get; set; }
         public CategoryViewModel Category { get; set; }
-        public int CategoryId { get; set; }
-        public int DomainId { get; set; }
 
 
         public virtual List<Image>? Images { get; set; }
@@ -32,11 +33,13 @@ namespace Api.ViewModels
             Year = article.Year;
             Price = article.Price;
             Alcohol = article.Alcohol;
-            Stock = article.Stock;
-            Domain = new DomainViewModel(article.Domain);
-            Category = new CategoryViewModel(article.Category);
-            CategoryId = article.CategoryId;
+            Stock = article.Stock;            
+            
             DomainId = article.DomainId;
+            Domain = new DomainViewModel(article.Domain);   
+            
+            CategoryId = article.CategoryId;
+            Category = new CategoryViewModel(article.Category);
             
             Images = article.Images;
         }

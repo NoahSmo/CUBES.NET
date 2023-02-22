@@ -49,8 +49,6 @@ namespace Api.Controllers
         [Authorize(Roles = "Admin, Provider")]
         public async Task<ActionResult<Domain>> UpdateDomain(int id, Domain domain)
         {
-            //Todo DOMAIN UPDATE
-            
             var result = await _domainService.UpdateDomain(id, domain);
             return result == null ? NotFound("Domain not found") : Ok(result);
         }
