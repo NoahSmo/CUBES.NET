@@ -21,6 +21,7 @@ public class ArticleService : IArticleService
     public async Task<List<ArticleViewModel>> GetArticles()
     {
         var articles = await _context.Articles
+            .Where(a => a.isDeactivated == false)
             .Include(a => a.Domain)
             .Include(a => a.Category)
             .ToListAsync();
@@ -135,8 +136,12 @@ public class ArticleService : IArticleService
         var article = await GetId(id);
         if (article is null) return null;
 
-        _context.Articles.Remove(article);
-        _context.Images.RemoveRange(_context.Images.Where(i => i.ArticleId == id));
+        article.isDeactivated = true;
+
+        _context.Articles.Update(article);
+        
+        // _context.Articles.Remove(article);
+        // _context.Images.RemoveRange(_context.Images.Where(i => i.ArticleId == id));
         
         try
         {
