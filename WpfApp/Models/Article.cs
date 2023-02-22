@@ -14,6 +14,7 @@ namespace Api.Models
         public float Price { get; set; }
         public float Alcohol { get; set; }
         public int Stock { get; set; }
+        public bool AutoRestock { get; set; } = false;
         
         public int? DomainId { get; set; }
         public Domain? Domain { get; set; }
