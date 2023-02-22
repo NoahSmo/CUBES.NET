@@ -30,8 +30,6 @@
       <XamlRuntime>Wpf</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-=======
->>>>>>> e35123e (Ajout DomainListView & DomainListViewModel)
   </ItemGroup>
 
   <ItemGroup>
