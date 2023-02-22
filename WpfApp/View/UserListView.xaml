@@ -72,7 +72,7 @@
                     <TextBlock Margin="0, 10" Text="Phone"></TextBlock>
                     <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectUser.Phone}"/>
                     <TextBlock Margin="0, 10" Text="Role"></TextBlock>
-                    <ComboBox Margin="0, 0, 0, 10" ItemsSource="{Binding RolesList}" SelectedItem="{Binding SelectUser.Role}"/>
+                    <ComboBox Margin="0, 0, 0, 10" ItemsSource="{Binding RolesList}" SelectedItem="{Binding SelectUser.Role}" SelectedValue="{Binding SelectUser.RoleId}" SelectedValuePath="Id" DisplayMemberPath="Name"/>
                     <TextBlock Margin="0, 10" Text="Password"></TextBlock>
                     <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectUser.Password}"/>
                     
@@ -96,7 +96,7 @@
                     <TextBlock Margin="0, 10" Text="Phone"></TextBlock>
                     <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectUser.Phone}"/>
                     <TextBlock Margin="0, 10" Text="Role"></TextBlock>
-                    <ComboBox Margin="0, 0, 0, 10" ItemsSource="{Binding RolesList}" SelectedItem="{Binding SelectUser.Role}"/>
+                    <ComboBox Margin="0, 0, 0, 10" ItemsSource="{Binding RolesList}" SelectedItem="{Binding SelectUser.Role}" SelectedValue="{Binding SelectUser.RoleId}" SelectedValuePath="Id" DisplayMemberPath="Name"/>
                     <TextBlock Margin="0, 10" Text="Password"></TextBlock>
                     <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectUser.Password}"/>
                     
