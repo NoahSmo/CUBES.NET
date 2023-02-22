@@ -32,7 +32,7 @@
             
                 <MenuItem Header="?" ></MenuItem>
                 <MenuItem Header="Articles" Click="RedirectArticleList"></MenuItem>
-                <MenuItem Header="?" ></MenuItem>
+                <MenuItem Header="Categories" Click="RedirectCategoryList"></MenuItem>
                 <MenuItem Header="Domains" Click="RedirectDomainList"></MenuItem>
                 <MenuItem Header="Users" Click="RedirectUserList"></MenuItem>
             
