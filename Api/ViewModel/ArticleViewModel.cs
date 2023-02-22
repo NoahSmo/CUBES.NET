@@ -1,3 +1,4 @@
+    
 using System;
 using System.ComponentModel.DataAnnotations;
 using Api.Models;
@@ -13,13 +14,14 @@ namespace Api.ViewModels
         public double Price { get; set; }
         public double Alcohol { get; set; }
         public int Stock { get; set; }
-        public bool AutoRestock { get; set; }
         
         
-        public DomainViewModel? Domain { get; set; }
-        public CategoryViewModel? Category { get; set; }
-        
-        
+        public DomainViewModel Domain { get; set; }
+        public CategoryViewModel Category { get; set; }
+        public int CategoryId { get; set; }
+        public int DomainId { get; set; }
+
+
         public virtual List<Image>? Images { get; set; }
         
         public ArticleViewModel(Article article)
@@ -31,10 +33,10 @@ namespace Api.ViewModels
             Price = article.Price;
             Alcohol = article.Alcohol;
             Stock = article.Stock;
-            AutoRestock = article.AutoRestock;
-
-            if (article.Domain != null) Domain = new DomainViewModel(article.Domain);
-            if (article.Category != null) Category = new CategoryViewModel(article.Category);
+            Domain = new DomainViewModel(article.Domain);
+            Category = new CategoryViewModel(article.Category);
+            CategoryId = article.CategoryId;
+            DomainId = article.DomainId;
             
             Images = article.Images;
         }
