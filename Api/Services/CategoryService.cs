@@ -34,6 +34,8 @@ public class CategoryService : ICategoryService
     
     public async Task<Category> CreateCategory(Category category)
     {
+        category.Id = _context.Categories.Max(x => x.Id) + 1;  
+        
         _context.Categories.Add(category);
         await _context.SaveChangesAsync();
         return category;
