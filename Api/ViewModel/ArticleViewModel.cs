@@ -13,6 +13,7 @@ namespace Api.ViewModels
         public double Price { get; set; }
         public double Alcohol { get; set; }
         public int Stock { get; set; }
+        public bool AutoRestock { get; set; }
         
         
         public DomainViewModel? Domain { get; set; }
@@ -30,6 +31,7 @@ namespace Api.ViewModels
             Price = article.Price;
             Alcohol = article.Alcohol;
             Stock = article.Stock;
+            AutoRestock = article.AutoRestock;
 
             if (article.Domain != null) Domain = new DomainViewModel(article.Domain);
             if (article.Category != null) Category = new CategoryViewModel(article.Category);

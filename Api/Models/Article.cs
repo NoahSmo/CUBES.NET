@@ -12,6 +12,8 @@ namespace Api.Models
         public double Price { get; set; }
         public double Alcohol { get; set; }
         public int Stock { get; set; }
+
+        public bool AutoRestock { get; set; } = false;
         
         
         public int? DomainId { get; set; }
