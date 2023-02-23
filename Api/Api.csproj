@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Compile Remove="obj\**" />
-    <Compile Remove="Controllers\ProviderOrderController.cs" />
   </ItemGroup>
 
   <ItemGroup>

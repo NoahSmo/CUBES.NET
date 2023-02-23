@@ -313,8 +313,9 @@ namespace Api.Data;
                     Year = 2020,
                     Price = 6.50,
                     Alcohol = 25.7,
-                    Stock = 150,
+                    Stock = 10,
                     DomainId = 1, 
+                    ProviderId = 1,
                     CategoryId = 1,
                 });
                 
@@ -328,6 +329,7 @@ namespace Api.Data;
                     Alcohol = 19.1,
                     Stock = 150,
                     DomainId = 1, 
+                    ProviderId = 1,
                     CategoryId = 1,
                 });
                 
@@ -341,6 +343,7 @@ namespace Api.Data;
                     Alcohol = 25.7,
                     Stock = 150,
                     DomainId = 1, 
+                    ProviderId = 1,
                     CategoryId = 1,
                 });
                 
@@ -354,6 +357,7 @@ namespace Api.Data;
                     Alcohol = 25.7,
                     Stock = 150,
                     DomainId = 1, 
+                    ProviderId = 1,
                     CategoryId = 1,
                 });
                 
@@ -367,6 +371,7 @@ namespace Api.Data;
                     Alcohol = 25.7,
                     Stock = 150,
                     DomainId = 1,
+                    ProviderId = 1,
                     CategoryId = 1,
                 });
                 
@@ -380,6 +385,7 @@ namespace Api.Data;
                     Alcohol = 25.7,
                     Stock = 150,
                     DomainId = 1,
+                    ProviderId = 1,
                     CategoryId = 1,
                 });
                 
@@ -393,6 +399,7 @@ namespace Api.Data;
                     Alcohol = 25.7,
                     Stock = 150,
                     DomainId = 1,
+                    ProviderId = 1,
                     CategoryId = 1,
                 });
                 
@@ -406,6 +413,7 @@ namespace Api.Data;
                     Alcohol = 25.7,
                     Stock = 150,
                     DomainId = 1,
+                    ProviderId = 1,
                     CategoryId = 1,
                 });
                 
@@ -419,6 +427,7 @@ namespace Api.Data;
                     Alcohol = 25.7,
                     Stock = 150,
                     DomainId = 1,
+                    ProviderId = 1,
                     CategoryId = 1,
                 });
                 
@@ -432,6 +441,7 @@ namespace Api.Data;
                     Alcohol = 25.7,
                     Stock = 150,
                     DomainId = 1,
+                    ProviderId = 1,
                     CategoryId = 1,
                 });
                 
@@ -445,6 +455,7 @@ namespace Api.Data;
                     Alcohol = 25.7,
                     Stock = 150,
                     DomainId = 1,
+                    ProviderId = 1,
                     CategoryId = 1,
                 });
                 
@@ -458,6 +469,7 @@ namespace Api.Data;
                     Alcohol = 25.7,
                     Stock = 150,
                     DomainId = 1,
+                    ProviderId = 1,
                     CategoryId = 1,
                 });
 

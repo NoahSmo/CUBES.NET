@@ -71,27 +71,15 @@ public class ArticleService : IArticleService
         article.Alcohol = request.Alcohol;
         article.Price = request.Price;
 
-        if (article.DomainId != null)
-        {
-            article.DomainId = request.DomainId;
-            article.Domain = await _context.Domains.FirstOrDefaultAsync(d => d.Id == article.DomainId);
-        }
-        else
-        {
-            article.DomainId = null;
-            article.Domain = null;
-        }
+        
+        article.DomainId = request.DomainId;
+        article.Domain = await _context.Domains.FirstOrDefaultAsync(d => d.Id == article.DomainId);
 
-        if (article.CategoryId != null)
-        {
-            article.CategoryId = request.CategoryId;
-            article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
-        }
-        else
-        {
-            article.CategoryId = null;
-            article.Category = null;
-        }
+        article.ProviderId = request.ProviderId;
+        article.Provider = await _context.Providers.FirstOrDefaultAsync(p => p.Id == article.ProviderId);
+
+        article.CategoryId = request.CategoryId;
+        article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
         
         
         article.Stock = request.Stock;
