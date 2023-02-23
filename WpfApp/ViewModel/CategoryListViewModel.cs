@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Api.Models;
 using Newtonsoft.Json;
@@ -15,7 +16,6 @@ namespace WpfApp.ViewModel
     {
         private ObservableCollection<Category> _categorysList;
 
-        private bool _visibilityCreateMenu;
         private bool _visibilityEditMenu;
         
         private Category _selectCategory;
@@ -28,11 +28,6 @@ namespace WpfApp.ViewModel
             set {SetProperty(ref _categorysList , value); }
         }
 
-        public bool VisibilityCreateMenu
-        {
-            get { return _visibilityCreateMenu; }
-            set {SetProperty(ref _visibilityCreateMenu , value); }
-        }
 
         public bool VisibilityEditMenu
         {
@@ -49,24 +44,21 @@ namespace WpfApp.ViewModel
         #endregion
         
         public ICommand ToggleAddMenu { get; }
-        public ICommand CreateCategoryCommand { get; }
-        
-        
+                
         public ICommand ToggleEditMenu { get; }
-        public ICommand SaveCategoryCommand { get; }
-        
-        
         public ICommand DeleteCategoryCommand { get; }
+        
+        public ICommand SaveCategoryCommand { get; }               
+
 
         public CategoryListViewModel()
         {
             ToggleAddMenu = new ViewModelCommand<Object>(ExecuteToggleAddMenu);
-            CreateCategoryCommand = new ViewModelCommand<Object>(ExecuteCreateCategoryCommand);
             
             ToggleEditMenu = new ViewModelCommand<Category>(ExecuteToggleEditMenu);
-            SaveCategoryCommand = new ViewModelCommand<Object>(ExecuteSaveCategoryCommand);
-            
             DeleteCategoryCommand = new ViewModelCommand<Category>(DeleteCategory);
+            
+            SaveCategoryCommand = new ViewModelCommand<Object>(ExecuteSaveCategoryCommand);
             
             GetCategorys();
         }
@@ -82,33 +74,43 @@ namespace WpfApp.ViewModel
         private void ExecuteToggleAddMenu(Object obj)
         {
             SelectCategory = new Category();
-            VisibilityCreateMenu = !VisibilityCreateMenu;
-        }
-        private async void ExecuteCreateCategoryCommand(object obj)
-        {
-            var response = await ModeCommun.client.PostAsJsonAsync("category", SelectCategory);
-            VisibilityCreateMenu = !VisibilityCreateMenu;
-            GetCategorys();
+            VisibilityEditMenu = true;
         }
 
         
         private void ExecuteToggleEditMenu(Category obj)
         {
             SelectCategory = obj;
-            VisibilityEditMenu = !VisibilityEditMenu;
+            VisibilityEditMenu = true;
         }
         private async void ExecuteSaveCategoryCommand(Object obj)
         {
-            var response = await ModeCommun.client.PutAsJsonAsync("category/" + SelectCategory.Id, SelectCategory);
-            VisibilityEditMenu = !VisibilityEditMenu;
-            GetCategorys();
+            
+            if (SelectCategory.Id == 0)
+            {
+                var response = await ModeCommun.client.PostAsJsonAsync("category", SelectCategory);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    GetCategorys();
+                    VisibilityEditMenu = false;
+                }
+
+            }
+            else
+            {
+                var response = await ModeCommun.client.PutAsJsonAsync("category/" + SelectCategory.Id, SelectCategory);
+            }
         }
         
         
         private async void DeleteCategory(Category obj)
         {
-            var response = await ModeCommun.client.DeleteAsync("category/" + obj.Id);
-            GetCategorys();
+            SelectCategory = obj;
+            if (MessageBox.Show("Are you sure you want to delete this category?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes) == MessageBoxResult.Yes)
+            {
+                var response = await ModeCommun.client.DeleteAsync("category/" + obj.Id);
+                CategorysList.Remove(SelectCategory);
+            }
         }
     }
 }

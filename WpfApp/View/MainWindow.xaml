@@ -8,40 +8,62 @@
         xmlns:local="clr-namespace:WpfApp.View"
         mc:Ignorable="d"
         xmlns:viewModel="clr-namespace:WpfApp.ViewModel"
-        Title="MainWindow" Height="450" Width="800">
+        Title="NEGOSUD" Height="450" Width="800">
     <Window.DataContext>
         <viewModel:MainWindowViewModel />
     </Window.DataContext>
     <Grid Background="#2E2E2E">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-        <StackPanel Background="Indigo" VerticalAlignment="Top" Height="50px">
+
+        <StackPanel Visibility="Collapsed" Background="Indigo" VerticalAlignment="Top" Height="50px">
             
             <!-- Logo -->
             
-            <Grid Width="50" Height="50" HorizontalAlignment="Left" Background="Aqua">
+            <Grid Width="150" Height="50" HorizontalAlignment="Left" Background="Aqua">
                 
-                <TextBlock Text="NEGOSUD" VerticalAlignment="Center" FontSize="10" HorizontalAlignment="Center"></TextBlock>
+                <TextBlock FontSize="15" Text="NEGOSUD" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
                 
             </Grid>
             
-            <Menu Background="Aquamarine" Height="50" Width="600" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="-50">
+            <Menu Visibility="Collapsed" Background="Aquamarine" Height="50" Width="600" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="-50">
             
-                <MenuItem Header="?" ></MenuItem>
+                <MenuItem Header="Gestion stock" ></MenuItem>
                 <MenuItem Header="Articles" Click="RedirectArticleList"></MenuItem>
                 <MenuItem Header="Categories" Click="RedirectCategoryList"></MenuItem>
                 <MenuItem Header="Domains" Click="RedirectDomainList"></MenuItem>
                 <MenuItem Header="Users" Click="RedirectUserList"></MenuItem>
             
             </Menu>
-            
+
             
         </StackPanel>
         
-        <Frame Grid.Row="1" Name="CurrentView" Content="{Binding CurrentView}"/>
+        <TabControl>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Articles" Foreground="White"/>
+                </TabItem.Header>
+                <local:ArticleListView DataContext="{Binding ArticleListDataContext}"/>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Categories" Foreground="White"/>
+                </TabItem.Header>
+                <local:CategoryListView DataContext="{Binding CategoryListDataContext}"/>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Domains" Foreground="White"/>
+                </TabItem.Header>
+                <local:DomainListView DataContext="{Binding DomainListDataContext}"/>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Users" Foreground="White"/>
+                </TabItem.Header>
+                <local:UserListView DataContext="{Binding UserListDataContext}"/>
+            </TabItem>
+        </TabControl>
+        <Frame Visibility="Collapsed" Grid.Row="1" Name="CurrentView" Content="{Binding CurrentView}"/>
         
     </Grid>
 </Window>
