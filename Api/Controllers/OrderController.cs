@@ -13,11 +13,13 @@ namespace Api.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly IArticleService _articleService;
+        private readonly IProviderOrderService _providerOrderService;
 
-        public OrderController(IOrderService orderService, IArticleService articleService)
+        public OrderController(IOrderService orderService, IArticleService articleService, IProviderOrderService providerOrderService)
         {
             _orderService = orderService;
             _articleService = articleService;
+            _providerOrderService = providerOrderService;
         }
 
         [HttpGet]
@@ -54,12 +56,17 @@ namespace Api.Controllers
                 return Unauthorized("Order Id or Serial already exists");
             }
 
-            order.ArticleOrders.ForEach(async x =>
+            foreach (var articleOrder in order.ArticleOrders)
             {
-                var article = await _articleService.GetId(x.ArticleId);
-                article.Stock -= x.Quantity;
+                var article = await _articleService.GetId(articleOrder.ArticleId);
+                article.Stock -= articleOrder.Quantity;
                 await _articleService.UpdateStock(article);
-            });
+
+                if (article.Stock <= 0 && article.AutoRestock)
+                {
+                    await _providerOrderService.CreateProviderOrderFromOrder(article);
+                }
+            }
 
             return Ok(result);
         }
