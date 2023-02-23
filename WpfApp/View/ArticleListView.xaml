@@ -15,11 +15,6 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="0.3*"/>
         </Grid.ColumnDefinitions>
-        <Border BorderBrush="White" Margin="50" BorderThickness="1" CornerRadius="3" Grid.ColumnSpan="2">
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity=".7" Color="Gray"/>
-            </Border.Effect>
-        </Border>
         <Grid Grid.ColumnSpan="2" Margin="50">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -31,14 +26,13 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <materialDesign:PackIcon Kind="Add"/>
-                    <TextBlock Grid.Column="1" Text="Add"/>
+                    <materialDesign:PackIcon VerticalAlignment="Center" Kind="Add"/>
+                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="Add"/>
                 </Grid>
             </Button>
             <DataGrid IsReadOnly="True" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding ArticlesList}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                    <!--<DataGridTextColumn Header="Description" Binding="{Binding Description}"/>-->
                     <DataGridTemplateColumn Header="Description" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -72,21 +66,16 @@
             </DataGrid>
         </Grid>
         <Grid Background="#f6f6f6" Grid.Column="1" Visibility="{Binding VisibilityModalDroite,Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Border Margin="10">
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity=".7" Color="LightGray"/>
-                </Border.Effect>
-                <StackPanel Orientation="Vertical">
-                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Name" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectArticle.Name,UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Description" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectArticle.Description,UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
-                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Price" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectArticle.Price,UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Year" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectArticle.Year,UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Alcohol" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectArticle.Alcohol,UpdateSourceTrigger=PropertyChanged}"/>
-                    <ComboBox Margin="5" materialDesign:HintAssist.Hint="Domain" materialDesign:HintAssist.IsFloating="True" ItemsSource="{Binding DomainsList}" SelectedValue="{Binding SelectArticle.DomainId,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="Name"/>
-                    <ComboBox Margin="5" materialDesign:HintAssist.Hint="Category" materialDesign:HintAssist.IsFloating="True" ItemsSource="{Binding CategorysList}" SelectedValue="{Binding SelectArticle.CategoryId,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="Name"/>
-                    <Button Margin="5,20" Content="Save" Command="{Binding SaveArticleCommand}"/>
-                </StackPanel>
-            </Border>
+            <StackPanel Margin="10" Orientation="Vertical">
+                <TextBox Margin="5" materialDesign:HintAssist.Hint="Name" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectArticle.Name,UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="5" materialDesign:HintAssist.Hint="Description" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectArticle.Description,UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
+                <TextBox Margin="5" materialDesign:HintAssist.Hint="Price" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectArticle.Price,UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="5" materialDesign:HintAssist.Hint="Year" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectArticle.Year,UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="5" materialDesign:HintAssist.Hint="Alcohol" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectArticle.Alcohol,UpdateSourceTrigger=PropertyChanged}"/>
+                <ComboBox Margin="5" materialDesign:HintAssist.Hint="Domain" materialDesign:HintAssist.IsFloating="True" ItemsSource="{Binding DomainsList}" SelectedValue="{Binding SelectArticle.DomainId,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="Name"/>
+                <ComboBox Margin="5" materialDesign:HintAssist.Hint="Category" materialDesign:HintAssist.IsFloating="True" ItemsSource="{Binding CategorysList}" SelectedValue="{Binding SelectArticle.CategoryId,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="Name"/>
+                <Button Margin="5,20" Content="Save" Command="{Binding SaveArticleCommand}"/>
+            </StackPanel>
         </Grid>
         <CheckBox IsChecked="{Binding VisibilityModalDroite}" Visibility="{Binding VisibilityModalDroite,Converter={StaticResource BooleanToVisibilityConverter}}">
             <CheckBox.Style>
