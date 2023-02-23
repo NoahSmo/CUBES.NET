@@ -114,6 +114,9 @@ namespace Api.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("double precision");
 
+                    b.Property<int?>("ProviderId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Stock")
                         .HasColumnType("integer");
 
@@ -135,6 +138,8 @@ namespace Api.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
+                    b.HasIndex("ProviderId");
+
                     b.ToTable("Articles");
                 });
 
@@ -149,7 +154,7 @@ namespace Api.Migrations
                     b.Property<int>("ArticleId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("OrderId")
+                    b.Property<int?>("OrderId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("ProviderOrderId")
@@ -635,21 +640,6 @@ namespace Api.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ArticleProvider", b =>
-                {
-                    b.Property<int>("ArticlesId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProvidersId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ArticlesId", "ProvidersId");
-
-                    b.HasIndex("ProvidersId");
-
-                    b.ToTable("ArticleProvider");
-                });
-
             modelBuilder.Entity("DomainProvider", b =>
                 {
                     b.Property<int>("DomainsId")
@@ -711,9 +701,15 @@ namespace Api.Migrations
                         .WithMany("Articles")
                         .HasForeignKey("DomainId");
 
+                    b.HasOne("Api.Models.Provider", "Provider")
+                        .WithMany("Articles")
+                        .HasForeignKey("ProviderId");
+
                     b.Navigation("Category");
 
                     b.Navigation("Domain");
+
+                    b.Navigation("Provider");
                 });
 
             modelBuilder.Entity("Api.Models.ArticleOrder", b =>
@@ -726,9 +722,7 @@ namespace Api.Migrations
 
                     b.HasOne("Api.Models.Order", null)
                         .WithMany("ArticleOrders")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId");
 
                     b.HasOne("Api.Models.ProviderOrder", null)
                         .WithMany("ArticleOrders")
@@ -845,21 +839,6 @@ namespace Api.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("ArticleProvider", b =>
-                {
-                    b.HasOne("Api.Models.Article", null)
-                        .WithMany()
-                        .HasForeignKey("ArticlesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Api.Models.Provider", null)
-                        .WithMany()
-                        .HasForeignKey("ProvidersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("DomainProvider", b =>
                 {
                     b.HasOne("Api.Models.Domain", null)
@@ -928,6 +907,8 @@ namespace Api.Migrations
             modelBuilder.Entity("Api.Models.Provider", b =>
                 {
                     b.Navigation("Addresses");
+
+                    b.Navigation("Articles");
                 });
 
             modelBuilder.Entity("Api.Models.ProviderOrder", b =>

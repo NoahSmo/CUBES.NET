@@ -35,7 +35,8 @@ namespace Api.Migrations
                     Description = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    isDeactivated = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,7 +54,8 @@ namespace Api.Migrations
                     Email = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    isDeactivated = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,7 +72,8 @@ namespace Api.Migrations
                     Description = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    isDeactivated = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -87,7 +90,8 @@ namespace Api.Migrations
                     Email = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    isDeactivated = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -103,7 +107,8 @@ namespace Api.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    isDeactivated = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -119,7 +124,8 @@ namespace Api.Migrations
                     Message = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    isDeactivated = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -138,11 +144,14 @@ namespace Api.Migrations
                     Price = table.Column<double>(type: "double precision", nullable: false),
                     Alcohol = table.Column<double>(type: "double precision", nullable: false),
                     Stock = table.Column<int>(type: "integer", nullable: false),
+                    AutoRestock = table.Column<bool>(type: "boolean", nullable: false),
                     DomainId = table.Column<int>(type: "integer", nullable: true),
+                    ProviderId = table.Column<int>(type: "integer", nullable: true),
                     CategoryId = table.Column<int>(type: "integer", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    isDeactivated = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -156,6 +165,11 @@ namespace Api.Migrations
                         name: "FK_Articles_Domains_DomainId",
                         column: x => x.DomainId,
                         principalTable: "Domains",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Articles_Providers_ProviderId",
+                        column: x => x.ProviderId,
+                        principalTable: "Providers",
                         principalColumn: "Id");
                 });
 
@@ -222,7 +236,8 @@ namespace Api.Migrations
                     Password = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    isDeactivated = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -251,7 +266,8 @@ namespace Api.Migrations
                     StatusId = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    isDeactivated = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -266,30 +282,6 @@ namespace Api.Migrations
                         name: "FK_ProviderOrders_Statuses_StatusId",
                         column: x => x.StatusId,
                         principalTable: "Statuses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ArticleProvider",
-                columns: table => new
-                {
-                    ArticlesId = table.Column<int>(type: "integer", nullable: false),
-                    ProvidersId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ArticleProvider", x => new { x.ArticlesId, x.ProvidersId });
-                    table.ForeignKey(
-                        name: "FK_ArticleProvider_Articles_ArticlesId",
-                        column: x => x.ArticlesId,
-                        principalTable: "Articles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ArticleProvider_Providers_ProvidersId",
-                        column: x => x.ProvidersId,
-                        principalTable: "Providers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -331,7 +323,8 @@ namespace Api.Migrations
                     ArticleId = table.Column<int>(type: "integer", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    isDeactivated = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -358,7 +351,8 @@ namespace Api.Migrations
                     ProviderId = table.Column<int>(type: "integer", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    isDeactivated = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -392,7 +386,8 @@ namespace Api.Migrations
                     UserId = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    isDeactivated = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -423,7 +418,8 @@ namespace Api.Migrations
                     StatusId = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    isDeactivated = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -455,9 +451,9 @@ namespace Api.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ArticleId = table.Column<int>(type: "integer", nullable: false),
-                    OrderId = table.Column<int>(type: "integer", nullable: false),
-                    Quantity = table.Column<int>(type: "integer", nullable: false),
-                    ProviderOrderId = table.Column<int>(type: "integer", nullable: true)
+                    OrderId = table.Column<int>(type: "integer", nullable: true),
+                    ProviderOrderId = table.Column<int>(type: "integer", nullable: true),
+                    Quantity = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -472,8 +468,7 @@ namespace Api.Migrations
                         name: "FK_ArticleOrder_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_ArticleOrder_ProviderOrders_ProviderOrderId",
                         column: x => x.ProviderOrderId,
@@ -512,11 +507,6 @@ namespace Api.Migrations
                 column: "ProviderOrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ArticleProvider_ProvidersId",
-                table: "ArticleProvider",
-                column: "ProvidersId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Articles_CategoryId",
                 table: "Articles",
                 column: "CategoryId");
@@ -531,6 +521,11 @@ namespace Api.Migrations
                 table: "Articles",
                 column: "Name",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Articles_ProviderId",
+                table: "Articles",
+                column: "ProviderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CartItem_ArticleId",
@@ -645,9 +640,6 @@ namespace Api.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ArticleOrder");
-
-            migrationBuilder.DropTable(
-                name: "ArticleProvider");
 
             migrationBuilder.DropTable(
                 name: "CartItem");
