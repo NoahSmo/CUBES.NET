@@ -11,6 +11,7 @@ public class ProviderOrder : Auditable
     
     public int StatusId { get; set; }
     public Status? Status { get; set; }
+    
         
     public virtual List<ArticleOrder>? ArticleOrders { get; set; }
 }
