@@ -20,7 +20,7 @@ namespace Api.ViewModels
         public DomainViewModel Domain { get; set; }
         
         public int? ProviderId { get; set; }
-        public ProviderViewModel Provider { get; set; }
+        public Provider Provider { get; set; }
         
         public int? CategoryId { get; set; }
         public CategoryViewModel Category { get; set; }
@@ -42,7 +42,7 @@ namespace Api.ViewModels
             Domain = new DomainViewModel(article.Domain);
 
             ProviderId = article.ProviderId;
-            Provider = new ProviderViewModel(article.Provider);
+            Provider = article.Provider;
             
             CategoryId = article.CategoryId;
             Category = new CategoryViewModel(article.Category);
@@ -54,7 +54,8 @@ namespace Api.ViewModels
     public class ArticleOrderViewModel
     {
         public int ArticleId { get; set; }
-        public int OrderId { get; set; }
+        public int? OrderId { get; set; }
+        public int? ProviderOrderId { get; set; }
         public int Quantity { get; set; }
     }
 }
