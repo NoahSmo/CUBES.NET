@@ -21,9 +21,10 @@ namespace WpfApp.ViewModel
     {
         private ObservableCollection<Article> _articlesList;
         private ObservableCollection<Api.Models.Domain> _domainsList;
-        private ObservableCollection<Category> _categorysList;
+        private ObservableCollection<Category> _categoriesList;
+        private ObservableCollection<Provider> _providersList;
 
-        private bool _visibilityModalDroite;
+        private bool _visibilityMenu;
         private Article _selectArticle;
 
         #region "Property"
@@ -39,17 +40,23 @@ namespace WpfApp.ViewModel
             get { return _domainsList; }
             set {SetProperty(ref _domainsList , value); }
         }
-
-        public ObservableCollection<Category> CategorysList
+        
+        public ObservableCollection<Provider> ProvidersList
         {
-            get { return _categorysList; }
-            set { SetProperty(ref _categorysList, value); }
+            get { return _providersList; }
+            set {SetProperty(ref _providersList , value); }
         }
 
-        public bool VisibilityModalDroite
+        public ObservableCollection<Category> CategoriesList
         {
-            get { return _visibilityModalDroite; }
-            set {SetProperty(ref _visibilityModalDroite , value); }
+            get { return _categoriesList; }
+            set { SetProperty(ref _categoriesList, value); }
+        }
+
+        public bool VisibilityMenu
+        {
+            get { return _visibilityMenu; }
+            set {SetProperty(ref _visibilityMenu , value); }
         }
 
         public Article SelectArticle
@@ -64,14 +71,19 @@ namespace WpfApp.ViewModel
         {
             VisibleModalDroiteCommand = new ViewModelCommand<Article>(ExecuteVisibleModalDroiteCommand);
             UnvisibleModalDroiteCommand = new ViewModelCommand<object>(ExecuteUnvisibleModalDroiteCommand);
+            
             SaveArticleCommand = new ViewModelCommand<object>(ExecuteSaveArticleCommand, CanExecuteSaveArticleCommand);
             CreateArticleCommand = new ViewModelCommand<object>(ExecuteCreateArticleCommand);
             SaveNewArticleCommand = new ViewModelCommand<object>(ExecuteSaveNewArticleCommand);
             AddArticleCommand = new ViewModelCommand<object>(ExecuteAddArticleCommand);
             DeleteArticleCommand = new ViewModelCommand<Article>(ExecuteDeleteArticleCommand);
+            
+            RefreshArticle = new ViewModelCommand<object>(ExecuteRefreshArticleCommand);
+            
             GetArticles();
             GetDomains();
-            GetCategorys();
+            GetProviders();
+            GetCategories();
         }
 
 
@@ -81,6 +93,13 @@ namespace WpfApp.ViewModel
         {
             var content = await ModeCommun.client.GetStringAsync("Article");
             ArticlesList = new ObservableCollection<Article>( JsonConvert.DeserializeObject<List<Article>>(content));
+            
+            foreach (var article in ArticlesList)
+            {
+                article.Domain = null;
+                article.Category = null;
+                article.Provider = null;
+            }
         }
         
         private async void GetDomains()
@@ -89,19 +108,28 @@ namespace WpfApp.ViewModel
             DomainsList = new ObservableCollection<Api.Models.Domain>( JsonConvert.DeserializeObject<List<Api.Models.Domain>>(content));
         }
         
-        private async void GetCategorys()
+        private async void GetProviders()
+        {
+            var content = await ModeCommun.client.GetStringAsync("Provider");
+            ProvidersList = new ObservableCollection<Provider>( JsonConvert.DeserializeObject<List<Provider>>(content));
+        }
+        
+        private async void GetCategories()
         {
             var content = await ModeCommun.client.GetStringAsync("Category");
-            CategorysList = new ObservableCollection<Category>( JsonConvert.DeserializeObject<List<Category>>(content));
+            CategoriesList = new ObservableCollection<Category>( JsonConvert.DeserializeObject<List<Category>>(content));
         }
 
         #endregion
+
+
+        #region "Command"
 
         public ICommand VisibleModalDroiteCommand { get; }
         private void ExecuteVisibleModalDroiteCommand(Article obj)
         {
             SelectArticle = obj;
-            VisibilityModalDroite = true;
+            VisibilityMenu = true;
         }
 
 
@@ -120,7 +148,7 @@ namespace WpfApp.ViewModel
         public ICommand UnvisibleModalDroiteCommand { get; }
         private void ExecuteUnvisibleModalDroiteCommand(object obj)
         {
-            VisibilityModalDroite = false;
+            VisibilityMenu = false;
         }
 
 
@@ -133,7 +161,7 @@ namespace WpfApp.ViewModel
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     GetArticles();
-                    VisibilityModalDroite = false;
+                    VisibilityMenu = false;
                 }
 
             }
@@ -168,7 +196,7 @@ namespace WpfApp.ViewModel
         private async void ExecuteCreateArticleCommand(object obj)
         {
             SelectArticle = new Article();
-            VisibilityModalDroite = true;
+            VisibilityMenu = true;
         }
 
 
@@ -176,7 +204,7 @@ namespace WpfApp.ViewModel
         private async void ExecuteSaveNewArticleCommand(object obj)
         {
             SelectArticle = new Article();
-            VisibilityModalDroite = true;
+            VisibilityMenu = true;
         }
 
 
@@ -184,7 +212,17 @@ namespace WpfApp.ViewModel
         private async void ExecuteAddArticleCommand(object obj)
         { 
             SelectArticle = new Article();
-            VisibilityModalDroite = true;
+            VisibilityMenu = true;
         }
+        
+        public ICommand RefreshArticle { get; }
+        private async void ExecuteRefreshArticleCommand(object obj)
+        { 
+            GetArticles();
+        }
+
+        #endregion
+
+        
     }
 }

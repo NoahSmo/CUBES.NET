@@ -15,20 +15,22 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="0.3*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.ColumnSpan="2">
+        <Grid Grid.ColumnSpan="2" Margin="50">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Command="{Binding ToggleAddMenu}">
-                <materialDesign:PackIcon Kind="Plus"/>
+            <Button Command="{Binding ToggleAddMenu}" HorizontalAlignment="Left">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:PackIcon VerticalAlignment="Center" Kind="Add"/>
+                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="Add"/>
+                </Grid>
             </Button>
-            <DataGrid IsReadOnly="True" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding CategorysList}" AutoGenerateColumns="False">
+            <DataGrid IsReadOnly="True" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding CategorysList}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                     <DataGridTemplateColumn Header="Description" Width="*">
@@ -38,60 +40,46 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Edit" Width="100">
+                    <DataGridTemplateColumn Header="Action" Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid,Mode=FindAncestor},Path=DataContext.ToggleEditMenu}" CommandParameter="{Binding}">
-                                    <materialDesign:PackIcon Kind="Pen"/>
-                                </Button>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Delete" Width="100">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid,Mode=FindAncestor},Path=DataContext.DeleteCategoryCommand}" CommandParameter="{Binding}">
-                                    <materialDesign:PackIcon Kind="Delete"/>
-                                </Button>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button ToolTip="Edit" Padding="0" Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid,Mode=FindAncestor},Path=DataContext.ToggleEditMenu}" Style="{StaticResource MaterialDesignFlatButton}" CommandParameter="{Binding }">
+                                        <materialDesign:PackIcon Kind="Pen"/>
+                                    </Button>
+                                    <Button Grid.Column="1" ToolTip="Delete" Padding="0" Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid,Mode=FindAncestor},Path=DataContext.DeleteCategoryCommand}" Style="{StaticResource MaterialDesignFlatButton}" CommandParameter="{Binding }">
+                                        <materialDesign:PackIcon Kind="Delete"/>
+                                    </Button>
+                                </Grid>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-        <Grid Background="#f6f6f6" Grid.Column="1" Visibility="{Binding VisibilityCreateMenu,Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Border Margin="10">
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity=".7" Color="LightGray"/>
-                </Border.Effect>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Margin="0, 10" Text="Name"></TextBlock>
-                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectCategory.Name}"/>
-                    <TextBlock Margin="0, 10" Text="Description"></TextBlock>
-                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectCategory.Description}" TextWrapping="Wrap" />
-                    
-                    <Button Content="Save" Command="{Binding CreateCategoryCommand}" CommandParameter="{Binding SelectCategory}"/>
-                </StackPanel>
-            </Border>
-        </Grid>
-        
         <Grid Background="#f6f6f6" Grid.Column="1" Visibility="{Binding VisibilityEditMenu,Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Border Margin="10">
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity=".7" Color="LightGray"/>
-                </Border.Effect>
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Margin="0, 10" Text="Name"></TextBlock>
-                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectCategory.Name}"/>
-                    <TextBlock Margin="0, 10" Text="Description"></TextBlock>
-                    <TextBox Margin="0, 0, 0, 10" Text="{Binding SelectCategory.Description}" TextWrapping="Wrap" />
-                    
-                    <Button Content="Save" Command="{Binding SaveCategoryCommand}" CommandParameter="{Binding SelectCategory}"/>
-                </StackPanel>
-            </Border>
+            <StackPanel Margin="10" Orientation="Vertical">
+                <TextBox Margin="5" materialDesign:HintAssist.Hint="Name" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectCategory.Name,UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="5" materialDesign:HintAssist.Hint="Description" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectCategory.Description,UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Margin="5,20" Content="Save" Command="{Binding SaveCategoryCommand}"/>
+            </StackPanel>
         </Grid>
-        <CheckBox Background="Blue" IsChecked="{Binding VisibilityEditMenu}" Visibility="{Binding VisibilityEditMenu,Converter={StaticResource BooleanToVisibilityConverter}}">
-            
+        <CheckBox IsChecked="{Binding VisibilityEditMenu}" Visibility="{Binding VisibilityEditMenu,Converter={StaticResource BooleanToVisibilityConverter}}">
+            <CheckBox.Style>
+                <Style TargetType="CheckBox">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Grid Background="Transparent"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </CheckBox.Style>
         </CheckBox>
     </Grid>
 </UserControl>

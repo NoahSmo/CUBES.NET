@@ -24,6 +24,7 @@ public class ArticleService : IArticleService
             .Where(a => a.isDeactivated == false)
             .Include(a => a.Domain)
             .Include(a => a.Category)
+            .Include(a => a.Provider)
             .ToListAsync();
         
         return articles.Select(a => new ArticleViewModel(a)).ToList();
@@ -33,6 +34,7 @@ public class ArticleService : IArticleService
     {
         var article = await _context.Articles
             .Include(a => a.Domain)
+            .Include(a => a.Provider)
             .Include(a => a.Category)
             .FirstOrDefaultAsync(a => a.Id == id);
         
