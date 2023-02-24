@@ -48,6 +48,13 @@ namespace WpfApp.ViewModel
             set { SetProperty(ref _userListDataContext, value); }
         }
 
+        private GestionStockViewModel _gestionStockDataContext;
+        public GestionStockViewModel GestionStockDataContext
+        {
+            get { return _gestionStockDataContext; }
+            set { SetProperty(ref _gestionStockDataContext, value); }
+        }
+
         private Frame _currentView;
         public Frame CurrentView
         {
@@ -74,7 +81,8 @@ namespace WpfApp.ViewModel
             DomainListDataContext = new DomainListViewModel();
             CategoryListDataContext = new CategoryListViewModel();
             UserListDataContext = new UserListViewModel();
-            
+            GestionStockDataContext = new GestionStockViewModel();
+
             RedirectToArticleList = new ViewModelCommand<Object>(ExecuteRedirectToArticleList);
             RedirectToDomainList = new ViewModelCommand<Object>(ExecuteRedirectToDomainList);
             
