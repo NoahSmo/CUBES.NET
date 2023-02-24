@@ -35,8 +35,8 @@ namespace WpfApp.ViewModel
 
         public ICommand SaveArticleCommand { get; }
         private async void ExecuteSaveArticleCommand(Article obj)
-        {    
-            var response = await ModeCommun.client.PutAsJsonAsync("article/" + obj.Id, obj);            
+        {
+            var response = await ModeCommun.client.PutAsJsonAsync("article/" + obj.Id, obj);
         }
 
     }
