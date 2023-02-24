@@ -77,6 +77,9 @@ namespace WpfApp.ViewModel
             SaveNewArticleCommand = new ViewModelCommand<object>(ExecuteSaveNewArticleCommand);
             AddArticleCommand = new ViewModelCommand<object>(ExecuteAddArticleCommand);
             DeleteArticleCommand = new ViewModelCommand<Article>(ExecuteDeleteArticleCommand);
+            
+            RefreshArticle = new ViewModelCommand<object>(ExecuteRefreshArticleCommand);
+            
             GetArticles();
             GetDomains();
             GetProviders();
@@ -90,6 +93,13 @@ namespace WpfApp.ViewModel
         {
             var content = await ModeCommun.client.GetStringAsync("Article");
             ArticlesList = new ObservableCollection<Article>( JsonConvert.DeserializeObject<List<Article>>(content));
+            
+            foreach (var article in ArticlesList)
+            {
+                article.Domain = null;
+                article.Category = null;
+                article.Provider = null;
+            }
         }
         
         private async void GetDomains()
@@ -111,6 +121,9 @@ namespace WpfApp.ViewModel
         }
 
         #endregion
+
+
+        #region "Command"
 
         public ICommand VisibleModalDroiteCommand { get; }
         private void ExecuteVisibleModalDroiteCommand(Article obj)
@@ -201,5 +214,15 @@ namespace WpfApp.ViewModel
             SelectArticle = new Article();
             VisibilityMenu = true;
         }
+        
+        public ICommand RefreshArticle { get; }
+        private async void ExecuteRefreshArticleCommand(object obj)
+        { 
+            GetArticles();
+        }
+
+        #endregion
+
+        
     }
 }
