@@ -70,6 +70,63 @@
             </TabItem>
         </TabControl>
         <Frame Visibility="Collapsed" Grid.Row="1" Name="CurrentView" Content="{Binding CurrentView}"/>
+
+        <StackPanel Visibility="Collapsed" Background="Indigo" VerticalAlignment="Top" Height="50px">
+            
+            <!-- Logo -->
+            
+            <Grid Width="150" Height="50" HorizontalAlignment="Left" Background="Aqua">
+                
+                <TextBlock FontSize="15" Text="NEGOSUD" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
+                
+            </Grid>
+            
+            <Menu Visibility="Collapsed" Background="Aquamarine" Height="50" Width="600" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="-50">
+            
+                <MenuItem Header="Gestion stock" ></MenuItem>
+                <MenuItem Header="Articles" Click="RedirectArticleList"></MenuItem>
+                <MenuItem Header="Categories" Click="RedirectCategoryList"></MenuItem>
+                <MenuItem Header="Domains" Click="RedirectDomainList"></MenuItem>
+                <MenuItem Header="Users" Click="RedirectUserList"></MenuItem>
+            
+            </Menu>
+
+            
+        </StackPanel>
+        
+        <TabControl>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Articles" Foreground="White"/>
+                </TabItem.Header>
+                <local:ArticleListView DataContext="{Binding ArticleListDataContext}"/>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Categories" Foreground="White"/>
+                </TabItem.Header>
+                <local:CategoryListView DataContext="{Binding CategoryListDataContext}"/>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Domains" Foreground="White"/>
+                </TabItem.Header>
+                <local:DomainListView DataContext="{Binding DomainListDataContext}"/>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Users" Foreground="White"/>
+                </TabItem.Header>
+                <local:UserListView DataContext="{Binding UserListDataContext}"/>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Gestion stock" Foreground="White"/>
+                </TabItem.Header>
+                <local:GestionStockView DataContext="{Binding GestionStockDataContext}"/>
+            </TabItem>
+        </TabControl>
+        <Frame Visibility="Collapsed" Grid.Row="1" Name="CurrentView" Content="{Binding CurrentView}"/>
         
     </Grid>
 </Window>
