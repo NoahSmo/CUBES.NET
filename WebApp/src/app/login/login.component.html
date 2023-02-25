@@ -1,32 +1,43 @@
+<app-header></app-header>
+
 <div class="back">
   <div class="container">
     <div class="div-title">
-      <p class="title">Connectez-vous</p>
+      <span>
+        <p id="negosud-title">NEGOSUD</p>
+      </span>
+      <span class="text-info-login">
+        <p id="title">Connexion</p>
+      </span>
+      <span>
+        <p style="margin-top: 0.2em; font-size: 0.8rem; font-style: italic">Accédez à votre compte</p>
+      </span>
     </div>
-    <form action="" class="form">
-      <div>
-        <label class="form-label">Email</label>
-        <input type="text" name="email" id="email" class="form-input">
-      </div>
-      <div class="div-password">
-        <label class="form-label">Mot de passe</label>
-        <div class="password">
-          <input [type]="show ? 'text' : 'password'" name="password" id="password" class="form-input">
-          <button type="button" (click)="password()" class="pi {{show ? 'pi-eye-slash' : 'pi-eye'}} class"></button>
+    <form [formGroup]="userFormGroup" (ngSubmit)="login()">
+      <div class="grid p-fluid div-form-login">
+        <div class="col-12 md:col-4 input-login">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input formControlName="email" type="email" pInputText placeholder="Email">
+          </div>
         </div>
-      </div>
-      <div class="rememberAndLost">
-        <div class="remember">
-          <input type="checkbox" name="remember" id="remember">
-          <label for="remember">Se souvenir de moi</label>
+        <div class="col-12 md:col-4 input-login">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-key"></i></span>
+            <input formControlName="password" type="password" pInputText placeholder="password">
+          </div>
         </div>
-        <a href="">Mot de passe oublié?</a>
+        <span style="display: flex; justify-content: center; align-items: center; font-size: 1rem; margin-top: 0.5em; color: #bf1d1d" class="p-tag-danger" *ngIf="errorMessage">{{errorMessage}}</span>
       </div>
-      <button type="submit" class="valid">Se connecter</button>
+      <div class="div-button-submit">
+        <p-button class="submit-button" label="Login" type="submit"></p-button>
+      </div>
     </form>
+
     <div class="dontHaveAccount">
       <label>Vous n'avez pas de compte?</label>
       <a [routerLink]="['/register']">Créer un compte</a>
     </div>
+
   </div>
 </div>

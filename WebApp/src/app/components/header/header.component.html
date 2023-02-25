@@ -5,7 +5,8 @@
   <div class="div-users">
     <div class="div-login" [routerLink]="['login']">
       <i class="pi pi-user"></i>
-      <span class="login">Se connecter</span>
+      <span *ngIf="!isAuth" class="login">Se connecter</span>
+      <span *ngIf="isAuth" class="profile">Profile</span>
     </div>
     <div class="div-cart">
       <i class="pi pi-shopping-cart"></i>

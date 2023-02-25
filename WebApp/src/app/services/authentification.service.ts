@@ -15,7 +15,6 @@ export class AuthentificationService {
   private loggedIn = false;
 
   users: User[] = [];
-  authenticatedUser: User | undefined;
   currentUser!: User | null;
 
 
@@ -49,7 +48,7 @@ export class AuthentificationService {
     }
       return this.http.post(this.componentUrl + "/DesktopLogin", loginData, {headers, observe: 'response'}).pipe(
         map((response: HttpResponse<User>) => {
-          if (response.status !== 200 || response.ok !== true){
+          if (response.status !== 200 || !response.ok){
             return false;
           }
           const responseUser: User | null = response.body;
@@ -64,9 +63,13 @@ export class AuthentificationService {
           }else {
             return false;
           }
-        }),
-        catchError((error: any) => error())
+        })
       );
+  }
+
+
+  public isAuthenticated(){
+    return this.currentUser != undefined;
   }
 
 
