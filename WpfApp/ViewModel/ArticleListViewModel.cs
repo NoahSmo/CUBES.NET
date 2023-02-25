@@ -91,6 +91,7 @@ namespace WpfApp.ViewModel
 
         private async void GetArticles()
         {
+            ArticlesList = new ObservableCollection<Article>();
             var content = await ModeCommun.client.GetStringAsync("Article");
             ArticlesList = new ObservableCollection<Article>( JsonConvert.DeserializeObject<List<Article>>(content));
             
