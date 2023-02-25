@@ -10,14 +10,16 @@ namespace Api.ViewModels
         public string Name { get; set; }
         public string Email { get; set; }
         
-        public virtual List<Address?> Addresses { get; set; }
+        public int AddressId { get; set; }
+        public Address? Address { get; set; }
 
         public ProviderViewModel(Provider provider)
         {
             Id = provider.Id;
             Name = provider.Name;
             Email = provider.Email;
-            Addresses = provider.Addresses;
+            AddressId = provider.AddressId;
+            Address = provider.Address;
         }
     }
 }
