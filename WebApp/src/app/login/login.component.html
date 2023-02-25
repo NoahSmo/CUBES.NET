@@ -3,27 +3,40 @@
     <div class="div-title">
       <p class="title">Connectez-vous</p>
     </div>
-    <form action="" class="form">
+    <form [formGroup]="userFormGroup" (ngSubmit)="login()">
       <div>
-        <label class="form-label">Email</label>
-        <input type="text" name="email" id="email" class="form-input">
+        <label>Email</label>
+        <input type="email" formControlName="email">
       </div>
-      <div class="div-password">
-        <label class="form-label">Mot de passe</label>
-        <div class="password">
-          <input [type]="show ? 'text' : 'password'" name="password" id="password" class="form-input">
-          <button type="button" (click)="password()" class="pi {{show ? 'pi-eye-slash' : 'pi-eye'}} class"></button>
-        </div>
+      <div>
+        <label>Password</label>
+        <input type="password" formControlName="password">
       </div>
-      <div class="rememberAndLost">
-        <div class="remember">
-          <input type="checkbox" name="remember" id="remember">
-          <label for="remember">Se souvenir de moi</label>
-        </div>
-        <a href="">Mot de passe oublié?</a>
-      </div>
-      <button type="submit" class="valid">Se connecter</button>
+      <button type="submit">login</button>
     </form>
+
+
+    <!--    <form action="" (ngSubmit)="handleLogin()" class="form">-->
+    <!--      <div>-->
+    <!--        <label class="form-label">Email</label>-->
+    <!--        <input type="text" name="email" id="email" class="form-input">-->
+    <!--      </div>-->
+    <!--      <div class="div-password">-->
+    <!--        <label class="form-label">Mot de passe</label>-->
+    <!--        <div class="password">-->
+    <!--          <input [type]="show ? 'text' : 'password'" name="password" id="password" class="form-input">-->
+    <!--          <button type="button"  class="pi {{show ? 'pi-eye-slash' : 'pi-eye'}} class"></button>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--      <div class="rememberAndLost">-->
+    <!--        <div class="remember">-->
+    <!--          <input type="checkbox" name="remember" id="remember">-->
+    <!--          <label for="remember">Se souvenir de moi</label>-->
+    <!--        </div>-->
+    <!--        <a href="">Mot de passe oublié?</a>-->
+    <!--      </div>-->
+    <!--      <button type="submit" class="valid">Se connecter</button>-->
+    <!--    </form>-->
     <div class="dontHaveAccount">
       <label>Vous n'avez pas de compte?</label>
       <a [routerLink]="['/register']">Créer un compte</a>
