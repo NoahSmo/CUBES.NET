@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230223213758_Initial")]
+    [Migration("20230225132353_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -73,8 +73,6 @@ namespace Api.Migrations
 
                     b.HasIndex("DomainId");
 
-                    b.HasIndex("ProviderId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Addresses");
@@ -94,7 +92,7 @@ namespace Api.Migrations
                     b.Property<bool>("AutoRestock")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -107,7 +105,7 @@ namespace Api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("DomainId")
+                    b.Property<int>("DomainId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
@@ -117,7 +115,7 @@ namespace Api.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("double precision");
 
-                    b.Property<int?>("ProviderId")
+                    b.Property<int>("ProviderId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Stock")
@@ -458,6 +456,9 @@ namespace Api.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AddressId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -479,6 +480,9 @@ namespace Api.Migrations
                         .HasColumnType("boolean");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId")
+                        .IsUnique();
 
                     b.HasIndex("Email")
                         .IsUnique();
@@ -679,17 +683,11 @@ namespace Api.Migrations
                         .WithMany("Addresses")
                         .HasForeignKey("DomainId");
 
-                    b.HasOne("Api.Models.Provider", "Provider")
-                        .WithMany("Addresses")
-                        .HasForeignKey("ProviderId");
-
                     b.HasOne("Api.Models.User", "User")
                         .WithMany("Addresses")
                         .HasForeignKey("UserId");
 
                     b.Navigation("Domain");
-
-                    b.Navigation("Provider");
 
                     b.Navigation("User");
                 });
@@ -698,15 +696,21 @@ namespace Api.Migrations
                 {
                     b.HasOne("Api.Models.Category", "Category")
                         .WithMany("Articles")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Api.Models.Domain", "Domain")
                         .WithMany("Articles")
-                        .HasForeignKey("DomainId");
+                        .HasForeignKey("DomainId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Api.Models.Provider", "Provider")
                         .WithMany("Articles")
-                        .HasForeignKey("ProviderId");
+                        .HasForeignKey("ProviderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
 
@@ -806,6 +810,17 @@ namespace Api.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Api.Models.Provider", b =>
+                {
+                    b.HasOne("Api.Models.Address", "Address")
+                        .WithOne("Provider")
+                        .HasForeignKey("Api.Models.Provider", "AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
             modelBuilder.Entity("Api.Models.ProviderOrder", b =>
                 {
                     b.HasOne("Api.Models.Provider", "Provider")
@@ -872,6 +887,11 @@ namespace Api.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Api.Models.Address", b =>
+                {
+                    b.Navigation("Provider");
+                });
+
             modelBuilder.Entity("Api.Models.Article", b =>
                 {
                     b.Navigation("ArticleOrders");
@@ -909,8 +929,6 @@ namespace Api.Migrations
 
             modelBuilder.Entity("Api.Models.Provider", b =>
                 {
-                    b.Navigation("Addresses");
-
                     b.Navigation("Articles");
                 });
 
