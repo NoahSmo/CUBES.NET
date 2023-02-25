@@ -17,7 +17,8 @@ import {InputTextModule} from "primeng/inputtext";
 import {CarouselHomeComponent} from './carousel-home/carousel-home.component';
 import {CardModule} from "primeng/card";
 import {WineService} from "./services/wine.service";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -39,6 +40,8 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     MenubarModule,
     InputTextModule,
     CardModule,
+    HttpClientModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [WineService],
