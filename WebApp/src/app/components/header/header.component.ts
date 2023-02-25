@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {AuthentificationService} from "../../services/authentification.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -6,5 +8,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+
+  isAuth: boolean = false;
+
+  constructor(
+    private authService: AuthentificationService,
+    private router: Router
+  ) {
+  }
+
+  ngOnInit(){
+    this.canDisplayLogin();
+  }
+
+  canDisplayLogin(): boolean{
+    if (this.authService.isAuthenticated()){
+      this.isAuth = true;
+    }
+    return this.isAuth;
+  }
 
 }

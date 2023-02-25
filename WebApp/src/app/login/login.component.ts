@@ -16,6 +16,7 @@ export class LoginComponent {
   wrongCredentials = false;
   userFormGroup! : FormGroup;
   currentUser: User | undefined;
+  errorMessage!: string;
 
   constructor(
     private authService: AuthentificationService,
@@ -42,7 +43,10 @@ export class LoginComponent {
       this.router.navigate(['/']);
 
     }, error => {
-      this.wrongCredentials = true;
+      if (error.status == 401){
+        error.statusText = "Mot de passe incorrect";
+      }
+      this.errorMessage = error.statusText;
     });
   }
 }
