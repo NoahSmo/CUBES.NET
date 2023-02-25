@@ -197,10 +197,19 @@ namespace Api.Data;
                 _context.Addresses.Add(new Address()
                 {
                     Id = 2,
-                    Street = "Sdqsdazqsdqsqwxc",    
+                    Street = "Address Provider",    
                     City =  "Novi Sad",
                     Country = "Srbija",
                     ZipCode = 21000,
+                });
+                
+                _context.Addresses.Add(new Address()
+                {
+                    Id = 3,
+                    Street = "Address Provider 2",    
+                    City =  "Paris",
+                    Country = "France",
+                    ZipCode = 75000,
                 });
                 
                 _context.SaveChanges();
@@ -269,7 +278,16 @@ namespace Api.Data;
                 {
                     Id = 1,
                     Name = "Provider 1",
-                    Email = "EmailProvider@gmail.com",
+                    Email = "EmailProvider1@gmail.com",
+                    AddressId = 2,
+                });
+                
+                _context.Providers.Add(new Provider
+                {
+                    Id = 2,
+                    Name = "Provider 2",
+                    Email = "EmailProvider2@gmail.com",
+                    AddressId = 3,
                 });
                 
                 _context.SaveChanges();
@@ -317,6 +335,16 @@ namespace Api.Data;
                     DomainId = 1, 
                     ProviderId = 1,
                     CategoryId = 1,
+                    Images =    new List<Image>()
+                    {
+                        new Image()
+                        {
+                            Id = 1,
+                            Url = "https://picsum.photos/200",
+                            ArticleId = 1,
+                            Article = _context.Articles.FirstOrDefault(x => x.Id == 1)
+                        },
+                    },
                 });
                 
                 _context.Articles.Add(new Article
@@ -331,6 +359,16 @@ namespace Api.Data;
                     DomainId = 1, 
                     ProviderId = 1,
                     CategoryId = 1,
+                    Images =    new List<Image>()
+                    {
+                        new Image()
+                        {
+                            Id = 2,
+                            Url = "https://picsum.photos/200",
+                            ArticleId = 2,
+                            Article = _context.Articles.FirstOrDefault(x => x.Id == 2)
+                        },
+                    },
                 });
                 
                 _context.Articles.Add(new Article
@@ -345,6 +383,16 @@ namespace Api.Data;
                     DomainId = 1, 
                     ProviderId = 1,
                     CategoryId = 1,
+                    Images = new List<Image>()
+                    {
+                        new Image()
+                        {
+                            Id = 3,
+                            Url = "https://picsum.photos/200",
+                            ArticleId = 3,
+                            Article = _context.Articles.FirstOrDefault(x => x.Id == 3)
+                        },
+                    },
                 });
                 
                 _context.Articles.Add(new Article
@@ -359,6 +407,16 @@ namespace Api.Data;
                     DomainId = 1, 
                     ProviderId = 1,
                     CategoryId = 1,
+                    Images = new List<Image>()
+                    {
+                        new Image()
+                        {
+                            Id = 4,
+                            Url = "https://picsum.photos/200",
+                            ArticleId = 4,
+                            Article = _context.Articles.FirstOrDefault(x => x.Id == 4)
+                        },
+                    },
                 });
                 
                 _context.Articles.Add(new Article
@@ -373,6 +431,16 @@ namespace Api.Data;
                     DomainId = 1,
                     ProviderId = 1,
                     CategoryId = 1,
+                    Images = new List<Image>()
+                    {
+                        new Image()
+                        {
+                            Id = 5,
+                            Url = "https://picsum.photos/200",
+                            ArticleId = 5,
+                            Article = _context.Articles.FirstOrDefault(x => x.Id == 5)
+                        },
+                    },
                 });
                 
                 _context.Articles.Add(new Article
@@ -387,6 +455,16 @@ namespace Api.Data;
                     DomainId = 1,
                     ProviderId = 1,
                     CategoryId = 1,
+                    Images = new List<Image>()
+                    {
+                        new Image()
+                        {
+                            Id = 6,
+                            Url = "https://picsum.photos/200",
+                            ArticleId = 6,
+                            Article = _context.Articles.FirstOrDefault(x => x.Id == 6)
+                        },
+                    },
                 });
                 
                 _context.Articles.Add(new Article
@@ -401,6 +479,16 @@ namespace Api.Data;
                     DomainId = 1,
                     ProviderId = 1,
                     CategoryId = 1,
+                    Images = new List<Image>()
+                    {
+                        new Image()
+                        {
+                            Id = 7,
+                            Url = "https://picsum.photos/200",
+                            ArticleId = 7,
+                            Article = _context.Articles.FirstOrDefault(x => x.Id == 7)
+                        },
+                    },
                 });
                 
                 _context.Articles.Add(new Article
@@ -415,6 +503,16 @@ namespace Api.Data;
                     DomainId = 1,
                     ProviderId = 1,
                     CategoryId = 1,
+                    Images = new List<Image>()
+                    {
+                        new Image()
+                        {
+                            Id = 8,
+                            Url = "https://picsum.photos/200",
+                            ArticleId = 8,
+                            Article = _context.Articles.FirstOrDefault(x => x.Id == 8)
+                        },
+                    },
                 });
                 
                 _context.Articles.Add(new Article
@@ -429,6 +527,16 @@ namespace Api.Data;
                     DomainId = 1,
                     ProviderId = 1,
                     CategoryId = 1,
+                    Images = new List<Image>()
+                    {
+                        new Image()
+                        {
+                            Id = 9,
+                            Url = "https://picsum.photos/200",
+                            ArticleId = 9,
+                            Article = _context.Articles.FirstOrDefault(x => x.Id == 9)
+                        },
+                    },
                 });
                 
                 _context.Articles.Add(new Article
@@ -443,6 +551,16 @@ namespace Api.Data;
                     DomainId = 1,
                     ProviderId = 1,
                     CategoryId = 1,
+                    Images = new List<Image>()
+                    {
+                        new Image()
+                        {
+                            Id = 10,
+                            Url = "https://picsum.photos/200",
+                            ArticleId = 10,
+                            Article = _context.Articles.FirstOrDefault(x => x.Id == 10)
+                        },
+                    },
                 });
                 
                 _context.Articles.Add(new Article
@@ -457,6 +575,16 @@ namespace Api.Data;
                     DomainId = 1,
                     ProviderId = 1,
                     CategoryId = 1,
+                    Images = new List<Image>()
+                    {
+                        new Image()
+                        {
+                            Id = 11,
+                            Url = "https://picsum.photos/200",
+                            ArticleId = 11,
+                            Article = _context.Articles.FirstOrDefault(x => x.Id == 11)
+                        },
+                    },
                 });
                 
                 _context.Articles.Add(new Article
@@ -471,6 +599,16 @@ namespace Api.Data;
                     DomainId = 1,
                     ProviderId = 1,
                     CategoryId = 1,
+                    Images = new List<Image>()
+                    {
+                        new Image()
+                        {
+                            Id = 12,
+                            Url = "https://picsum.photos/200",
+                            ArticleId = 12,
+                            Article = _context.Articles.FirstOrDefault(x => x.Id == 12)
+                        },
+                    },
                 });
 
                 _context.SaveChanges();
@@ -478,88 +616,12 @@ namespace Api.Data;
             
             if (!_context.Images.Any())
             {
-                _context.Images.Add(new Image
+                _context.Images.Add(new Image()
                 {
                     Id = 1,
-                    Url = "https://imgs.search.brave.com/Xvh4r9QThnPOf01buIUk4mbNPEskdReXoNARsBrx5WM/rs:fit:1200:1200:1/g:ce/aHR0cDovL3d3dy5u/YXBhd2luZXByb2pl/Y3QuY29tL3dwLWJs/b2cvd3AtY29udGVu/dC91cGxvYWRzLzIw/MTgvMDcvVHJlZWJv/dHRvbS1XaW5lcy0x/LmpwZw",
-                    ArticleId = 1
-                });
-                
-                _context.Images.Add(new Image
-                {
-                    Id = 2,
-                    Url = "https://imgs.search.brave.com/Ev-HhePgVX2L08lDPd3wu-DV9vD-R3DzvEBcDqWvx38/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly93d3cu/b2phbGF3aW5lLmNv/bS93cC1jb250ZW50/L3VwbG9hZHMvMjAx/Ny8wMS9PamFsYVdp/bmVfQ2FiZXJuZXQt/U2F1dmlnbm9uLmpw/Zw",
-                    ArticleId = 2
-                });
-                
-                _context.Images.Add(new Image
-                {
-                    Id = 3,
-                    Url = "https://imgs.search.brave.com/tuOZgUejfKOKqihFFfORYdN3YJOq0jBhTOOB4UOiykY/rs:fit:1130:1200:1/g:ce/aHR0cHM6Ly9zMy5h/bWF6b25hd3MuY29t/L2ltYWdlcy5lY3dp/ZC5jb20vaW1hZ2Vz/LzMyMjc3MDI0LzE1/MDE2OTU2MjQuanBn",
-                    ArticleId = 3
-                });
-                
-                _context.Images.Add(new Image
-                {
-                    Id = 4,
-                    Url = "https://imgs.search.brave.com/nTEQnm1AYF41JEzaXnvV4X6keiwnnxK2ugUw0BPg1D8/rs:fit:1000:667:1/g:ce/aHR0cHM6Ly9kMmhn/OGN0eDh0aHpqaS5j/bG91ZGZyb250Lm5l/dC9oZWFsdGhhY2Nl/c3MuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDE4LzEwLzdf/TXVzdC1Lbm93X0hl/YWx0aF9CZW5lZml0/c19PZl9XaW5lLmpw/Zw",
-                    ArticleId = 4
-                });
-                
-                _context.Images.Add(new Image
-                {
-                    Id = 5,
-                    Url = "https://imgs.search.brave.com/N9trEeJv3KKJT3bmwb7MqtrHscn8yebZPvCQrg2VAes/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly93d3cu/ZHJpbmtoYWNrZXIu/Y29tL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDE5LzA1L2NvcHBv/bGEtZWxlYW5vci5q/cGVn",
-                    ArticleId = 5
-                });
-                
-                _context.Images.Add(new Image
-                {
-                    Id = 6,
-                    Url = "https://imgs.search.brave.com/1yLaVVbOb2lLFiOV1LaZEG19Cx_FHgm6StA625dst58/rs:fit:800:1200:1/g:ce/aHR0cHM6Ly9pbWFn/ZXMuY3RmYXNzZXRz/Lm5ldC8zczVpbzZt/bnhmcXovNlprcjky/MU9jUVE1YnpkVGRi/ZDA0aC9jZGVjNGZl/MTliYjZiZDFmZGU1/ZDQ3NjhhMTliZjZk/NS9BZG9iZVN0b2Nr/XzE0MzA3NzA3Lmpw/ZWc_Zm09anBnJnc9/ODAwJmZsPXByb2dy/ZXNzaXZl",
-                    ArticleId = 6
-                });
-                
-                _context.Images.Add(new Image
-                {
-                    Id = 7,
-                    Url = "https://imgs.search.brave.com/3FAKN3QwoOSrytjzZcqFFRtKoT67jt1KxkXmzGky8js/rs:fit:1152:1200:1/g:ce/aHR0cHM6Ly9sdXh1/cnl5YWNodGNoYXJ0/ZXJzLmNvbS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyMC8xMS9t/YXJzYWxhLXdpbmUt/Mi0xMTUyeDE1MzYu/anBn",
-                    ArticleId = 7
-                });
-                
-                _context.Images.Add(new Image
-                {
-                    Id = 8,
-                    Url = "https://imgs.search.brave.com/6dkhKLLZLsYgJrLFlUV8t_qqzjYVSAPU2SIy83SIhEg/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9tZWRp/YS5iYnIuY29tL3Mv/YmJyLzIwMTY4MDE4/OTc5LW1zP2ltZzQw/ND1EZWZhdWx0X1dp/bmU",
-                    ArticleId = 8
-                });
-                
-                _context.Images.Add(new Image
-                {
-                    Id = 9,
-                    Url = "https://imgs.search.brave.com/4aCM4HOOiSLVxkClRu40_7hyUrupGUwJdGLxZaUZ6hc/rs:fit:600:1200:1/g:ce/aHR0cHM6Ly93d3cu/dGFzdGluZ3MuY29t/L1Byb2R1Y3QtSW1h/Z2VzL1dpbmUvMjAx/OC82XzRfMjAxOC8y/MjQ3NjNfZnMuanBn",
-                    ArticleId = 9
-                });
-                
-                _context.Images.Add(new Image
-                {
-                    Id = 10,
-                    Url = "https://imgs.search.brave.com/C7ADzLRMg5ToGJaH3feMF2qQoqxmEgF8pQdm55KIvsc/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly93d3cu/bmFwYXdpbmVwcm9q/ZWN0LmNvbS93cC1i/bG9nL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDEzLzEwL05hcGEt/Q2VsbGFycy0xLmpw/Zw",
-                    ArticleId = 10
-                });
-                
-                _context.Images.Add(new Image
-                {
-                    Id = 11,
-                    Url = "https://imgs.search.brave.com/11g8IJDp7UcSN12isMShNixUSmk2wxyK6-CmRXOn4Tk/rs:fit:1080:628:1/g:ce/aHR0cHM6Ly93d3cu/b25seWZvb2RzLm5l/dC93cC1jb250ZW50/L3VwbG9hZHMvMjAy/MC8wNy9Nb3NjYXRv/LmpwZw",
-                    ArticleId = 11
-                });
-                
-                _context.Images.Add(new Image
-                {
-                    Id = 12,
-                    Url = "https://imgs.search.brave.com/55F4oHvViDUIMRsvKmfOV71DSZfdSvWz5YwxcwvVcok/rs:fit:776:1176:1/g:ce/aHR0cDovL3d3dy5j/ZWx0aWN3aGlza2V5/c2hvcC5jb20vaW1h/Z2UvSXJpc2gtQmxh/Y2tiZXJyeS13aW5l/LmpwZw",
-                    ArticleId = 12
+                    Url = "https://picsum.photos/200",
+                    ArticleId = 1,
+                    Article = _context.Articles.FirstOrDefault(x => x.Id == 1)
                 });
 
                 _context.SaveChanges();

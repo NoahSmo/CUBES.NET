@@ -25,6 +25,7 @@ public class ArticleService : IArticleService
             .Include(a => a.Domain)
             .Include(a => a.Category)
             .Include(a => a.Provider)
+            .Include(a => a.Images)
             .ToListAsync();
         
         return articles.Select(a => new ArticleViewModel(a)).ToList();
@@ -36,6 +37,7 @@ public class ArticleService : IArticleService
             .Include(a => a.Domain)
             .Include(a => a.Provider)
             .Include(a => a.Category)
+            .Include(a => a.Images)
             .FirstOrDefaultAsync(a => a.Id == id);
         
         return article;
