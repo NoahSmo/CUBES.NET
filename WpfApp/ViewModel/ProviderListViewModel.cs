@@ -72,6 +72,7 @@ namespace WpfApp.ViewModel
         private void ExecuteToggleAddMenu(Object obj)
         {
             SelectProvider = new Provider();
+            SelectProvider.Address = new Address();
             VisibilityEditMenu = true;
         }
 

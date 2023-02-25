@@ -69,17 +69,14 @@
                 <TextBox Margin="5" materialDesign:HintAssist.Hint="Email" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Email,UpdateSourceTrigger=PropertyChanged}"/>
                 
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Street" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Address.Street,UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Number" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Address.Number,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Address" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Address.Street,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="5" materialDesign:HintAssist.Hint="City" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Address.City,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="5" materialDesign:HintAssist.Hint="ZipCode" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Address.ZipCode,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Country" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Address.Country,UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 
-                <!-- list of domains -->
-                <StackPanel Orientation="Horizontal">
-                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Domain" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Domain,UpdateSourceTrigger=PropertyChanged}"/>
-                    <Button Margin="5" Content="Add" Command="{Binding AddDomainCommand}"/>
-                </StackPanel>
                 
-                <Button Margin="5,20" Content="Save" Command="{Binding SaveProviderCommand}"/>
+                <Button Margin="5,20" Content="Save" Command="{Binding SaveProviderCommand}" CommandParameter="{Binding SelectProvider}"/>
             </StackPanel>
         </Grid>
         <CheckBox IsChecked="{Binding VisibilityEditMenu}" Visibility="{Binding VisibilityEditMenu,Converter={StaticResource BooleanToVisibilityConverter}}">

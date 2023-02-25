@@ -67,7 +67,7 @@
                 <TextBox Margin="5" materialDesign:HintAssist.Hint="Name" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectDomain.Name,UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox Margin="5" materialDesign:HintAssist.Hint="Description" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectDomain.Description,UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
                 <TextBox Margin="5" materialDesign:HintAssist.Hint="Email" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectDomain.Email,UpdateSourceTrigger=PropertyChanged}"/>
-                <Button Margin="5,20" Content="Save" Command="{Binding SaveDomainCommand}"/>
+                <Button Margin="5,20" Content="Save" Command="{Binding SaveDomainCommand}" CommandParameter="{Binding SelectDomain}"/>
             </StackPanel>
         </Grid>
         <CheckBox IsChecked="{Binding VisibilityEditMenu}" Visibility="{Binding VisibilityEditMenu,Converter={StaticResource BooleanToVisibilityConverter}}">

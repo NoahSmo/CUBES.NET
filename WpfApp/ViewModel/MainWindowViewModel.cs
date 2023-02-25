@@ -89,6 +89,7 @@ namespace WpfApp.ViewModel
             CategoryListDataContext = new CategoryListViewModel();
             UserListDataContext = new UserListViewModel();
             GestionStockDataContext = new GestionStockViewModel();
+            ProviderListDataContext = new ProviderListViewModel();
 
             RedirectToArticleList = new ViewModelCommand<Object>(ExecuteRedirectToArticleList);
             RedirectToDomainList = new ViewModelCommand<Object>(ExecuteRedirectToDomainList);
