@@ -19,13 +19,17 @@ public class ProviderService : IProviderService
 
     public async Task<List<Provider>> GetProviders()
     {
-        var providers = await _context.Providers.ToListAsync();
+        var providers = await _context.Providers
+            .Include(p => p.Address)
+            .ToListAsync();
         return providers;
     }
 
     public async Task<Provider?> GetId(int id)
     {
-        var provider = await _context.Providers.FindAsync(id);
+        var provider = await _context.Providers
+            .Include(p => p.Address)
+            .FirstOrDefaultAsync(p => p.Id == id);
         if (provider is null)
             return null;
 
@@ -34,6 +38,8 @@ public class ProviderService : IProviderService
     
     public async Task<Provider> CreateProvider(Provider provider)
     {
+        provider.Address = await _context.Addresses.FindAsync(provider.AddressId);
+        
         _context.Providers.Add(provider);
         await _context.SaveChangesAsync();
         return provider;
@@ -47,6 +53,8 @@ public class ProviderService : IProviderService
 
         provider.Name = request.Name;
         provider.Email = request.Email;
+        provider.AddressId = request.AddressId;
+        provider.Address = await _context.Addresses.FindAsync(request.AddressId);
         
         _context.Providers.Update(provider);
         await _context.SaveChangesAsync();

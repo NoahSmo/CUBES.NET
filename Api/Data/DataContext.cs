@@ -105,6 +105,11 @@ namespace Api.Data
             modelBuilder.Entity<Article>()
                 .HasIndex(a => a.Name)
                 .IsUnique();
+            
+            modelBuilder.Entity<Provider>()
+                .HasOne(p => p.Address)
+                .WithOne(a => a.Provider)
+                .HasForeignKey<Provider>(p => p.AddressId);
         }
     }
 }

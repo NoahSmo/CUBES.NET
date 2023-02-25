@@ -11,9 +11,10 @@ namespace Api.Models
         public string Name { get; set; }
         public string Email { get; set; }
         
-        public virtual List<Address>? Addresses { get; set; }
+        public int AddressId { get; set; }
+        public Address? Address { get; set; }
         
-        // public virtual List<Domain> Domains { get; set; }
+        public virtual List<Domain> Domains { get; set; }
         
         public virtual List<Article> Articles { get; set; }
     }

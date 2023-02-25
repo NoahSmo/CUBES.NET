@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WpfApp.View.DomainListView"
+﻿<UserControl x:Class="WpfApp.View.ProviderListView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
-        <viewModel:DomainListViewModel/>
+        <viewModel:ProviderListViewModel/>
     </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -30,17 +30,18 @@
                     <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="Add"/>
                 </Grid>
             </Button>
-            <DataGrid IsReadOnly="True" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding DomainsList}" AutoGenerateColumns="False">
+            <DataGrid IsReadOnly="True" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding ProvidersList}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                    <DataGridTemplateColumn Header="Description" Width="*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                    
+                    <DataGridTextColumn Header="Street" Binding="{Binding Address.Street}"/>
+                    <DataGridTextColumn Header="City" Binding="{Binding Address.City}"/>
+                    <DataGridTextColumn Header="ZipCode" Binding="{Binding Address.ZipCode}"/>
+                    <DataGridTextColumn Header="Country" Binding="{Binding Address.Country}"/>
+                    
+                    
+                    
                     <DataGridTemplateColumn Header="Action" Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -52,7 +53,7 @@
                                     <Button ToolTip="Edit" Padding="0" Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid,Mode=FindAncestor},Path=DataContext.ToggleEditMenu}" Style="{StaticResource MaterialDesignFlatButton}" CommandParameter="{Binding }">
                                         <materialDesign:PackIcon Kind="Pen"/>
                                     </Button>
-                                    <Button Grid.Column="1" ToolTip="Delete" Padding="0" Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid,Mode=FindAncestor},Path=DataContext.DeleteDomainCommand}" Style="{StaticResource MaterialDesignFlatButton}" CommandParameter="{Binding }">
+                                    <Button Grid.Column="1" ToolTip="Delete" Padding="0" Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid,Mode=FindAncestor},Path=DataContext.DeleteProviderCommand}" Style="{StaticResource MaterialDesignFlatButton}" CommandParameter="{Binding }">
                                         <materialDesign:PackIcon Kind="Delete"/>
                                     </Button>
                                 </Grid>
@@ -64,10 +65,18 @@
         </Grid>
         <Grid Background="#f6f6f6" Grid.Column="1" Visibility="{Binding VisibilityEditMenu,Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel Margin="10" Orientation="Vertical">
-                <TextBox Margin="5" materialDesign:HintAssist.Hint="Name" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectDomain.Name,UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Margin="5" materialDesign:HintAssist.Hint="Description" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectDomain.Description,UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
-                <TextBox Margin="5" materialDesign:HintAssist.Hint="Email" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectDomain.Email,UpdateSourceTrigger=PropertyChanged}"/>
-                <Button Margin="5,20" Content="Save" Command="{Binding SaveDomainCommand}" CommandParameter="{Binding SelectDomain}"/>
+                <TextBox Margin="5" materialDesign:HintAssist.Hint="Name" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Name,UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="5" materialDesign:HintAssist.Hint="Email" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Email,UpdateSourceTrigger=PropertyChanged}"/>
+                
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Address" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Address.Street,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="5" materialDesign:HintAssist.Hint="City" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Address.City,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="5" materialDesign:HintAssist.Hint="ZipCode" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Address.ZipCode,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Country" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Address.Country,UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                
+                
+                <Button Margin="5,20" Content="Save" Command="{Binding SaveProviderCommand}" CommandParameter="{Binding SelectProvider}"/>
             </StackPanel>
         </Grid>
         <CheckBox IsChecked="{Binding VisibilityEditMenu}" Visibility="{Binding VisibilityEditMenu,Converter={StaticResource BooleanToVisibilityConverter}}">
