@@ -31,6 +31,13 @@ namespace WpfApp.ViewModel
             get { return _domainListDataContext; }
             set { SetProperty(ref _domainListDataContext , value); }
         }
+        
+        private ProviderListViewModel _providerListDataContext;
+        public ProviderListViewModel ProviderListDataContext
+        {
+            get { return _providerListDataContext; }
+            set { SetProperty(ref _providerListDataContext , value); }
+        }
 
 
         private CategoryListViewModel _categoryListDataContext;
