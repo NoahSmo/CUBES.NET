@@ -21,6 +21,7 @@ export interface Article extends Auditable{
   providers?: Array<Provider>;
   images?: Array<Image>;
   comments?: Array<Comment>;
+  autoRestock?: boolean;
 }
 
 export interface ArticleOrder{
@@ -28,4 +29,5 @@ export interface ArticleOrder{
   articleId?: number;
   orderId?: number;
   quantity?: number;
+  providerOrderId?: number;
 }
