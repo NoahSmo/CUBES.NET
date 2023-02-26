@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Api.Models;
 using Api.ViewModels;
+using Microsoft.Extensions.Configuration;
 
 namespace Api.Controllers
 {

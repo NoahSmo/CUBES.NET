@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Api.Models;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Api.Services;
 using Microsoft.AspNetCore.Authorization;
 
