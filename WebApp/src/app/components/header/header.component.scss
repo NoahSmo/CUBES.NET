@@ -79,9 +79,13 @@
   background-color: #58355E;
 }
 
+.div-cart:hover{
+  background-color: #fff;
+  color: #58355E;
+}
+
 .div-cart:active{
   background-color: #aaa;
-  transition: .2s;
 }
 
 .cart {
@@ -89,8 +93,3 @@
   margin-left: 0.3vw;
 }
 
-.div-cart:hover{
-  cursor: pointer;
-  background-color: white;
-  color: #58355E;
-}

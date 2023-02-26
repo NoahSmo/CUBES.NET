@@ -8,7 +8,7 @@ import {Observable} from "rxjs";
 })
 export class WineService {
 
-  protected baseUrl = 'http://localhost:38387/api';
+  protected baseUrl = 'http://localhost:5072/api';
   protected componentUrl = this.baseUrl + '/Article';
 
   constructor(
@@ -20,6 +20,11 @@ export class WineService {
   getArticles(): Observable<any>{
     const params: HttpParams = new HttpParams();
     return this.http.get(this.componentUrl, {params})
+  }
+
+  getArticle(id: number): Observable<any>{
+    const params: HttpParams = new HttpParams();
+    return this.http.get(this.componentUrl + '/' + id, {params})
   }
 
 }

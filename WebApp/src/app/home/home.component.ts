@@ -11,9 +11,7 @@ export class HomeComponent {
 
   articles: Article[] = [];
 
-  constructor(
-    private wineService: WineService
-  ) {
+  constructor(private wineService: WineService) {
   }
 
   ngOnInit(): void {

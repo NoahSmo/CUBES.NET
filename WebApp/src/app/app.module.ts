@@ -19,6 +19,7 @@ import {CardModule} from "primeng/card";
 import {WineService} from "./services/wine.service";
 import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
+import { CollectionsComponent } from './collections/collections.component';
 import { ProfileComponent } from './profile/profile.component';
 
 
@@ -32,6 +33,7 @@ import { ProfileComponent } from './profile/profile.component';
     LoginComponent,
     RegisterComponent,
     CarouselHomeComponent,
+    CollectionsComponent,
     ProfileComponent,
   ],
   imports: [
