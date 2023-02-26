@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Api.Data;
 using Api.Models;
 using Api.ViewModels;
@@ -68,7 +71,7 @@ public class CommentService : ICommentService
         
         _context.Comments.Add(comment);
         _context.SaveChanges();
-        return Task.FromResult(comment);
+        return Task<Comment>.FromResult(comment);
     }
 
     public Task<Comment>? UpdateComment(int id, Comment comment)
@@ -87,7 +90,8 @@ public class CommentService : ICommentService
         
         _context.Comments.Update(commentToUpdate);
         _context.SaveChanges();
-        return Task.FromResult(commentToUpdate);
+        
+        return Task<Comment>.FromResult(commentToUpdate);
     }
 
     public Task<Comment>? DeleteComment(int id)
@@ -97,6 +101,6 @@ public class CommentService : ICommentService
         
         _context.Comments.Remove(comment);
         _context.SaveChanges();
-        return Task.FromResult(comment);
+        return Task<Comment>.FromResult(comment);
     }
 }

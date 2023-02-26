@@ -19,6 +19,7 @@ namespace WpfApp.ViewModel
         private bool _visibilityEditMenu;
         
         private Provider _selectProvider;
+        private Address _selectAddress;
 
         #region "Property"
 
@@ -39,6 +40,12 @@ namespace WpfApp.ViewModel
             get { return _selectProvider; }
             set {SetProperty(ref _selectProvider , value); }
         }
+        
+        public Address SelectAddress
+        {
+            get { return _selectAddress; }
+            set {SetProperty(ref _selectAddress , value); }
+        }
 
         #endregion
         
@@ -54,7 +61,7 @@ namespace WpfApp.ViewModel
             ToggleAddMenu = new ViewModelCommand<Object>(ExecuteToggleAddMenu);
             ToggleEditMenu = new ViewModelCommand<Provider>(ExecuteToggleEditMenu);
             
-            SaveProviderCommand = new ViewModelCommand<Object>(ExecuteSaveProviderCommand);
+            SaveProviderCommand = new ViewModelCommand<Provider>(ExecuteSaveProviderCommand);
             
             DeleteProviderCommand = new ViewModelCommand<Provider>(DeleteProvider);
             
@@ -72,26 +79,29 @@ namespace WpfApp.ViewModel
         private void ExecuteToggleAddMenu(Object obj)
         {
             SelectProvider = new Provider();
-            SelectProvider.Address = new Address();
+            SelectAddress = new Address();
             VisibilityEditMenu = true;
         }
 
         private void ExecuteToggleEditMenu(Provider obj)
         {
             SelectProvider = obj;
+            SelectAddress = obj.Address;
             VisibilityEditMenu = true;
         }
-        private async void ExecuteSaveProviderCommand(Object obj)
+        private async void ExecuteSaveProviderCommand(Provider obj)
         {
+            
             if (SelectProvider.Id == 0)
             {
-                var responseAddress = await ModeCommun.client.PostAsJsonAsync("address", SelectProvider.Address);
+                var responseAddress = await ModeCommun.client.PostAsJsonAsync("address", SelectAddress);
                 if (responseAddress.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     var content = await responseAddress.Content.ReadAsStringAsync();
-                    SelectProvider.Address = JsonConvert.DeserializeObject<Address>(content);
+                    SelectAddress = JsonConvert.DeserializeObject<Address>(content);
                     
-                    SelectProvider.AddressId = SelectProvider.Address.Id;
+                    SelectProvider.AddressId = SelectAddress.Id;
+                    SelectProvider.Address = null;
                     
                     var response = await ModeCommun.client.PostAsJsonAsync("provider", SelectProvider);                
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -106,13 +116,13 @@ namespace WpfApp.ViewModel
             }
             else
             {
-                var responseAddress = await ModeCommun.client.PutAsJsonAsync("address/" + SelectProvider.Address.Id, SelectProvider.Address);
+                var responseAddress = await ModeCommun.client.PutAsJsonAsync("address/" + SelectAddress.Id, SelectAddress);
                 if (responseAddress.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     var content = await responseAddress.Content.ReadAsStringAsync();
-                    SelectProvider.Address = JsonConvert.DeserializeObject<Address>(content);
+                    SelectAddress = JsonConvert.DeserializeObject<Address>(content);
                     
-                    SelectProvider.AddressId = SelectProvider.Address.Id;
+                    SelectProvider.AddressId = SelectAddress.Id;
                     SelectProvider.Address = null;
                     
                     var response = await ModeCommun.client.PutAsJsonAsync("provider/" + SelectProvider.Id, SelectProvider);             

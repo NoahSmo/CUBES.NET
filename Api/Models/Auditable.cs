@@ -1,3 +1,5 @@
+using System;
+
 namespace Api.Models;
 
 public abstract class Auditable

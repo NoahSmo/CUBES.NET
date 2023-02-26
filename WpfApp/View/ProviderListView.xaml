@@ -33,6 +33,13 @@
             <DataGrid IsReadOnly="True" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding ProvidersList}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                    <DataGridTemplateColumn Header="Description" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
                     
                     <DataGridTextColumn Header="Street" Binding="{Binding Address.Street}"/>
@@ -66,15 +73,15 @@
         <Grid Background="#f6f6f6" Grid.Column="1" Visibility="{Binding VisibilityEditMenu,Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel Margin="10" Orientation="Vertical">
                 <TextBox Margin="5" materialDesign:HintAssist.Hint="Name" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Name,UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Margin="5" materialDesign:HintAssist.Hint="Name" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Description,UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="5" materialDesign:HintAssist.Hint="Description" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Description,UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox Margin="5" materialDesign:HintAssist.Hint="Email" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Email,UpdateSourceTrigger=PropertyChanged}"/>
                 
                 
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Address" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Address.Street,UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBox Margin="5" materialDesign:HintAssist.Hint="City" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Address.City,UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBox Margin="5" materialDesign:HintAssist.Hint="ZipCode" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Address.ZipCode,UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Country" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Address.Country,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Address" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectAddress.Street,FallbackValue='Street',UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="5" materialDesign:HintAssist.Hint="City" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectAddress.City, FallbackValue='City',UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="5" materialDesign:HintAssist.Hint="ZipCode" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectAddress.ZipCode, FallbackValue='10000',UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Country" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectAddress.Country, FallbackValue='Country',UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 
                 
