@@ -54,5 +54,18 @@ namespace Api.Controllers
             }
             return Unauthorized("Invalid credentials");
         }
+        
+        [HttpPost("WebLogin")]
+        public IActionResult LoginWeb([FromBody]UserLogin user)
+        {
+            var userAuth = _jwtAuthService.Auth(user.Email, user.Password);
+            if (userAuth != null)
+            { 
+                var userDetails = new UserDetailsViewModel(userAuth);
+                
+                return userAuth.Role == null ? Unauthorized("Invalid credentials") : Ok(userDetails);
+            }
+            return Unauthorized("Invalid credentials");
+        }
     }
 }
