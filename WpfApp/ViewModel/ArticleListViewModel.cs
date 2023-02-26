@@ -20,7 +20,6 @@ namespace WpfApp.ViewModel
     internal class ArticleListViewModel : ViewModelBase
     {
         private ObservableCollection<Article> _articlesList;
-        private ObservableCollection<Api.Models.Domain> _domainsList;
         private ObservableCollection<Category> _categoriesList;
         private ObservableCollection<Provider> _providersList;
 
@@ -33,12 +32,6 @@ namespace WpfApp.ViewModel
         {
             get { return _articlesList; }
             set {SetProperty(ref _articlesList , value); }
-        }
-
-        public ObservableCollection<Api.Models.Domain> DomainsList
-        {
-            get { return _domainsList; }
-            set {SetProperty(ref _domainsList , value); }
         }
         
         public ObservableCollection<Provider> ProvidersList
@@ -81,7 +74,6 @@ namespace WpfApp.ViewModel
             RefreshArticle = new ViewModelCommand<object>(ExecuteRefreshArticleCommand);
             
             GetArticles();
-            GetDomains();
             GetProviders();
             GetCategories();
         }
@@ -97,16 +89,9 @@ namespace WpfApp.ViewModel
             
             foreach (var article in ArticlesList)
             {
-                article.Domain = null;
                 article.Category = null;
                 article.Provider = null;
             }
-        }
-        
-        private async void GetDomains()
-        {
-            var content = await ModeCommun.client.GetStringAsync("Domain");
-            DomainsList = new ObservableCollection<Api.Models.Domain>( JsonConvert.DeserializeObject<List<Api.Models.Domain>>(content));
         }
         
         private async void GetProviders()
@@ -168,7 +153,11 @@ namespace WpfApp.ViewModel
             }
             else
             {
+                SelectArticle.Images = null;
+                
                 var response = await ModeCommun.client.PutAsJsonAsync("article/"+ SelectArticle.Id , SelectArticle);
+                GetArticles();
+                VisibilityMenu = false; 
             }
         }
         private bool CanExecuteSaveArticleCommand(object obj)
@@ -176,7 +165,7 @@ namespace WpfApp.ViewModel
             if (SelectArticle != null)
             {
                 bool validData;
-                if (SelectArticle.Name == null  || SelectArticle.Description == null || SelectArticle.DomainId == 0 || SelectArticle.CategoryId == 0)
+                if (SelectArticle.Name == null  || SelectArticle.Description == null || SelectArticle.ProviderId == 0 || SelectArticle.CategoryId == 0)
                     validData = false;
                 else
                     if (SelectArticle.Name.Length > 0 && SelectArticle.Description.Length > 0)
@@ -220,6 +209,8 @@ namespace WpfApp.ViewModel
         private async void ExecuteRefreshArticleCommand(object obj)
         { 
             GetArticles();
+            GetProviders();
+            GetCategories();
         }
 
         #endregion

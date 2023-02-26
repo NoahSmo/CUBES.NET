@@ -15,10 +15,6 @@ namespace Api.ViewModels
         public double Alcohol { get; set; }
         public int Stock { get; set; }
         
-        
-        public int? DomainId { get; set; }
-        public DomainViewModel Domain { get; set; }
-        
         public int? ProviderId { get; set; }
         public Provider Provider { get; set; }
         
@@ -36,10 +32,7 @@ namespace Api.ViewModels
             Year = article.Year;
             Price = article.Price;
             Alcohol = article.Alcohol;
-            Stock = article.Stock;            
-            
-            DomainId = article.DomainId;
-            Domain = new DomainViewModel(article.Domain);
+            Stock = article.Stock;
 
             ProviderId = article.ProviderId;
             Provider = article.Provider;
