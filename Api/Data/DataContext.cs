@@ -19,7 +19,6 @@ namespace Api.Data
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<Domain> Domains { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Permission> Permissions { get; set; }
@@ -83,10 +82,6 @@ namespace Api.Data
             
             modelBuilder.Entity<Category>()
                 .HasIndex(c => c.Name)
-                .IsUnique();
-            
-            modelBuilder.Entity<Domain>()
-                .HasIndex(d => d.Name)
                 .IsUnique();
             
             modelBuilder.Entity<Status>()
