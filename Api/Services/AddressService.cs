@@ -48,6 +48,8 @@ public class AddressService : IAddressService
         if (address.UserId != null) address.User = _context.Users.FirstOrDefault(x => x.Id == address.UserId);
         else if (address.ProviderId != null) address.Provider = _context.Providers.FirstOrDefault(x => x.Id == address.ProviderId);
         
+        address.Id = _context.Addresses.Max(a => a.Id) + 1;
+        
         _context.Addresses.Add(address);
 
         try
