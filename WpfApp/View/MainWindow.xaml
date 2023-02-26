@@ -52,12 +52,6 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="Domains" Foreground="White"/>
-                </TabItem.Header>
-                <local:DomainListView DataContext="{Binding DomainListDataContext}"/>
-            </TabItem>
-            <TabItem>
-                <TabItem.Header>
                     <TextBlock Text="Providers" Foreground="White"/>
                 </TabItem.Header>
                 <local:ProviderListView DataContext="{Binding ProviderListDataContext}"/>
