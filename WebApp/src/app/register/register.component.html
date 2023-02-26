@@ -1,35 +1,104 @@
+<app-header></app-header>
+
 <div class="back">
   <div class="container">
     <div class="div-title">
-      <p class="title">Inscrivez-vous</p>
+      <span>
+        <p id="negosud-title">NEGOSUD</p>
+      </span>
+      <span class="text-info-login">
+        <p id="title">Inscription</p>
+      </span>
+      <span>
+        <p style="margin-top: 0.2em; font-size: 0.8rem; font-style: italic">Rejoignez nous dès maintenant !</p>
+      </span>
+    </div>
+    <form [formGroup]="userFormGroup" (ngSubmit)="register()">
+
+      <div class="grid p-fluid div-form-login">
+        <div class="col-12 md:col-4 input-login">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input formControlName="name" type="text" pInputText placeholder="Prénom">
+          </div>
+        </div>
+
+        <div class="col-12 md:col-4 input-login">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input formControlName="surname" type="text" pInputText placeholder="Nom">
+          </div>
+        </div>
+
+        <div class="col-12 md:col-4 input-login">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-phone"></i></span>
+            <input formControlName="phone" type="tel" pInputText placeholder="Numéro de téléphone">
+          </div>
+        </div>
+
+        <div class="col-12 md:col-4 input-login">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-at"></i></span>
+            <input formControlName="email" type="email" pInputText placeholder="Email">
+          </div>
+        </div>
+
+        <div class="col-12 md:col-4 input-login">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-key"></i></span>
+            <input formControlName="password" type="password" pInputText placeholder="Mot de passe">
+          </div>
+        </div>
+
+        <span style="display: flex; justify-content: center; align-items: center; font-size: 1rem; margin-top: 0.5em; color: #bf1d1d" class="p-tag-danger" *ngIf="errorMessage">{{errorMessage}}</span>
+      </div>
+      <div class="div-button-submit">
+        <p-button class="submit-button" label="Register" type="submit"></p-button>
+      </div>
+    </form>
+
+    <div class="dontHaveAccount">
+      <label>Vous avez déjà un compte?</label>
+      <a [routerLink]="['/login']">Connectez vous</a>
     </div>
 
-    <form action="" class="form">
-      <div>
-        <label for="name" class="form-label">Nom</label>
-        <input type="text" id="name" name="name" placeholder="Votre nom" class="form-input">
-      </div>
-      <div>
-        <label for="firstname" class="form-label">Prénom</label>
-        <input type="text" id="firstname" name="firstname" placeholder="Votre prénom" class="form-input">
-      </div>
-      <div>
-        <label for="email" class="form-label">Email</label>
-        <input type="email" id="email" name="email" placeholder="Votre email" class="form-input">
-      </div>
-      <div>
-        <label for="password" class="form-label">Mot de passe</label>
-        <input type="password" id="password" name="password" placeholder="Votre mot de passe" class="form-input">
-      </div>
-      <div>
-        <label for="password2" class="form-label">Confirmez votre mot de passe</label>
-        <input type="password" id="password2" name="password2" placeholder="Confirmez votre mot de passe" class="form-input">
-      </div>
-      <button type="submit" class="valid">S'enregistrer</button>
-    </form>
-    <div class="haveAccount">
-      <label>Vous avez déjà compte?</label>
-      <a [routerLink]="['/login']">Connectez-vous</a>
-    </div>
   </div>
 </div>
+
+
+<!--<div class="back">-->
+<!--  <div class="container">-->
+<!--    <div class="div-title">-->
+<!--      <p class="title">Inscrivez-vous</p>-->
+<!--    </div>-->
+
+<!--    <form action="" class="form">-->
+<!--      <div>-->
+<!--        <label for="name" class="form-label">Nom</label>-->
+<!--        <input type="text" id="name" name="name" placeholder="Votre nom" class="form-input">-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label for="firstname" class="form-label">Prénom</label>-->
+<!--        <input type="text" id="firstname" name="firstname" placeholder="Votre prénom" class="form-input">-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label for="email" class="form-label">Email</label>-->
+<!--        <input type="email" id="email" name="email" placeholder="Votre email" class="form-input">-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label for="password" class="form-label">Mot de passe</label>-->
+<!--        <input type="password" id="password" name="password" placeholder="Votre mot de passe" class="form-input">-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label for="password2" class="form-label">Confirmez votre mot de passe</label>-->
+<!--        <input type="password" id="password2" name="password2" placeholder="Confirmez votre mot de passe" class="form-input">-->
+<!--      </div>-->
+<!--      <button type="submit" class="valid">S'enregistrer</button>-->
+<!--    </form>-->
+<!--    <div class="haveAccount">-->
+<!--      <label>Vous avez déjà compte?</label>-->
+<!--      <a [routerLink]="['/login']">Connectez-vous</a>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

@@ -11,11 +11,12 @@ export class AuthentificationService {
 
   protected baseUrl = 'http://localhost:38387/api';
   protected componentUrl = this.baseUrl + '/Login';
-
+  protected componentUrl2 = this.baseUrl + '/User'
   private loggedIn = false;
 
   users: User[] = [];
   currentUser!: User | null;
+  registerUser!: User | null;
 
 
   constructor(
@@ -40,36 +41,58 @@ export class AuthentificationService {
     });
   }
 
-  loginDesktop(email: string, password: string): Observable<any>{
+  loginDesktop(email: string, password: string): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const loginData = {
       email: email,
       password: password
     }
-      return this.http.post(this.componentUrl + "/DesktopLogin", loginData, {headers, observe: 'response'}).pipe(
-        map((response: HttpResponse<User>) => {
-          if (response.status !== 200 || !response.ok){
-            return false;
-          }
-          const responseUser: User | null = response.body;
-          console.log('username', responseUser, email);
-          if (responseUser?.email === email){
-            this.currentUser = responseUser;
-            sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-            sessionStorage.setItem('LastConnectionDate', JSON.stringify(new Date));
-            this.loggedIn = true;
+    return this.http.post(this.componentUrl + "/DesktopLogin", loginData, {headers, observe: 'response'}).pipe(
+      map((response: HttpResponse<User>) => {
+        if (response.status !== 200 || !response.ok) {
+          return false;
+        }
+        const responseUser: User | null = response.body;
+        console.log('username', responseUser, email);
+        if (responseUser?.email === email) {
+          this.currentUser = responseUser;
+          sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+          sessionStorage.setItem('LastConnectionDate', JSON.stringify(new Date));
 
-            return true;
-          }else {
-            return false;
-          }
-        })
-      );
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
   }
 
-
-  public isAuthenticated(){
+  public isAuthenticated() {
     return this.currentUser != undefined;
+  }
+
+  public register(name: string, surname: string, phone: number, email: string, password: string): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const registerData = {
+      name: name,
+      surname: surname,
+      phone: phone,
+      email: email,
+      password: password
+    }
+
+    return this.http.post(this.componentUrl2, registerData, {headers, observe: 'response'}).pipe(
+      map((response: HttpResponse<User>) => {
+        if (response.status !== 200 || !response.ok) {
+          return false;
+        }
+        const responseUser: User | null = response.body;
+        console.log('username', responseUser, email);
+        this.registerUser = responseUser;
+
+        return true;
+      })
+    );
   }
 
 

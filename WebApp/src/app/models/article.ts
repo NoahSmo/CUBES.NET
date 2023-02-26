@@ -19,7 +19,7 @@ export interface Article extends Auditable{
   category?: Category;
   articleOrders?: Array<ArticleOrder>;
   providers?: Array<Provider>;
-  images?: Array<Image>;
+  images?: Image;
   comments?: Array<Comment>;
   autoRestock?: boolean;
 }
