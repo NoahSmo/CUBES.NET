@@ -3,12 +3,15 @@
     <span class="title" [routerLink]="['']">NEGOSUD</span>
   </div>
   <div class="div-users">
-    <div class="div-login" [routerLink]="['login']">
+    <div *ngIf="!isAuth" class="div-login" [routerLink]="['login']">
       <i class="pi pi-user"></i>
-      <span *ngIf="!isAuth" class="login">Se connecter</span>
-      <span *ngIf="isAuth" class="profile">Profile</span>
+      <span class="login">Se connecter</span>
     </div>
-    <div class="div-cart">
+    <div *ngIf="isAuth" class="div-login" [routerLink]="['']">
+      <i class="pi pi-user"></i>
+      <span class="profile">Profile</span>
+    </div>
+    <div *ngIf="!isAuth" class="div-cart" [routerLink]="['login']">
       <i class="pi pi-shopping-cart"></i>
       <span class="cart">Mon panier</span>
     </div>

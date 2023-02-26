@@ -1,12 +1,50 @@
 <app-header></app-header>
 <app-navbar></app-navbar>
-<app-carousel-home></app-carousel-home>
 <!--<app-footer style="position: relative; margin-top: auto; width: 100%"></app-footer>-->
 
-<div class="card-wine">
-  <p-card *ngFor="let wine of articles">
-    {{ wine.name }}
-  </p-card>
+<div class="container">
+  <div>
+    <app-carousel-home></app-carousel-home>
+  </div>
+  <div class="container-red-wine">
+    <div class="left-div">
+      <div class="container-title">
+        <label class="title">Vous aimez le</label>
+        <label class="title">vin rouge ?</label>
+      </div>
+      <div>
+        <p>
+          Découvrez nos vins rouges et plongez dans l'univers fascinant de la viticulture. Avec notre sélection de vins rouges, vous pouvez explorer les saveurs riches et
+          complexes de différentes régions viticoles, de la France à l'Italie en passant par l'Espagne et bien d'autres
+          pays encore.
+        </p>
+      </div>
+      <div class="div-button-wine">
+        <button class="button-wine">Nos vins rouges</button>
+      </div>
+    </div>
+    <div class="container-img">
+      <img class="img-wine" src="./assets/grd_v6_1650641647_96556.jpg" alt="">
+    </div>
+    <div class="container-img">
+      <img class="img-wine" src="./assets/vineyards_around_etna.jpg" alt="">
+    </div>
+  </div>
 </div>
+
+
+<!--<div class="card-wine">-->
+<!--  <p-card *ngFor="let wine of articles">-->
+<!--    <div>-->
+<!--      <div>-->
+<!--        {{ wine.name }}-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <img class="img-wine" src="{{ wine.images?.url }}" alt="wine">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </p-card>-->
+<!--</div>-->
+
 
 
