@@ -8,7 +8,7 @@ import {Observable} from "rxjs";
 })
 export class ImageService {
 
-  protected baseUrl = 'http://localhost:38387/api';
+  protected baseUrl = 'http://localhost:5072/api';
   protected componentUrl = this.baseUrl + '/Image';
 
   constructor(
@@ -19,5 +19,10 @@ export class ImageService {
   getImages(): Observable<any>{
     const params: HttpParams = new HttpParams();
     return this.http.get(this.componentUrl, {params})
+  }
+
+  getImage(id: number): Observable<any>{
+    const params: HttpParams = new HttpParams();
+    return this.http.get(this.componentUrl + '/' + id, {params})
   }
 }

@@ -1,0 +1,23 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
+
+<div class="container">
+    <div class="card" *ngFor="let wine of articles">
+      <div class="image">
+        <img src="{{ getUrlImageByArticleId(wine.id) }}" alt="">
+      </div>
+
+      <div class="title">
+        <h2>{{ wine.name }}</h2>
+        <div class="line"></div>
+      </div>
+
+      <div class="value">
+        <div class="price">{{ wine.price }}€</div>
+      </div>
+
+      <div class="div-cart">
+        <span>Ajouter au panier</span>
+      </div>
+    </div>
+</div>

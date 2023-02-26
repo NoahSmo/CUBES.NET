@@ -17,6 +17,7 @@ export class NavbarComponent {
         {
           label: 'Toute notre collection',
           icon: '',
+          routerLink: '/collections'
         },
         {
           separator: true
