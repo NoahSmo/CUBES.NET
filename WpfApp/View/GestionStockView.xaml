@@ -29,7 +29,7 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Margin="5" HorizontalAlignment="Center" FontSize="14" FontWeight="SemiBold" Foreground="White" Text="{Binding Name}"/>
                                 <TextBox Margin="5" Grid.Row="1" Foreground="White" Text="{Binding Stock,UpdateSourceTrigger=PropertyChanged}"/>
-                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl,Mode=FindAncestor},Path=DataContext.SaveArticleCommand}" CommandParameter="{Binding }" Margin="5" Grid.Row="2" HorizontalAlignment="Center" Content="Save"/>
+                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl,Mode=FindAncestor},Path=DataContext.SaveArticleCommand}" CommandParameter="{Binding  }" Margin="5" Grid.Row="2" HorizontalAlignment="Center" Content="Save"/>
                             </Grid>
                         </Border>
                     </DataTemplate>

@@ -85,17 +85,46 @@ namespace WpfApp.ViewModel
         {
             if (SelectProvider.Id == 0)
             {
-                var response = await ModeCommun.client.PostAsJsonAsync("provider", SelectProvider);                
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                var responseAddress = await ModeCommun.client.PostAsJsonAsync("address", SelectProvider.Address);
+                if (responseAddress.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    GetProviders();
-                    VisibilityEditMenu = false;
+                    var content = await responseAddress.Content.ReadAsStringAsync();
+                    SelectProvider.Address = JsonConvert.DeserializeObject<Address>(content);
+                    
+                    SelectProvider.AddressId = SelectProvider.Address.Id;
+                    
+                    var response = await ModeCommun.client.PostAsJsonAsync("provider", SelectProvider);                
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        GetProviders();
+                        VisibilityEditMenu = false;
+                    }
                 }
-
+                
+                GetProviders();
+                VisibilityEditMenu = false;
             }
             else
             {
-                var response = await ModeCommun.client.PutAsJsonAsync("provider/" + SelectProvider.Id, SelectProvider);
+                var responseAddress = await ModeCommun.client.PutAsJsonAsync("address/" + SelectProvider.Address.Id, SelectProvider.Address);
+                if (responseAddress.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var content = await responseAddress.Content.ReadAsStringAsync();
+                    SelectProvider.Address = JsonConvert.DeserializeObject<Address>(content);
+                    
+                    SelectProvider.AddressId = SelectProvider.Address.Id;
+                    SelectProvider.Address = null;
+                    
+                    var response = await ModeCommun.client.PutAsJsonAsync("provider/" + SelectProvider.Id, SelectProvider);             
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        GetProviders();
+                        VisibilityEditMenu = false;
+                    }
+                }
+                
+                GetProviders();
+                VisibilityEditMenu = false;
             }
         }
         

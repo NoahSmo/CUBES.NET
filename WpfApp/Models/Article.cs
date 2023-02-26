@@ -16,9 +16,6 @@ namespace Api.Models
         public int Stock { get; set; }
         public bool AutoRestock { get; set; } = false;
         
-        public int DomainId { get; set; }
-        public Domain? Domain { get; set; }
-        
         public int ProviderId { get; set; }
         public Provider? Provider { get; set; }
         

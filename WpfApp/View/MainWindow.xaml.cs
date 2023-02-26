@@ -49,13 +49,6 @@ namespace WpfApp
             DeleteLastView(sender, e);
         }
         
-        private void RedirectDomainList(object sender, RoutedEventArgs e)
-        {
-            CurrentView.Navigate(new DomainListView());
-            
-            DeleteLastView(sender, e);
-        }
-        
         private void RedirectUserList(object sender, RoutedEventArgs e)
         {
             CurrentView.Navigate(new UserListView());

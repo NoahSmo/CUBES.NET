@@ -86,7 +86,6 @@
                 <TextBox Margin="5" materialDesign:HintAssist.Hint="Price" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectArticle.Price,UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox Margin="5" materialDesign:HintAssist.Hint="Year" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectArticle.Year,UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox Margin="5" materialDesign:HintAssist.Hint="Alcohol" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectArticle.Alcohol,UpdateSourceTrigger=PropertyChanged}"/>
-                <ComboBox Margin="5" materialDesign:HintAssist.Hint="Domain" materialDesign:HintAssist.IsFloating="True" ItemsSource="{Binding DomainsList}" SelectedValue="{Binding SelectArticle.DomainId,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="Name"/>
                 <ComboBox Margin="5" materialDesign:HintAssist.Hint="Provider" materialDesign:HintAssist.IsFloating="True" ItemsSource="{Binding ProvidersList}" SelectedValue="{Binding SelectArticle.ProviderId,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="Name"/>
                 <ComboBox Margin="5" materialDesign:HintAssist.Hint="Category" materialDesign:HintAssist.IsFloating="True" ItemsSource="{Binding CategoriesList}" SelectedValue="{Binding SelectArticle.CategoryId,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="Name"/>
                 <Button Margin="5,20" Content="Save" Command="{Binding SaveArticleCommand}"/>

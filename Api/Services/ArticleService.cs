@@ -22,9 +22,8 @@ public class ArticleService : IArticleService
     {
         var articles = await _context.Articles
             .Where(a => a.isDeactivated == false)
-            .Include(a => a.Domain)
-            .Include(a => a.Category)
             .Include(a => a.Provider)
+            .Include(a => a.Category)
             .Include(a => a.Images)
             .ToListAsync();
         
@@ -34,7 +33,6 @@ public class ArticleService : IArticleService
     public async Task<Article?> GetId(int id)
     {
         var article = await _context.Articles
-            .Include(a => a.Domain)
             .Include(a => a.Provider)
             .Include(a => a.Category)
             .Include(a => a.Images)
@@ -45,7 +43,6 @@ public class ArticleService : IArticleService
     
     public async Task<ArticleViewModel> CreateArticle(Article article)
     {
-        if (article.DomainId != null) article.Domain = await _context.Domains.FirstOrDefaultAsync(d => d.Id == article.DomainId);
         if (article.CategoryId != null) article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
         
         article.Id = _context.Articles.Max(x => x.Id) + 1;  
@@ -65,7 +62,7 @@ public class ArticleService : IArticleService
     }
     
     public async Task<ArticleViewModel>? UpdateArticle(int id, Article request)
-        {
+    {
         var article = await GetId(id);
         if (article is null) return null;
 
@@ -75,9 +72,6 @@ public class ArticleService : IArticleService
         article.Alcohol = request.Alcohol;
         article.Price = request.Price;
 
-        
-        article.DomainId = request.DomainId;
-        article.Domain = await _context.Domains.FirstOrDefaultAsync(d => d.Id == article.DomainId);
 
         article.ProviderId = request.ProviderId;
         article.Provider = await _context.Providers.FirstOrDefaultAsync(p => p.Id == article.ProviderId);
@@ -131,9 +125,6 @@ public class ArticleService : IArticleService
         article.isDeactivated = true;
 
         _context.Articles.Update(article);
-        
-        // _context.Articles.Remove(article);
-        // _context.Images.RemoveRange(_context.Images.Where(i => i.ArticleId == id));
         
         try
         {

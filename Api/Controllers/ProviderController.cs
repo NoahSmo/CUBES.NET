@@ -38,6 +38,7 @@ namespace Api.Controllers
         }
         
         [HttpPost]
+        [Authorize(Roles = "Admin, Provider")]
         public async Task<ActionResult<Provider>> CreateProvider(Provider provider)
         {
             var result = await _providerService.CreateProvider(provider);
@@ -45,15 +46,29 @@ namespace Api.Controllers
         }
         
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin, Provider")]
         public async Task<ActionResult<Provider>> UpdateProvider(int id, Provider provider)
         {
+            if (User.IsInRole("Provider"))
+            {
+                var providerToUpdate = await _providerService.GetId(id);
+                if (providerToUpdate.Name != User.Identity?.Name) return Unauthorized("You are not the owner of this provider");
+            }
+            
             var result = await _providerService.UpdateProvider(id, provider);
             return result == null ? NotFound("Provider not found") : Ok(result);
         }
         
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin, Provider")]
         public async Task<ActionResult<Provider>> DeleteProvider(int id)
         {
+            if (User.IsInRole("Provider"))
+            {
+                var provider = await _providerService.GetId(id);
+                if (provider.Name != User.Identity?.Name) return Unauthorized("You are not the owner of this provider");
+            }
+            
             var result = await _providerService.DeleteProvider(id);
             return result == null ? NotFound("Provider not found") : Ok(result);
         }

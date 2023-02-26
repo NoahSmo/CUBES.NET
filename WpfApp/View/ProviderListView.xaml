@@ -66,7 +66,9 @@
         <Grid Background="#f6f6f6" Grid.Column="1" Visibility="{Binding VisibilityEditMenu,Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel Margin="10" Orientation="Vertical">
                 <TextBox Margin="5" materialDesign:HintAssist.Hint="Name" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Name,UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="5" materialDesign:HintAssist.Hint="Name" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Description,UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox Margin="5" materialDesign:HintAssist.Hint="Email" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Email,UpdateSourceTrigger=PropertyChanged}"/>
+                
                 
                 <StackPanel Orientation="Horizontal">
                     <TextBox Margin="5" materialDesign:HintAssist.Hint="Address" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProvider.Address.Street,UpdateSourceTrigger=PropertyChanged}"/>

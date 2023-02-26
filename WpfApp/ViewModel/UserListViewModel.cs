@@ -109,7 +109,10 @@ namespace WpfApp.ViewModel
             }
             else
             {
+                SelectUser.Role = null;
                 var response = await ModeCommun.client.PutAsJsonAsync("User/" + SelectUser.Id, SelectUser);
+                GetUsers();
+                VisibilityEditMenu = false;
             }
         }
         

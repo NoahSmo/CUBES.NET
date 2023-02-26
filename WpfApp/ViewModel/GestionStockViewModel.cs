@@ -13,8 +13,8 @@ namespace WpfApp.ViewModel
 {
     internal class GestionStockViewModel : ViewModelBase
     {
-
         private ObservableCollection<Article> _articlesList;
+
         public ObservableCollection<Article> ArticlesList
         {
             get { return _articlesList; }
@@ -29,17 +29,22 @@ namespace WpfApp.ViewModel
 
         private async void GetArticles()
         {
+            ArticlesList = new ObservableCollection<Article>();
             var content = await ModeCommun.client.GetStringAsync("Article");
             ArticlesList = new ObservableCollection<Article>(JsonConvert.DeserializeObject<List<Article>>(content));
         }
 
         public ICommand SaveArticleCommand { get; }
+
         private async void ExecuteSaveArticleCommand(Article obj)
         {
-            obj.Category = null;
             obj.Provider = null;
-            obj.Domain = null;
+            obj.Category = null;
+            obj.Images = null;
+            
             var response = await ModeCommun.client.PutAsJsonAsync("article/" + obj.Id, obj);
+            
+            GetArticles();
         }
     }
 }

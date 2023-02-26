@@ -63,7 +63,7 @@ namespace Api.Controllers
             {
                 var addressToUpdate = await _addressService.GetId(id);
                 if (addressToUpdate == null) return NotFound("Address not found");
-                if (addressToUpdate.DomainId != int.Parse(User.Identity?.Name)) return Unauthorized("You are not the owner of this address");
+                if (addressToUpdate.ProviderId != int.Parse(User.Identity?.Name)) return Unauthorized("You are not the owner of this address");
             }
             
             var result = await _addressService.UpdateAddress(id, address);
@@ -85,7 +85,7 @@ namespace Api.Controllers
             {
                 var addressToDelete = await _addressService.GetId(id);
                 if (addressToDelete == null) return NotFound("Address not found");
-                if (addressToDelete.DomainId != int.Parse(User.Identity?.Name)) return Unauthorized("You are not the owner of this address");
+                if (addressToDelete.ProviderId != int.Parse(User.Identity?.Name)) return Unauthorized("You are not the owner of this address");
             }
             
             var result = await _addressService.DeleteAddress(id);

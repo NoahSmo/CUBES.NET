@@ -44,25 +44,6 @@ namespace Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Domains",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    isDeactivated = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Domains", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Permissions",
                 columns: table => new
                 {
@@ -183,7 +164,6 @@ namespace Api.Migrations
                     Country = table.Column<string>(type: "text", nullable: false),
                     ZipCode = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: true),
-                    DomainId = table.Column<int>(type: "integer", nullable: true),
                     ProviderId = table.Column<int>(type: "integer", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
@@ -193,11 +173,6 @@ namespace Api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Addresses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Addresses_Domains_DomainId",
-                        column: x => x.DomainId,
-                        principalTable: "Domains",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Addresses_Users_UserId",
                         column: x => x.UserId,
@@ -250,6 +225,7 @@ namespace Api.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     AddressId = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -281,7 +257,6 @@ namespace Api.Migrations
                     Alcohol = table.Column<double>(type: "double precision", nullable: false),
                     Stock = table.Column<int>(type: "integer", nullable: false),
                     AutoRestock = table.Column<bool>(type: "boolean", nullable: false),
-                    DomainId = table.Column<int>(type: "integer", nullable: false),
                     ProviderId = table.Column<int>(type: "integer", nullable: false),
                     CategoryId = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -299,38 +274,8 @@ namespace Api.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Articles_Domains_DomainId",
-                        column: x => x.DomainId,
-                        principalTable: "Domains",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Articles_Providers_ProviderId",
                         column: x => x.ProviderId,
-                        principalTable: "Providers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DomainProvider",
-                columns: table => new
-                {
-                    DomainsId = table.Column<int>(type: "integer", nullable: false),
-                    ProvidersId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DomainProvider", x => new { x.DomainsId, x.ProvidersId });
-                    table.ForeignKey(
-                        name: "FK_DomainProvider_Domains_DomainsId",
-                        column: x => x.DomainsId,
-                        principalTable: "Domains",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DomainProvider_Providers_ProvidersId",
-                        column: x => x.ProvidersId,
                         principalTable: "Providers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -482,11 +427,6 @@ namespace Api.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Addresses_DomainId",
-                table: "Addresses",
-                column: "DomainId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Addresses_UserId",
                 table: "Addresses",
                 column: "UserId");
@@ -510,11 +450,6 @@ namespace Api.Migrations
                 name: "IX_Articles_CategoryId",
                 table: "Articles",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Articles_DomainId",
-                table: "Articles",
-                column: "DomainId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Articles_Name",
@@ -558,17 +493,6 @@ namespace Api.Migrations
                 name: "IX_Comments_UserId",
                 table: "Comments",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DomainProvider_ProvidersId",
-                table: "DomainProvider",
-                column: "ProvidersId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Domains_Name",
-                table: "Domains",
-                column: "Name",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Images_ArticleId",
@@ -654,9 +578,6 @@ namespace Api.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "DomainProvider");
-
-            migrationBuilder.DropTable(
                 name: "Images");
 
             migrationBuilder.DropTable(
@@ -685,9 +606,6 @@ namespace Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Addresses");
-
-            migrationBuilder.DropTable(
-                name: "Domains");
 
             migrationBuilder.DropTable(
                 name: "Users");
