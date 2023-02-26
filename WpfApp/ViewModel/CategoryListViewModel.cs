@@ -99,6 +99,8 @@ namespace WpfApp.ViewModel
             else
             {
                 var response = await ModeCommun.client.PutAsJsonAsync("category/" + SelectCategory.Id, SelectCategory);
+                GetCategorys();
+                VisibilityEditMenu = false;
             }
         }
         
