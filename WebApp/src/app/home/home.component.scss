@@ -47,7 +47,15 @@
 
 .container-red-wine{
   width: 1300px;
-  margin-top: 8vh;
+  margin-top: 12vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.container-white-wine{
+  width: 1300px;
+  margin-top: 12vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -81,5 +89,10 @@
 .container-img{
   width: 33.33333333%;
   margin-left: 5vw;
+}
+
+.container-img2{
+  width: 33.33333333%;
+  margin-right: 5vw;
 }
 

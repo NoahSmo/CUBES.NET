@@ -15,6 +15,11 @@
       <i class="pi pi-shopping-cart"></i>
       <span class="cart">Mon panier</span>
     </div>
+    <div *ngIf="isAuth" class="div-cart" [routerLink]="['']">
+      <i class="pi pi-shopping-cart"></i>
+      <span class="cart">Mon panier</span>
+    </div>
+
   </div>
 </header>
 
