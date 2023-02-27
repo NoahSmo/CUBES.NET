@@ -30,6 +30,14 @@ export class NavbarComponent {
           label: 'Vin rouge',
           icon: ''
         },
+        {
+          label: 'Rosé',
+          icon: ''
+        },
+        {
+          label: 'Champagne',
+          icon: ''
+        },
       ]
     },
     {

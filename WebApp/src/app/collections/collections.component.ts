@@ -14,6 +14,7 @@ import {CartService} from "../services/cart.service";
 export class CollectionsComponent implements OnInit {
 
   articles: Article[]= [];
+  article: Article | undefined;
   images: Image[] = [];
   cart: Cart[] = [];
 

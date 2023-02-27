@@ -2,7 +2,7 @@
 <app-navbar></app-navbar>
 
 <div class="container">
-    <div class="card" *ngFor="let wine of articles">
+    <div class="card" *ngFor="let wine of articles" [routerLink]="['/article/' + wine.id]">
       <div class="image">
         <img src="{{ getUrlImageByArticleId(wine.id) }}" alt="">
       </div>
