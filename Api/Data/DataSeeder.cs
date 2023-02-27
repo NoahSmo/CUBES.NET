@@ -369,7 +369,7 @@ public class DataSeeder
                     new Image()
                     {
                         Id = 1,
-                        Url = "https://picsum.photos/200",
+                        Url = "https://imgs.search.brave.com/7yw15rrliTP5Wl2_zsM2pGhEMlk4DZg3PGQicQGq2qM/rs:fit:800:1200:1/g:ce/aHR0cHM6Ly9wdXJl/cG5nLmNvbS9wdWJs/aWMvdXBsb2Fkcy9t/ZWRpdW0vcHVyZXBu/Zy5jb20td2luZS1i/b3R0bGVib3R0bGUt/Zm9vZC13aW5lLW9i/amVjdC1kcmluay1h/bGNvaG9sLWJldmVy/YWdlLWxpcXVvci05/NDE1MjQ2MjAwNjls/Y2tlYy5wbmc",
                         ArticleId = 1,
                         Article = _context.Articles.FirstOrDefault(x => x.Id == 1)
                     },
@@ -393,7 +393,7 @@ public class DataSeeder
                     new Image()
                     {
                         Id = 2,
-                        Url = "https://picsum.photos/200",
+                        Url = "https://imgs.search.brave.com/Hu0XVcJ68JRT14T6Z59Wp2t2lnr8W-lrFllky-F4NlQ/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9sYXlt/YW5uZXdtZWRpYS5j/b20vaW1hZ2VzL3Bo/b3RvL2dyZWVuaGls/bC13aW5lcnktdmlu/ZXlhcmRzLWJvdHRs/ZS13aGl0ZS1iYWNr/Z3JvdW5kLWV0ZXJu/aXR5LTE0NDAuanBn",
                         ArticleId = 2,
                         Article = _context.Articles.FirstOrDefault(x => x.Id == 2)
                     },
@@ -417,7 +417,7 @@ public class DataSeeder
                     new Image()
                     {
                         Id = 3,
-                        Url = "https://picsum.photos/200",
+                        Url = "https://imgs.search.brave.com/JLYoxtXWgta_YNgEhXpLSX81WjmCHDIooTPTwkuAbpA/rs:fit:271:631:1/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vdmVjdG9y/cy9ib3R0bGUtb2Yt/d2hpdGUtd2luZS13/aXRoLWEtYmxhY2st/bGFiZWwtb24td2hp/dGUtYmFja2dyb3Vu/ZC12ZWN0b3ItaWQx/NjU2NDIxNjk_az02/Jm09MTY1NjQyMTY5/JnM9MTcwNjY3YSZ3/PTAmaD1QQlAzOWJ2/eXFKVlZGNm5ZeHFr/UGNYaE1MUnFZSGgx/VEJMUnhuc0tSRklZ/PQ",
                         ArticleId = 3,
                         Article = _context.Articles.FirstOrDefault(x => x.Id == 3)
                     },
@@ -440,7 +440,7 @@ public class DataSeeder
                     new Image()
                     {
                         Id = 4,
-                        Url = "https://picsum.photos/200",
+                        Url = "https://imgs.search.brave.com/zpuAqO7OA5YyBtlmcQa_1drEr2p34SukQ7kVlfJTsvQ/rs:fit:860:1076:1/g:ce/aHR0cHM6Ly93d3cu/a2luZHBuZy5jb20v/cGljYy9tLzQ4MC00/ODA5MTQwX3dpbmUt/Ym90dGxlLXBuZy1p/bWFnZS13aW5lLWJv/dHRsZS10cmFuc3Bh/cmVudC1iYWNrZ3Jv/dW5kLnBuZw",
                         ArticleId = 4,
                         Article = _context.Articles.FirstOrDefault(x => x.Id == 4)
                     },
@@ -464,7 +464,7 @@ public class DataSeeder
                     new Image()
                     {
                         Id = 5,
-                        Url = "https://picsum.photos/200",
+                        Url = "https://imgs.search.brave.com/2vLTCrFZgEWKcwaMnFG-s8vidGL9fHfWNRW7W26_S7c/rs:fit:960:1200:1/g:ce/aHR0cHM6Ly9wdXJl/cG5nLmNvbS9wdWJs/aWMvdXBsb2Fkcy9t/ZWRpdW0vcHVyZXBu/Zy5jb20tZ3JlZW4t/d2luZS1ib3R0bGVi/b3R0bGVuYXJyb3dl/cmphcmV4dGVybmFs/aW5uZXJzZWFsZ3Jl/ZW4tMTQyMTUyNjQ1/OTA0MGV0eXQ0LnBu/Zw",
                         ArticleId = 5,
                         Article = _context.Articles.FirstOrDefault(x => x.Id == 5)
                     },
@@ -488,7 +488,7 @@ public class DataSeeder
                     new Image()
                     {
                         Id = 6,
-                        Url = "https://picsum.photos/200",
+                        Url = "https://imgs.search.brave.com/VA0aElWkPa5NK1gAdGRsG7cLjUMIpQEVweFdcGNBCqo/rs:fit:800:1200:1/g:ce/aHR0cHM6Ly9wdXJl/cG5nLmNvbS9wdWJs/aWMvdXBsb2Fkcy9t/ZWRpdW0vcHVyZXBu/Zy5jb20tc3Bhcmts/aW5nLXdpbmUtZnJv/bS1hLWJvdHRsZWFs/Y29ob2xkcmlua3Nw/YXJsaW5nLXdpbmVz/cGFybGluZy13aW4t/aW4tYS1ib3R0bGVi/b3R0bGUtMjMxNTE5/MzM5ODAzeXF3YWku/cG5n",
                         ArticleId = 6,
                         Article = _context.Articles.FirstOrDefault(x => x.Id == 6)
                     },
@@ -512,7 +512,7 @@ public class DataSeeder
                     new Image()
                     {
                         Id = 7,
-                        Url = "https://picsum.photos/200",
+                        Url = "https://imgs.search.brave.com/yexHBw1EHKhYniwf9J_2NqhjDmVYg3fyDeUHRvxx0mQ/rs:fit:1170:1200:1/g:ce/aHR0cDovL2NsaXBh/cnQtbGlicmFyeS5j/b20vaW1hZ2VzX2sv/d2luZS1ib3R0bGUt/dHJhbnNwYXJlbnQt/YmFja2dyb3VuZC93/aW5lLWJvdHRsZS10/cmFuc3BhcmVudC1i/YWNrZ3JvdW5kLTE3/LnBuZw",
                         ArticleId = 7,
                         Article = _context.Articles.FirstOrDefault(x => x.Id == 7)
                     },
@@ -536,7 +536,7 @@ public class DataSeeder
                     new Image()
                     {
                         Id = 8,
-                        Url = "https://picsum.photos/200",
+                        Url = "https://imgs.search.brave.com/--zUszdsdfBA7m1CEE6qilBKxxBCpt01n2pHBRmEk3o/rs:fit:720:1200:1/g:ce/aHR0cHM6Ly9sYXlt/YW5uZXdtZWRpYS5j/b20vaW1hZ2VzL3Bo/b3RvL2dyZWVuaGls/bC13aW5lcnktdmlu/ZXlhcmRzLWJvdHRs/ZS13aGl0ZS1iYWNr/Z3JvdW5kLWNoYXJk/b25uYXktNzIwLmpw/Zw",
                         ArticleId = 8,
                         Article = _context.Articles.FirstOrDefault(x => x.Id == 8)
                     },
@@ -560,7 +560,7 @@ public class DataSeeder
                     new Image()
                     {
                         Id = 9,
-                        Url = "https://picsum.photos/200",
+                        Url = "https://imgs.search.brave.com/YbW1d9hIkWVNqNpfVK_RKdA9zYdQu4aE60acI5RQG_o/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9zbWFy/dHltb2NrdXBzLmNv/bS93cC1jb250ZW50/L3VwbG9hZHMvMjAx/Ni8wNi9XaGl0ZV9X/aW5lX0JvdHRsZV9N/b2NrdXBfMWEuanBn",
                         ArticleId = 9,
                         Article = _context.Articles.FirstOrDefault(x => x.Id == 9)
                     },
@@ -584,7 +584,7 @@ public class DataSeeder
                     new Image()
                     {
                         Id = 10,
-                        Url = "https://picsum.photos/200",
+                        Url = "https://imgs.search.brave.com/Bvikr3v0Bi4zYMD3cdtKXwBtlcjPkbojQs34cloZ9YY/rs:fit:800:1200:1/g:ce/aHR0cHM6Ly9wdXJl/cG5nLmNvbS9wdWJs/aWMvdXBsb2Fkcy9t/ZWRpdW0vcHVyZXBu/Zy5jb20td2luZS1i/b3R0bGVib3R0bGVu/YXJyb3dlcmphcmV4/dGVybmFsaW5uZXJz/ZWFsLTE0MjE1MjY0/NTg5OTR4dGV0ci5w/bmc",
                         ArticleId = 10,
                         Article = _context.Articles.FirstOrDefault(x => x.Id == 10)
                     },
@@ -607,7 +607,7 @@ public class DataSeeder
                     new Image()
                     {
                         Id = 11,
-                        Url = "https://picsum.photos/200",
+                        Url = "https://imgs.search.brave.com/J-IwvESq40rvK8Txy6MIFfmF-ngz5yeyVFYVpGE8_Ew/rs:fit:920:1200:1/g:ce/aHR0cDovL2NsaXBh/cnQtbGlicmFyeS5j/b20vbmV3X2dhbGxl/cnkvMjY2LTI2Njc4/MzhfYm90dGxlLW9m/LXNlcnJhbm8tMjAx/NC13aGl0ZS1ibGVu/ZC1saXF1aWQtbHVj/ay5wbmc",
                         ArticleId = 11,
                         Article = _context.Articles.FirstOrDefault(x => x.Id == 11)
                     },
@@ -630,7 +630,7 @@ public class DataSeeder
                     new Image()
                     {
                         Id = 12,
-                        Url = "https://picsum.photos/200",
+                        Url = "https://imgs.search.brave.com/USemhQ7bMDBlOV3peEXkkIY5Nndw10aV_L2WsI8oVCA/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9pNS53/YWxtYXJ0aW1hZ2Vz/LmNvbS9hc3IvYjUz/ZjY5ZWItMzRhOS00/ODJkLWJiOGQtZWZi/YWZhNDg3MDYzXzUu/NDY5YmJkNzU4ZjZh/NTc0NWUzNThlZWZl/ZmU3MDEwZWQuanBl/Zw",
                         ArticleId = 12,
                         Article = _context.Articles.FirstOrDefault(x => x.Id == 12)
                     },
@@ -645,7 +645,7 @@ public class DataSeeder
             _context.Images.Add(new Image()
             {
                 Id = 1,
-                Url = "https://picsum.photos/200",
+                Url = "https://imgs.search.brave.com/9CgMMD4M-8_FyuBi7_rO5p5HDO3r4mla7RA_ElIXfDU/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly93d3cu/YXBlbW9ja3Vwcy5j/b20vd3AtY29udGVu/dC91cGxvYWRzL2Vk/ZC8yMDIwLzA5L0Zy/ZWUtV2hpdGUtV2lu/ZS1Cb3R0bGUtTW9j/a3VwLTEucG5n",
                 ArticleId = 1,
                 Article = _context.Articles.FirstOrDefault(x => x.Id == 1)
             });
