@@ -54,6 +54,13 @@ namespace WpfApp.ViewModel
             set { SetProperty(ref _gestionStockDataContext, value); }
         }
 
+        private OrderListViewModel _orderListDataContext;
+        public OrderListViewModel OrderListDataContext
+        {
+            get { return _orderListDataContext; }
+            set { SetProperty (ref _orderListDataContext , value); }
+        }
+
         private Frame _currentView;
         public Frame CurrentView
         {
@@ -74,6 +81,7 @@ namespace WpfApp.ViewModel
             UserListDataContext = new UserListViewModel();
             GestionStockDataContext = new GestionStockViewModel();
             ProviderListDataContext = new ProviderListViewModel();
+            OrderListDataContext = new OrderListViewModel();
         }
     }
 }
