@@ -46,10 +46,9 @@
             </Button>
             <DataGrid IsReadOnly="True" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding ProviderOrdersList}" AutoGenerateColumns="False" RowDetailsVisibilityMode="VisibleWhenSelected">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding User.Name}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Provider.Name}"/>
                     <DataGridTextColumn Header="Date of order" Binding="{Binding Date,StringFormat=dd/mm/yyyy}"/>
                     <DataGridTextColumn Header="Status" Binding="{Binding Status.Message}"/>
-                    <DataGridTextColumn Header="Status" Binding="{Binding Address.Street}"/>
                     <DataGridTextColumn Header="Number Article" Binding="{Binding ArticleOrders.Count}"/>
                     <DataGridTextColumn Width="*"/>
                     <DataGridTemplateColumn Header="Action" Width="100">

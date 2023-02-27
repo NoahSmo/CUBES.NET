@@ -49,7 +49,6 @@
                     <DataGridTextColumn Header="Name" Binding="{Binding User.Name}"/>
                     <DataGridTextColumn Header="Date of order" Binding="{Binding Date,StringFormat=dd/mm/yyyy}"/>
                     <DataGridTextColumn Header="Status" Binding="{Binding Status.Message}"/>
-                    <DataGridTextColumn Header="Status" Binding="{Binding Address.Street}"/>
                     <DataGridTextColumn Header="Number Article" Binding="{Binding ArticleOrders.Count}"/>
                     <DataGridTextColumn Width="*"/>
                     <DataGridTemplateColumn Header="Action" Width="100">

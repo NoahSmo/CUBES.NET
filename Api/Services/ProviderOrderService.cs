@@ -24,6 +24,8 @@ public class ProviderOrderService : IProviderOrderService
     public async Task<List<ProviderOrder?>> GetProviderOrders()
     {
         return await _context.ProviderOrders
+            .Include(o => o.Provider)
+            .Include(o => o.Status)
             .ToListAsync();
     }
 
