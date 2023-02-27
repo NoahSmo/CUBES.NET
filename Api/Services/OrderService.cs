@@ -52,8 +52,8 @@ public class OrderService : IOrderService
             if (article is null)
                 throw new Exception("Article not found");
             
-            if (article.Stock < articleOrder.Quantity)
-                throw new Exception("Not enough stock");
+            // if (article.Stock < articleOrder.Quantity)
+            //     throw new Exception("Not enough stock");
         }
         
 

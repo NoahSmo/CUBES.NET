@@ -188,57 +188,55 @@ public class DataSeeder
             _context.Addresses.Add(new Address()
             {
                 Id = 1,
-                Street = "Kralja Petra I Karađorđevića",
-                City = "Novi Sad",
-                Country = "Srbija",
-                ZipCode = 27000,
-                UserId = 1,
-                User = _context.Users.FirstOrDefault(x => x.Id == 1)
+                Street = "12 Route de la Liberté",
+                City = "Paris",
+                Country = "France",
+                ZipCode = 75000,
             });
 
             _context.Addresses.Add(new Address()
             {
                 Id = 2,
-                Street = "Address Provider",
-                City = "Novi Sad",
-                Country = "Srbija",
-                ZipCode = 21000,
+                Street = "21 Rue du Grand Prieuré",
+                City = "Bapeaume",
+                Country = "France",
+                ZipCode = 62170,
             });
 
             _context.Addresses.Add(new Address()
             {
                 Id = 3,
-                Street = "Address Provider 2",
+                Street = "116 Avenue de la République",
                 City = "Paris",
                 Country = "France",
-                ZipCode = 75000,
+                ZipCode = 75011,
             });
             
             _context.Addresses.Add(new Address()
             {
                 Id = 4,
-                Street = "Address Provider 4",
-                City = "Paris",
+                Street = "1 Avenue Paul Vaillant Couturier",
+                City = "Tourcoing",
                 Country = "France",
-                ZipCode = 75000,
+                ZipCode = 59200,
             });
             
             _context.Addresses.Add(new Address()
             {
                 Id = 5,
-                Street = "Address Provider 5",
-                City = "Paris",
+                Street = "1 Rue de la République",
+                City = "Lille",
                 Country = "France",
-                ZipCode = 75000,
+                ZipCode = 59000,
             });
             
             _context.Addresses.Add(new Address()
             {
                 Id = 6,
-                Street = "Address Provider 6",
-                City = "Paris",
+                Street = "83 Chemin Vert",
+                City = "Saint Saëns",
                 Country = "France",
-                ZipCode = 75000,
+                ZipCode = 76680,
             });
 
             _context.SaveChanges();
@@ -304,7 +302,7 @@ public class DataSeeder
                 Id = 4,
                 Name = "Vignoble Fontan",
                 Description =
-                    "Vignoble Fontan est un domaine viticole situé à Besançon, dans le département du Doubs, en région Bourgogne-Franche-Comté. Il est dirigé par la famille Fontan depuis 1972. Le domaine est spécialisé dans la production de vins blancs et rosés.",
+                    "Vignoble Fontan est un domaine viticole situé en Gascogne, dans le département des Landes, en région Nouvelle-Aquitaine. Il est dirigé par la famille Fontan depuis 1972. Le domaine est spécialisé dans la production de vins blancs et rosés.",
                 Email = "vignoble.fontan@gmail.com",
                 AddressId = 5,
             });
@@ -314,7 +312,7 @@ public class DataSeeder
                 Id = 5,
                 Name = "Vignoble Uby",
                 Description =                 
-                    "Vignoble Uby est un domaine viticole situé à Besançon, dans le département du Doubs, en région Bourgogne-Franche-Comté. Il est dirigé par la famille Uby depuis 1972. Le domaine est spécialisé dans la production de vins blancs et rosés.",
+                    "Vignoble Uby est un domaine viticole situé à Saint-Saëns, dans le département du Calvados, en région Normandie. Il est dirigé par la famille Uby depuis 1972. Le domaine est spécialisé dans la production de vins blancs et rosés.",
                 Email = "vignoble.uby@gmail.com",
                 AddressId = 6,
             });
@@ -429,9 +427,8 @@ public class DataSeeder
             _context.Articles.Add(new Article
             {
                 Id = 4,
-                Name = "Les Daronnes",
-                Description =
-                    "Composé en majorité de raisins issus de vignes de plus de quarante ans, Les Daronnes (les Mères en argot) porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
+                Name = "Andreola Col del Forno Prosecco",
+                Description = "Des vignes cultivées à plus de 240 mètres d'altitude produisent les raisins utilisés pour l'élaboration de ce vin pétillant limpide aux notes délicates de fruits croquants, d'acacia et de fleurs de glycine. Il accompagne tous les plats, y compris le poisson. En bouche, il révèle une élégance peu commune, pleine et gourmande.",
                 Year = 2020,
                 Price = 6.50,
                 Alcohol = 25.7,
@@ -453,9 +450,9 @@ public class DataSeeder
             _context.Articles.Add(new Article
             {
                 Id = 5,
-                Name = "Los Muchachos",
+                Name = "Cantine Astroni Colle Imperatrice Falanghina Campi Flegrei 2021",
                 Description =
-                    "Composé en majorité de raisins issus de vignes de plus de quarante ans, Los Muchachos (les Enfants en argot) porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
+                    "Un vin limpide et consistant, de couleur jaune paille avec des reflets dorés et des reflets verts. Le nez est intense, fin et complexe et présente des notes florales et fruitées. Sec chaud et onctueux en bouche. Une bonne fraîcheur et sapidité. Un vin équilibré et corsé avec une belle persistance et intensité.",
                 Year = 2020,
                 Price = 6.50,
                 Alcohol = 25.7,
@@ -477,10 +474,10 @@ public class DataSeeder
             _context.Articles.Add(new Article
             {
                 Id = 6,
-                Name = "Le Canard",
+                Name = "LES HAUTS DE SMITH 2016",
                 Description =
-                    "Composé en majorité de raisins issus de vignes de plus de quarante ans, Le Canard porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
-                Year = 2020,
+                    "Les Hauts de Smith est un vin rouge facile à boire, juteux, avec beaucoup de fraîcheur et un délicieux fruité. Nommé MEILLEUR VIN de son appellation, avec ses saveurs vanillés lui apportant cette sucrosité, voilà une belle gourmandise à partager. Appelez vite les copains : c'est l'occasion rêvée de les inviter sans vous ruiner ! Le petit vin plaisir par excellence...",
+                Year = 2016,
                 Price = 6.50,
                 Alcohol = 25.7,
                 Stock = 150,
@@ -501,10 +498,10 @@ public class DataSeeder
             _context.Articles.Add(new Article
             {
                 Id = 7,
-                Name = "Le Chien",
+                Name = "LES FIEFS DE LAGRANGE 2019",
                 Description =
-                    "Composé en majorité de raisins issus de vignes de plus de quarante ans, Le Chien porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
-                Year = 2020,
+                    "Mélange subtil de fruits rouges et noirs, relevé par quelques notes épicées, le nez dégage une élégance et une précision impressionnantes. La bouche est gourmande, onctueuse. Une fraîcheur agréable assure un bon équilibre et une accessibilité à la dégustation quasi immédiate. Mais ne vous méprenez pas, ce vin continuera de vous émerveiller pendant les 20 prochaines années !", 
+                Year = 2019,
                 Price = 6.50,
                 Alcohol = 25.7,
                 Stock = 150,
@@ -525,9 +522,9 @@ public class DataSeeder
             _context.Articles.Add(new Article
             {
                 Id = 8,
-                Name = "Le Chat",
+                Name = "CHATEAU TALBOT 2020",
                 Description =
-                    "Composé en majorité de raisins issus de vignes de plus de quarante ans, Le Chat porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
+                    "Véritable trait d’union entre la finesse des Margaux et la puissance des Pauillac, cette propriété parmi les plus justement populaires du Médoc vient de produire une série de grands millésimes dont le 2020 fait largement parti. D'une belle robe violet-noir profond, le nez dégage des parfums de cassis, de framboise, de prunes cuites, d'herbes méditerranéennes séchées et de feuille de tabac, avec une touche de graphite. En bouche on retrouve un Saint-Julien d'une belle fraîcheur, avec de la mâche, des fruits noirs, des notes d'herbes séchées ainsi qu'une finale savoureuse.",
                 Year = 2020,
                 Price = 6.50,
                 Alcohol = 25.7,
@@ -549,9 +546,9 @@ public class DataSeeder
             _context.Articles.Add(new Article
             {
                 Id = 9,
-                Name = "Le Cheval",
+                Name = "RESERVE DE LA COMTESSE 2019",
                 Description =
-                    "Composé en majorité de raisins issus de vignes de plus de quarante ans, Le Cheval porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
+                    "Cet illustre cru classé de Pauillac a depuis quelques années démarré une nouvelle vie, s’illustrant désormais sous le giron de la maison champenoise Roederer. Issu du même terroir et bénéficiant de la même technologie et de la même réputation que le grand vin, la Réserve de la Comtesse figure parmi les seconds vins les plus réputés et les plus fiables de la rive gauche de la Gironde. Bien que moins charpenté et moins apte au vieillissement que son aîné, il promet cependant une fraîcheur, une complexité aromatique et un volume tout à fait remarquable. Le compromis idéal pour découvrir la grandeur des vins de Pauillac !",
                 Year = 2020,
                 Price = 6.50,
                 Alcohol = 25.7,
@@ -573,9 +570,9 @@ public class DataSeeder
             _context.Articles.Add(new Article
             {
                 Id = 10,
-                Name = "Le Cochon",
+                Name = "Châteauneuf-du-Pape",
                 Description =
-                    "Composé en majorité de raisins issus de vignes de plus de quarante ans, Le Cochon porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
+                    "Ce vin rouge est produit dans la région du Rhône méridional en France. Il est riche et corsé, avec des arômes de fruits rouges mûrs, d'épices et de cuir. Pouilly-Fuissé : Ce vin blanc est produit dans la région de la Bourgogne en France. Il est élégant et fruité, avec des notes de pomme verte, de citron et de noisette.",
                 Year = 2020,
                 Price = 6.50,
                 Alcohol = 25.7,
@@ -597,9 +594,8 @@ public class DataSeeder
             _context.Articles.Add(new Article
             {
                 Id = 11,
-                Name = "La Chaise",
-                Description =
-                    "Composé en majorité de raisins issus de vignes de plus de quarante ans, La Chaise porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
+                Name = "Margaux",
+                Description = " Ce vin rouge est produit dans la région de Bordeaux en France. Il est raffiné et élégant, avec des arômes de fruits rouges et de cassis, ainsi que des notes de chêne et de vanille.",
                 Year = 2020,
                 Price = 6.50,
                 Alcohol = 25.7,
@@ -621,9 +617,8 @@ public class DataSeeder
             _context.Articles.Add(new Article
             {
                 Id = 12,
-                Name = "Le Lit",
-                Description =
-                    "Composé en majorité de raisins issus de vignes de plus de quarante ans, Le Lit porte bien son nom ! Charmeur avec son nez fruité et épicé, équilibré et puissant, il possède des nuances légèrement toastées (bien qu’élevé en fût) qui apportent un relief et une générosité des plus appréciables. Un vin solide et sûr de lui qui s’adresse à ceux qui ont suffisamment de bouteille pour apprécier les bonnes choses de la vie !",
+                Name = "Sancerre",
+                Description = "Ce vin blanc est produit dans la région de la Loire en France. Il est frais et vif, avec des notes d'agrumes, de fruits de la passion et de fleurs blanches.",
                 Year = 2020,
                 Price = 6.50,
                 Alcohol = 25.7,
