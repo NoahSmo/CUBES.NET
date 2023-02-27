@@ -20,6 +20,7 @@ import {WineService} from "./services/wine.service";
 import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 import { CollectionsComponent } from './collections/collections.component';
+import { CartComponent } from './cart/cart.component';
 import { ProfileComponent } from './profile/profile.component';
 
 
@@ -35,6 +36,7 @@ import { ProfileComponent } from './profile/profile.component';
     CarouselHomeComponent,
     CollectionsComponent,
     ProfileComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,

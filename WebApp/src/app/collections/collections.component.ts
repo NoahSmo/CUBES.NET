@@ -3,6 +3,8 @@ import {Article} from "../models/article";
 import {WineService} from "../services/wine.service";
 import {ImageService} from "../services/image.service";
 import {Image} from "../models/image";
+import {Cart, CartItem} from "../models/cart";
+import {CartService} from "../services/cart.service";
 
 @Component({
   selector: 'app-collections',
@@ -13,8 +15,9 @@ export class CollectionsComponent implements OnInit {
 
   articles: Article[]= [];
   images: Image[] = [];
+  cart: Cart[] = [];
 
-  constructor(private wineService: WineService, private imageService: ImageService) { }
+  constructor(private wineService: WineService, private imageService: ImageService, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.wineService.getArticles().subscribe((wine: Article[]) => {
@@ -26,7 +29,6 @@ export class CollectionsComponent implements OnInit {
     });
   }
 
-
   getUrlImageByArticleId(id: number | undefined ): string {
     let url: string | undefined = '';
     this.images.forEach((image: Image) => {
@@ -37,5 +39,24 @@ export class CollectionsComponent implements OnInit {
     return url;
   }
 
+  addToCart(article: Article): void {
+    let cartItem: CartItem = {
+      articleId: article.id,
+      quantity: 1
+    };
+    let cart: Cart = {
+      cartItems: [cartItem]
+    };
+    this.cartService.addCart(cart).subscribe((cart: Cart) => {
+      this.cart.push(cart);
+    });
+  }
+
+  getCart(): void {
+    this.cartService.getCarts().subscribe((cart: Cart[]) => {
+      this.cart = cart;
+      console.log(this.cart);
+    });
+  }
 
 }
