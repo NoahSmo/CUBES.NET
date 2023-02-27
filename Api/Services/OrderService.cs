@@ -25,7 +25,10 @@ public class OrderService : IOrderService
     {
         return await _context.Orders
             .Include(o => o.User)
+            .Include(o => o.Address)
+            .Include(o => o.Status)
             .Include(o => o.ArticleOrders)
+            .ThenInclude(ao => ao.Article)
             .ToListAsync();
     }
 
@@ -44,6 +47,7 @@ public class OrderService : IOrderService
     public async Task<Order> CreateOrder(Order order)
     {
         order.User = await _context.Users.FirstOrDefaultAsync(u => u.Id == order.UserId);
+        order.Date = DateTime.Now;
         
         //check if available
         foreach (var articleOrder in order.ArticleOrders)

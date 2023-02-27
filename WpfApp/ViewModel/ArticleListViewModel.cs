@@ -72,7 +72,6 @@ namespace WpfApp.ViewModel
             DeleteArticleCommand = new ViewModelCommand<Article>(ExecuteDeleteArticleCommand);
             
             RefreshArticle = new ViewModelCommand<object>(ExecuteRefreshArticleCommand);
-            
             GetArticles();
             GetProviders();
             GetCategories();

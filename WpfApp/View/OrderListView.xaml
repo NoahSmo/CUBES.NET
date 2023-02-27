@@ -1,0 +1,136 @@
+﻿<UserControl x:Class="WpfApp.View.OrderListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModel="clr-namespace:WpfApp.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewModel:OrderListViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="2" Margin="50">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Command="{Binding AddOrderCommand}" HorizontalAlignment="Left">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:PackIcon VerticalAlignment="Center" Kind="Add"/>
+                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="Add"/>
+                </Grid>
+            </Button>
+            <Button Grid.Column="1" Command="{Binding RefreshOrder}" HorizontalAlignment="Left">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:PackIcon VerticalAlignment="Center" Kind="Refresh"/>
+                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="Refresh"/>
+                </Grid>
+            </Button>
+            <DataGrid IsReadOnly="True" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding OrdersList}" AutoGenerateColumns="False" RowDetailsVisibilityMode="VisibleWhenSelected">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding User.Name}"/>
+                    <DataGridTextColumn Header="Date of order" Binding="{Binding Date,StringFormat=dd/mm/yyyy}"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status.Message}"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Address.Street}"/>
+                    <DataGridTextColumn Header="Number Article" Binding="{Binding ArticleOrders.Count}"/>
+                    <DataGridTextColumn Width="*"/>
+                    <DataGridTemplateColumn Header="Action" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button ToolTip="Edit" Padding="0" Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid,Mode=FindAncestor},Path=DataContext.VisibleModalDroiteCommand}" Style="{StaticResource MaterialDesignFlatButton}" CommandParameter="{Binding }">
+                                        <materialDesign:PackIcon Kind="Pen"/>
+                                    </Button>
+                                    <Button Grid.Column="1" ToolTip="Delete" Padding="0" Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid,Mode=FindAncestor},Path=DataContext.DeleteOrderCommand}" Style="{StaticResource MaterialDesignFlatButton}" CommandParameter="{Binding }">
+                                        <materialDesign:PackIcon Kind="Delete"/>
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <DataGrid Margin="30,0" ItemsSource="{Binding ArticleOrders}" AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Article.Name}"/>
+                                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
+            </DataGrid>
+        </Grid>
+        <Grid Background="#f6f6f6" Grid.Column="1" Visibility="{Binding VisibilityMenu,Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel Margin="10" Orientation="Vertical">
+                <DataGrid Height="250" ItemsSource="{Binding UsersList}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectOrder.User,UpdateSourceTrigger=PropertyChanged}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Surname" Binding="{Binding Surname}"/>
+                        <DataGridTextColumn Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <TextBox Margin="5" IsHitTestVisible="False" materialDesign:HintAssist.Hint="Selected user" materialDesign:HintAssist.IsFloating="True" IsReadOnly="True">
+                    <TextBox.Text>
+                        <MultiBinding  StringFormat="{} {0} {1}">
+                            <Binding Path="SelectOrder.User.Name"/>
+                            <Binding Path="SelectOrder.User.Surname"/>
+                        </MultiBinding>
+                    </TextBox.Text>
+                </TextBox>
+                <ComboBox Margin="5,20" materialDesign:HintAssist.Hint="Status" materialDesign:HintAssist.IsFloating="True" ItemsSource="{Binding StatusList}" SelectedValue="{Binding SelectOrder.StatusId,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="Message"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Address" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectAddress.Street,FallbackValue='Street',UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="5" materialDesign:HintAssist.Hint="City" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectAddress.City, FallbackValue='City',UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="5" materialDesign:HintAssist.Hint="ZipCode" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectAddress.ZipCode, FallbackValue='10000',UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Country" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectAddress.Country, FallbackValue='Country',UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <DataGrid Height="250" ItemsSource="{Binding ArticlesList}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn IsReadOnly="True" Header="Price" Binding="{Binding Price}"/>
+                        <DataGridTextColumn Header="Nb Article" Binding="{Binding NbArticleCommand,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridCheckBoxColumn Binding="{Binding IsSelected,UpdateSourceTrigger=PropertyChanged}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button Margin="5,20" Content="Save" Command="{Binding SaveOrderCommand}"/>
+            </StackPanel>
+        </Grid>
+        <CheckBox IsChecked="{Binding VisibilityMenu}" Visibility="{Binding VisibilityMenu,Converter={StaticResource BooleanToVisibilityConverter}}">
+            <CheckBox.Style>
+                <Style TargetType="CheckBox">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Grid Background="Transparent"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </CheckBox.Style>
+        </CheckBox>
+    </Grid>
+</UserControl>
+

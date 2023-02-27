@@ -36,6 +36,7 @@ namespace Api.Models
     {
         public int Id { get; set; }
         public int ArticleId { get; set; }
+        public Article? Article { get; set; }
         public int? OrderId { get; set; }
         public int? ProviderOrderId { get; set; }
         public int Quantity { get; set; }

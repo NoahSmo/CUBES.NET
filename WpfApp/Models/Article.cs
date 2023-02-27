@@ -26,12 +26,16 @@ namespace Api.Models
         public virtual List<CartItem>? CartItems { get; set; }
         public virtual List<Image>? Images { get; set; }
         public virtual List<Comment>? Comments { get; set; }
+
+        public bool IsSelected { get; set; }
+        public int NbArticleCommand { get; set; }
     }
 
     public class ArticleOrder
     {
         public int Id { get; set; }
         public int ArticleId { get; set; }
+        public Article? Article { get; set; }
         public int OrderId { get; set; }
         public int Quantity { get; set; }
     }

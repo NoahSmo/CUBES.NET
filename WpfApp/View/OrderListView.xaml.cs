@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,23 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Api.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using WpfApp.View;
-using WpfApp.ViewModel;
 
-namespace WpfApp
+namespace WpfApp.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logique d'interaction pour OrderListView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class OrderListView : UserControl
     {
-        public MainWindow()
+        public OrderListView()
         {
             InitializeComponent();
         }
-        
     }
 }

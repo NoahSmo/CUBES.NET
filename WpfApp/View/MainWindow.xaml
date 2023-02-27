@@ -36,7 +36,7 @@
         <!-- -->
         <!--      -->
         <!-- </StackPanel> -->
-        
+
         <TabControl>
             <TabItem>
                 <TabItem.Header>
@@ -64,12 +64,17 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
+                    <TextBlock Text="Order" Foreground="White"/>
+                </TabItem.Header>
+                <local:OrderListView DataContext="{Binding OrderListDataContext}"/>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
                     <TextBlock Text="Gestion stock" Foreground="White"/>
                 </TabItem.Header>
                 <local:GestionStockView DataContext="{Binding GestionStockDataContext}"/>
             </TabItem>
         </TabControl>
-        <Frame Visibility="Collapsed" Grid.Row="1" Name="CurrentView" Content="{Binding CurrentView}"/>
-        
+
     </Grid>
 </Window>
