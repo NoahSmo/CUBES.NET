@@ -53,6 +53,13 @@ namespace WpfApp.ViewModel
             get { return _gestionStockDataContext; }
             set { SetProperty(ref _gestionStockDataContext, value); }
         }
+        
+        private ImageListViewModel _imageDataContext;
+        public ImageListViewModel ImageDataContext
+        {
+            get { return _imageDataContext; }
+            set { SetProperty(ref _imageDataContext, value); }
+        }
 
         private OrderListViewModel _orderListDataContext;
         public OrderListViewModel OrderListDataContext
@@ -82,6 +89,7 @@ namespace WpfApp.ViewModel
             GestionStockDataContext = new GestionStockViewModel();
             ProviderListDataContext = new ProviderListViewModel();
             OrderListDataContext = new OrderListViewModel();
+            ImageDataContext = new ImageListViewModel();
         }
     }
 }

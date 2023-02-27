@@ -34,8 +34,11 @@ public class ImageService : IImageService
 
     public async Task<Image> CreateImage(Image image)
     {
+        image.Id = _context.Images.Max(i => i.Id) + 1;
         image.Article = await _context.Articles.FirstOrDefaultAsync(a => a.Id == image.ArticleId);
+        
         _context.Images.Add(image);
+        
         await _context.SaveChangesAsync();
         return image;
     }
