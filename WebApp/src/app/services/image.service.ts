@@ -21,7 +21,7 @@ export class ImageService {
     return this.http.get(this.componentUrl, {params})
   }
 
-  getImage(id: number): Observable<any>{
+    getImage(id: number): Observable<any>{
     const params: HttpParams = new HttpParams();
     return this.http.get(this.componentUrl + '/' + id, {params})
   }

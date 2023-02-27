@@ -4,6 +4,7 @@ import {HomeComponent} from "./home/home.component";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {CollectionsComponent} from "./collections/collections.component";
+import {ArticleComponent} from "./article/article.component";
 import {CartComponent} from "./cart/cart.component";
 import {ProfileComponent} from "./profile/profile.component";
 
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent },
 
   {path: 'collections', component: CollectionsComponent },
+  {path: 'article/:id', component: ArticleComponent },
   {path: 'cart', component: CartComponent },
 
 ];
