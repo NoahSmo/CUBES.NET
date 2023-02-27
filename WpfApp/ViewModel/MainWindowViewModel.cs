@@ -16,7 +16,6 @@ namespace WpfApp.ViewModel
 {
     internal class MainWindowViewModel : ViewModelBase
     {
-        private string _accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG4uZG9lQGdtYWlsLmNvbSIsIm5hbWVpZCI6IjEiLCJyb2xlIjoiQWRtaW4iLCJQZXJtaXNzaW9uIjoiQ3JlYXRlLFJlYWQsVXBkYXRlLERlbGV0ZSIsIm5iZiI6MTY3NTQzMjc5MSwiZXhwIjoxNjc1NDMzMzkxLCJpYXQiOjE2NzU0MzI3OTEsImlzcyI6Ik5FR09TVUQiLCJhdWQiOiJVU0VSUyBBTkQgQURNSU5TIn0.907vkoTd8fmnzHyn1-TKVs84v1CMBPt4_N_a9Dpj6hA";
         
         private ArticleListViewModel _articleListDataContext;
         public ArticleListViewModel ArticleListDataContext
@@ -24,13 +23,35 @@ namespace WpfApp.ViewModel
             get { return _articleListDataContext; }
             set { SetProperty(ref _articleListDataContext , value); }
         }
-
         
-        private DomainListViewModel _domainListDataContext;
-        public DomainListViewModel DomainListDataContext
+        private ProviderListViewModel _providerListDataContext;
+        public ProviderListViewModel ProviderListDataContext
         {
-            get { return _domainListDataContext; }
-            set { SetProperty(ref _domainListDataContext , value); }
+            get { return _providerListDataContext; }
+            set { SetProperty(ref _providerListDataContext , value); }
+        }
+
+
+        private CategoryListViewModel _categoryListDataContext;
+        public CategoryListViewModel CategoryListDataContext
+        {
+            get { return _categoryListDataContext; }
+            set { SetProperty(ref _categoryListDataContext , value); }
+        }
+
+
+        private UserListViewModel _userListDataContext;
+        public UserListViewModel UserListDataContext
+        {
+            get { return _userListDataContext; }
+            set { SetProperty(ref _userListDataContext, value); }
+        }
+
+        private GestionStockViewModel _gestionStockDataContext;
+        public GestionStockViewModel GestionStockDataContext
+        {
+            get { return _gestionStockDataContext; }
+            set { SetProperty(ref _gestionStockDataContext, value); }
         }
 
         private Frame _currentView;
@@ -39,14 +60,7 @@ namespace WpfApp.ViewModel
             get { return _currentView; }
             set { SetProperty(ref _currentView , value); }
         }
-            
         
-        
-        public ICommand RedirectToArticleList { get; }
-        public ICommand RedirectToDomainList { get; }
-        
-        
-
         public MainWindowViewModel()
         {
             //ModeCommun.client = new HttpClient();
@@ -55,24 +69,11 @@ namespace WpfApp.ViewModel
             //ModeCommun.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //ModeCommun.client.DefaultRequestHeaders.Add("Authorization", "Bearer " + _accessToken);
             
-            // ArticleListDataContext = new ArticleListViewModel();
-            
-            RedirectToArticleList = new ViewModelCommand<Object>(ExecuteRedirectToArticleList);
-            RedirectToDomainList = new ViewModelCommand<Object>(ExecuteRedirectToDomainList);
-            
-            DomainListDataContext = new DomainListViewModel();
-        }
-        
-        private void ExecuteRedirectToArticleList(Object obj)
-        {
             ArticleListDataContext = new ArticleListViewModel();
-            CurrentView.Navigate(new Uri("View/ArticleListView.xaml", UriKind.Relative));
-        }
-        
-        private void ExecuteRedirectToDomainList(Object obj)
-        {
-            DomainListDataContext = new DomainListViewModel();
-            CurrentView.Navigate(new Uri("View/DomainListView.xaml", UriKind.Relative));
+            CategoryListDataContext = new CategoryListViewModel();
+            UserListDataContext = new UserListViewModel();
+            GestionStockDataContext = new GestionStockViewModel();
+            ProviderListDataContext = new ProviderListViewModel();
         }
     }
 }

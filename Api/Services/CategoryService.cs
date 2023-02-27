@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Api.Data;
 using Api.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +37,8 @@ public class CategoryService : ICategoryService
     
     public async Task<Category> CreateCategory(Category category)
     {
+        category.Id = _context.Categories.Max(x => x.Id) + 1;  
+        
         _context.Categories.Add(category);
         await _context.SaveChangesAsync();
         return category;

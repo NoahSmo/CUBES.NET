@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Api.Models;
 using Api.ViewModels;
+using Microsoft.Extensions.Configuration;
 
 namespace Api.Controllers
 {
@@ -49,6 +51,19 @@ namespace Api.Controllers
                 {
                     return Unauthorized("You are not allowed to access this application");
                 }
+                
+                return userAuth.Role == null ? Unauthorized("Invalid credentials") : Ok(userDetails);
+            }
+            return Unauthorized("Invalid credentials");
+        }
+        
+        [HttpPost("WebLogin")]
+        public IActionResult LoginWeb([FromBody]UserLogin user)
+        {
+            var userAuth = _jwtAuthService.Auth(user.Email, user.Password);
+            if (userAuth != null)
+            { 
+                var userDetails = new UserDetailsViewModel(userAuth);
                 
                 return userAuth.Role == null ? Unauthorized("Invalid credentials") : Ok(userDetails);
             }

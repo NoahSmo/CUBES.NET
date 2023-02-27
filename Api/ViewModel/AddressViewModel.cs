@@ -11,8 +11,8 @@ namespace Api.ViewModels
         public int? ZipCode { get; set; }
         public int? UserId { get; set; }
         public string User { get; set; }
-        public int? DomainId { get; set; }
-        public string Domain { get; set; }
+        public int? ProviderId { get; set; }
+        public string Provider { get; set; }
 
         public AddressViewModel(Address address)
         {
@@ -27,15 +27,15 @@ namespace Api.ViewModels
                 User = address.User.Email;
             }
 
-            else if (address.DomainId != null)
+            else if (address.ProviderId != null)
             {
                 Id = address.Id;
                 Street = address.Street;
                 City = address.City;
                 Country = address.Country;
                 ZipCode = address.ZipCode;
-                DomainId = address.DomainId;
-                Domain = address.Domain.Name;
+                ProviderId = address.ProviderId;
+                Provider = address.Provider.Name;
             }
             
             else

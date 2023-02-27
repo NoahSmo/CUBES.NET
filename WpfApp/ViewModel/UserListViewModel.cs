@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Api.Models;
 using Newtonsoft.Json;
@@ -16,7 +17,6 @@ namespace WpfApp.ViewModel
         private ObservableCollection<User> _usersList;
         private List<Role> _rolesList;
 
-        private bool _visibilityCreateMenu;
         private bool _visibilityEditMenu;
         
         private User _selectUser;
@@ -34,12 +34,6 @@ namespace WpfApp.ViewModel
             get { return _rolesList; }
             set {SetProperty(ref _rolesList , value); }
         }
-        
-        public bool VisibilityCreateMenu
-        {
-            get { return _visibilityCreateMenu; }
-            set {SetProperty(ref _visibilityCreateMenu , value); }
-        }
 
         public bool VisibilityEditMenu
         {
@@ -56,27 +50,22 @@ namespace WpfApp.ViewModel
         #endregion
         
         public ICommand ToggleAddMenu { get; }
-        public ICommand CreateUserCommand { get; }
+        public ICommand ToggleEditMenu { get; }        
         
-        
-        public ICommand ToggleEditMenu { get; }
-        public ICommand SaveUserCommand { get; }
-        
+        public ICommand SaveUserCommand { get; }        
         
         public ICommand DeleteUserCommand { get; }
 
         public UserListViewModel()
         {
             ToggleAddMenu = new ViewModelCommand<Object>(ExecuteToggleAddMenu);
-            CreateUserCommand = new ViewModelCommand<User>(ExecuteCreateUserCommand);
-            
             ToggleEditMenu = new ViewModelCommand<User>(ExecuteToggleEditMenu);
+            
             SaveUserCommand = new ViewModelCommand<User>(ExecuteSaveUserCommand);
             
             DeleteUserCommand = new ViewModelCommand<User>(DeleteUser);
             
             GetUsers();
-
             GetRoles();
         }
         
@@ -97,33 +86,44 @@ namespace WpfApp.ViewModel
         private void ExecuteToggleAddMenu(Object obj)
         {
             SelectUser = new User();
-            VisibilityCreateMenu = !VisibilityCreateMenu;
-        }
-        private async void ExecuteCreateUserCommand(User obj)
-        {
-            var response = await ModeCommun.client.PostAsJsonAsync("User", SelectUser);
-            VisibilityCreateMenu = !VisibilityCreateMenu;
-            GetUsers();
+            VisibilityEditMenu = true;
         }
 
         
         private void ExecuteToggleEditMenu(User obj)
         {
             SelectUser = obj;
-            VisibilityEditMenu = !VisibilityEditMenu;
+            VisibilityEditMenu = true;
         }
         private async void ExecuteSaveUserCommand(User obj)
         {
-            var response = await ModeCommun.client.PutAsJsonAsync("User/" + SelectUser.Id, obj);
-            VisibilityEditMenu = !VisibilityEditMenu;
-            GetUsers();
+            if (SelectUser.Id == 0)
+            {
+                var response = await ModeCommun.client.PostAsJsonAsync("User", SelectUser);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    GetUsers();
+                    VisibilityEditMenu = false;
+                }
+
+            }
+            else
+            {
+                SelectUser.Role = null;
+                var response = await ModeCommun.client.PutAsJsonAsync("User/" + SelectUser.Id, SelectUser);
+                GetUsers();
+                VisibilityEditMenu = false;
+            }
         }
         
         
         private async void DeleteUser(User obj)
         {
-            var response = await ModeCommun.client.DeleteAsync("User/" + obj.Id);
-            GetUsers();
+            if (MessageBox.Show("Are you sure you want to delete this user?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes) == MessageBoxResult.Yes)
+            {
+                var response = await ModeCommun.client.DeleteAsync("User/" + obj.Id);
+                UsersList.Remove(obj);
+            }
         }
     }
 }

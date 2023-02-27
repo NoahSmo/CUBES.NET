@@ -44,9 +44,6 @@ namespace Api.Migrations
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("DomainId")
-                        .HasColumnType("integer");
-
                     b.Property<int?>("ProviderId")
                         .HasColumnType("integer");
 
@@ -63,11 +60,10 @@ namespace Api.Migrations
                     b.Property<int>("ZipCode")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("isDeactivated")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
-
-                    b.HasIndex("DomainId");
-
-                    b.HasIndex("ProviderId");
 
                     b.HasIndex("UserId");
 
@@ -85,6 +81,9 @@ namespace Api.Migrations
                     b.Property<double>("Alcohol")
                         .HasColumnType("double precision");
 
+                    b.Property<bool>("AutoRestock")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
@@ -98,15 +97,15 @@ namespace Api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("DomainId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<double>("Price")
                         .HasColumnType("double precision");
+
+                    b.Property<int>("ProviderId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Stock")
                         .HasColumnType("integer");
@@ -117,11 +116,17 @@ namespace Api.Migrations
                     b.Property<int>("Year")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("isDeactivated")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("DomainId");
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("ProviderId");
 
                     b.ToTable("Articles");
                 });
@@ -137,7 +142,7 @@ namespace Api.Migrations
                     b.Property<int>("ArticleId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("OrderId")
+                    b.Property<int?>("OrderId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("ProviderOrderId")
@@ -169,6 +174,9 @@ namespace Api.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Carts");
                 });
@@ -224,6 +232,9 @@ namespace Api.Migrations
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("isDeactivated")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
@@ -262,6 +273,9 @@ namespace Api.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("isDeactivated")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ArticleId");
@@ -269,43 +283,6 @@ namespace Api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("Api.Models.Domain", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Domains");
                 });
 
             modelBuilder.Entity("Api.Models.Image", b =>
@@ -331,6 +308,9 @@ namespace Api.Migrations
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("isDeactivated")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -368,6 +348,9 @@ namespace Api.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("isDeactivated")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
@@ -404,6 +387,9 @@ namespace Api.Migrations
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("isDeactivated")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.ToTable("Permissions");
@@ -417,11 +403,18 @@ namespace Api.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AddressId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -434,7 +427,13 @@ namespace Api.Migrations
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("isDeactivated")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId")
+                        .IsUnique();
 
                     b.HasIndex("Email")
                         .IsUnique();
@@ -468,6 +467,9 @@ namespace Api.Migrations
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("isDeactivated")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProviderId");
@@ -498,6 +500,9 @@ namespace Api.Migrations
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("isDeactivated")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
@@ -523,6 +528,9 @@ namespace Api.Migrations
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("isDeactivated")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -574,6 +582,9 @@ namespace Api.Migrations
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("isDeactivated")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CartId")
@@ -585,36 +596,6 @@ namespace Api.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("ArticleProvider", b =>
-                {
-                    b.Property<int>("ArticlesId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProvidersId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ArticlesId", "ProvidersId");
-
-                    b.HasIndex("ProvidersId");
-
-                    b.ToTable("ArticleProvider");
-                });
-
-            modelBuilder.Entity("DomainProvider", b =>
-                {
-                    b.Property<int>("DomainsId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProvidersId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("DomainsId", "ProvidersId");
-
-                    b.HasIndex("ProvidersId");
-
-                    b.ToTable("DomainProvider");
                 });
 
             modelBuilder.Entity("PermissionRole", b =>
@@ -634,21 +615,9 @@ namespace Api.Migrations
 
             modelBuilder.Entity("Api.Models.Address", b =>
                 {
-                    b.HasOne("Api.Models.Domain", "Domain")
-                        .WithMany("Addresses")
-                        .HasForeignKey("DomainId");
-
-                    b.HasOne("Api.Models.Provider", "Provider")
-                        .WithMany("Addresses")
-                        .HasForeignKey("ProviderId");
-
                     b.HasOne("Api.Models.User", "User")
                         .WithMany("Addresses")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("Domain");
-
-                    b.Navigation("Provider");
 
                     b.Navigation("User");
                 });
@@ -661,15 +630,15 @@ namespace Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Api.Models.Domain", "Domain")
+                    b.HasOne("Api.Models.Provider", "Provider")
                         .WithMany("Articles")
-                        .HasForeignKey("DomainId")
+                        .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
 
-                    b.Navigation("Domain");
+                    b.Navigation("Provider");
                 });
 
             modelBuilder.Entity("Api.Models.ArticleOrder", b =>
@@ -682,9 +651,7 @@ namespace Api.Migrations
 
                     b.HasOne("Api.Models.Order", null)
                         .WithMany("ArticleOrders")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId");
 
                     b.HasOne("Api.Models.ProviderOrder", null)
                         .WithMany("ArticleOrders")
@@ -765,6 +732,17 @@ namespace Api.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Api.Models.Provider", b =>
+                {
+                    b.HasOne("Api.Models.Address", "Address")
+                        .WithOne("Provider")
+                        .HasForeignKey("Api.Models.Provider", "AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
             modelBuilder.Entity("Api.Models.ProviderOrder", b =>
                 {
                     b.HasOne("Api.Models.Provider", "Provider")
@@ -801,36 +779,6 @@ namespace Api.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("ArticleProvider", b =>
-                {
-                    b.HasOne("Api.Models.Article", null)
-                        .WithMany()
-                        .HasForeignKey("ArticlesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Api.Models.Provider", null)
-                        .WithMany()
-                        .HasForeignKey("ProvidersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DomainProvider", b =>
-                {
-                    b.HasOne("Api.Models.Domain", null)
-                        .WithMany()
-                        .HasForeignKey("DomainsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Api.Models.Provider", null)
-                        .WithMany()
-                        .HasForeignKey("ProvidersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("PermissionRole", b =>
                 {
                     b.HasOne("Api.Models.Permission", null)
@@ -844,6 +792,11 @@ namespace Api.Migrations
                         .HasForeignKey("RolesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Api.Models.Address", b =>
+                {
+                    b.Navigation("Provider");
                 });
 
             modelBuilder.Entity("Api.Models.Article", b =>
@@ -869,13 +822,6 @@ namespace Api.Migrations
                     b.Navigation("Articles");
                 });
 
-            modelBuilder.Entity("Api.Models.Domain", b =>
-                {
-                    b.Navigation("Addresses");
-
-                    b.Navigation("Articles");
-                });
-
             modelBuilder.Entity("Api.Models.Order", b =>
                 {
                     b.Navigation("ArticleOrders");
@@ -883,7 +829,7 @@ namespace Api.Migrations
 
             modelBuilder.Entity("Api.Models.Provider", b =>
                 {
-                    b.Navigation("Addresses");
+                    b.Navigation("Articles");
                 });
 
             modelBuilder.Entity("Api.Models.ProviderOrder", b =>

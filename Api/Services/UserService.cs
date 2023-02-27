@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Api.Data;
 using Api.Models;
 using Api.ViewModels;
@@ -72,6 +76,7 @@ public class UserService : IUserService
         user.Email = user.Email.ToLower();
         user.Password = hash;
 
+        user.Id = _context.Users.Max(x => x.Id) + 1;
         
         
         _context.Users.Add(user);

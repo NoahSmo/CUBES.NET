@@ -27,7 +27,6 @@ namespace WpfApp
                     var mainView = new MainWindow();
                     mainView.Show();
                     mainView.WindowState = System.Windows.WindowState.Maximized;
-                    loginView.Close();
                 }
             };
         }

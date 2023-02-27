@@ -20,7 +20,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Remove="obj\**" />
-    <Page Update="View\DomainListView.xaml">
+    <Page Update="View\CategoryListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ProviderListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <XamlRuntime>Wpf</XamlRuntime>
       <SubType>Designer</SubType>
