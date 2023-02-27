@@ -22,7 +22,7 @@ namespace Api.ViewModels
         public int? CategoryId { get; set; }
         public CategoryViewModel Category { get; set; }
 
-
+        public bool AutoRestock { get; set; }
         public virtual List<Image>? Images { get; set; }
         
         public ArticleViewModel(Article article)
@@ -34,7 +34,8 @@ namespace Api.ViewModels
             Price = article.Price;
             Alcohol = article.Alcohol;
             Stock = article.Stock;            
-            
+            AutoRestock = article.AutoRestock;
+
             DomainId = article.DomainId;
             Domain = new DomainViewModel(article.Domain);   
             

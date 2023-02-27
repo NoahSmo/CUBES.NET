@@ -74,6 +74,14 @@
                 <TextBox Margin="5" materialDesign:HintAssist.Hint="Alcohol" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectArticle.Alcohol,UpdateSourceTrigger=PropertyChanged}"/>
                 <ComboBox Margin="5" materialDesign:HintAssist.Hint="Domain" materialDesign:HintAssist.IsFloating="True" ItemsSource="{Binding DomainsList}" SelectedValue="{Binding SelectArticle.DomainId,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="Name"/>
                 <ComboBox Margin="5" materialDesign:HintAssist.Hint="Category" materialDesign:HintAssist.IsFloating="True" ItemsSource="{Binding CategorysList}" SelectedValue="{Binding SelectArticle.CategoryId,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="Name"/>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <ToggleButton IsChecked="{Binding SelectArticle.AutoRestock,UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Margin="5,0" Grid.Column="1" Text="Auto restock"/>
+                </Grid>
                 <Button Margin="5,20" Content="Save" Command="{Binding SaveArticleCommand}"/>
             </StackPanel>
         </Grid>

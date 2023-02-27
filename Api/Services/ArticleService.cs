@@ -70,6 +70,7 @@ public class ArticleService : IArticleService
         article.Year = request.Year;
         article.Alcohol = request.Alcohol;
         article.Price = request.Price;
+        article.AutoRestock = request.AutoRestock;
 
         if (article.DomainId != null)
         {
