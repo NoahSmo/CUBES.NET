@@ -19,6 +19,7 @@ import {CardModule} from "primeng/card";
 import {WineService} from "./services/wine.service";
 import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     LoginComponent,
     RegisterComponent,
     CarouselHomeComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

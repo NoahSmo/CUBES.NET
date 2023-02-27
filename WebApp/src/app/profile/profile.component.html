@@ -1,0 +1,59 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
+
+<div class="container">
+
+  <div class="container-profile">
+
+    <div class="container-title">
+      <label class="title">Informations personnelles</label>
+      <label>Vous trouverez ci-dessous les informations liées à votre compte</label>
+    </div>
+
+    <div class="container-infos-generales">
+      <div>
+        <label class="title-infos">Informations générales</label>
+      </div>
+      <div style="margin-top: 5vh" class="div-details">
+        <div class="label-div-details">
+          <label class="info-label">Prénom</label>
+          <label class="info"> {{ currentUser.name }} </label>
+          <i class="pi pi-pencil"></i>
+        </div>
+      </div>
+      <div class="div-details">
+        <div class="label-div-details">
+          <label class="info-label">Nom</label>
+          <label class="info"> {{ currentUser.surname }} </label>
+          <i class="pi pi-pencil"></i>
+        </div>
+      </div>
+      <div class="div-details">
+        <div class="label-div-details">
+          <label class="info-label">Email</label>
+          <label class="info"> {{ currentUser.email }} </label>
+          <i class="pi pi-pencil"></i>
+        </div>
+      </div>
+      <div class="div-details">
+        <div class="label-div-details">
+          <label class="info-label">Phone</label>
+          <label class="info"> {{ currentUser.phone }} </label>
+          <i class="pi pi-pencil"></i>
+        </div>
+      </div>
+      <div class="div-details">
+        <div class="label-div-details">
+          <label class="info-label">Mot de passe</label>
+          <label class="info"> {{ currentUser.password }} </label>
+          <i class="pi pi-pencil"></i>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div></div>
+    </div>
+
+  </div>
+</div>

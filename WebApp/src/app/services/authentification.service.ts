@@ -47,7 +47,7 @@ export class AuthentificationService {
       email: email,
       password: password
     }
-    return this.http.post(this.componentUrl + "/DesktopLogin", loginData, {headers, observe: 'response'}).pipe(
+    return this.http.post(this.componentUrl + "/WebLogin", loginData, {headers, observe: 'response'}).pipe(
       map((response: HttpResponse<User>) => {
         if (response.status !== 200 || !response.ok) {
           return false;
@@ -65,6 +65,17 @@ export class AuthentificationService {
         }
       })
     );
+  }
+
+  public logout(){
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('LastConnectionDate');
+    window.location.href = '';
+  }
+
+  public User(){
+    console.log(this.currentUser, 'utilisateur en cours');
+    return this.currentUser;
   }
 
   public isAuthenticated() {
@@ -94,6 +105,8 @@ export class AuthentificationService {
       })
     );
   }
+
+
 
 
 // authenticateUser(currentUser: User){
