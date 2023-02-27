@@ -70,6 +70,12 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
+                    <TextBlock Text="Provider Order" Foreground="White"/>
+                </TabItem.Header>
+                <local:ProviderOrderListView DataContext="{Binding ProviderOrderListDataContext}"/>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
                     <TextBlock Text="Gestion stock" Foreground="White"/>
                 </TabItem.Header>
                 <local:GestionStockView DataContext="{Binding GestionStockDataContext}"/>

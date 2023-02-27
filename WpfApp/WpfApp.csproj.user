@@ -11,6 +11,9 @@
     <Compile Update="View\OrderListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\ProviderOrderListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="CustomControls\BindablePasswordBox.xaml">
@@ -20,6 +23,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\OrderListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ProviderOrderListView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
