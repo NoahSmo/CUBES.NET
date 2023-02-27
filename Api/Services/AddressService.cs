@@ -102,6 +102,9 @@ public class AddressService : IAddressService
     {
         var addressToDelete = await _context.Addresses.FindAsync(id);
         if (addressToDelete == null) return null;
+        
+        if (addressToDelete.UserId != null) addressToDelete.User = _context.Users.FirstOrDefault(x => x.Id == addressToDelete.UserId);
+        else if (addressToDelete.ProviderId != null) addressToDelete.Provider = _context.Providers.FirstOrDefault(x => x.Id == addressToDelete.ProviderId);
 
         _context.Addresses.Remove(addressToDelete);
         await _context.SaveChangesAsync();
