@@ -43,10 +43,12 @@ export class NavbarComponent {
     {
       label: 'Présentation',
       icon: 'pi pi-fw pi-pencil',
+      routerLink: '/presentation'
     },
     {
       label: 'Nous contacter',
       icon: 'pi pi-fw pi-user',
+      styleClass: 'scroll-to-contact'
     },
     {
       separator: true
