@@ -22,7 +22,7 @@ public class ArticleService : IArticleService
     
     
 
-    public async Task<List<ArticleViewModel>> GetArticles()
+    public async Task<List<Article>> GetArticles()
     {
         var articles = await _context.Articles
             .Where(a => a.isDeactivated == false)
@@ -31,7 +31,7 @@ public class ArticleService : IArticleService
             .Include(a => a.Images)
             .ToListAsync();
         
-        return articles.Select(a => new ArticleViewModel(a)).ToList();
+        return articles;
     }
 
     public async Task<Article?> GetId(int id)
@@ -48,6 +48,7 @@ public class ArticleService : IArticleService
     public async Task<ArticleViewModel> CreateArticle(Article article)
     {
         if (article.CategoryId != null) article.Category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == article.CategoryId);
+        if (article.ProviderId != null) article.Provider = await _context.Providers.FirstOrDefaultAsync(p => p.Id == article.ProviderId);
         
         article.Id = _context.Articles.Max(x => x.Id) + 1;  
         

@@ -21,14 +21,12 @@ namespace Api.Controllers
         }
         
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<List<Category>>> GetCategories()
         {
             return await _categoryService.GetCategories();
         }
         
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<ActionResult<Category>> GetCategory(int id)
         {
             var result = await _categoryService.GetId(id);

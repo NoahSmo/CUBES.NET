@@ -8,7 +8,7 @@ namespace Api.Services;
 
 public interface IArticleService
 {
-    Task<List<ArticleViewModel>> GetArticles();
+    Task<List<Article>> GetArticles();
     Task<Article?> GetId(int id);
     Task<ArticleViewModel> CreateArticle(Article article);
     Task<ArticleViewModel>? UpdateArticle(int id, Article article);

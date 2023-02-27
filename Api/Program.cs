@@ -10,12 +10,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-
 
 
 builder.Services.AddAuthentication(options =>
@@ -44,7 +43,20 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Api",
+        Description = "Cette documentation correspond à l'API du Projet Negosud. " +
+                      "Elle permet de comprendre comment utiliser l'API et de tester les différentes routes.",
+        Contact = new OpenApiContact
+        {
+            Name = "Negosud",
+        },
+    });
+});
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddScoped<ICartService, CartService>();
@@ -86,7 +98,7 @@ if (args.Length == 1 && args[0].ToLower() == "seeddata")
 void SeedData(WebApplication app)
 {
     var scopedFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
-    
+
     using (var scope = scopedFactory.CreateScope())
     {
         var seeder = scope.ServiceProvider.GetService<DataSeeder>();
@@ -100,7 +112,7 @@ if (args.Length == 1 && args[0].ToLower() == "dropdata")
 void DropDataBase(WebApplication app)
 {
     var scopedFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
-    
+
     using (var scope = scopedFactory.CreateScope())
     {
         var seeder = scope.ServiceProvider.GetService<DataSeeder>();
