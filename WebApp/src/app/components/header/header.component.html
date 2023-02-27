@@ -10,11 +10,11 @@
     <div *ngIf="isAuth" (click)="logout()" class="div-login" [routerLink]="['']">
       <i class="pi pi-power-off"></i>
     </div>
-    <div *ngIf="isAuth" class="div-login" [routerLink]="['profile']">
+    <div *ngIf="isAuth" class="div-login" [routerLink]="['/profile']">
       <i class="pi pi-user"></i>
       <span class="profile">Profile</span>
     </div>
-    <div class="div-cart" [routerLink]="['/cart']">
+    <div *ngIf="!isAuth" class="div-cart" [routerLink]="['/cart']">
       <i class="pi pi-shopping-cart"></i>
       <span class="cart">Mon panier</span>
     </div>

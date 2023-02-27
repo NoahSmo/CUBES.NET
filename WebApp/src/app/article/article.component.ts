@@ -17,16 +17,21 @@ export class ArticleComponent implements OnInit {
   article: Article | undefined;
   image: Image | undefined;
   comments: Comment[] = [];
+  number: number = 1;
+  quantity: number | undefined;
+  currentQuantity: number | undefined;
 
   constructor(
     private wineService: WineService,
     private route: ActivatedRoute,
     private imageService: ImageService,
     private commentService: CommentsService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getArticle();
+    // this.changeColorByQuantity();
   }
 
   getArticle(): void {
@@ -44,7 +49,7 @@ export class ArticleComponent implements OnInit {
     });
   }
 
-  getCommentsByArticleId(id: number | undefined ): Comment[] {
+  getCommentsByArticleId(id: number | undefined): Comment[] {
     let comments: Comment[] = [];
     this.comments.forEach((comment: Comment) => {
       if (comment.articleId === id) {
@@ -53,5 +58,44 @@ export class ArticleComponent implements OnInit {
     });
     return comments;
   }
+
+  quantityDelete() {
+    this.quantity = this.article?.stock;
+    if (this.quantity) {
+      this.currentQuantity = this.quantity + 1;
+    }
+    if (this.number - 1 < 0) {
+      this.number = 0;
+    } else {
+      this.number = this.number - 1;
+    }
+  }
+
+  quantityAdd() {
+    this.quantity = this.article?.stock;
+    if (this.quantity) {
+      this.currentQuantity = this.quantity - 1;
+    }
+    this.number = this.number + 1;
+  }
+
+  // changeColorByQuantity() {
+  //
+  //   const htmlElement = document.getElementsByClassName("p-card p-card-subtitle") as HTMLCollectionOf<HTMLElement>;
+  //   const quantity = this.article?.stock;
+  //
+  //   if (quantity) {
+  //     for (let i = 0; i < htmlElement.length; i++) {
+  //       if (quantity < 50) {
+  //         htmlElement[i].style.color = "red"; // Si le nombre est supérieur à 50, le texte sera en vert
+  //       } else if (quantity >= 50 && quantity <= 100) {
+  //         htmlElement[i].style.color = "orange"; // Si le nombre est inférieur à 50, le texte sera en rouge
+  //       } else if (quantity >= 100) {
+  //         htmlElement[i].style.color = "green"; // Si le nombre est égal à 50, le texte sera en noir
+  //       }
+  //     }
+  //   }
+  //
+  // }
 
 }
