@@ -1,5 +1,6 @@
     
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Api.Models;
 
@@ -15,9 +16,8 @@ namespace Api.ViewModels
         public double Alcohol { get; set; }
         public int Stock { get; set; }
         
-        
-        public int? DomainId { get; set; }
-        public DomainViewModel Domain { get; set; }
+        public int? ProviderId { get; set; }
+        public Provider Provider { get; set; }
         
         public int? CategoryId { get; set; }
         public CategoryViewModel Category { get; set; }
@@ -33,11 +33,11 @@ namespace Api.ViewModels
             Year = article.Year;
             Price = article.Price;
             Alcohol = article.Alcohol;
-            Stock = article.Stock;            
+            Stock = article.Stock;
             AutoRestock = article.AutoRestock;
 
-            DomainId = article.DomainId;
-            Domain = new DomainViewModel(article.Domain);   
+            ProviderId = article.ProviderId;
+            Provider = article.Provider;
             
             CategoryId = article.CategoryId;
             Category = new CategoryViewModel(article.Category);
@@ -49,7 +49,8 @@ namespace Api.ViewModels
     public class ArticleOrderViewModel
     {
         public int ArticleId { get; set; }
-        public int OrderId { get; set; }
+        public int? OrderId { get; set; }
+        public int? ProviderOrderId { get; set; }
         public int Quantity { get; set; }
     }
 }

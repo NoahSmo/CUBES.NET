@@ -1,0 +1,43 @@
+<app-header></app-header>
+
+<div class="back">
+  <div class="container">
+    <div class="div-title">
+      <span>
+        <p id="negosud-title">NEGOSUD</p>
+      </span>
+      <span class="text-info-login">
+        <p id="title">Connexion</p>
+      </span>
+      <span>
+        <p style="margin-top: 0.2em; font-size: 0.8rem; font-style: italic">Accédez à votre compte</p>
+      </span>
+    </div>
+    <form [formGroup]="userFormGroup" (ngSubmit)="login()">
+      <div class="grid p-fluid div-form-login">
+        <div class="col-12 md:col-4 input-login">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input formControlName="email" type="email" pInputText placeholder="Email">
+          </div>
+        </div>
+        <div class="col-12 md:col-4 input-login">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-key"></i></span>
+            <input formControlName="password" type="password" pInputText placeholder="password">
+          </div>
+        </div>
+        <span style="display: flex; justify-content: center; align-items: center; font-size: 1rem; margin-top: 0.5em; color: #bf1d1d" class="p-tag-danger" *ngIf="errorMessage">{{errorMessage}}</span>
+      </div>
+      <div class="div-button-submit">
+        <p-button class="submit-button" label="Login" type="submit"></p-button>
+      </div>
+    </form>
+
+    <div class="dontHaveAccount">
+      <label>Vous n'avez pas de compte?</label>
+      <a [routerLink]="['/register']">Créer un compte</a>
+    </div>
+
+  </div>
+</div>

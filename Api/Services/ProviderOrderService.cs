@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Api.Data;
 using Api.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +23,8 @@ public class ProviderOrderService : IProviderOrderService
 
     public async Task<List<ProviderOrder?>> GetProviderOrders()
     {
-        return await _context.ProviderOrders.ToListAsync();
+        return await _context.ProviderOrders
+            .ToListAsync();
     }
 
     public async Task<ProviderOrder?> GetId(int id)
@@ -35,6 +40,37 @@ public class ProviderOrderService : IProviderOrderService
     {
         _context.ProviderOrders.Add(providerOrders);
         await _context.SaveChangesAsync();
+        return providerOrders;
+    }
+    
+    public async Task<ProviderOrder> CreateProviderOrderFromOrder(Article article)
+    {
+        var providerOrders = new ProviderOrder();
+
+        providerOrders.Id = _context.ProviderOrders.Max(p => p.Id) + 1;
+        
+        providerOrders.Date = DateTime.Today.ToUniversalTime();
+
+        providerOrders.StatusId = 1;
+        providerOrders.Status = await _context.Statuses.FirstOrDefaultAsync(s => s.Id == providerOrders.StatusId);
+
+        providerOrders.ProviderId = article.ProviderId;
+        providerOrders.Provider = await _context.Providers.FirstOrDefaultAsync(p => p.Id == article.ProviderId);
+
+        var articleOrder = new ArticleOrder();
+        articleOrder.ArticleId = article.Id;
+        articleOrder.Quantity = 50;
+        articleOrder.ProviderOrderId = providerOrders.Id;
+
+        var articleOrders = new List<ArticleOrder>();
+        articleOrders.Add(articleOrder);
+
+        providerOrders.ArticleOrders = articleOrders;
+
+
+        _context.ProviderOrders.Add(providerOrders);
+        await _context.SaveChangesAsync();
+        
         return providerOrders;
     }
     

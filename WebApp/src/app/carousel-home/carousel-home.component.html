@@ -1,0 +1,20 @@
+<p-carousel
+  [value]="products"
+  orientation="horizontal"
+  [style]="{'margin-top':'5em'}"
+  [numVisible]="1"
+  [numScroll]="1"
+  [autoplayInterval]="5000"
+  [circular]="true">
+  <ng-template pTemplate="header">
+  </ng-template>
+  <ng-template let-product pTemplate="item">
+    <div class="product-item">
+      <div class="product-item-content">
+        <div class="mb-3">
+          <img src="{{ product }}" class="product-image"/>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-carousel>

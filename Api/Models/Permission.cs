@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Api.Models
 {
     public class Permission : Auditable

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Api.Models;
 using Api.Services;
 using Api.ViewModels;
@@ -21,7 +23,8 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<List<ArticleViewModel>>> GetArticles()
         {
-            return await _articleService.GetArticles();
+            var result = await _articleService.GetArticles();
+            return Ok(result);
         }
         
         [HttpGet("{id}")]

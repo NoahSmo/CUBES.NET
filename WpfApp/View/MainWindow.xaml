@@ -14,28 +14,28 @@
     </Window.DataContext>
     <Grid Background="#2E2E2E">
 
-        <StackPanel Visibility="Collapsed" Background="Indigo" VerticalAlignment="Top" Height="50px">
-            
-            <!-- Logo -->
-            
-            <Grid Width="150" Height="50" HorizontalAlignment="Left" Background="Aqua">
-                
-                <TextBlock FontSize="15" Text="NEGOSUD" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
-                
-            </Grid>
-            
-            <Menu Visibility="Collapsed" Background="Aquamarine" Height="50" Width="600" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="-50">
-            
-                <MenuItem Header="Gestion stock" ></MenuItem>
-                <MenuItem Header="Articles" Click="RedirectArticleList"></MenuItem>
-                <MenuItem Header="Categories" Click="RedirectCategoryList"></MenuItem>
-                <MenuItem Header="Domains" Click="RedirectDomainList"></MenuItem>
-                <MenuItem Header="Users" Click="RedirectUserList"></MenuItem>
-            
-            </Menu>
-
-            
-        </StackPanel>
+        <!-- <StackPanel Visibility="Collapsed" Background="Indigo" VerticalAlignment="Top" Height="50px"> -->
+        <!--      -->
+        <!--     ~1~ Logo @1@ -->
+        <!--      -->
+        <!--     <Grid Width="150" Height="50" HorizontalAlignment="Left" Background="Aqua"> -->
+        <!--          -->
+        <!--         <TextBlock FontSize="15" Text="NEGOSUD" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock> -->
+        <!--          -->
+        <!--     </Grid> -->
+        <!--      -->
+        <!--     <Menu Visibility="Collapsed" Background="Aquamarine" Height="50" Width="600" VerticalAlignment="Top" HorizontalContentAlignment="Center" Margin="-50"> -->
+        <!--      -->
+        <!--         <MenuItem Header="Gestion stock" ></MenuItem> -->
+        <!--         <MenuItem Header="Articles" Click="RedirectArticleList"></MenuItem> -->
+        <!--         <MenuItem Header="Categories" Click="RedirectCategoryList"></MenuItem> -->
+        <!--         <MenuItem Header="Domains" Click="RedirectDomainList"></MenuItem> -->
+        <!--         <MenuItem Header="Users" Click="RedirectUserList"></MenuItem> -->
+        <!--      -->
+        <!--     </Menu> -->
+        <!-- -->
+        <!--      -->
+        <!-- </StackPanel> -->
         
         <TabControl>
             <TabItem>
@@ -52,9 +52,9 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Text="Domains" Foreground="White"/>
+                    <TextBlock Text="Providers" Foreground="White"/>
                 </TabItem.Header>
-                <local:DomainListView DataContext="{Binding DomainListDataContext}"/>
+                <local:ProviderListView DataContext="{Binding ProviderListDataContext}"/>
             </TabItem>
             <TabItem>
                 <TabItem.Header>

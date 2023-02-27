@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Api.Data;
 using Api.Models;
 using Api.ViewModels;
@@ -21,7 +25,7 @@ public class AddressService : IAddressService
     {
         var address = await _context.Addresses
             .Include(a => a.User)
-            .Include(a => a.Domain)
+            .Include(a => a.Provider)
             .ToListAsync();
         
         return address.Select(a => new AddressViewModel(a)).ToList();
@@ -31,7 +35,7 @@ public class AddressService : IAddressService
     {
         var address = _context.Addresses
             .Include(a => a.User)
-            .Include(a => a.Domain)
+            .Include(a => a.Provider)
             .FirstOrDefault(a => a.Id == id);
         
         if (address == null) return null;
@@ -41,14 +45,10 @@ public class AddressService : IAddressService
 
     public async Task<AddressViewModel>? CreateAddress(Address address)
     {
-        if (address.UserId != null)
-        {
-            address.User = _context.Users.FirstOrDefault(x => x.Id == address.UserId);
-        }
-        else if (address.DomainId != null)
-        {
-            address.Domain = _context.Domains.FirstOrDefault(x => x.Id == address.DomainId);
-        }
+        if (address.UserId != null) address.User = _context.Users.FirstOrDefault(x => x.Id == address.UserId);
+        else if (address.ProviderId != null) address.Provider = _context.Providers.FirstOrDefault(x => x.Id == address.ProviderId);
+        
+        address.Id = _context.Addresses.Max(a => a.Id) + 1;
         
         _context.Addresses.Add(address);
 
@@ -79,13 +79,13 @@ public class AddressService : IAddressService
             address.UserId = request.UserId;
             address.User = _context.Users.FirstOrDefault(x => x.Id == request.UserId);
             
-            address.DomainId = null;
-            address.Domain = null;
+            address.ProviderId = null;
+            address.Provider = null;
         }
-        else if (request.DomainId != null)
+        else if (request.ProviderId != null)
         {
-            address.DomainId = request.DomainId;
-            address.Domain = _context.Domains.FirstOrDefault(x => x.Id == request.DomainId);
+            address.ProviderId = request.ProviderId;
+            address.Provider = _context.Providers.FirstOrDefault(x => x.Id == request.ProviderId);
             
             address.UserId = null;
             address.User = null;

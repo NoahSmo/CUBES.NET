@@ -23,13 +23,12 @@ namespace WpfApp.ViewModel
             get { return _articleListDataContext; }
             set { SetProperty(ref _articleListDataContext , value); }
         }
-
         
-        private DomainListViewModel _domainListDataContext;
-        public DomainListViewModel DomainListDataContext
+        private ProviderListViewModel _providerListDataContext;
+        public ProviderListViewModel ProviderListDataContext
         {
-            get { return _domainListDataContext; }
-            set { SetProperty(ref _domainListDataContext , value); }
+            get { return _providerListDataContext; }
+            set { SetProperty(ref _providerListDataContext , value); }
         }
 
 
@@ -61,14 +60,7 @@ namespace WpfApp.ViewModel
             get { return _currentView; }
             set { SetProperty(ref _currentView , value); }
         }
-            
         
-        
-        public ICommand RedirectToArticleList { get; }
-        public ICommand RedirectToDomainList { get; }
-        
-        
-
         public MainWindowViewModel()
         {
             //ModeCommun.client = new HttpClient();
@@ -78,26 +70,10 @@ namespace WpfApp.ViewModel
             //ModeCommun.client.DefaultRequestHeaders.Add("Authorization", "Bearer " + _accessToken);
             
             ArticleListDataContext = new ArticleListViewModel();
-            DomainListDataContext = new DomainListViewModel();
             CategoryListDataContext = new CategoryListViewModel();
             UserListDataContext = new UserListViewModel();
             GestionStockDataContext = new GestionStockViewModel();
-
-            RedirectToArticleList = new ViewModelCommand<Object>(ExecuteRedirectToArticleList);
-            RedirectToDomainList = new ViewModelCommand<Object>(ExecuteRedirectToDomainList);
-            
-        }
-        
-        private void ExecuteRedirectToArticleList(Object obj)
-        {
-            ArticleListDataContext = new ArticleListViewModel();
-            CurrentView.Navigate(new Uri("View/ArticleListView.xaml", UriKind.Relative));
-        }
-        
-        private void ExecuteRedirectToDomainList(Object obj)
-        {
-            DomainListDataContext = new DomainListViewModel();
-            CurrentView.Navigate(new Uri("View/DomainListView.xaml", UriKind.Relative));
+            ProviderListDataContext = new ProviderListViewModel();
         }
     }
 }

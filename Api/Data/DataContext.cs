@@ -1,4 +1,7 @@
 using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Api.Models;
@@ -19,7 +22,6 @@ namespace Api.Data
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<Domain> Domains { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Permission> Permissions { get; set; }
@@ -85,10 +87,6 @@ namespace Api.Data
                 .HasIndex(c => c.Name)
                 .IsUnique();
             
-            modelBuilder.Entity<Domain>()
-                .HasIndex(d => d.Name)
-                .IsUnique();
-            
             modelBuilder.Entity<Status>()
                 .HasIndex(s => s.Message)
                 .IsUnique();
@@ -105,6 +103,11 @@ namespace Api.Data
             modelBuilder.Entity<Article>()
                 .HasIndex(a => a.Name)
                 .IsUnique();
+            
+            modelBuilder.Entity<Provider>()
+                .HasOne(p => p.Address)
+                .WithOne(a => a.Provider)
+                .HasForeignKey<Provider>(p => p.AddressId);
         }
     }
 }
