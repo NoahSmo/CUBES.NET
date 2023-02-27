@@ -1,23 +1,33 @@
 <app-header></app-header>
 <app-navbar></app-navbar>
 
-<div class="container">
+<div class="body-collection">
+
+  <div class="container">
     <div class="card" *ngFor="let wine of articles" [routerLink]="['/article/' + wine.id]">
-      <div class="image">
-        <img src="{{ getUrlImageByArticleId(wine.id) }}" alt="">
+      <div class="container-img2">
+        <img class="img-wine" src="./assets/Packshot-bouteille-vin_fond-blanc_Marcel-DEISS.jpg" alt="">
       </div>
 
-      <div class="title">
-        <h2>{{ wine.name }}</h2>
-        <div class="line"></div>
+      <div class="div-title">
+        <div class="title">
+          <label> {{ wine.name | uppercase }} </label>
+          <label>{{ wine.year }}</label>
+        </div>
       </div>
 
       <div class="value">
-        <div class="price">{{ wine.price }}€</div>
-      </div>
+        <div>
+          <label id="price">{{ wine.price }}</label>
+          <label id="devise">€</label>
+        </div>
+        <div class="cart-icon">
+          <i class="pi pi-shopping-cart"></i>
+        </div>
 
-      <div class="div-cart">
-        <span (click)="getCart()">Ajouter au panier</span>
       </div>
     </div>
+  </div>
+
 </div>
+
