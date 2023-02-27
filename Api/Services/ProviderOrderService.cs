@@ -59,7 +59,16 @@ public class ProviderOrderService : IProviderOrderService
 
         var articleOrder = new ArticleOrder();
         articleOrder.ArticleId = article.Id;
-        articleOrder.Quantity = 50;
+
+        if (article.Stock < 0)
+        {
+            articleOrder.Quantity = article.Stock * -1 + 50;
+        }
+        else
+        {
+            articleOrder.Quantity = article.Stock + 50;
+        }
+        
         articleOrder.ProviderOrderId = providerOrders.Id;
 
         var articleOrders = new List<ArticleOrder>();

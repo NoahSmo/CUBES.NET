@@ -10,7 +10,12 @@ public interface ICartService
 {
     Task<List<CartViewModel>> GetCarts();
     Task<CartViewModel?> GetId(int id);
-    Task<CartViewModel> CreateCart(Cart user);
-    Task<CartViewModel>? UpdateCart(int id, Cart user);
+    Task<CartViewModel> CreateCart(Cart cart);
+    
+    Task<CartViewModel> AddArticleToCart(int id, CartItem cartItem);
+    Task<CartViewModel> RemoveArticleFromCart(int id, CartItem cartItem);
+
+    Task<CartViewModel>? UpdateCart(int id, Cart cart);
+    Task<CartViewModel>? EmptyCart(int id);
     Task<CartViewModel>? DeleteCart(int id);
 }

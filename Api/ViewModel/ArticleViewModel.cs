@@ -38,7 +38,7 @@ namespace Api.ViewModels
 
             ProviderId = article.ProviderId;
             Provider = article.Provider;
-            
+
             CategoryId = article.CategoryId;
             Category = new CategoryViewModel(article.Category);
             

@@ -19,7 +19,9 @@ namespace Api.Data
 
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Article> Articles { get; set; }
+        public DbSet<ArticleOrder> ArticleOrder { get; set; }
         public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItem { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Image> Images { get; set; }

@@ -44,20 +44,48 @@ namespace Api.Controllers
             return result == null ? Unauthorized("Cart already exist") : Ok(result);
         }
         
-        [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<CartViewModel>> UpdateCart(int id, Cart cart)
+        
+        [HttpPost("{id}")]
+        [Authorize(Roles = "Admin, Provider")]
+        public async Task<ActionResult<CartViewModel>> AddArticleToCart(int id, CartItem cartItem)
         {
-            var result = await _cartService.UpdateCart(id, cart);
+            var result = await _cartService.AddArticleToCart(id, cartItem);
             return result == null ? NotFound("Cart not found") : Ok(result);
         }
         
-        [HttpDelete("{id}")]        
+        
+        // [HttpPut("{id}")]
+        // [Authorize(Roles = "Admin")]
+        // public async Task<ActionResult<CartViewModel>> UpdateCart(int id, Cart cart)
+        // {
+        //     var result = await _cartService.UpdateCart(id, cart);
+        //     return result == null ? NotFound("Cart not found") : Ok(result);
+        // }
+        
+        [HttpPut("{id}")]      
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<CartViewModel>> DeleteCart(int id)
+        public async Task<ActionResult<CartViewModel>> RemoveArticleFromCart(int id, CartItem cartItem)
         {
-            var result = await _cartService.DeleteCart(id);
+            var result = await _cartService.RemoveArticleFromCart(id, cartItem);
             return result == null ? NotFound("Cart not found") : Ok(result);
         }
+        
+        
+        
+        [HttpDelete("{id}")]        
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<CartViewModel>> EmptyCart(int id)
+        {
+            var result = await _cartService.EmptyCart(id);
+            return result == null ? NotFound("Cart not found") : Ok(result);
+        }
+        
+        // [HttpDelete("{id}")]        
+        // [Authorize(Roles = "Admin")]
+        // public async Task<ActionResult<CartViewModel>> DeleteCart(int id)
+        // {
+        //     var result = await _cartService.DeleteCart(id);
+        //     return result == null ? NotFound("Cart not found") : Ok(result);
+        // }
     }
 }

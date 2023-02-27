@@ -17,7 +17,7 @@ namespace Api.ViewModels
             Id = cart.Id;
             UserId = cart.UserId;
             User = cart.User.Email;
-            CartItems = cart.CartItems.ConvertAll(item => new CartItemViewModel(item));
+            if (cart.CartItems != null) CartItems = cart.CartItems.ConvertAll(item => new CartItemViewModel(item));
         }
     }
     

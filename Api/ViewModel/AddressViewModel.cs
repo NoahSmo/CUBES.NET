@@ -24,7 +24,7 @@ namespace Api.ViewModels
                 Country = address.Country;
                 ZipCode = address.ZipCode;
                 UserId = address.UserId;
-                User = address.User.Email;
+                User =address.User.Email; 
             }
 
             else if (address.ProviderId != null)
