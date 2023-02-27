@@ -7,16 +7,17 @@ import {CollectionsComponent} from "./collections/collections.component";
 import {ArticleComponent} from "./article/article.component";
 import {CartComponent} from "./cart/cart.component";
 import {ProfileComponent} from "./profile/profile.component";
+import {PresentationComponent} from "./presentation/presentation.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
   {path: 'login', component: LoginComponent },
   {path: 'register', component: RegisterComponent },
   {path: 'profile', component: ProfileComponent },
-
   {path: 'collections', component: CollectionsComponent },
   {path: 'article/:id', component: ArticleComponent },
   {path: 'cart', component: CartComponent },
+  {path: 'presentation', component: PresentationComponent},
 
 
 ];

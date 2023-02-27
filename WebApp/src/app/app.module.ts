@@ -25,6 +25,7 @@ import {ProfileComponent} from './profile/profile.component';
 import {DataViewModule} from "primeng/dataview";
 import {DropdownModule} from "primeng/dropdown";
 import {RatingModule} from "primeng/rating";
+import { PresentationComponent } from './presentation/presentation.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import {RatingModule} from "primeng/rating";
     ProfileComponent,
     CartComponent,
     ArticleComponent,
+    PresentationComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,30 @@
+.container {
+  margin: 0;
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5em;
+  font-family: 'Quicksand', sans-serif;
+  user-select: none;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+  color: #58355E;
+  border-radius: 1em;
+  -webkit-transition: .3s;
+}
+
+.column h1 {
+  margin-bottom: 0;
+}
+
+.column p {
+  font-size: 1.2em;
+}
