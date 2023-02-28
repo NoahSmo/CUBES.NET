@@ -84,28 +84,14 @@
         </Grid>
         <Grid Background="#f6f6f6" Grid.Column="1" Visibility="{Binding VisibilityMenu,Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel Margin="10" Orientation="Vertical">
-                <DataGrid Height="250" ItemsSource="{Binding UsersList}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectOrder.User,UpdateSourceTrigger=PropertyChanged}">
+                <DataGrid Height="250" ItemsSource="{Binding ProviderList}" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectProviderOrder.Provider,UpdateSourceTrigger=PropertyChanged}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                        <DataGridTextColumn Header="Surname" Binding="{Binding Surname}"/>
                         <DataGridTextColumn Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                <TextBox Margin="5" IsHitTestVisible="False" materialDesign:HintAssist.Hint="Selected user" materialDesign:HintAssist.IsFloating="True" IsReadOnly="True">
-                    <TextBox.Text>
-                        <MultiBinding  StringFormat="{} {0} {1}">
-                            <Binding Path="SelectOrder.User.Name"/>
-                            <Binding Path="SelectOrder.User.Surname"/>
-                        </MultiBinding>
-                    </TextBox.Text>
-                </TextBox>
-                <ComboBox Margin="5,20" materialDesign:HintAssist.Hint="Status" materialDesign:HintAssist.IsFloating="True" ItemsSource="{Binding StatusList}" SelectedValue="{Binding SelectOrder.StatusId,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="Message"/>
-                <StackPanel Orientation="Horizontal">
-                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Address" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectAddress.Street,FallbackValue='Street',UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBox Margin="5" materialDesign:HintAssist.Hint="City" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectAddress.City, FallbackValue='City',UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBox Margin="5" materialDesign:HintAssist.Hint="ZipCode" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectAddress.ZipCode, FallbackValue='10000',UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBox Margin="5" materialDesign:HintAssist.Hint="Country" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectAddress.Country, FallbackValue='Country',UpdateSourceTrigger=PropertyChanged}"/>
-                </StackPanel>
+                <TextBox Margin="5" IsHitTestVisible="False" materialDesign:HintAssist.Hint="Selected provider" materialDesign:HintAssist.IsFloating="True" Text="{Binding SelectProviderOrder.Provider.Name}" IsReadOnly="True"/>
+                <ComboBox Margin="5,20" materialDesign:HintAssist.Hint="Status" materialDesign:HintAssist.IsFloating="True" ItemsSource="{Binding StatusList}" SelectedValue="{Binding SelectProviderOrder.StatusId,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="Message"/>
                 <DataGrid Height="250" ItemsSource="{Binding ArticlesList}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}"/>

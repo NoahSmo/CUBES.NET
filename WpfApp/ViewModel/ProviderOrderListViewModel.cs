@@ -21,7 +21,7 @@ namespace WpfApp.ViewModel
         private ObservableCollection<Article> _articlesList;
         private ObservableCollection<Address> _addressList;
         private ObservableCollection<Status> _statusList;
-        private ObservableCollection<User> _usersList;
+        private ObservableCollection<Provider> _providerList;
 
         private bool _visibilityMenu;
         private ProviderOrder _selectProviderOrder;
@@ -65,10 +65,10 @@ namespace WpfApp.ViewModel
             set { SetProperty(ref _selectAddress, value); }
         }
 
-        public ObservableCollection<User> UsersList
+        public ObservableCollection<Provider> ProviderList
         {
-            get { return _usersList; }
-            set { SetProperty(ref _usersList, value); }
+            get { return _providerList; }
+            set { SetProperty(ref _providerList, value); }
         }
         public ObservableCollection<Article> ArticlesList
         {
@@ -94,7 +94,7 @@ namespace WpfApp.ViewModel
             GetProviderOrders();
             GetStatus();
             GetCategories();
-            GetUsers();
+            GetProviders();
             GetArticles();
         }
 
@@ -133,10 +133,10 @@ namespace WpfApp.ViewModel
             //AddressList = new ObservableCollection<Address>(JsonConvert.DeserializeObject<List<Address>>(content));
         }
 
-        private async void GetUsers()
+        private async void GetProviders()
         {
-            var content = await ModeCommun.client.GetStringAsync("User/wpf");
-            UsersList = new ObservableCollection<User>(JsonConvert.DeserializeObject<List<User>>(content));
+            var content = await ModeCommun.client.GetStringAsync("Provider");
+            ProviderList = new ObservableCollection<Provider>(JsonConvert.DeserializeObject<List<Provider>>(content));
         }
 
         #endregion
@@ -148,21 +148,20 @@ namespace WpfApp.ViewModel
         private void ExecuteVisibleModalDroiteCommand(ProviderOrder obj)
         {
             SelectProviderOrder = obj;
-            //SelectAddress = obj.Address;
             VisibilityMenu = true;
-            foreach (var article in ArticlesList)
-            {
-                if (SelectProviderOrder.ArticleOrders.Select(o => o.Article.Id).Contains(article.Id))
-                {
-                    article.IsSelected = true;
-                    article.NbArticleCommand = SelectProviderOrder.ArticleOrders.FirstOrDefault<ArticleOrder>(u => u.Article.Id == article.Id).Quantity;
-                }
-                else
-                {
-                    article.IsSelected = false;
-                    article.NbArticleCommand = 0;
-                }
-            }
+            //foreach (var article in ArticlesList)
+            //{
+            //    if (SelectProviderOrder.ArticleOrders.Select(o => o.Article.Id).Contains(article.Id))
+            //    {
+            //        article.IsSelected = true;
+            //        article.NbArticleCommand = SelectProviderOrder.ArticleOrders.FirstOrDefault<ArticleOrder>(u => u.Article.Id == article.Id).Quantity;
+            //    }
+            //    else
+            //    {
+            //        article.IsSelected = false;
+            //        article.NbArticleCommand = 0;
+            //    }
+            //}
         }
 
 
@@ -264,7 +263,7 @@ namespace WpfApp.ViewModel
             GetProviderOrders();
             GetStatus();
             GetCategories();
-            GetUsers();
+            GetProviders();
         }
 
         #endregion
