@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core';
 import {MenuItem} from "primeng/api";
-import {style} from "@angular/animations";
 
 @Component({
   selector: 'app-navbar',
@@ -24,14 +23,14 @@ export class NavbarComponent {
           separator: true
         },
         {
-          label: 'Vin blanc',
-          icon: '',
-          routerLink: '/category/2'
-        },
-        {
           label: 'Vin rouge',
           icon: '',
           routerLink: '/category/1'
+        },
+        {
+          label: 'Vin blanc',
+          icon: '',
+          routerLink: '/category/2'
         },
         {
           label: 'Rosés',
@@ -68,8 +67,6 @@ export class NavbarComponent {
   constructor() {
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
 }
