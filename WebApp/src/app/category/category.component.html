@@ -1,5 +1,34 @@
-<div class="container">
-  <div *ngFor="let article of articles">
-    {{ article.name }}
+<app-header></app-header>
+<app-navbar></app-navbar>
+
+<div class="body-collection">
+
+  <div class="container">
+    <div class="card" *ngFor="let wine of articles" [routerLink]="['/article/' + wine.id]">
+      <div class="container-img2">
+        <img class="img-wine" src="{{ getUrlImageByArticleId(wine.id) }}" alt="">
+      </div>
+
+      <div class="div-title">
+        <div class="title">
+          <label> {{ wine.name | uppercase }} </label>
+          <label>{{ wine.year }}</label>
+        </div>
+      </div>
+
+      <div class="value">
+        <div>
+          <label id="price">{{ wine.price }}</label>
+          <label id="devise">€</label>
+        </div>
+        <div class="cart-icon">
+          <i class="pi pi-shopping-cart"></i>
+        </div>
+
+      </div>
+    </div>
   </div>
+
 </div>
+
+<app-footer></app-footer>

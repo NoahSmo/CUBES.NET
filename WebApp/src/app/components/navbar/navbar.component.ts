@@ -24,19 +24,23 @@ export class NavbarComponent {
         },
         {
           label: 'Vin blanc',
-          icon: ''
+          icon: '',
+          routerLink: '/category/2'
         },
         {
           label: 'Vin rouge',
-          icon: ''
+          icon: '',
+          routerLink: '/category/1'
         },
         {
-          label: 'Rosé',
-          icon: ''
+          label: 'Rosés',
+          icon: '',
+          routerLink: '/category/3'
         },
         {
           label: 'Champagne',
-          icon: ''
+          icon: '',
+          routerLink: '/category/4'
         },
       ]
     },

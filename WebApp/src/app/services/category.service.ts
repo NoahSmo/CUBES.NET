@@ -8,7 +8,7 @@ import {Observable} from "rxjs";
 })
 export class CategoryService {
 
-  protected baseUrl = 'http://localhost:5072/api';
+  protected baseUrl = 'http://localhost:38387/api';
   protected componentUrl = this.baseUrl + '/Category';
 
   constructor(
