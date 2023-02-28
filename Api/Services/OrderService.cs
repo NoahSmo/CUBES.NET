@@ -46,12 +46,15 @@ public class OrderService : IOrderService
     
     public async Task<Order> CreateOrder(Order order)
     {
+        order.Id = _context.Orders.Max(o => o.Id) + 1;
         order.User = await _context.Users.FirstOrDefaultAsync(u => u.Id == order.UserId);
         order.Date = DateTime.Now;
         
         //check if available
         foreach (var articleOrder in order.ArticleOrders)
         {
+            articleOrder.Id = _context.ArticleOrder.Max(a => a.Id) + 1;
+            
             var article = await _context.Articles.FirstOrDefaultAsync(a => a.Id == articleOrder.ArticleId);
             if (article is null)
                 throw new Exception("Article not found");
@@ -60,7 +63,6 @@ public class OrderService : IOrderService
             //     throw new Exception("Not enough stock");
         }
         
-
         _context.Orders.Add(order);
         
         try

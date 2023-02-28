@@ -56,6 +56,12 @@
                 </TabItem.Header>
                 <local:GestionStockView DataContext="{Binding GestionStockDataContext}"/>
             </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Images" Foreground="White"/>
+                </TabItem.Header>
+                <local:ImageListView DataContext="{Binding ImageDataContext}"/>
+            </TabItem>
         </TabControl>
 
     </Grid>
