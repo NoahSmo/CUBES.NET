@@ -51,13 +51,13 @@ public class OrderService : IOrderService
         order.Address = await _context.Addresses.FirstOrDefaultAsync(a => a.Id == order.AddressId);
         order.Status = await _context.Statuses.FirstOrDefaultAsync(s => s.Id == order.StatusId);
         order.Date = DateTime.Now.ToUniversalTime();
-        
+
         var articleOrders = new List<ArticleOrder>();
         articleOrders = order.ArticleOrders;
         order.ArticleOrders = null;
-        
+
         _context.Orders.Add(order);
-        
+
         if (articleOrders != null)
         {
             foreach (var articleOrder in articleOrders)
@@ -65,9 +65,9 @@ public class OrderService : IOrderService
                 articleOrder.Id = _context.ArticleOrder.Max(ao => ao.Id) + 1;
                 articleOrder.Article = await _context.Articles.FirstOrDefaultAsync(a => a.Id == articleOrder.ArticleId);
                 articleOrder.OrderId = order.Id;
-                
+
                 _context.ArticleOrder.Add(articleOrder);
-            } 
+            }
         }
         
         var orderArticles = new List<ArticleOrder>();
@@ -108,7 +108,8 @@ public class OrderService : IOrderService
     {
         var order = await _context.Orders.FindAsync(id);
         if (order is null) return null;
-        
+
+
         _context.Orders.Remove(order);
 
         try
@@ -119,7 +120,7 @@ public class OrderService : IOrderService
         {
             return null;
         }
-        
+
         return order;
     }
 

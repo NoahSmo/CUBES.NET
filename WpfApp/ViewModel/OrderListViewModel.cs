@@ -260,12 +260,10 @@ namespace WpfApp.ViewModel
                                 ArticleOrder.OrderId = SelectOrder.Id;
                                 ArticleOrder.Quantity = article.NbArticleCommand;
 
-                                var deleteArticleOrder =
-                                    articleOrders.FirstOrDefault<ArticleOrder>(u => u.Article.Id == article.Id);
+                                var deleteArticleOrder = articleOrders.FirstOrDefault<ArticleOrder>(u => u.Article.Id == article.Id);
                                 if (deleteArticleOrder != null)
                                 {
-                                    response = await ModeCommun.client.DeleteAsync("articleorder/" +
-                                        deleteArticleOrder.Id);
+                                    response = await ModeCommun.client.DeleteAsync("articleorder/" + deleteArticleOrder.Id);
                                     articleOrders.Remove(deleteArticleOrder);
                                 }
 
@@ -328,7 +326,7 @@ namespace WpfApp.ViewModel
 
         public ICommand RefreshOrder { get; }
 
-        public async void ExecuteRefreshOrderCommand(object obj)
+        private async void ExecuteRefreshOrderCommand(object obj)
         {
             GetOrders();
             GetStatus();
