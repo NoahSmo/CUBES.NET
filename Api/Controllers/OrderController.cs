@@ -58,17 +58,21 @@ namespace Api.Controllers
                 return Unauthorized("Order Id or Serial already exists");
             }
 
-            foreach (var articleOrder in order.ArticleOrders)
+            if (order.ArticleOrders != null)
             {
-                var article = await _articleService.GetId(articleOrder.ArticleId);
-                article.Stock -= articleOrder.Quantity;
-                await _articleService.UpdateStock(article);
-
-                if (article.Stock <= 0 && article.AutoRestock)
+                foreach (var articleOrder in order.ArticleOrders)
                 {
-                    await _providerOrderService.CreateProviderOrderFromOrder(article);
+                    var article = await _articleService.GetId(articleOrder.ArticleId);
+                    article.Stock -= articleOrder.Quantity;
+                    await _articleService.UpdateStock(article);
+
+                    if (article.Stock <= 0 && article.AutoRestock)
+                    {
+                        await _providerOrderService.CreateProviderOrderFromOrder(article);
+                    }
                 }
             }
+            
 
             return Ok(result);
         }
