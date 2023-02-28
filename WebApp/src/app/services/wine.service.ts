@@ -9,7 +9,7 @@ import {Article} from "../models/article";
 })
 export class WineService {
 
-  protected baseUrl = 'http://localhost:38387/api';
+  protected baseUrl = 'http://localhost:5072/api';
   protected componentUrl = this.baseUrl + '/Article';
 
   constructor(
