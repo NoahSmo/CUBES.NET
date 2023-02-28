@@ -30,16 +30,12 @@ namespace WpfApp.ViewModel
             get { return _providerListDataContext; }
             set { SetProperty(ref _providerListDataContext , value); }
         }
-
-
         private CategoryListViewModel _categoryListDataContext;
         public CategoryListViewModel CategoryListDataContext
         {
             get { return _categoryListDataContext; }
             set { SetProperty(ref _categoryListDataContext , value); }
         }
-
-
         private UserListViewModel _userListDataContext;
         public UserListViewModel UserListDataContext
         {
@@ -68,21 +64,50 @@ namespace WpfApp.ViewModel
             set { SetProperty (ref _orderListDataContext , value); }
         }
 
-        private Frame _currentView;
-        public Frame CurrentView
+        private ProviderOrderListViewModel _providerOrderListDataContext;
+        public ProviderOrderListViewModel ProviderOrderListDataContext
         {
-            get { return _currentView; }
-            set { SetProperty(ref _currentView , value); }
+            get { return _providerOrderListDataContext; }
+            set { SetProperty (ref _providerOrderListDataContext , value); }
         }
-        
-        public MainWindowViewModel()
+
+        private int _indexTabItem;
+        public int IndexTabItem
         {
-            //ModeCommun.client = new HttpClient();
-            //ModeCommun.client.BaseAddress = new Uri("https://localhost:44301/api/");
-            //ModeCommun.client.DefaultRequestHeaders.Accept.Clear();
-            //ModeCommun.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //ModeCommun.client.DefaultRequestHeaders.Add("Authorization", "Bearer " + _accessToken);
-            
+            get { return _indexTabItem; }
+            set { 
+                SetProperty (ref _indexTabItem , value);
+                switch( _indexTabItem)
+                {
+                    case 0:
+                        ArticleListDataContext.ExecuteRefreshArticleCommand(null);
+                        break;
+                    case 1:
+                        CategoryListDataContext.ExecuteRefreshCategoryCommand(null);
+                        break;
+                    case 2:
+                        ProviderListDataContext.ExecuteRefreshProviderCommand(null);
+                        break;
+                    case 3:
+                        UserListDataContext.ExecuteRefreshUserCommand(null);
+                        break;
+                    case 4:
+                        OrderListDataContext.ExecuteRefreshOrderCommand(null);
+                        break;
+                    case 5:
+                        ProviderOrderListDataContext.ExecuteRefreshOrderCommand(null);
+                        break;
+                    case 6:
+                        GestionStockDataContext.GetArticles();
+                        break;
+                    case 7:
+                        ImageDataContext.ExecuteRefreshImageCommand(null);
+                        break;
+                }
+            }
+        }
+        public MainWindowViewModel()
+        {  
             ArticleListDataContext = new ArticleListViewModel();
             CategoryListDataContext = new CategoryListViewModel();
             UserListDataContext = new UserListViewModel();
@@ -90,6 +115,7 @@ namespace WpfApp.ViewModel
             ProviderListDataContext = new ProviderListViewModel();
             OrderListDataContext = new OrderListViewModel();
             ImageDataContext = new ImageListViewModel();
+            ProviderOrderListDataContext = new ProviderOrderListViewModel();
         }
     }
 }

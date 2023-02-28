@@ -9,28 +9,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
-using ArticleOrder = Api.Models.ArticleOrder;
 
 namespace WpfApp.ViewModel
 {
-    internal class OrderListViewModel : ViewModelBase
+    internal class ProviderOrderListViewModel : ViewModelBase
     {
-        private ObservableCollection<Order> _ordersList;
+
+        private ObservableCollection<ProviderOrder> _providerordersList;
+
+
         private ObservableCollection<Article> _articlesList;
         private ObservableCollection<Address> _addressList;
         private ObservableCollection<Status> _statusList;
-        private ObservableCollection<User> _usersList;
+        private ObservableCollection<Provider> _providerList;
 
         private bool _visibilityMenu;
-        private Order _selectOrder;
+        private ProviderOrder _selectProviderOrder;
         private Address _selectAddress;
 
         #region "Property"
 
-        public ObservableCollection<Order> OrdersList
+        public ObservableCollection<ProviderOrder> ProviderOrdersList
         {
-            get { return _ordersList; }
-            set { SetProperty(ref _ordersList, value); }
+            get { return _providerordersList; }
+            set { SetProperty(ref _providerordersList, value); }
         }
 
         public ObservableCollection<Status> StatusList
@@ -51,10 +53,10 @@ namespace WpfApp.ViewModel
             set { SetProperty(ref _visibilityMenu, value); }
         }
 
-        public Order SelectOrder
+        public ProviderOrder SelectProviderOrder
         {
-            get { return _selectOrder; }
-            set { SetProperty(ref _selectOrder, value); }
+            get { return _selectProviderOrder; }
+            set { SetProperty(ref _selectProviderOrder, value); }
         }
 
         public Address SelectAddress
@@ -63,12 +65,11 @@ namespace WpfApp.ViewModel
             set { SetProperty(ref _selectAddress, value); }
         }
 
-        public ObservableCollection<User> UsersList
+        public ObservableCollection<Provider> ProviderList
         {
-            get { return _usersList; }
-            set { SetProperty(ref _usersList, value); }
+            get { return _providerList; }
+            set { SetProperty(ref _providerList, value); }
         }
-
         public ObservableCollection<Article> ArticlesList
         {
             get { return _articlesList; }
@@ -77,22 +78,23 @@ namespace WpfApp.ViewModel
 
         #endregion
 
-        public OrderListViewModel()
+        public ProviderOrderListViewModel()
         {
-            VisibleModalDroiteCommand = new ViewModelCommand<Order>(ExecuteVisibleModalDroiteCommand);
+            VisibleModalDroiteCommand = new ViewModelCommand<ProviderOrder>(ExecuteVisibleModalDroiteCommand);
             UnvisibleModalDroiteCommand = new ViewModelCommand<object>(ExecuteUnvisibleModalDroiteCommand);
 
             SaveOrderCommand = new ViewModelCommand<object>(ExecuteSaveOrderCommand);
             CreateOrderCommand = new ViewModelCommand<object>(ExecuteCreateOrderCommand);
             SaveNewOrderCommand = new ViewModelCommand<object>(ExecuteSaveNewOrderCommand);
             AddOrderCommand = new ViewModelCommand<object>(ExecuteAddOrderCommand);
-            DeleteOrderCommand = new ViewModelCommand<Order>(ExecuteDeleteOrderCommand);
+            DeleteOrderCommand = new ViewModelCommand<ProviderOrder>(ExecuteDeleteOrderCommand);
 
             RefreshOrder = new ViewModelCommand<object>(ExecuteRefreshOrderCommand);
 
-            GetOrders();
+            GetProviderOrders();
             GetStatus();
-            GetUsers();
+            GetCategories();
+            GetProviders();
             GetArticles();
         }
 
@@ -112,11 +114,11 @@ namespace WpfApp.ViewModel
             }
         }
 
-        private async void GetOrders()
+        private async void GetProviderOrders()
         {
-            OrdersList = new ObservableCollection<Order>();
-            var content = await ModeCommun.client.GetStringAsync("Order");
-            OrdersList = new ObservableCollection<Order>(JsonConvert.DeserializeObject<List<Order>>(content));
+            ProviderOrdersList = new ObservableCollection<ProviderOrder>();
+            var content = await ModeCommun.client.GetStringAsync("ProviderOrder");
+            ProviderOrdersList = new ObservableCollection<ProviderOrder>(JsonConvert.DeserializeObject<List<ProviderOrder>>(content));
         }
 
         private async void GetStatus()
@@ -125,10 +127,16 @@ namespace WpfApp.ViewModel
             StatusList = new ObservableCollection<Status>(JsonConvert.DeserializeObject<List<Status>>(content));
         }
 
-        private async void GetUsers()
+        private async void GetCategories()
         {
-            var content = await ModeCommun.client.GetStringAsync("User/wpf");
-            UsersList = new ObservableCollection<User>(JsonConvert.DeserializeObject<List<User>>(content));
+            //var content = await ModeCommun.client.GetStringAsync("Address");
+            //AddressList = new ObservableCollection<Address>(JsonConvert.DeserializeObject<List<Address>>(content));
+        }
+
+        private async void GetProviders()
+        {
+            var content = await ModeCommun.client.GetStringAsync("Provider");
+            ProviderList = new ObservableCollection<Provider>(JsonConvert.DeserializeObject<List<Provider>>(content));
         }
 
         #endregion
@@ -137,45 +145,39 @@ namespace WpfApp.ViewModel
         #region "Command"
 
         public ICommand VisibleModalDroiteCommand { get; }
-
-        private void ExecuteVisibleModalDroiteCommand(Order obj)
+        private void ExecuteVisibleModalDroiteCommand(ProviderOrder obj)
         {
-            SelectOrder = obj;
-            SelectAddress = obj.Address;
+            SelectProviderOrder = obj;
             VisibilityMenu = true;
-            foreach (var article in ArticlesList)
-            {
-                if (SelectOrder.ArticleOrders.Select(o => o.Article.Id).Contains(article.Id))
-                {
-                    article.IsSelected = true;
-                    article.NbArticleCommand = SelectOrder.ArticleOrders
-                        .FirstOrDefault<ArticleOrder>(u => u.Article.Id == article.Id).Quantity;
-                }
-                else
-                {
-                    article.IsSelected = false;
-                    article.NbArticleCommand = 0;
-                }
-            }
+            //foreach (var article in ArticlesList)
+            //{
+            //    if (SelectProviderOrder.ArticleOrders.Select(o => o.Article.Id).Contains(article.Id))
+            //    {
+            //        article.IsSelected = true;
+            //        article.NbArticleCommand = SelectProviderOrder.ArticleOrders.FirstOrDefault<ArticleOrder>(u => u.Article.Id == article.Id).Quantity;
+            //    }
+            //    else
+            //    {
+            //        article.IsSelected = false;
+            //        article.NbArticleCommand = 0;
+            //    }
+            //}
         }
 
 
         public ICommand DeleteOrderCommand { get; }
-
-        private async void ExecuteDeleteOrderCommand(Order obj)
+        private async void ExecuteDeleteOrderCommand(ProviderOrder obj)
         {
-            SelectOrder = obj;
-            if (MessageBox.Show("Are you sure you want to delete this order?", "Warning", MessageBoxButton.YesNo,
-                    MessageBoxImage.Warning, MessageBoxResult.Yes) == MessageBoxResult.Yes)
+            SelectProviderOrder = obj;
+            if (MessageBox.Show("Are you sure you want to delete this order?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes) == MessageBoxResult.Yes)
             {
-                var response = await ModeCommun.client.DeleteAsync("order/" + SelectOrder.Id);
-                OrdersList.Remove(SelectOrder);
+                var response = await ModeCommun.client.DeleteAsync("order/" + SelectProviderOrder.Id);
+                ProviderOrdersList.Remove(SelectProviderOrder);
             }
         }
 
 
         public ICommand UnvisibleModalDroiteCommand { get; }
-
         private void ExecuteUnvisibleModalDroiteCommand(object obj)
         {
             VisibilityMenu = false;
@@ -183,10 +185,9 @@ namespace WpfApp.ViewModel
 
 
         public ICommand SaveOrderCommand { get; }
-
         private async void ExecuteSaveOrderCommand(object obj)
         {
-            if (SelectOrder.Id == 0)
+            if (SelectProviderOrder.Id == 0)
             {
                 var response = await ModeCommun.client.PostAsJsonAsync("address", SelectAddress);
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -194,55 +195,43 @@ namespace WpfApp.ViewModel
                     var content = await response.Content.ReadAsStringAsync();
                     SelectAddress = JsonConvert.DeserializeObject<Address>(content);
 
-                    SelectOrder.AddressId = SelectAddress.Id;
-                    SelectOrder.UserId = SelectOrder.User.Id;
-                    SelectOrder.User = null;
-                    SelectOrder.ArticleOrders = new List<ArticleOrder>();
-                    SelectOrder.ArticleOrders = null;
+                    //SelectProviderOrder.AddressId = SelectAddress.Id;
+                    //SelectProviderOrder.UserId = SelectProviderOrder.User.Id;
+                    //SelectProviderOrder.User = null;
+                    //SelectProviderOrder.ArticleOrders = new List<ArticleOrder>();
+                    foreach (var article in ArticlesList)
+                    {
+                        if (article.IsSelected = true)
+                        {
+                            var ArticleOrders = new ArticleOrder();
+                            ArticleOrders.ArticleId = article.Id;
+                            ArticleOrders.Quantity = article.NbArticleCommand;
+                            SelectProviderOrder.ArticleOrders.Add(ArticleOrders);
+                        }
+                    }
 
-                    response = await ModeCommun.client.PostAsJsonAsync("order", SelectOrder);
+                    response = await ModeCommun.client.PostAsJsonAsync("order", SelectProviderOrder);
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         content = await response.Content.ReadAsStringAsync();
-                        SelectOrder = JsonConvert.DeserializeObject<Order>(content);
-
-                        foreach (var article in ArticlesList)
-                        {
-                            if (article.IsSelected)
-                            {
-                                var ArticleOrder = new ArticleOrder();
-                                ArticleOrder.ArticleId = article.Id;
-                                ArticleOrder.OrderId = SelectOrder.Id;
-                                ArticleOrder.Quantity = article.NbArticleCommand;
-
-                                response = await ModeCommun.client.PostAsJsonAsync("articleorder", ArticleOrder);
-                                if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                                {
-                                    content = await response.Content.ReadAsStringAsync();
-                                    ArticleOrder = JsonConvert.DeserializeObject<ArticleOrder>(content);
-
-                                    GetOrders();
-                                    VisibilityMenu = false;
-                                }
-                            }
-                        }
+                        GetProviderOrders();
+                        VisibilityMenu = false;
                     }
                 }
             }
             else
             {
-                var response = await ModeCommun.client.PutAsJsonAsync("order/" + SelectOrder.Id, SelectOrder);
-                GetOrders();
+                var response = await ModeCommun.client.PutAsJsonAsync("order/" + SelectProviderOrder.Id, SelectProviderOrder);
+                GetProviderOrders();
                 VisibilityMenu = false;
             }
         }
 
 
         public ICommand CreateOrderCommand { get; }
-
         private async void ExecuteCreateOrderCommand(object obj)
         {
-            SelectOrder = new Order();
+            SelectProviderOrder = new ProviderOrder();
             VisibilityMenu = true;
             foreach (var article in ArticlesList)
             {
@@ -253,42 +242,32 @@ namespace WpfApp.ViewModel
 
 
         public ICommand SaveNewOrderCommand { get; }
-
         private async void ExecuteSaveNewOrderCommand(object obj)
         {
-            SelectOrder = new Order();
-            SelectOrder.Address = new Address();
+            SelectProviderOrder = new ProviderOrder();
             VisibilityMenu = true;
         }
 
 
         public ICommand AddOrderCommand { get; }
-
         private async void ExecuteAddOrderCommand(object obj)
         {
-            SelectOrder = new Order();
+            SelectProviderOrder = new ProviderOrder();
             SelectAddress = new Address();
             VisibilityMenu = true;
-            
-            foreach (var article in ArticlesList)
-            {
-                article.IsSelected = false;
-                article.NbArticleCommand = 0;
-            }
         }
 
-        
-        
-        
-        
         public ICommand RefreshOrder { get; }
         public async void ExecuteRefreshOrderCommand(object obj)
         {
-            GetOrders();
+            GetProviderOrders();
             GetStatus();
-            GetUsers();
+            GetCategories();
+            GetProviders();
         }
 
         #endregion
+
+
     }
 }

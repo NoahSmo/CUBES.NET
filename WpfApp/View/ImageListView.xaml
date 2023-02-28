@@ -20,6 +20,10 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <Button Command="{Binding ToggleAddMenu}" HorizontalAlignment="Left">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -30,7 +34,17 @@
                     <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="Add"/>
                 </Grid>
             </Button>
-            <DataGrid IsReadOnly="True" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding ImagesList}" AutoGenerateColumns="False">
+            <Button Grid.Column="1" Command="{Binding RefreshArticle}" HorizontalAlignment="Left">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:PackIcon VerticalAlignment="Center" Kind="Refresh"/>
+                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="Refresh"/>
+                </Grid>
+            </Button>
+            <DataGrid Grid.ColumnSpan="2" IsReadOnly="True" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding ImagesList}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Url" Binding="{Binding Url}"/>
                     <DataGridTextColumn Header="Article" Binding="{Binding Article.Name}"/>

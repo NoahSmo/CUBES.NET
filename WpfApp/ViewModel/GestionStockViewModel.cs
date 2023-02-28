@@ -27,7 +27,7 @@ namespace WpfApp.ViewModel
             GetArticles();
         }
 
-        private async void GetArticles()
+        public async void GetArticles()
         {
             ArticlesList = new ObservableCollection<Article>();
             var content = await ModeCommun.client.GetStringAsync("Article");

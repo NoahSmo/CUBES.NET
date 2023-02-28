@@ -64,7 +64,7 @@ namespace WpfApp.ViewModel
             SaveUserCommand = new ViewModelCommand<User>(ExecuteSaveUserCommand);
             
             DeleteUserCommand = new ViewModelCommand<User>(DeleteUser);
-            
+            RefreshUser = new ViewModelCommand<object>(ExecuteRefreshUserCommand);
             GetUsers();
             GetRoles();
         }
@@ -124,6 +124,13 @@ namespace WpfApp.ViewModel
                 var response = await ModeCommun.client.DeleteAsync("User/" + obj.Id);
                 UsersList.Remove(obj);
             }
+        }
+
+        public ICommand RefreshUser { get; }
+        public async void ExecuteRefreshUserCommand(object obj)
+        {
+            GetUsers();
+            GetRoles();
         }
     }
 }

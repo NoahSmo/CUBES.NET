@@ -64,7 +64,7 @@ namespace WpfApp.ViewModel
             SaveProviderCommand = new ViewModelCommand<Provider>(ExecuteSaveProviderCommand);
             
             DeleteProviderCommand = new ViewModelCommand<Provider>(DeleteProvider);
-            
+            RefreshProvider = new ViewModelCommand<object>(ExecuteRefreshProviderCommand);
             GetProviders();
         }
         
@@ -147,5 +147,12 @@ namespace WpfApp.ViewModel
                 ProvidersList.Remove(obj);
             }
         }
+
+        public ICommand RefreshProvider { get; }
+        public async void ExecuteRefreshProviderCommand(object obj)
+        {
+            GetProviders();
+        }
+
     }
 }
