@@ -4,6 +4,8 @@ import {WineService} from "../services/wine.service";
 import {Category} from "../models/category";
 import {Article} from "../models/article";
 import {ActivatedRoute} from "@angular/router";
+import {Image} from "../models/image";
+import {ImageService} from "../services/image.service";
 
 @Component({
   selector: 'app-category',
@@ -14,15 +16,22 @@ export class CategoryComponent implements OnInit {
 
   category: Category | undefined;
   articles: Article[] = [];
+  images: Image[] = [];
 
   constructor(
     private categoryService: CategoryService,
     private route: ActivatedRoute,
-    private wineService: WineService
-  ) { }
+    private wineService: WineService,
+    private imageService: ImageService
+  ) {
+  }
 
   ngOnInit(): void {
     this.getCategory();
+
+    this.imageService.getImages().subscribe((images: Image[]) => {
+      this.images = images;
+    });
   }
 
   getCategory(): void {
@@ -36,7 +45,7 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  getArticlesByCategoryId(id: number | undefined ): Article[] {
+  getArticlesByCategoryId(id: number | undefined): Article[] {
     let articles: Article[] = [];
     this.articles.forEach((article: Article) => {
       if (article.categoryId === id) {
@@ -45,6 +54,16 @@ export class CategoryComponent implements OnInit {
     });
     console.log(articles);
     return articles;
+  }
+
+  getUrlImageByArticleId(id: number | undefined): string {
+    let url: string | undefined = '';
+    this.images.forEach((image: Image) => {
+      if (image.articleId === id) {
+        url = image.url;
+      }
+    });
+    return url;
   }
 
 

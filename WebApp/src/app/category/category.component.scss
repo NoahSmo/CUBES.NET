@@ -1,0 +1,127 @@
+.body-collection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: 'Quicksand', sans-serif;
+  user-select: none;
+  width: 80%;
+  height: 100%;
+  margin-top: 8em;
+}
+
+.card {
+  position: relative;
+  width: 20em;
+  height: 35em;
+  justify-content: center;
+  margin: 1.5em;
+  display: block;
+  border: 1px solid #e1e2e3;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.container-img2 {
+  margin-top: 1em;
+  width: 100%;
+  max-height: 330px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-wine {
+  width: auto;
+  max-height: 330px;
+}
+
+.div-title {
+  margin-top: 3em;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.title {
+  text-align: center;
+  font-family: "Open Sans", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 0.9rem;
+  color: #000;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: normal;
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+}
+
+#price {
+  font-family: "Open Sans", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 1.6rem;
+  color: #000;
+  line-height: 1.5rem;
+  letter-spacing: normal;
+  font-style: normal;
+}
+
+#devise {
+  font-size: 1rem;
+  color: #363636;
+  line-height: 1.5rem;
+  letter-spacing: normal;
+  font-style: normal;
+  margin-left: 0.1em;
+}
+
+.cart-icon {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  border-radius: 5px;
+  padding: 0.5em;
+  margin: 0.3em;
+  cursor: pointer;
+  -webkit-transition: .2s;
+  color: #383838;
+  background-color: white;
+}
+
+.cart-icon:hover {
+  background-color: #383838;
+  color: white;
+}
+
+.pi {
+  font-size: 1.5rem;
+}
+
+.container-cart {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 3em;
+}
+
+.value {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  bottom: 0;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 1em;
+  padding-left: 1.5em;
+  padding-right: 1em;
+}

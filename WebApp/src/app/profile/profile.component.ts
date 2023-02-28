@@ -12,7 +12,6 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 export class ProfileComponent {
 
   email = '';
-  password = '';
   name = '';
   surname = '';
   phone: number = 0;

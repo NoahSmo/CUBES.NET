@@ -12,10 +12,15 @@
 }
 
 .column {
+  padding-left: 12em;
+  padding-right: 12em;
+  padding-top: 3em;
   display: flex;
   flex-direction: column;
   text-align: center;
   width: 100%;
+  line-height: 33px;
+  letter-spacing: 0.01em;
   color: #58355E;
   border-radius: 1em;
   -webkit-transition: .3s;
