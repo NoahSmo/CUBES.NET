@@ -8,7 +8,7 @@ import {Observable} from "rxjs";
 })
 export class CommentsService {
 
-  protected baseUrl = 'http://localhost:5072/api';
+  protected baseUrl = 'http://localhost:38387/api';
   protected componentUrl = this.baseUrl + '/Comment';
 
   constructor(

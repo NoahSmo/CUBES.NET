@@ -95,7 +95,7 @@ namespace WpfApp.ViewModel
             SelectUser = obj;
             VisibilityEditMenu = true;
         }
-        private async void ExecuteSaveUserCommand(User obj)
+        public async void ExecuteSaveUserCommand(User obj)
         {
             if (SelectUser.Id == 0)
             {
