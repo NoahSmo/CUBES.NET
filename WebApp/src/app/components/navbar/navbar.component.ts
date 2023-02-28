@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {MenuItem} from "primeng/api";
+import {style} from "@angular/animations";
 
 @Component({
   selector: 'app-navbar',
@@ -52,7 +53,12 @@ export class NavbarComponent {
     {
       label: 'Nous contacter',
       icon: 'pi pi-fw pi-user',
-      styleClass: 'scroll-to-contact'
+      command: () => {
+        window.scrollTo({
+          top: 9999999,
+          behavior: 'smooth'
+        });
+      }
     },
     {
       separator: true
