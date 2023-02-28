@@ -6,7 +6,7 @@
   <div class="container">
     <div class="card" *ngFor="let wine of articles" [routerLink]="['/article/' + wine.id]">
       <div class="container-img2">
-        <img class="img-wine" src="./assets/Packshot-bouteille-vin_fond-blanc_Marcel-DEISS.jpg" alt="">
+        <img class="img-wine" src="{{ getUrlImageByArticleId(wine.id) }}" alt="">
       </div>
 
       <div class="div-title">
@@ -30,4 +30,5 @@
   </div>
 
 </div>
+
 

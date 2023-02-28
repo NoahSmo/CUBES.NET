@@ -115,3 +115,33 @@
   padding: 0;
   width: 100%;
 }
+
+.input-login{
+  margin-top: 0.3em;
+}
+
+.div-button-submit{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submit-button{
+  margin-top: 3em;
+  background-color: white;
+  border: none;
+  color: black;
+}
+
+.pi-pencil{
+  font-size: 2em;
+}
+
+.submit-button:hover{
+  cursor: pointer;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+}

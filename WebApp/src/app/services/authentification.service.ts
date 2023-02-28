@@ -106,6 +106,35 @@ export class AuthentificationService {
     );
   }
 
+   public editProfile(name: string, surname: string, phone: number, email: string): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const registerData = {
+      name: name,
+      surname: surname,
+      phone: phone,
+      email: email
+    }
+
+    const id = this.currentUser?.id;
+
+    return this.http.put(this.componentUrl2 + '/' + id, registerData, {headers, observe: 'response'}).pipe(
+      map((response: HttpResponse<User>) => {
+        if (response.status !== 200 || !response.ok) {
+          return false;
+        }
+        const responseUser: User | null = response.body;
+        console.log('username', responseUser, email);
+        this.registerUser = responseUser;
+        sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+        sessionStorage.setItem('LastConnectionDate', JSON.stringify(new Date));
+
+        return true;
+      })
+    );
+  }
+
+
+
 
 
 

@@ -9,7 +9,6 @@ import {HomeComponent} from './home/home.component';
 import {ButtonModule} from 'primeng/button';
 import {FooterComponent} from './components/footer/footer.component';
 import {LoginComponent} from './login/login.component';
-import {MenuModule} from "primeng/menu";
 import {RegisterComponent} from './register/register.component';
 import {CarouselModule} from "primeng/carousel";
 import {MenubarModule} from 'primeng/menubar';
@@ -18,11 +17,14 @@ import {CarouselHomeComponent} from './carousel-home/carousel-home.component';
 import {CardModule} from "primeng/card";
 import {WineService} from "./services/wine.service";
 import {HttpClientModule} from "@angular/common/http";
-import {ReactiveFormsModule} from "@angular/forms";
-import { CollectionsComponent } from './collections/collections.component';
-import { CartComponent } from './cart/cart.component';
-import { ArticleComponent } from './article/article.component';
-import { ProfileComponent } from './profile/profile.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {CollectionsComponent} from './collections/collections.component';
+import {CartComponent} from './cart/cart.component';
+import {ArticleComponent} from './article/article.component';
+import {ProfileComponent} from './profile/profile.component';
+import {DataViewModule} from "primeng/dataview";
+import {DropdownModule} from "primeng/dropdown";
+import {RatingModule} from "primeng/rating";
 
 
 @NgModule({
@@ -50,7 +52,11 @@ import { ProfileComponent } from './profile/profile.component';
     CardModule,
     HttpClientModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    DataViewModule,
+    DropdownModule,
+    FormsModule,
+    RatingModule
   ],
   providers: [WineService],
   bootstrap: [AppComponent]

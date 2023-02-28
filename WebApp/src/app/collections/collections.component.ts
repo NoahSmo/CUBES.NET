@@ -5,6 +5,7 @@ import {ImageService} from "../services/image.service";
 import {Image} from "../models/image";
 import {Cart, CartItem} from "../models/cart";
 import {CartService} from "../services/cart.service";
+import {SelectItem} from "primeng/api";
 
 @Component({
   selector: 'app-collections',
@@ -12,13 +13,18 @@ import {CartService} from "../services/cart.service";
   styleUrls: ['./collections.component.scss']
 })
 export class CollectionsComponent implements OnInit {
+  sortOptions: SelectItem[] = [ {label: 'Price High to Low', value: '!price'}, {label: 'Price Low to High', value: 'price'}];
+  sortOrder: number | undefined;
+  sortField: string | undefined;
 
-  articles: Article[]= [];
+
+  articles: Article[] = [];
   article: Article | undefined;
   images: Image[] = [];
   cart: Cart[] = [];
 
-  constructor(private wineService: WineService, private imageService: ImageService, private cartService: CartService) { }
+  constructor(private wineService: WineService, private imageService: ImageService, private cartService: CartService) {
+  }
 
   ngOnInit(): void {
     this.wineService.getArticles().subscribe((wine: Article[]) => {
@@ -28,9 +34,27 @@ export class CollectionsComponent implements OnInit {
     this.imageService.getImages().subscribe((images: Image[]) => {
       this.images = images;
     });
+
+    this.sortOptions = [
+      {label: 'Price High to Low', value: '!price'},
+      {label: 'Price Low to High', value: 'price'}
+    ];
   }
 
-  getUrlImageByArticleId(id: number | undefined ): string {
+  onSortChange(event: any) {
+    let value = event.value;
+
+    if (value.indexOf('!') === 0) {
+      this.sortOrder = -1;
+      this.sortField = value.substring(1, value.length);
+    }
+    else {
+      this.sortOrder = 1;
+      this.sortField = value;
+    }
+  }
+
+  getUrlImageByArticleId(id: number | undefined): string {
     let url: string | undefined = '';
     this.images.forEach((image: Image) => {
       if (image.articleId === id) {
@@ -59,5 +83,6 @@ export class CollectionsComponent implements OnInit {
       console.log(this.cart);
     });
   }
+
 
 }
