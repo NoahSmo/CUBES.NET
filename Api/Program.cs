@@ -103,6 +103,9 @@ void SeedData(WebApplication app)
     {
         var seeder = scope.ServiceProvider.GetService<DataSeeder>();
         seeder.Seed();
+        
+        Console.WriteLine("Data seeded");
+        System.Environment.Exit(0);
     }
 }
 
@@ -117,6 +120,9 @@ void DropDataBase(WebApplication app)
     {
         var seeder = scope.ServiceProvider.GetService<DataSeeder>();
         seeder.Drop();
+        
+        Console.WriteLine("Data dropped");
+        System.Environment.Exit(0);
     }
 }
 

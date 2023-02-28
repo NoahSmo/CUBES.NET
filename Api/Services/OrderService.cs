@@ -48,19 +48,17 @@ public class OrderService : IOrderService
     {
         order.Id = _context.Orders.Max(o => o.Id) + 1;
         order.User = await _context.Users.FirstOrDefaultAsync(u => u.Id == order.UserId);
-        order.Date = DateTime.Now;
-        
-        //check if available
-        foreach (var articleOrder in order.ArticleOrders)
+        order.Address = await _context.Addresses.FirstOrDefaultAsync(a => a.Id == order.AddressId);
+        order.Status = await _context.Statuses.FirstOrDefaultAsync(s => s.Id == order.StatusId);
+        order.Date = DateTime.Now.ToUniversalTime();
+
+        if (order.ArticleOrders != null)
         {
-            articleOrder.Id = _context.ArticleOrder.Max(a => a.Id) + 1;
-            
-            var article = await _context.Articles.FirstOrDefaultAsync(a => a.Id == articleOrder.ArticleId);
-            if (article is null)
-                throw new Exception("Article not found");
-            
-            // if (article.Stock < articleOrder.Quantity)
-            //     throw new Exception("Not enough stock");
+            foreach (var articleOrder in order.ArticleOrders)
+            {
+                articleOrder.Id = _context.ArticleOrder.Max(ao => ao.Id) + 1;
+                articleOrder.Article = await _context.Articles.FirstOrDefaultAsync(a => a.Id == articleOrder.ArticleId);
+            } 
         }
         
         _context.Orders.Add(order);
