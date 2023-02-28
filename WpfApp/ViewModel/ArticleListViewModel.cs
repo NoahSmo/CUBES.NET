@@ -205,7 +205,7 @@ namespace WpfApp.ViewModel
         }
         
         public ICommand RefreshArticle { get; }
-        private async void ExecuteRefreshArticleCommand(object obj)
+        public async void ExecuteRefreshArticleCommand(object obj)
         { 
             GetArticles();
             GetProviders();

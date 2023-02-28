@@ -116,7 +116,7 @@ namespace WpfApp.ViewModel
         }
 
         public ICommand RefreshCategory { get; }
-        private async void ExecuteRefreshCategoryCommand(object obj)
+        public async void ExecuteRefreshCategoryCommand(object obj)
         {
             GetCategorys();
         }

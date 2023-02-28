@@ -63,6 +63,39 @@ namespace WpfApp.ViewModel
             get { return _providerOrderListDataContext; }
             set { SetProperty (ref _providerOrderListDataContext , value); }
         }
+
+        private int _indexTabItem;
+        public int IndexTabItem
+        {
+            get { return _indexTabItem; }
+            set { 
+                SetProperty (ref _indexTabItem , value);
+                switch( _indexTabItem)
+                {
+                    case 0:
+                        ArticleListDataContext.ExecuteRefreshArticleCommand(null);
+                        break;
+                    case 1:
+                        CategoryListDataContext.ExecuteRefreshCategoryCommand(null);
+                        break;
+                    case 2:
+                        ProviderListDataContext.ExecuteRefreshProviderCommand(null);
+                        break;
+                    case 3:
+                        UserListDataContext.ExecuteRefreshUserCommand(null);
+                        break;
+                    case 4:
+                        OrderListDataContext.ExecuteRefreshOrderCommand(null);
+                        break;
+                    case 5:
+                        ProviderOrderListDataContext.ExecuteRefreshOrderCommand(null);
+                        break;
+                    case 6:
+                        GestionStockDataContext.GetArticles();
+                        break;
+                }
+            }
+        }
         public MainWindowViewModel()
         {  
             ArticleListDataContext = new ArticleListViewModel();

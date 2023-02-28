@@ -127,7 +127,7 @@ namespace WpfApp.ViewModel
         }
 
         public ICommand RefreshUser { get; }
-        private async void ExecuteRefreshUserCommand(object obj)
+        public async void ExecuteRefreshUserCommand(object obj)
         {
             GetUsers();
             GetRoles();

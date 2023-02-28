@@ -258,7 +258,7 @@ namespace WpfApp.ViewModel
         }
 
         public ICommand RefreshOrder { get; }
-        private async void ExecuteRefreshOrderCommand(object obj)
+        public async void ExecuteRefreshOrderCommand(object obj)
         {
             GetProviderOrders();
             GetStatus();

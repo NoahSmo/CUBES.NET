@@ -149,7 +149,7 @@ namespace WpfApp.ViewModel
         }
 
         public ICommand RefreshProvider { get; }
-        private async void ExecuteRefreshProviderCommand(object obj)
+        public async void ExecuteRefreshProviderCommand(object obj)
         {
             GetProviders();
         }
