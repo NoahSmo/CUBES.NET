@@ -87,15 +87,15 @@ public class OrderService : IOrderService
     public async Task<Order>? UpdateOrder(int id, Order request)
     {
         var order = await _context.Orders.FindAsync(id);
-        if (order is null)
-            return null;
+        if (order is null) return null;
 
         order.UserId = request.UserId;
-        
         order.User = await _context.Users.FirstOrDefaultAsync(u => u.Id == order.UserId);
         
+        order.StatusId = request.StatusId;
+        order.Status = await _context.Statuses.FirstOrDefaultAsync(s => s.Id == request.StatusId);
+
         order.Date = request.Date;
-        order.Status = request.Status;
         order.ArticleOrders = request.ArticleOrders;
 
         _context.Orders.Update(order);
@@ -108,7 +108,6 @@ public class OrderService : IOrderService
     {
         var order = await _context.Orders.FindAsync(id);
         if (order is null) return null;
-        
         
         _context.Orders.Remove(order);
 

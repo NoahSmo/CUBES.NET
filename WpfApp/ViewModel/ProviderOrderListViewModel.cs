@@ -14,7 +14,6 @@ namespace WpfApp.ViewModel
 {
     internal class ProviderOrderListViewModel : ViewModelBase
     {
-
         private ObservableCollection<ProviderOrder> _providerordersList;
 
 
@@ -70,6 +69,7 @@ namespace WpfApp.ViewModel
             get { return _providerList; }
             set { SetProperty(ref _providerList, value); }
         }
+
         public ObservableCollection<Article> ArticlesList
         {
             get { return _articlesList; }
@@ -118,7 +118,8 @@ namespace WpfApp.ViewModel
         {
             ProviderOrdersList = new ObservableCollection<ProviderOrder>();
             var content = await ModeCommun.client.GetStringAsync("ProviderOrder");
-            ProviderOrdersList = new ObservableCollection<ProviderOrder>(JsonConvert.DeserializeObject<List<ProviderOrder>>(content));
+            ProviderOrdersList =
+                new ObservableCollection<ProviderOrder>(JsonConvert.DeserializeObject<List<ProviderOrder>>(content));
         }
 
         private async void GetStatus()
@@ -145,6 +146,7 @@ namespace WpfApp.ViewModel
         #region "Command"
 
         public ICommand VisibleModalDroiteCommand { get; }
+
         private void ExecuteVisibleModalDroiteCommand(ProviderOrder obj)
         {
             SelectProviderOrder = obj;
@@ -166,18 +168,21 @@ namespace WpfApp.ViewModel
 
 
         public ICommand DeleteOrderCommand { get; }
+
         private async void ExecuteDeleteOrderCommand(ProviderOrder obj)
         {
             SelectProviderOrder = obj;
-            if (MessageBox.Show("Are you sure you want to delete this order?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes) == MessageBoxResult.Yes)
+            if (MessageBox.Show("Are you sure you want to delete this order?", "Warning", MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning, MessageBoxResult.Yes) == MessageBoxResult.Yes)
             {
-                var response = await ModeCommun.client.DeleteAsync("order/" + SelectProviderOrder.Id);
+                var response = await ModeCommun.client.DeleteAsync("providerorder/" + SelectProviderOrder.Id);
                 ProviderOrdersList.Remove(SelectProviderOrder);
             }
         }
 
 
         public ICommand UnvisibleModalDroiteCommand { get; }
+
         private void ExecuteUnvisibleModalDroiteCommand(object obj)
         {
             VisibilityMenu = false;
@@ -185,50 +190,109 @@ namespace WpfApp.ViewModel
 
 
         public ICommand SaveOrderCommand { get; }
+
         private async void ExecuteSaveOrderCommand(object obj)
         {
             if (SelectProviderOrder.Id == 0)
             {
-                var response = await ModeCommun.client.PostAsJsonAsync("address", SelectAddress);
+                SelectProviderOrder.ProviderId = SelectProviderOrder.Provider.Id;
+                SelectProviderOrder.Provider = null;
+
+                var response = await ModeCommun.client.PostAsJsonAsync("providerorder", SelectProviderOrder);
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     var content = await response.Content.ReadAsStringAsync();
-                    SelectAddress = JsonConvert.DeserializeObject<Address>(content);
+                    SelectProviderOrder = JsonConvert.DeserializeObject<ProviderOrder>(content);
 
-                    //SelectProviderOrder.AddressId = SelectAddress.Id;
-                    //SelectProviderOrder.UserId = SelectProviderOrder.User.Id;
-                    //SelectProviderOrder.User = null;
-                    //SelectProviderOrder.ArticleOrders = new List<ArticleOrder>();
                     foreach (var article in ArticlesList)
                     {
-                        if (article.IsSelected = true)
+                        if (article.IsSelected)
                         {
-                            var ArticleOrders = new ArticleOrder();
-                            ArticleOrders.ArticleId = article.Id;
-                            ArticleOrders.Quantity = article.NbArticleCommand;
-                            SelectProviderOrder.ArticleOrders.Add(ArticleOrders);
-                        }
-                    }
+                            var ArticleOrder = new ArticleOrder();
+                            ArticleOrder.ArticleId = article.Id;
+                            ArticleOrder.ProviderOrderId = SelectProviderOrder.Id;
+                            ArticleOrder.Quantity = article.NbArticleCommand;
 
-                    response = await ModeCommun.client.PostAsJsonAsync("order", SelectProviderOrder);
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                    {
-                        content = await response.Content.ReadAsStringAsync();
-                        GetProviderOrders();
-                        VisibilityMenu = false;
+                            response = await ModeCommun.client.PostAsJsonAsync("articleorder", ArticleOrder);
+                            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                            {
+                                content = await response.Content.ReadAsStringAsync();
+                                ArticleOrder = JsonConvert.DeserializeObject<ArticleOrder>(content);
+
+                                GetProviderOrders();
+                                VisibilityMenu = false;
+                            }
+                        }
                     }
                 }
             }
             else
             {
-                var response = await ModeCommun.client.PutAsJsonAsync("order/" + SelectProviderOrder.Id, SelectProviderOrder);
-                GetProviderOrders();
-                VisibilityMenu = false;
+                var articleOrders = new List<ArticleOrder>();
+                articleOrders = SelectProviderOrder.ArticleOrders;
+
+                SelectProviderOrder.Provider = null;
+                SelectProviderOrder.ArticleOrders = null;
+                SelectProviderOrder.Status = null;
+
+                var response =
+                    await ModeCommun.client.PutAsJsonAsync("providerorder/" + SelectProviderOrder.Id, SelectProviderOrder);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    SelectProviderOrder = JsonConvert.DeserializeObject<ProviderOrder>(content);
+
+                    foreach (var article in ArticlesList)
+                    {
+
+                        if (SelectProviderOrder.StatusId == 3 && article.NbArticleCommand != 0)
+                        {
+                            var numberToRestock = article.NbArticleCommand;
+                            
+                            var responseArticle = await ModeCommun.client.GetAsync("article/" + article.Id);
+                            if (responseArticle.StatusCode == System.Net.HttpStatusCode.OK)
+                            {
+                                var contentArticle = await responseArticle.Content.ReadAsStringAsync();
+                                var articleToRestock = JsonConvert.DeserializeObject<Article>(contentArticle);
+                                articleToRestock.Stock += numberToRestock;
+                                responseArticle = await ModeCommun.client.PutAsJsonAsync("article/" + article.Id, articleToRestock);
+                            }
+                        }
+                        
+                        if (article.IsSelected)
+                        {
+                            var ArticleOrder = new ArticleOrder();
+                            ArticleOrder.ArticleId = article.Id;
+                            ArticleOrder.ProviderOrderId = SelectProviderOrder.Id;
+                            ArticleOrder.Quantity = article.NbArticleCommand;
+
+                            var deleteArticleOrder =
+                                articleOrders.FirstOrDefault<ArticleOrder>(u => u.Article.Id == article.Id);
+                            if (deleteArticleOrder != null)
+                            {
+                                response = await ModeCommun.client.DeleteAsync("articleorder/" +
+                                                                               deleteArticleOrder.Id);
+                                articleOrders.Remove(deleteArticleOrder);
+                            }
+
+                            response = await ModeCommun.client.PostAsJsonAsync("articleorder", ArticleOrder);
+                            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                            {
+                                content = await response.Content.ReadAsStringAsync();
+                                ArticleOrder = JsonConvert.DeserializeObject<ArticleOrder>(content);
+
+                                GetProviderOrders();
+                                VisibilityMenu = false;
+                            }
+                        }
+                    }
+                }
             }
         }
 
 
         public ICommand CreateOrderCommand { get; }
+
         private async void ExecuteCreateOrderCommand(object obj)
         {
             SelectProviderOrder = new ProviderOrder();
@@ -242,6 +306,7 @@ namespace WpfApp.ViewModel
 
 
         public ICommand SaveNewOrderCommand { get; }
+
         private async void ExecuteSaveNewOrderCommand(object obj)
         {
             SelectProviderOrder = new ProviderOrder();
@@ -250,6 +315,7 @@ namespace WpfApp.ViewModel
 
 
         public ICommand AddOrderCommand { get; }
+
         private async void ExecuteAddOrderCommand(object obj)
         {
             SelectProviderOrder = new ProviderOrder();
@@ -258,6 +324,7 @@ namespace WpfApp.ViewModel
         }
 
         public ICommand RefreshOrder { get; }
+
         public async void ExecuteRefreshOrderCommand(object obj)
         {
             GetProviderOrders();
@@ -267,7 +334,5 @@ namespace WpfApp.ViewModel
         }
 
         #endregion
-
-
     }
 }

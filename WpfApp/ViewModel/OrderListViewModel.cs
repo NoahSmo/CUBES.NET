@@ -237,7 +237,7 @@ namespace WpfApp.ViewModel
 
                     var articleOrders = new List<ArticleOrder>();
                     articleOrders = SelectOrder.ArticleOrders;
-                    
+
                     SelectOrder.AddressId = SelectAddress.Id;
                     SelectOrder.UserId = SelectOrder.User.Id;
                     SelectOrder.User = null;
@@ -259,11 +259,13 @@ namespace WpfApp.ViewModel
                                 ArticleOrder.ArticleId = article.Id;
                                 ArticleOrder.OrderId = SelectOrder.Id;
                                 ArticleOrder.Quantity = article.NbArticleCommand;
-                                
-                                var deleteArticleOrder = articleOrders.FirstOrDefault<ArticleOrder>(u => u.Article.Id == article.Id);
+
+                                var deleteArticleOrder =
+                                    articleOrders.FirstOrDefault<ArticleOrder>(u => u.Article.Id == article.Id);
                                 if (deleteArticleOrder != null)
                                 {
-                                    response = await ModeCommun.client.DeleteAsync("articleorder/" + deleteArticleOrder.Id);
+                                    response = await ModeCommun.client.DeleteAsync("articleorder/" +
+                                        deleteArticleOrder.Id);
                                     articleOrders.Remove(deleteArticleOrder);
                                 }
 
@@ -315,7 +317,7 @@ namespace WpfApp.ViewModel
             SelectOrder = new Order();
             SelectAddress = new Address();
             VisibilityMenu = true;
-            
+
             foreach (var article in ArticlesList)
             {
                 article.IsSelected = false;
@@ -323,11 +325,9 @@ namespace WpfApp.ViewModel
             }
         }
 
-        
-        
-        
-        
+
         public ICommand RefreshOrder { get; }
+
         public async void ExecuteRefreshOrderCommand(object obj)
         {
             GetOrders();

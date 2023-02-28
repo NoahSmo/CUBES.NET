@@ -26,6 +26,8 @@ public class ProviderOrderService : IProviderOrderService
         return await _context.ProviderOrders
             .Include(o => o.Provider)
             .Include(o => o.Status)
+            .Include(o => o.ArticleOrders)
+            .ThenInclude(a => a.Article)
             .ToListAsync();
     }
 
@@ -58,6 +60,8 @@ public class ProviderOrderService : IProviderOrderService
 
         providerOrders.ProviderId = article.ProviderId;
         providerOrders.Provider = await _context.Providers.FirstOrDefaultAsync(p => p.Id == article.ProviderId);
+        
+        providerOrders.CreatedAt = DateTime.Now.ToUniversalTime();
 
         var articleOrder = new ArticleOrder();
         articleOrder.ArticleId = article.Id;
@@ -97,7 +101,10 @@ public class ProviderOrderService : IProviderOrderService
         providerOrdersToUpdate.StatusId = providerOrders.StatusId;
         providerOrdersToUpdate.Status = await _context.Statuses.FindAsync(providerOrders.StatusId);
         
+        providerOrdersToUpdate.UpdatedAt = DateTime.Now.ToUniversalTime();
+
         _context.ProviderOrders.Update(providerOrdersToUpdate);
+        
         await _context.SaveChangesAsync();
 
         return providerOrdersToUpdate;
