@@ -18,6 +18,7 @@ const routes: Routes = [
   {path: 'article/:id', component: ArticleComponent },
   {path: 'cart', component: CartComponent },
 
+
 ];
 
 @NgModule({
