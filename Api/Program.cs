@@ -59,6 +59,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IArticleService, ArticleService>();
+builder.Services.AddScoped<IArticleOrderService, ArticleOrderService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICommentService, CommentService>();

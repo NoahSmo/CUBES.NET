@@ -51,17 +51,26 @@ public class OrderService : IOrderService
         order.Address = await _context.Addresses.FirstOrDefaultAsync(a => a.Id == order.AddressId);
         order.Status = await _context.Statuses.FirstOrDefaultAsync(s => s.Id == order.StatusId);
         order.Date = DateTime.Now.ToUniversalTime();
-
-        if (order.ArticleOrders != null)
+        
+        var articleOrders = new List<ArticleOrder>();
+        articleOrders = order.ArticleOrders;
+        order.ArticleOrders = null;
+        
+        _context.Orders.Add(order);
+        
+        if (articleOrders != null)
         {
-            foreach (var articleOrder in order.ArticleOrders)
+            foreach (var articleOrder in articleOrders)
             {
                 articleOrder.Id = _context.ArticleOrder.Max(ao => ao.Id) + 1;
                 articleOrder.Article = await _context.Articles.FirstOrDefaultAsync(a => a.Id == articleOrder.ArticleId);
+                articleOrder.OrderId = order.Id;
+                
+                _context.ArticleOrder.Add(articleOrder);
             } 
         }
         
-        _context.Orders.Add(order);
+        var orderArticles = new List<ArticleOrder>();
         
         try
         {
@@ -78,15 +87,15 @@ public class OrderService : IOrderService
     public async Task<Order>? UpdateOrder(int id, Order request)
     {
         var order = await _context.Orders.FindAsync(id);
-        if (order is null)
-            return null;
+        if (order is null) return null;
 
         order.UserId = request.UserId;
-        
         order.User = await _context.Users.FirstOrDefaultAsync(u => u.Id == order.UserId);
         
+        order.StatusId = request.StatusId;
+        order.Status = await _context.Statuses.FirstOrDefaultAsync(s => s.Id == request.StatusId);
+
         order.Date = request.Date;
-        order.Status = request.Status;
         order.ArticleOrders = request.ArticleOrders;
 
         _context.Orders.Update(order);
@@ -98,12 +107,19 @@ public class OrderService : IOrderService
     public async Task<Order>? DeleteOrder(int id)
     {
         var order = await _context.Orders.FindAsync(id);
-        if (order is null)
-            return null;
-
+        if (order is null) return null;
+        
         _context.Orders.Remove(order);
-        await _context.SaveChangesAsync();
 
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+        
         return order;
     }
 

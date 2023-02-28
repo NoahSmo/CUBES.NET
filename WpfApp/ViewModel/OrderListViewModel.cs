@@ -197,8 +197,6 @@ namespace WpfApp.ViewModel
                     SelectOrder.AddressId = SelectAddress.Id;
                     SelectOrder.UserId = SelectOrder.User.Id;
                     SelectOrder.User = null;
-                    SelectOrder.ArticleOrders = new List<ArticleOrder>();
-                    SelectOrder.ArticleOrders = null;
 
                     response = await ModeCommun.client.PostAsJsonAsync("order", SelectOrder);
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -231,9 +229,59 @@ namespace WpfApp.ViewModel
             }
             else
             {
-                var response = await ModeCommun.client.PutAsJsonAsync("order/" + SelectOrder.Id, SelectOrder);
-                GetOrders();
-                VisibilityMenu = false;
+                var response = await ModeCommun.client.PutAsJsonAsync("address/" + SelectAddress.Id, SelectAddress);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    SelectAddress = JsonConvert.DeserializeObject<Address>(content);
+
+                    var articleOrders = new List<ArticleOrder>();
+                    articleOrders = SelectOrder.ArticleOrders;
+
+                    SelectOrder.AddressId = SelectAddress.Id;
+                    SelectOrder.UserId = SelectOrder.User.Id;
+                    SelectOrder.User = null;
+                    SelectOrder.ArticleOrders = null;
+                    SelectOrder.Status = null;
+                    SelectOrder.Address = null;
+
+                    response = await ModeCommun.client.PutAsJsonAsync("order/" + SelectOrder.Id, SelectOrder);
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        content = await response.Content.ReadAsStringAsync();
+                        SelectOrder = JsonConvert.DeserializeObject<Order>(content);
+
+                        foreach (var article in ArticlesList)
+                        {
+                            if (article.IsSelected)
+                            {
+                                var ArticleOrder = new ArticleOrder();
+                                ArticleOrder.ArticleId = article.Id;
+                                ArticleOrder.OrderId = SelectOrder.Id;
+                                ArticleOrder.Quantity = article.NbArticleCommand;
+
+                                var deleteArticleOrder =
+                                    articleOrders.FirstOrDefault<ArticleOrder>(u => u.Article.Id == article.Id);
+                                if (deleteArticleOrder != null)
+                                {
+                                    response = await ModeCommun.client.DeleteAsync("articleorder/" +
+                                        deleteArticleOrder.Id);
+                                    articleOrders.Remove(deleteArticleOrder);
+                                }
+
+                                response = await ModeCommun.client.PostAsJsonAsync("articleorder", ArticleOrder);
+                                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                                {
+                                    content = await response.Content.ReadAsStringAsync();
+                                    ArticleOrder = JsonConvert.DeserializeObject<ArticleOrder>(content);
+
+                                    GetOrders();
+                                    VisibilityMenu = false;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -269,7 +317,7 @@ namespace WpfApp.ViewModel
             SelectOrder = new Order();
             SelectAddress = new Address();
             VisibilityMenu = true;
-            
+
             foreach (var article in ArticlesList)
             {
                 article.IsSelected = false;
@@ -277,11 +325,9 @@ namespace WpfApp.ViewModel
             }
         }
 
-        
-        
-        
-        
+
         public ICommand RefreshOrder { get; }
+
         public async void ExecuteRefreshOrderCommand(object obj)
         {
             GetOrders();
