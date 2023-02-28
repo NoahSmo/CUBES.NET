@@ -64,7 +64,7 @@ namespace WpfApp.ViewModel
             SaveImageCommand = new ViewModelCommand<Image>(ExecuteSaveImageCommand);
             
             DeleteImageCommand = new ViewModelCommand<Image>(DeleteImage);
-            
+            RefreshImage = new ViewModelCommand<object>(ExecuteRefreshImageCommand);
             GetImages();
             GetArticles();
         }
@@ -125,6 +125,13 @@ namespace WpfApp.ViewModel
                 var response = await ModeCommun.client.DeleteAsync("image/" + obj.Id);
                 ImagesList.Remove(obj);
             }
+        }
+
+        public ICommand RefreshImage { get; }
+        public async void ExecuteRefreshImageCommand(object obj)
+        {
+            GetArticles();
+            GetImages();
         }
     }
 }

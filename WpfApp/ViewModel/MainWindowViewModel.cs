@@ -100,6 +100,9 @@ namespace WpfApp.ViewModel
                     case 6:
                         GestionStockDataContext.GetArticles();
                         break;
+                    case 7:
+                        ImageDataContext.ExecuteRefreshImageCommand(null);
+                        break;
                 }
             }
         }
