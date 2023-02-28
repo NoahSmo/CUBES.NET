@@ -41,11 +41,7 @@ namespace WpfApp.ViewModel
         public SecureString Password
         {
             get { return _password; }
-            set 
-            { 
-                _password = value;
-                OnPropertyChanged(nameof(Password));
-            }
+            set {  SetProperty(ref _password, value); }
         }
 
         public string ErrorMessage
@@ -86,10 +82,22 @@ namespace WpfApp.ViewModel
 
         private async void ConnectUser()
         {
+            IntPtr passwordBSTR = IntPtr.Zero;
+            try
+            {
+                passwordBSTR = System.Runtime.InteropServices.Marshal.SecureStringToBSTR(Password);
+                login_User.Password = System.Runtime.InteropServices.Marshal.PtrToStringBSTR(passwordBSTR);
+            }
+            finally
+            {
+                if (passwordBSTR != IntPtr.Zero)
+                {
+                    System.Runtime.InteropServices.Marshal.ZeroFreeBSTR(passwordBSTR);
+                }
+            }
             var response = await ModeCommun.client.PostAsJsonAsync("Login/DesktopLogin", login_User);
             var users = await response.Content.ReadAsStringAsync();
-            
-            if(response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 ModeCommun.CurrentUser = JsonConvert.DeserializeObject<UserViewModel>(users);
                 var responseToken = await ModeCommun.client.PostAsJsonAsync("Login", login_User);
@@ -116,7 +124,7 @@ namespace WpfApp.ViewModel
         private bool CanExecuteLoginCommand(object obj)
         {
             bool validData;
-            if(string.IsNullOrWhiteSpace(login_User.Email) || login_User.Email.Length < 3|| login_User.Password== null|| login_User.Password.Length < 3)
+            if(string.IsNullOrWhiteSpace(login_User.Email) || login_User.Email.Length < 3|| Password== null|| Password.Length < 3)
                 validData = false;
             else
                 validData = true;
