@@ -3,7 +3,7 @@ import {CategoryService} from "../services/category.service";
 import {WineService} from "../services/wine.service";
 import {Category} from "../models/category";
 import {Article} from "../models/article";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Image} from "../models/image";
 import {ImageService} from "../services/image.service";
 
@@ -16,22 +16,27 @@ export class CategoryComponent implements OnInit {
 
   category: Category | undefined;
   articles: Article[] = [];
+  articlesByCategory: Article[] = [];
   images: Image[] = [];
 
   constructor(
     private categoryService: CategoryService,
     private route: ActivatedRoute,
     private wineService: WineService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private router: Router
   ) {
   }
 
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
     this.getCategory();
 
     this.imageService.getImages().subscribe((images: Image[]) => {
       this.images = images;
     });
+
   }
 
   getCategory(): void {
@@ -45,15 +50,14 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  getArticlesByCategoryId(id: number | undefined): Article[] {
-    let articles: Article[] = [];
+  getArticlesByCategoryId(id: number): Article[] {
     this.articles.forEach((article: Article) => {
       if (article.categoryId === id) {
-        articles.push(article);
+        this.articlesByCategory.push(article);
       }
     });
-    console.log(articles);
-    return articles;
+    console.log(this.articlesByCategory);
+    return this.articlesByCategory;
   }
 
   getUrlImageByArticleId(id: number | undefined): string {
