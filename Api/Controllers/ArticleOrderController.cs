@@ -37,13 +37,10 @@ namespace Api.Controllers
         }
         
         [HttpPost]
-        public async Task<ActionResult<ArticleOrder>> CreateArticleOrder(Object articleOrder)
+        public async Task<ActionResult<ArticleOrder>> CreateArticleOrder(ArticleOrder articleOrder)
         {
-            // var result = await _articleOrderService.CreateArticleOrder(articleOrder);
-            // return result == null ? Unauthorized("ArticleOrder already exist") : Ok(result);
-            
-            var test = articleOrder;
-            return Ok(test);
+            var result = await _articleOrderService.CreateArticleOrder(articleOrder);
+            return result == null ? Unauthorized("ArticleOrder already exist") : Ok(result);
         }
         
         [HttpPut("{id}")]
