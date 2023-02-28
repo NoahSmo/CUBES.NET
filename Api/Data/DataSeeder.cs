@@ -450,7 +450,7 @@ public class DataSeeder
             _context.Articles.Add(new Article
             {
                 Id = 5,
-                Name = "Cantine Astroni Colle Imperatrice Falanghina Campi Flegrei 2021",
+                Name = "Cantine Astroni Colle Imperatrice Falanghina Campi Flegrei",
                 Description =
                     "Un vin limpide et consistant, de couleur jaune paille avec des reflets dorés et des reflets verts. Le nez est intense, fin et complexe et présente des notes florales et fruitées. Sec chaud et onctueux en bouche. Une bonne fraîcheur et sapidité. Un vin équilibré et corsé avec une belle persistance et intensité.",
                 Year = 2020,
@@ -474,7 +474,7 @@ public class DataSeeder
             _context.Articles.Add(new Article
             {
                 Id = 6,
-                Name = "LES HAUTS DE SMITH 2016",
+                Name = "LES HAUTS DE SMITH",
                 Description =
                     "Les Hauts de Smith est un vin rouge facile à boire, juteux, avec beaucoup de fraîcheur et un délicieux fruité. Nommé MEILLEUR VIN de son appellation, avec ses saveurs vanillés lui apportant cette sucrosité, voilà une belle gourmandise à partager. Appelez vite les copains : c'est l'occasion rêvée de les inviter sans vous ruiner ! Le petit vin plaisir par excellence...",
                 Year = 2016,
@@ -498,7 +498,7 @@ public class DataSeeder
             _context.Articles.Add(new Article
             {
                 Id = 7,
-                Name = "LES FIEFS DE LAGRANGE 2019",
+                Name = "LES FIEFS DE LAGRANGE",
                 Description =
                     "Mélange subtil de fruits rouges et noirs, relevé par quelques notes épicées, le nez dégage une élégance et une précision impressionnantes. La bouche est gourmande, onctueuse. Une fraîcheur agréable assure un bon équilibre et une accessibilité à la dégustation quasi immédiate. Mais ne vous méprenez pas, ce vin continuera de vous émerveiller pendant les 20 prochaines années !", 
                 Year = 2019,
@@ -522,7 +522,7 @@ public class DataSeeder
             _context.Articles.Add(new Article
             {
                 Id = 8,
-                Name = "CHATEAU TALBOT 2020",
+                Name = "CHATEAU TALBOT",
                 Description =
                     "Véritable trait d’union entre la finesse des Margaux et la puissance des Pauillac, cette propriété parmi les plus justement populaires du Médoc vient de produire une série de grands millésimes dont le 2020 fait largement parti. D'une belle robe violet-noir profond, le nez dégage des parfums de cassis, de framboise, de prunes cuites, d'herbes méditerranéennes séchées et de feuille de tabac, avec une touche de graphite. En bouche on retrouve un Saint-Julien d'une belle fraîcheur, avec de la mâche, des fruits noirs, des notes d'herbes séchées ainsi qu'une finale savoureuse.",
                 Year = 2020,
@@ -546,10 +546,10 @@ public class DataSeeder
             _context.Articles.Add(new Article
             {
                 Id = 9,
-                Name = "RESERVE DE LA COMTESSE 2019",
+                Name = "RESERVE DE LA COMTESSE",
                 Description =
                     "Cet illustre cru classé de Pauillac a depuis quelques années démarré une nouvelle vie, s’illustrant désormais sous le giron de la maison champenoise Roederer. Issu du même terroir et bénéficiant de la même technologie et de la même réputation que le grand vin, la Réserve de la Comtesse figure parmi les seconds vins les plus réputés et les plus fiables de la rive gauche de la Gironde. Bien que moins charpenté et moins apte au vieillissement que son aîné, il promet cependant une fraîcheur, une complexité aromatique et un volume tout à fait remarquable. Le compromis idéal pour découvrir la grandeur des vins de Pauillac !",
-                Year = 2020,
+                Year = 2019,
                 Price = 6.50,
                 Alcohol = 25.7,
                 Stock = 150,
@@ -575,7 +575,7 @@ public class DataSeeder
                     "Ce vin rouge est produit dans la région du Rhône méridional en France. Il est riche et corsé, avec des arômes de fruits rouges mûrs, d'épices et de cuir. Pouilly-Fuissé : Ce vin blanc est produit dans la région de la Bourgogne en France. Il est élégant et fruité, avec des notes de pomme verte, de citron et de noisette.",
                 Year = 2020,
                 Price = 6.50,
-                Alcohol = 25.7,
+                Alcohol = 21.7,
                 Stock = 150,
                 ProviderId = 1,
                 CategoryId = 1,
