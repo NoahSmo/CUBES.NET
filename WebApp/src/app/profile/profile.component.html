@@ -1,0 +1,58 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
+
+<div class="container">
+
+  <div class="container-profile">
+
+    <div class="container-title">
+      <label class="title">Informations personnelles</label>
+      <label>Vous trouverez ci-dessous les informations liées à votre compte</label>
+    </div>
+
+    <div class="container-infos-generales">
+      <div>
+        <label class="title-infos">Informations générales</label>
+      </div>
+      <form [formGroup]="userFormGroup" (ngSubmit)="editProfile()">
+
+        <div style="margin-top: 5vh" class="col-12 md:col-4 input-login">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input formControlName="name" type="text" pInputText placeholder="{{ currentUser?.name }}">
+          </div>
+        </div>
+        <div class="col-12 md:col-4 input-login">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input formControlName="surname" type="text" pInputText placeholder=" {{ currentUser?.surname }} ">
+          </div>
+        </div>
+
+        <div class="col-12 md:col-4 input-login">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-phone"></i></span>
+            <input formControlName="phone" type="tel" pInputText placeholder=" {{ currentUser?.phone }} ">
+          </div>
+        </div>
+
+        <div class="col-12 md:col-4 input-login">
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-at"></i></span>
+            <input formControlName="email" type="email" pInputText placeholder="{{ currentUser?.email }}">
+          </div>
+        </div>
+
+        <div class="div-button-submit">
+          <button class="submit-button" type="submit"><i class="pi pi-pencil"></i></button>
+        </div>
+
+
+      </form>
+    </div>
+
+  </div>
+</div>
+
+
+<app-footer></app-footer>

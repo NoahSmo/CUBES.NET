@@ -6,22 +6,22 @@ import {Observable} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class ImageService {
+export class CategoryService {
 
-  protected baseUrl = 'http://localhost:5072/api';
-  protected componentUrl = this.baseUrl + '/Image';
+  protected baseUrl = 'http://localhost:38387/api';
+  protected componentUrl = this.baseUrl + '/Category';
 
   constructor(
     protected router: Router,
     protected http: HttpClient
   ) { }
 
-  getImages(): Observable<any>{
+  getCategories(): Observable<any>{
     const params: HttpParams = new HttpParams();
     return this.http.get(this.componentUrl, {params})
   }
 
-    getImage(id: number): Observable<any>{
+  getCategory(id: number): Observable<any>{
     const params: HttpParams = new HttpParams();
     return this.http.get(this.componentUrl + '/' + id, {params})
   }

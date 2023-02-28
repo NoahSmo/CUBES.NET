@@ -1,0 +1,111 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
+
+<!--<div class="container" *ngIf="article">-->
+<!--  <div class="row">-->
+<!--    <div class="image">-->
+<!--      <img src="{{ image?.url }}" alt="">-->
+<!--    </div>-->
+<!--    <div class="body">-->
+<!--      <div>-->
+<!--        <div class="title">-->
+<!--          <h6>{{ article.category?.name }}</h6>-->
+<!--          <h1>{{ article.name }}</h1>-->
+<!--          <div class="line"></div>-->
+<!--        </div>-->
+<!--        <div class="price">-->
+<!--          <h3>{{ article.price }} €</h3>-->
+<!--          <h5 *ngIf="article.stock !== 0 && article.stock !== 1">{{ article.stock }} bouteilles en stock</h5>-->
+<!--          <h5 *ngIf="article.stock === 1">{{ article.stock }} bouteille en stock</h5>-->
+<!--          <h5 *ngIf="article.stock === 0">Rupture de stock</h5>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <h3>Taux d'alcool : {{ article.alcohol }}%</h3>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="cart">-->
+<!--        <input type="number" name="quantity" id="quantity" min="0" max="999">-->
+<!--        <span>Ajouter au panier</span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="description">-->
+<!--    <h3>Description</h3>-->
+<!--    <p>{{ article.description }}</p>-->
+<!--  </div>-->
+<!--  <div class="comments">-->
+<!--    <div class="title">-->
+<!--      <h2>Commentaires</h2>-->
+<!--    </div>-->
+<!--    <div class="add-comment">-->
+<!--      <form action="">-->
+<!--        <textarea name="new-comment" id="new-comment" class="add-comment"></textarea>-->
+<!--        <button type="submit">Ajouter un commentaire</button>-->
+<!--      </form>-->
+<!--    </div>-->
+<!--    <div class="display" *ngFor="let comment of article.comments">-->
+<!--      {{ comment.message }}-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="container">
+
+  <div class="container-article">
+
+    <div class="container-carac">
+      <div class="div-image">
+        <img class="img" alt="Card" src="{{ image?.url }}">
+      </div>
+
+      <p-card header="{{ article?.name }}"
+              subheader="Encore {{ article?.stock }} exemplaires en stock"
+              [style]="{width: '360px'}" styleClass="p-card-shadow">
+        <!--      <p>{{ article?.description }}</p>-->
+
+        <div style="display: flex; flex-direction: column;">
+          <label style="font-size: 1.2rem; font-weight: bold; ">Caractéristiques</label>
+          <div class="carac-info-div">
+            <label class="label-name-carac">Alcool</label>
+            <label class="caract-label">{{ article?.alcohol }}%</label>
+          </div>
+          <div class="carac-info-div">
+            <label class="label-name-carac">Année</label>
+            <label class="caract-label">{{ article?.year }}</label>
+          </div>
+          <div class="carac-info-div">
+            <label class="label-name-carac">Catégorie</label>
+            <label class="caract-label">{{ article?.category?.name }}</label>
+          </div>
+        </div>
+
+        <ng-template pTemplate="footer">
+          <div class="div-button">
+            <div class="container-add">
+              <i style="cursor: pointer" (click)="quantityDelete()" class="pi pi-minus"></i>
+              <label id="label-quantity" style="margin-left: 0.7em; margin-right: 0.7em;">{{this.number}}</label>
+              <i style="cursor: pointer;" (click)="quantityAdd()" class="pi pi-plus"></i>
+            </div>
+
+
+            <button class="button-add-cart">
+              <i style="cursor: pointer" class="pi pi-shopping-cart"></i>
+              <label style="cursor: pointer; margin-left: 0.5em">Ajouter au panier</label>
+            </button>
+          </div>
+        </ng-template>
+
+      </p-card>
+
+    </div>
+
+    <div class="container-description">
+      <p>{{ article?.description }}</p>
+    </div>
+
+  </div>
+
+</div>
+
+
+<app-footer></app-footer>

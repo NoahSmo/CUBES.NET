@@ -9,7 +9,7 @@ import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 })
 export class AuthentificationService {
 
-  protected baseUrl = 'http://localhost:38387/api';
+  protected baseUrl = 'http://localhost:5072/api';
   protected componentUrl = this.baseUrl + '/Login';
   protected componentUrl2 = this.baseUrl + '/User'
   private loggedIn = false;
@@ -47,7 +47,7 @@ export class AuthentificationService {
       email: email,
       password: password
     }
-    return this.http.post(this.componentUrl + "/DesktopLogin", loginData, {headers, observe: 'response'}).pipe(
+    return this.http.post(this.componentUrl + "/WebLogin", loginData, {headers, observe: 'response'}).pipe(
       map((response: HttpResponse<User>) => {
         if (response.status !== 200 || !response.ok) {
           return false;
@@ -65,6 +65,17 @@ export class AuthentificationService {
         }
       })
     );
+  }
+
+  public logout(){
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('LastConnectionDate');
+    window.location.href = '';
+  }
+
+  public User(){
+    console.log(this.currentUser, 'utilisateur en cours');
+    return this.currentUser;
   }
 
   public isAuthenticated() {
@@ -94,6 +105,37 @@ export class AuthentificationService {
       })
     );
   }
+
+   public editProfile(name: string, surname: string, phone: number, email: string): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const registerData = {
+      name: name,
+      surname: surname,
+      phone: phone,
+      email: email
+    }
+
+    const id = this.currentUser?.id;
+
+    return this.http.put(this.componentUrl2 + '/' + id, registerData, {headers, observe: 'response'}).pipe(
+      map((response: HttpResponse<User>) => {
+        if (response.status !== 200 || !response.ok) {
+          return false;
+        }
+        const responseUser: User | null = response.body;
+        console.log('username', responseUser, email);
+        this.registerUser = responseUser;
+        sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+        sessionStorage.setItem('LastConnectionDate', JSON.stringify(new Date));
+
+        return true;
+      })
+    );
+  }
+
+
+
+
 
 
 // authenticateUser(currentUser: User){

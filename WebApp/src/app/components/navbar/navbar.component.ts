@@ -17,27 +17,47 @@ export class NavbarComponent {
         {
           label: 'Toute notre collection',
           icon: '',
+          routerLink: '/collections'
         },
         {
           separator: true
         },
         {
-          label: 'Vin blanc',
-          icon: ''
+          label: 'Vin rouge',
+          icon: '',
+          routerLink: '/category/1'
         },
         {
-          label: 'Vin rouge',
-          icon: ''
+          label: 'Vin blanc',
+          icon: '',
+          routerLink: '/category/2'
+        },
+        {
+          label: 'Rosés',
+          icon: '',
+          routerLink: '/category/3'
+        },
+        {
+          label: 'Champagne',
+          icon: '',
+          routerLink: '/category/4'
         },
       ]
     },
     {
       label: 'Présentation',
       icon: 'pi pi-fw pi-pencil',
+      routerLink: '/presentation'
     },
     {
       label: 'Nous contacter',
       icon: 'pi pi-fw pi-user',
+      command: () => {
+        window.scrollTo({
+          top: 9999999,
+          behavior: 'smooth'
+        });
+      }
     },
     {
       separator: true
@@ -47,8 +67,6 @@ export class NavbarComponent {
   constructor() {
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
 }

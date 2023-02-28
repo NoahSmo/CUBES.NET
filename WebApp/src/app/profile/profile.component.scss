@@ -1,0 +1,147 @@
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10vh;
+
+  p {
+    color: #555555;
+    font-family: Roboto, serif;
+    line-height: 33px;
+    font-weight: 400;
+    margin-top: 2vh;
+  }
+}
+
+.container-profile{
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-title{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  font-style: normal;
+  font-family: Roboto, serif;
+  color: #000;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  font-size: 35px;
+  font-weight: 300;
+  margin-bottom: 1vh;
+}
+
+.title-infos{
+  font-style: normal;
+  font-family: Roboto, serif;
+  color: #000;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  font-size: 25px;
+  font-weight: 300;
+  margin-bottom: 1vh;
+}
+
+.container-infos-generales{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin-top: 12vh;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid rgb(218,220,224);
+  box-sizing: border-box;
+  overflow: hidden;
+  height: 50vh;
+  padding: 2em;
+}
+
+.div-details{
+  display: flex;
+  flex-direction: column;
+  height: 7vh;
+  width: 100%;
+  border-top: 1px solid rgb(218,220,224);
+  border-bottom: 1px solid rgb(218,220,224);
+  justify-content: center;
+}
+
+.info-label{
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  line-height: 16px;
+  text-transform: none;
+  hyphens: auto;
+  word-break: break-word;
+  word-wrap: break-word;
+  color: rgb(95,99,104);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.label-div-details{
+  display: flex;
+  flex-direction: row;
+
+  label{
+    width: 100%;
+    margin-right: 2em;
+  }
+}
+
+.info{
+  font-family: "Google Sans Text","Google Sans",Roboto,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 24px;
+  hyphens: auto;
+  word-break: break-word;
+  word-wrap: break-word;
+  color: rgb(32,33,36);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.input-login{
+  margin-top: 0.3em;
+}
+
+.div-button-submit{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submit-button{
+  margin-top: 3em;
+  background-color: white;
+  border: none;
+  color: black;
+}
+
+.pi-pencil{
+  font-size: 2em;
+}
+
+.submit-button:hover{
+  cursor: pointer;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+}
