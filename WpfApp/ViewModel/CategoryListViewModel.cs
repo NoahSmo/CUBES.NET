@@ -59,7 +59,7 @@ namespace WpfApp.ViewModel
             DeleteCategoryCommand = new ViewModelCommand<Category>(DeleteCategory);
             
             SaveCategoryCommand = new ViewModelCommand<Object>(ExecuteSaveCategoryCommand);
-            
+            RefreshCategory = new ViewModelCommand<object>(ExecuteRefreshCategoryCommand);
             GetCategorys();
         }
         
@@ -113,6 +113,12 @@ namespace WpfApp.ViewModel
                 var response = await ModeCommun.client.DeleteAsync("category/" + obj.Id);
                 CategorysList.Remove(SelectCategory);
             }
+        }
+
+        public ICommand RefreshCategory { get; }
+        private async void ExecuteRefreshCategoryCommand(object obj)
+        {
+            GetCategorys();
         }
     }
 }
